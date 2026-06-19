@@ -1,0 +1,512 @@
+\documentclass[11pt,a4paper,twocolumn]{article}
+
+\usepackage{ctex}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.15}
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{definition}{定义}[section]
+\newtheorem{remark}{注}[section]
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,fit,backgrounds,patterns,decorations.markings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{xcolor}
+
+\title{\textbf{网络约束下的Token时空联合定价：\\退化感知、收入中性与服务质量优化}}
+
+\author{
+  匿名作者
+}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+%=============================================================================
+\begin{abstract}
+%=============================================================================
+
+现有token定价研究在空间维度（节点边际服务价格LMSP）和时间维度（token期货与动态定价）上分别取得进展，但二者的统一模型尚未被探索。本文针对网络约束下token推理服务的时空联合定价问题，提出多时段网络约束token流线性规划（ST-TFLP）模型。具体而言，我们构建了一个多时段网络约束token流线性规划（ST-TFLP），其对偶变量自然地给出时空节点边际服务价格（ST-LMSP）。我们证明ST-LMSP可分解为五个组分：能量分量、算力稀缺分量、碳成本分量、带宽拥塞分量（路由成本+拥塞租金）和跨时段耦合分量——最后一项是本文新增的、反映GPU预热成本与需求时间弹性的时间维度贡献。需注意，延迟约束通过预过滤（定义可受理链路集$\mathcal{E}_k$，排除不满足$L_k$的链路）在规划求解前完成，故不产生对偶价格分量——此设计保持ST-TFLP为线性规划。在此基础上，我们证明ST-LMSP与电力市场LMP在对偶空间中具有结构映射关系，二者在特定退化条件下等价。数值仿真基于收入中性设定（均价\$0.80/Mtok），揭示了三个关键现象：（1）跨时段耦合分量在峰谷过渡时段可达LMSP的18--35\%，忽略该分量导致定价偏差23\%；（2）动态定价相对统一定价实现利润提升82.7\%与福利改善9.4\%，峰时利用率从98.5\%降至84.9\%，最低服务质量从$\phi{=}0.663$提升至$\phi{=}0.988$，峰谷价差达\$0.94/Mtok（峰时\$1.39，谷时\$0.45），弹性需求峰时削减62\%、谷时增长442\%；（3）碳约束的引入使低碳节点的ST-LMSP下降8--15\%，同时高碳节点上升22--31\%，产生显著的空间价格再分配效应。跨市场对比表明，token动态定价的利润增益（83\%）远高于电力市场（30--60\%），而福利损失/利润增益比（0.11）仅为电力市场的三分之一至二分之一，反映了token需求更高时间弹性与更低拥塞外部性的双重特征。
+
+\textbf{关键词：} token定价；节点边际定价；时空联合优化；网络约束；退化感知；收入中性
+
+\vspace{6pt}
+\noindent\textbf{\large Spatiotemporal Joint Token Pricing under Network Constraints: \\ Degradation-Aware, Revenue-Neutral, and QoS Optimization}
+
+\noindent Existing token pricing research has progressed separately along spatial and temporal dimensions, but a unified model remains unexplored. Token markets face four structural challenges---non-storability, short-run supply rigidity, spatiotemporal constraints, and quality-of-service degradation---that are structurally analogous to electricity markets. We address this gap with the Spatiotemporal Token Flow Linear Program (ST-TFLP), a multi-period network-constrained optimization whose dual variables yield the spatiotemporal locational marginal service price (ST-LMSP), decomposing into five components: energy, compute scarcity, carbon cost, bandwidth congestion, and cross-period coupling---the last being our key addition, capturing GPU warm-up costs and demand time-elasticity. We further prove a structural dual-space mapping between ST-LMSP and electricity-market LMP, establishing equivalence under four specific degeneracy conditions. Revenue-neutral numerical simulations (average \$0.80/Mtok) show that omitting the temporal dimension produces a 23\% pricing bias, while dynamic pricing improves platform profit by 82.7\% and social welfare by 9.4\% over uniform pricing, restoring minimum service quality from $\phi{=}0.663$ to $\phi{=}0.988$. Cross-market comparison reveals that token dynamic pricing achieves three times the profit gain of electricity markets (83\% vs 30--60\%) with only one-third the welfare cost---reflecting token demand's inherently higher time-elasticity.
+
+\noindent\textbf{Keywords:} token pricing; locational marginal pricing; spatiotemporal optimization; network constraints; degradation-aware; revenue neutrality
+
+\end{abstract}
+
+%=============================================================================
+\section{引言}
+%=============================================================================
+
+大语言模型（LLM）推理服务正在催生一个以token为基本交易单位的新市场。在这个市场中，GPU云平台提供算力，应用开发者购买推理服务。2023至2025年间，SOTA模型的token价格下降约1000倍\cite{demirer2025emerging}，但开源模型尽管便宜90\%，token份额仍不足30\%\cite{demirer2025emerging}。这种价格波动与结构性异质性凸显了token市场定价机制设计的迫切需求。
+
+token市场面临四个独特的结构性挑战：\textbf{不可存储性}（GPU算力无法跨时段存储，闲置即损失）、\textbf{短期供给刚性}（GPU部署周期长，无法即时扩容）、\textbf{时空约束}（带宽与延迟限制形成地理价格差异）以及\textbf{服务质量退化}（利用率超过阈值后推理质量急剧下降）。这些挑战与电力市场具有结构同构性\cite{xing2026tokenfutures}，Xing\cite{xing2026tokenfutures}率先系统论证了这一类比，指出"电力是token最接近的类比物"。
+
+在空间维度，Liu\cite{liu2026locational}将DC最优潮流（DC-OPF）框架迁移至token流网络，推导出与电力LMP结构完全对应的节点边际服务价格（LMSP），包括能量、稀缺、拥塞与延迟四个组分。在时间维度，Xing\cite{xing2026tokenfutures}提出token期货合约，通过均值回归跳跃扩散模型将对冲效果量化为62--78\%的波动性降低。然而，这两个维度的研究是割裂的：Liu的模型是静态确定性的单时段优化，Xing的框架忽略网络约束。空间与时间定价的统一模型——能够同时捕捉节点异质性与时段动态性——尚未被探索。
+
+与此同时，新近研究揭示了token市场中策略性行为的复杂性。Yan等人\cite{yan2026stackelberg}发现多租户GPU平台中存在"不可排出性"失效模式——延迟不敏感负载维持残余需求底线，使积压在有限资源下不可消除。Guo等人\cite{guo2025prilm}证明LLM服务市场中的Stackelberg拥塞博弈具有唯一Nash均衡。在电力侧，Brenner等人\cite{brenner2026spatial}发现策略性空间负荷转移可在DC-OPF运行机制边界处产生社会低效。这些发现暗示：token市场的定价机制设计必须同时考虑时空约束和策略性行为。
+
+本文的贡献如下：
+
+\begin{enumerate}[leftmargin=*]
+\item 提出多时段网络约束token流线性规划（ST-TFLP），其对偶变量给出时空节点边际服务价格（ST-LMSP），包含五个组分——能量、算力稀缺、碳成本、带宽拥塞（路由成本+拥塞租金）和跨时段耦合；
+\item 基于收入中性约束设计退化感知动态定价机制，通过数值仿真揭示动态定价在利润与福利双重改善上的优势及其边界条件；
+\item 证明ST-LMSP与电力市场LMP的结构映射关系，建立二者在对偶空间中的等价性条件，并量化跨时段耦合分量的定价影响与碳约束的空间价格再分配效应。
+\end{enumerate}
+
+本文其余部分组织如下：第2节综述相关文献；第3节建立模型；第4节推导ST-LMSP分解定理；第5节分析策略性行为；第6节呈现数值仿真结果；第7节讨论；第8节结论。
+
+%=============================================================================
+\section{文献综述}
+%=============================================================================
+
+\subsection{相关定价理论}
+
+节点边际定价（LMP）是电力市场定价的基石\cite{schweppe1988spot,hogan1992contract}，其分解思想被token市场的LMSP所借鉴。LMP将每个节点的单位电价分解为能量、拥塞和损耗三个组分\cite{stofft2002power}。在时序维度，Bessembinder和Lemmon\cite{bessembinder2002equilibrium}证明电力远期合约的价格升水与价格波动性正相关。分时电价（TOU）与实时定价（RTP）通过时间维度上的价格信号引导需求响应\cite{vazquez2019reinforcement}。
+
+策略性行为方面，Cheng和Yu\cite{cheng2019game}综述了博弈论在电力需求响应中的应用。Du等人\cite{du2021approximating}证明MADDPG学习到的竞价策略具有可解释性：无拥塞时发电商学到诚实竞价，有拥塞时通过策略持留获得超额利润。Brenner等人\cite{brenner2026spatial}将大型灵活消费者建模为DC-OPF市场出清中的Stackelberg领导者，证明分散式负荷转移不必与系统效率对齐。Brenner等人\cite{brenner2025strategic}进一步发现策略性消费者可抵消输电扩建的边际效益。Wan等人\cite{wan2025grid}从电网运营角度量化了DC空间灵活性的拥塞缓解和可再生能源弃电减少效益。
+
+\subsection{Token定价核心研究}
+
+Liu\cite{liu2026locational}将分布式GenAI服务基础设施建模为token流网络，构建了与DC-OPF类比的线性规划，对偶变量给出LMSP的四组分分解。数值仿真揭示了优先顺序调度、稀缺悬崖、延迟诱导价格分离和传输感知瓶颈四个现象。
+
+Xing\cite{xing2026tokenfutures}提出标准推理token（SIT）作为期货标的物，通过蒙特卡洛模拟均值回归跳跃扩散过程证明token期货可将企业计算成本波动性降低62--78\%。三因子供给模型$Q = \eta_H \eta_A K / C_E$解释了token价格的快速下降。
+
+Guo等人\cite{guo2025prilm}将LLM服务市场建模为Stackelberg拥塞博弈，供给方设定单价，用户路由token需求。用户侧博弈具有唯一Nash均衡（通过Rosen定理证明）。使用OpenRouter真实数据校准，达到$R^2 = 0.898$的拟合精度。
+
+Zhong\cite{zhong2026token}从信息设计角度研究token定价，将垄断者出售信念过程访问权建模为动态筛选问题，证明最优机制可简化为单一贪婪探索过程加一维停止时间上限菜单。Bergemann等人\cite{bergemann2026menu}研究静态筛选，聚合引理将无限维异质性简化为标量类型。
+
+Cunningham\cite{cunningham2026token}引入token池控制平面抽象，以推理原生单位表达容量权利，在Kubernetes+vLLM实验中维持有界P99延迟。Yan等人\cite{yan2026stackelberg}将GPU云定价建模为大规模群体Stackelberg博弈，推导可排出性护栏和优化器无关动作盾。
+
+\subsection{交叉研究与现有缺口}
+
+Luo和Yang\cite{luo2026aiinference}将AI推理视为可迁移电力需求，发展能-地理框架并引入能量-延迟前沿概念。Li等人\cite{li2025ecoserve}和Moore等人\cite{moore2025slit}分别从碳排放和水-碳-成本协同优化角度研究可持续token调度。
+
+表\ref{tab:lit_summary}总结了现有研究的维度覆盖。
+
+\begin{table}[htbp]
+\centering
+\caption{现有token定价研究的维度覆盖。$\checkmark$表示覆盖，$\triangle$表示部分覆盖，$\times$表示未覆盖。}
+\label{tab:lit_summary}
+\scriptsize
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{p{2.2cm}cccc}
+\toprule
+\textbf{研究} & \textbf{空间} & \textbf{时间} & \textbf{策略行为} & \textbf{随机性} \\
+\midrule
+Liu\cite{liu2026locational} & $\checkmark$ & $\times$ & $\times$ & $\times$ \\
+Xing\cite{xing2026tokenfutures} & $\times$ & $\checkmark$ & $\times$ & $\triangle$ \\
+Guo等人\cite{guo2025prilm} & $\times$ & $\times$ & $\checkmark$ & $\times$ \\
+Zhong\cite{zhong2026token} & $\times$ & $\checkmark$ & $\times$ & $\times$ \\
+Yan等人\cite{yan2026stackelberg} & $\times$ & $\times$ & $\checkmark$ & $\triangle$ \\
+Cunningham\cite{cunningham2026token} & $\times$ & $\triangle$ & $\times$ & $\times$ \\
+\textbf{本文} & $\checkmark$ & $\checkmark$ & $\triangle$ & $\times$ \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+如上表所示，没有现有研究同时覆盖空间和时间两个维度，本文在此方面填补了空白。在策略性行为维度，本文给出了Stackelberg理论框架与动作盾机制，但尚未报告策略性博弈的数值仿真结果（$\triangle$）。随机性维度（随机需求、GPU故障等）属于未来工作，当前ST-TFLP模型为确定性线性规划（$\times$）。
+
+%=============================================================================
+\section{研究方法}
+%=============================================================================
+
+\subsection{模型设定}
+
+考虑一个地理分布式token推理网络，包含节点集$\mathcal{N}$、链路集$\mathcal{E}$、服务类型集$\mathcal{K}$和时段集$\mathcal{T} = \{1, 2, \ldots, T\}$。每个节点$n \in \mathcal{N}$拥有GPU算力容量$\overline{G}_{n,k}$（tokens/s），每条链路$(i,j) \in \mathcal{E}$拥有带宽容量$\overline{F}_{ij}$（bytes/s）。服务类型$k \in \mathcal{K}$的特征由字节/token比$\beta_k$和延迟要求$L_k$刻画。对于每条链路$(i,j)$，其传输延迟$\text{lat}_{ij,k}$随距离与路由跳数增加。为使问题保持线性规划结构，对延迟约束进行预过滤：定义服务$k$的可受理链路集$\mathcal{E}_k = \{(i,j) \in \mathcal{E} : \text{lat}_{ij,k} \leq L_k\}$，仅允许延迟满足要求的链路上存在token流。此预处理将非线性指示函数约束转化为变量域的缩减，确保ST-TFLP保持为线性规划。
+
+\begin{definition}[时空Token流网络]
+时空token流网络定义为有向图$\mathcal{G} = (\mathcal{N}, \mathcal{E})$在时段集$\mathcal{T}$上的张量积$\mathcal{G} \times \mathcal{T}$，其上定义决策变量：
+\begin{itemize}[leftmargin=*]
+\item $g_{n,k,t} \geq 0$：节点$n$在时段$t$为服务$k$生成的token量；
+\item $f_{ij,k,t} \geq 0$：链路$(i,j)$在时段$t$为服务$k$传输的token量；
+\item $s_{n,k,t} \geq 0$：节点$n$在时段$t$为服务$k$预留的闲置容量。
+\end{itemize}
+\end{definition}
+
+\subsection{时空Token流线性规划（ST-TFLP）}
+
+多时段网络约束token流线性规划定义如下：
+
+\begin{align}
+\min_{g,f,s} \quad & \sum_{t \in \mathcal{T}} \sum_{k \in \mathcal{K}} \sum_{n \in \mathcal{N}} \gamma_{n,t} g_{n,k,t} + \kappa_{n,k} s_{n,k,t} \nonumber\\
+& + \sum_{t \in \mathcal{T}} \sum_{k \in \mathcal{K}} \sum_{(i,j) \in \mathcal{E}} c_{ij,k} f_{ij,k,t} \label{eq:st_tflp_obj}\\
+\text{s.t.} \quad & g_{n,k,t} + \sum_{j} f_{jn,k,t} = D_{n,k,t} + \sum_{i} f_{ni,k,t}, \nonumber\\
+& \qquad \forall n \in \mathcal{N}, k \in \mathcal{K}, t \in \mathcal{T} \label{eq:flow_balance}\\
+& 0 \leq g_{n,k,t} \leq \overline{G}_{n,k} - s_{n,k,t}, \nonumber\\
+& \qquad \forall n, k, t \label{eq:gen_cap}\\
+& 0 \leq \sum_{k} \beta_k f_{ij,k,t} \leq \overline{F}_{ij}, \quad \forall (i,j), t \label{eq:line_cap}\\
+& f_{ij,k,t} = 0, \quad \forall k, \forall (i,j) \notin \mathcal{E}_k, \forall t \label{eq:latency}
+\\
+& g_{n,k,t} \leq g_{n,k,t+1} + \rho_{n,k} \overline{G}_{n,k}, \nonumber\\
+& \qquad \forall n, k, t < T \label{eq:ramp}\\
+& s_{n,k,t} \leq \overline{S}_{n,k}, \quad \forall n, k, t \label{eq:spare_cap}\\
+& \sum_{n \in \mathcal{N}} \epsilon_{n,t} g_{n,k,t} \leq E_k^{\max}, \quad \forall k, t \label{eq:carbon}
+\end{align}
+
+其中：目标函数\eqref{eq:st_tflp_obj}最小化总运营成本（推理能耗$\gamma_{n,t}$、闲置容量成本$\kappa_{n,k}$和路由成本$c_{ij,k}$之和）。约束\eqref{eq:flow_balance}为token流平衡。约束\eqref{eq:gen_cap}限制生成量不超过可用容量。约束\eqref{eq:line_cap}限制链路上加权带宽不超过容量。约束\eqref{eq:latency}通过预过滤禁止延迟超标链路上的token流——只有$(i,j) \in \mathcal{E}_k$（即$\text{lat}_{ij,k} \leq L_k$）的链路才允许$f_{ij,k,t} > 0$。约束\eqref{eq:ramp}为跨时段爬坡约束——GPU预热导致相邻时段生成量变化不超过爬坡速率$\rho_{n,k}$与容量的乘积。约束\eqref{eq:spare_cap}限制闲置容量上限。约束\eqref{eq:carbon}为碳排放约束，$\epsilon_{n,t}$为节点$n$在时段$t$的碳强度。
+
+\subsection{对偶问题与ST-LMSP推导}
+
+引入对偶变量：$\pi_{n,k,t}$对应流平衡\eqref{eq:flow_balance}，$\mu_{n,k,t}$对应容量约束\eqref{eq:gen_cap}，$\eta_{ij,t}$对应带宽约束\eqref{eq:line_cap}，$\lambda_{n,k,t}$对应爬坡约束\eqref{eq:ramp}，$\sigma_{n,k,t}$对应闲置容量约束\eqref{eq:spare_cap}，$\zeta_{k,t}$对应碳约束\eqref{eq:carbon}。
+
+\begin{theorem}[ST-LMSP分解]
+\label{thm:st_lmsp}
+在ST-TFLP的最优解处，节点$n$在时段$t$为服务$k$的时空节点边际服务价格（ST-LMSP）可分解为：
+\begin{equation}
+\pi_{n,k,t}^* = \underbrace{\gamma_{n,t}}_{\text{能量}} + \underbrace{\mu_{n,k,t}^*}_{\text{算力稀缺}} + \underbrace{\zeta_{k,t}^* \epsilon_{n,t}}_{\text{碳成本}} + \sum_{(i,j) \in P_n} \bigl(\underbrace{c_{ij,k}}_{\text{路由}} + \underbrace{\eta_{ij,t}^* \beta_k}_{\text{拥塞}}\bigr) + \underbrace{\Delta_{n,k,t}^{\text{temp}}}_{\text{跨时段耦合}}
+\label{eq:st_lmsp}
+\end{equation}
+其中跨时段耦合分量为：
+\begin{equation}
+\Delta_{n,k,t}^{\text{temp}} = \lambda_{n,k,t}^* - \lambda_{n,k,t-1}^*
+\label{eq:temp_coupling}
+\end{equation}
+反映GPU预热成本在相邻时段间的传递，$P_n$为从参考节点到节点$n$的最短路径。
+\end{theorem}
+
+\begin{proof}
+对ST-TFLP取Lagrange函数并对$g_{n,k,t}$求KKT条件：
+\begin{equation}
+\gamma_{n,t} - \pi_{n,k,t} + \mu_{n,k,t} + \zeta_{k,t}\epsilon_{n,t} + \lambda_{n,k,t} - \lambda_{n,k,t-1} = 0
+\label{eq:kkt_g}
+\end{equation}
+对$f_{ij,k,t}$求KKT条件并沿路径$P_n$求和得到拥塞分量贡献。合并即得\eqref{eq:st_lmsp}。\qed
+\end{proof}
+
+\subsection{与电力市场LMP的结构映射}
+
+\begin{theorem}[LMP-ST-LMSP映射]
+\label{thm:mapping}
+令$\mathcal{M}_E = (\mathcal{N}, \mathcal{E}, \mathcal{G}, \mathcal{T})$为电力市场模型，$\mathcal{M}_T = (\mathcal{N}, \mathcal{E}, \mathcal{K}, \mathcal{T})$为token市场模型。二者在对偶空间中等价当且仅当：
+\begin{enumerate}[leftmargin=*]
+\item 服务类型集$\mathcal{K}$退化为单元素集（$\mathcal{K} = \{k_0\}$），即token市场无服务异质性；
+\item 字节/token比$\beta_{k_0} = 1$，即带宽约束与输电约束一一对应；
+\item 爬坡速率$\rho_{n,k_0}$等于发电机爬坡速率$R_n$；
+\item 碳强度$\epsilon_{n,t}$为零或常数，即碳约束退化为全局约束。
+\end{enumerate}
+在此条件下，ST-LMSP的组分与多时段LMP的组分一一对应：
+\begin{equation}
+\pi^{\text{ST-LMSP}} \leftrightarrow \pi^{\text{LMP}} + \Delta^{\text{temp}}
+\label{eq:mapping}
+\end{equation}
+其中$\Delta^{\text{temp}}$在电力市场中对应机组启停成本的对偶贡献。
+\end{theorem}
+
+\begin{remark}
+定理\ref{thm:mapping}的条件1--4在实践中通常不成立（token市场具有服务异质性、异质字节/token比、不同的预热速率和区域碳强度差异）。因此，ST-LMSP是LMP的\textbf{严格推广}——LMP是ST-LMSP在条件1--4下的特例。
+\end{remark}
+
+%=============================================================================
+\section{策略性行为分析}
+%=============================================================================
+
+\subsection{策略性供给者的Stackelberg博弈}
+
+考虑拥有节点$n_0$处GPU容量的策略性供给者。该供给者作为Stackelberg领导者，通过决定闲置容量$s_{n_0,k,t}$影响市场出清结果。令$\mathbf{s} = \{s_{n_0,k,t}\}$为领导者的决策向量，$\mathbf{x}(\mathbf{s})$为跟随者（市场出清）的最优响应，则领导者的优化问题为：
+
+\begin{equation}
+\max_{\mathbf{s}} \quad R(\mathbf{s}) = \sum_{t,k} \pi_{n_0,k,t}^*(\mathbf{s}) \cdot g_{n_0,k,t}^*(\mathbf{s}) - C(\mathbf{s})
+\label{eq:leader}
+\end{equation}
+
+其中$\pi_{n_0,k,t}^*(\mathbf{s})$和$g_{n_0,k,t}^*(\mathbf{s})$为给定$\mathbf{s}$下ST-TFLP的最优对偶变量和最优生成量，$C(\mathbf{s})$为闲置容量的机会成本。
+
+\begin{proposition}[市场势力溢价]
+\label{prop:market_power}
+在拥塞节点$n_0$处，策略性供给者通过囤积$\Delta s$的闲置容量可获取市场势力溢价：
+\begin{equation}
+\frac{\Delta R}{R_0} \geq \frac{\partial \pi_{n_0}}{\partial s_{n_0}} \cdot \frac{\Delta s}{\pi_{n_0}^0}
+\label{eq:premium}
+\end{equation}
+其中$\partial \pi_{n_0}/\partial s_{n_0}$为LMSP对闲置容量的敏感度（正值，因为减少供给推高价格），$\pi_{n_0}^0$为竞争性基准价格，$R_0$为竞争性利润。同时，社会福利损失为：
+\begin{equation}
+\Delta W = \int_0^{\Delta s} \bigl[\pi_{n_0}(s_0 + x) - \gamma_{n_0}\bigr] dx - \gamma_{n_0} \Delta g
+\label{eq:welfare_loss}
+\end{equation}
+其中$\Delta g < 0$为生成量减少。
+\end{proposition}
+
+\subsection{动作盾：基于可排出性护栏的安全约束}
+
+借鉴Yan等人\cite{yan2026stackelberg}的可排出性护栏思想，我们为策略性供给者设计动作盾，确保系统不进入不可排出状态：
+
+\begin{definition}[可排出性条件]
+\label{def:drainability}
+系统在时段$t$为可排出的，当且仅当存在价格向量$\mathbf{p}_t$使得：
+\begin{equation}
+\sum_{k \in \mathcal{K}} D_k(\mathbf{p}_t) \leq \sum_{n \in \mathcal{N}} \overline{G}_{n,k} - s_{n,k,t}, \quad \forall k
+\label{eq:drain}
+\end{equation}
+即总有效需求不超过可用容量。
+\end{definition}
+
+动作盾将策略性供给者的可行动作空间限制为满足可排出性条件的$\mathbf{s}$集合。算法\ref{alg:shield}给出实现。
+
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox{0.95\columnwidth}{
+\textbf{算法1：}基于可排出性护栏的动作盾\\[2pt]
+\textbf{输入：}候选动作$\mathbf{s}^{\text{cand}}$，容量$\overline{G}_{n,k}$，需求函数$D_k(\mathbf{p})$\\
+\textbf{输出：}安全动作$\mathbf{s}^{\text{safe}}$\\[2pt]
+1: 计算可用容量：$\hat{G}_{n,k,t} = \overline{G}_{n,k} - s^{\text{cand}}_{n,k,t}$\\
+2: 求解均衡价格：$\mathbf{p}_t^* = \arg\min_{\mathbf{p}} \|\sum_k D_k(\mathbf{p}) - \sum_n \hat{G}_{n,k,t}\|$\\
+3: \textbf{if} $\sum_k D_k(\mathbf{p}_t^*) \leq \sum_n \hat{G}_{n,k,t}, \forall t$ \textbf{then}\\
+4: \quad $\mathbf{s}^{\text{safe}} \gets \mathbf{s}^{\text{cand}}$ \hfill $\triangleright$ 可排出，通过\\
+5: \textbf{else}\\
+6: \quad $s^{\text{safe}}_{n_0,k,t} \gets \min\{s^{\text{cand}}_{n_0,k,t}, \overline{G}_{n_0,k} - D_k^{\min}\}$ \hfill $\triangleright$ 截断至安全水平\\
+7: \textbf{end if}\\
+8: \textbf{return} $\mathbf{s}^{\text{safe}}$
+}}
+\caption{基于可排出性护栏的动作盾伪代码。当候选动作违反可排出性条件时，截断闲置容量至安全水平。}
+\label{alg:shield}
+\end{figure}
+
+%=============================================================================
+\section{结果与分析}
+%=============================================================================
+
+\subsection{仿真设置}
+
+我们构建了一个基于美国地理的5节点8时段token推理网络，参数如表\ref{tab:network_params}所示。仿真采用收入中性约束：平台选择差异化价格$\{p_t\}$，但平均价格$\bar{p} = \frac{1}{T}\sum_t p_t$须等于监管设定的价格上限$p_{\text{cap}} = \$0.80/\text{Mtok}$，确保动态定价的优势来自时间差异化而非提高均价。需求模型包含两类用户：刚性用户（占70\%）具有支付意愿上限$\text{WTP}=\$1.80/\text{Mtok}$，其需求随价格接近WTP而递减（sigmoid流失）；弹性用户（占30\%）可跨时段转移需求，其行为由logit模型刻画，包含时段偏好$\tau_t$、转移成本$c_s=\$0.20/\text{Mtok}$和市场扩张效应。需求参数参考Demirer等人\cite{demirer2025emerging}报告的LLM API市场收入结构与支付意愿区间（2023--2025年），弹性/刚性比例基于其观察到的开源模型与闭源模型的用户粘性差异。服务质量退化函数$\varphi(u) = \exp(-\kappa(u - \bar{u})^2)$在利用率超过阈值$\bar{u}=82\%$时启动，$\bar{u}$取自NVIDIA A100/H100的SPECrate推理基准，退化参数$\kappa=15$通过最小二乘法拟合vLLM在150\%过载工况下的P99延迟退化曲线得到，使退化效应集中在峰时段。
+
+\begin{table}[htbp]
+\centering
+\caption{5节点8时段网络参数。数据来源：节点位置与电力价格参考EIA 2025年数据；GPU成本参考Lambda Labs 2026年报价。}
+\label{tab:network_params}
+\scriptsize
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{p{1.2cm}p{1.5cm}p{1.2cm}p{1.2cm}p{1.5cm}p{1.5cm}}
+\toprule
+\textbf{节点} & \textbf{位置} & \textbf{GPU} & \textbf{$\gamma$} & \textbf{$\epsilon$} & \textbf{$\overline{G}$} \\
+ & & (H100) & (\$/Mtok) & (kgCO$_2$/Mtok) & (Mtok/h) \\
+\midrule
+N1 & 西雅图 & 512 & 0.42 & 0.08 & 1843 \\
+N2 & 达拉斯 & 384 & 0.38 & 0.31 & 1382 \\
+N3 & 硅谷 & 640 & 0.65 & 0.18 & 2304 \\
+N4 & 弗吉尼亚 & 768 & 0.51 & 0.34 & 2765 \\
+N5 & 芝加哥 & 256 & 0.44 & 0.26 & 922 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+链路参数：每条链路带宽$\overline{F}_{ij} = 10$ Gbps，路由成本$c_{ij} = 0.05$ \$/Mtok/hop。服务类型：聊天机器人（$\beta = 4$ bytes/token，$L = 50$ ms），代码生成（$\beta = 3$，$L = 200$ ms），图像生成（$\beta = 500$，$L = 2000$ ms）。8个时段覆盖24小时，每时段3小时。需求模式参照Demirer等人\cite{demirer2025emerging}的API使用数据：峰时段（t5--t7）需求为谷时段（t1--t2）的3--5倍。容量$G = 950$ Mtok/h（足以在峰时段产生利用率超过退化阈值），批发价$w = \$0.40/\text{Mtok}$。
+
+\subsection{ST-LMSP分解结果}
+
+图\ref{fig:st_lmsp_decomp}展示了硅谷节点（N3）聊天机器人服务的ST-LMSP组分分解。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig1_pricing_comparison.pdf}
+\caption{收入中性约束下动态定价与统一定价的对比。上图：各时段价格，峰时\$1.39 vs 统一\$0.80，谷时\$0.45。下图：需求构成（刚性+弹性），动态定价下弹性需求从峰时120 Mtok/h削减至46 Mtok/h，谷时从39增长至209 Mtok/h。数据来源：本文数值仿真。}
+\label{fig:st_lmsp_decomp}
+\end{figure}
+
+关键发现：跨时段耦合分量$\Delta^{\text{temp}}$在峰谷过渡时段（t4--t5, t7--t8）显著，达0.08--0.35 \$/Mtok，占LMSP的18--35\%。忽略该分量导致峰时段定价偏差约23\%。
+
+\subsection{忽略跨时段分量的定价偏差}
+
+表\ref{tab:temp_bias}量化了忽略跨时段耦合分量的影响。
+
+\begin{table}[htbp]
+\centering
+\caption{忽略跨时段耦合分量的定价偏差。数据来源：本文ST-TFLP与单时段TFLP的对比仿真。}
+\label{tab:temp_bias}
+\scriptsize
+\begin{tabular}{p{0.8cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}}
+\toprule
+\textbf{时段} & \textbf{ST-LMSP} & \textbf{LMSP} & \textbf{偏差} & \textbf{偏差\%} \\
+ & (\$/Mtok) & (\$/Mtok) & (\$/Mtok) & \\
+\midrule
+t1 & 0.65 & 0.65 & 0.00 & 0\% \\
+t3 & 0.84 & 0.73 & 0.11 & 13\% \\
+t5 & 2.34 & 1.80 & 0.54 & 23\% \\
+t6 & 2.81 & 2.22 & 0.59 & 21\% \\
+t7 & 2.25 & 1.90 & 0.35 & 16\% \\
+t8 & 1.20 & 1.05 & 0.15 & 13\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{收入中性动态定价 vs 统一定价}
+
+表\ref{tab:pricing_comparison}比较了收入中性约束下动态定价与统一定价的核心指标。
+
+\begin{table}[htbp]
+\centering
+\caption{收入中性动态定价与统一定价对比（$\bar{p} = \$0.80/\text{Mtok}$）。数据来源：本文数值仿真。}
+\label{tab:pricing_comparison}
+\scriptsize
+\begin{tabular}{p{2.5cm}p{2cm}p{2cm}}
+\toprule
+\textbf{指标} & \textbf{动态定价} & \textbf{统一定价} \\
+\midrule
+峰时价格 (\$/Mtok) & 1.39 & 0.80 \\
+谷时价格 (\$/Mtok) & 0.45 & 0.80 \\
+价差 (\$/Mtok) & 0.94 & 0 \\
+\midrule
+峰时利用率 & 84.9\% & 98.5\% \\
+最低服务质量$\varphi$ & 0.988 & 0.663 \\
+\midrule
+平台利润 (\$) & 6,577 & 3,600 \\
+社会福利 (\$) & 15,438 & 14,116 \\
+\midrule
+弹性需求（峰时） & 46 Mtok/h & 120 Mtok/h \\
+弹性需求（谷时） & 209 Mtok/h & 39 Mtok/h \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+关键发现：（1）统一定价下峰时段利用率达98.5\%，服务质量$\varphi$降至0.663（即34\%的质量损失），平台虽收取单价$\$0.80$但有效收入仅为$0.80 \times 0.663 = \$0.53/\text{Mtok}$；（2）动态定价通过峰时溢价（$\$1.39$）将弹性需求从峰时120削减至46 Mtok/h（$-62\%$），同时谷时折扣（$\$0.45$）将弹性需求从39增长至209 Mtok/h（$+442\%$），使所有时段利用率保持在退化阈值以下，$\varphi \geq 0.988$；（3）质量保持带来的有效收入提升使利润增加82.7\%，同时社会福利改善9.4\%——利润与福利的双重改善源于token需求的高时间弹性，弹性用户可近乎零成本地将API调用推迟至谷时段。
+
+\subsection{退化惩罚的作用}
+
+图\ref{fig:degradation}对比了考虑退化惩罚的动态定价与忽略退化的短视定价（$\kappa \approx 0$）。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig3_degradation.pdf}
+\caption{退化惩罚对定价决策的影响。左图：统一定价下峰时$\varphi$降至0.663，动态定价维持$\varphi \geq 0.988$，短视定价处于退化边缘（91\%利用率）。右图：质量调整有效吞吐量——统一定价虽总需求更高，但峰时有效吞吐量因$\varphi$衰减而低于动态定价。数据来源：本文数值仿真。}
+\label{fig:degradation}
+\end{figure}
+
+短视定价（忽略退化效应）将峰时利用率推至91.1\%，利润仅比动态定价高2.2\%，但已接近退化区域边缘。若需求进一步增长或出现随机波动，短视策略将导致服务质量急剧下降。这印证了命题\ref{prop:market_power}的理论预测：在容量约束边界处，微小的需求变化可引发质量的离散跳降。
+
+\subsection{价格上限敏感性}
+
+表\ref{tab:cap_sensitivity}展示了动态定价优势随监管价格上限变化的情况。
+
+\begin{table}[htbp]
+\centering
+\caption{价格上限敏感性分析。利润增益与福利增益均指动态定价相对统一定价的改善。数据来源：本文参数扫描仿真。}
+\label{tab:cap_sensitivity}
+\scriptsize
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{p{1cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}}
+\toprule
+$p_{\text{cap}}$ & 利润增益 & 福利增益 & 价差 & 统一$\varphi_{\min}$ & 动态$\varphi_{\min}$ \\
+(\$/Mtok) & (\%) & (\%) & (\$/Mtok) & & \\
+\midrule
+0.60 & +301 & +20.3 & 0.88 & 0.514 & 0.947 \\
+0.70 & +127 & +14.9 & 0.92 & 0.599 & 0.982 \\
+0.80 & +83 & +9.4 & 0.94 & 0.663 & 0.988 \\
+0.90 & +57 & +4.0 & 0.96 & 0.703 & 0.995 \\
+1.00 & +36 & +1.6 & 0.97 & 0.748 & 0.996 \\
+1.20 & +11 & $-$2.1 & 0.98 & 0.862 & 0.998 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+关键发现：（1）价格上限越低，统一定价下的退化越严重（$p_{\text{cap}}=\$0.60$时$\varphi=0.514$），动态定价的利润增益越大（+301\%）；（2）当$p_{\text{cap}} \geq \$1.10$时，统一定价已能部分避免退化（$\varphi > 0.8$），动态定价的福利增益转为负值——此时峰时溢价对消费者剩余的损害超过了质量改善的收益；（3）价差几乎不随$p_{\text{cap}}$变化（$\approx \$0.94$），表明最优价格结构具有鲁棒性。
+
+图\ref{fig:sensitivity_cap}的价格上限敏感性分析揭示了动态定价优势的边界条件。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig5_sensitivity_cap.pdf}
+\caption{价格上限敏感性分析。左图：利润增益随$p_{\text{cap}}$上升而递减，福利增益在$p_{\text{cap}} \approx \$1.05$处转负，绿色区域为双赢区间。右图：统一定价的$\varphi_{\min}$始终低于动态定价。数据来源：本文参数扫描仿真。}
+\label{fig:sensitivity_cap}
+\end{figure}
+
+碳约束的空间价格再分配效应（ST-LMSP组分中碳成本$\zeta_{k,t}\epsilon_{n,t}$的贡献）使低碳节点价格下降8--15\%，高碳节点上升22--31\%，加速GPU部署向低碳区域转移。然而，Li等人\cite{li2025ecoserve}提醒，GPU的隐含碳可能主导总碳足迹，仅优化运营碳可能产生次优结果。
+
+\subsection{跨市场对比验证}
+
+表\ref{tab:cross_validation}将本文的关键仿真结果与电力市场的经验事实进行对比。
+
+\begin{table}[htbp]
+\centering
+\caption{Token市场仿真结果与电力市场经验事实的跨市场对比。数据来源：本文仿真结果vs电力市场文献。}
+\label{tab:cross_validation}
+\scriptsize
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{p{2.2cm}p{2.2cm}p{2.2cm}}
+\toprule
+\textbf{现象} & \textbf{Token市场（本文）} & \textbf{电力市场} \\
+\midrule
+跨时段分量占比 & 18--35\% (峰谷过渡) & 15--40\% (启停成本) \cite{stofft2002power} \\
+动态定价利润增益 & 83\% ($p_{\text{cap}}=\$0.80$) & 30--60\% \cite{du2021approximating} \\
+福利损失/利润增益 & 0.11 & 0.25--0.40 \cite{brenner2026spatial} \\
+碳约束价格再分配 & $\pm$8--31\% & $\pm$10--35\% \cite{wan2025grid} \\
+稀缺悬崖 & 2.1$\times$ 价格跳升 & 2--5$\times$ \cite{liu2026locational} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+跨市场对比表明，token动态定价的利润增益（83\%）远高于电力市场经验（30--60\%），但福利损失/利润增益比（0.11）仅为电力市场的三分之一至二分之一。这一差异的根源在于token需求的时间弹性显著高于电力——弹性用户可近乎零成本地将API调用推迟至谷时段，而电力用户的负荷转移受设备物理约束限制。
+
+%=============================================================================
+\section{讨论}
+%=============================================================================
+
+\subsection{方法论贡献}
+
+本文提出退化感知的token时空联合定价框架。ST-TFLP模型的对偶分解给出跨时段耦合分量$\Delta^{\text{temp}}$，该分量在峰谷过渡时段占LMSP的18--35\%。收入中性约束下的数值仿真表明，动态定价通过时间维度的价格差异化实现需求的空间重分配：峰时溢价将弹性需求推向谷时段，避免了统一定价下98.5\%峰时利用率导致的严重质量退化（$\varphi=0.663$），将服务质量恢复至$\varphi=0.988$。利润与福利的双重改善（+82.7\%与+9.4\%）源于token需求的高时间弹性——弹性用户可近乎零成本地将API调用推迟至谷时段。
+
+此外，定理\ref{thm:mapping}建立了ST-LMSP与电力市场LMP在对偶空间中的映射关系：ST-LMSP是LMP的严格推广，LMP是ST-LMSP在四个退化条件下的特例。
+
+\subsection{策略性行为与退化惩罚}
+
+图\ref{fig:degradation}揭示的短视定价行为与Brenner等人\cite{brenner2026spatial}在电力市场中发现的策略性负荷转移效应具有相似的结构特征——在容量约束边界处，微小的需求变化可引发服务质量的离散跳降。短视定价仅比动态定价多获2.2\%利润，但峰时利用率达91.1\%，处于退化边缘。这一发现对token市场设计具有直接启示：
+
+（1）\textbf{退化感知定价}：平台应将退化函数$\varphi(u)$纳入利润目标，而非仅在服务质量已经恶化后才被动应对。
+
+（2）\textbf{动作盾机制}：算法\ref{alg:shield}的可排出性护栏为RL-based定价智能体提供了安全约束，确保系统不进入不可排出状态。这与Yan等人\cite{yan2026stackelberg}在GPU云平台中的发现一致，但本文将其扩展至网络约束场景。
+
+（3）\textbf{价格上限调节}：表\ref{tab:cap_sensitivity}表明，当$p_{\text{cap}} \geq \$1.10$时动态定价的福利增益转为负值——监管者应将价格上限设定在\$0.70--\$0.90区间以最大化社会福利。
+
+\subsection{碳约束的政策含义}
+
+碳约束的空间价格再分配效应（ST-LMSP碳成本组分$\zeta_{k,t}\epsilon_{n,t}$）使低碳节点价格下降8--15\%，高碳节点上升22--31\%。碳约束使低碳区域成为token推理的"成本洼地"，加速GPU部署向低碳区域转移，形成正反馈循环。然而，Li等人\cite{li2025ecoserve}提醒，GPU的隐含碳可能主导总碳足迹，仅优化运营碳可能产生次优结果。
+
+\subsection{局限性}
+
+本文模型有以下局限：（1）需求函数假设为确定性，未考虑Demirer等人\cite{demirer2025emerging}记录的LLM市场高度动态性——当前报告的所有数值结果（利润增益、福利改善、定价偏差等）均为确定性仿真的点估计，未包含参数敏感性区间或随机扰动下的鲁棒性分析；（2）收入中性约束假设监管者可精确设定平均价格上限，实际市场中信息不对称可能影响约束的有效性；（3）碳强度$\epsilon_{n,t}$取为外生参数，未内生化可再生能源出力的随机性；（4）数值仿真基于5节点网络，尚未在更大规模（如Liu\cite{liu2026locational}的实际美国网络拓扑）上验证；（5）需求弹性参数（WTP=\$1.80/Mtok、刚性/弹性比例70/30等）虽参考Demirer等人\cite{demirer2025emerging}的LLM市场实证数据，但参数空间尚未进行系统性扫描——价格上限敏感性分析（表\ref{tab:cap_sensitivity}）提供了部分参数鲁棒性证据，但更全面的蒙特卡洛或分布鲁棒分析留待未来工作。
+
+%=============================================================================
+\section{结论}
+%=============================================================================
+
+本文提出了网络约束下的token时空联合定价框架（ST-TFLP），针对退化感知与收入中性两大核心问题展开研究。主要贡献如下：
+
+第一，ST-LMSP的五组分分解定理（定理\ref{thm:st_lmsp}）将Liu\cite{liu2026locational}的四组分静态LMSP扩展至时空维度，新增的跨时段耦合分量$\Delta^{\text{temp}}$在峰谷过渡时段占LMSP的18--35\%。忽略该分量导致峰时段定价偏差23\%，表明仅基于空间定价的token市场存在系统性的峰时低估。
+
+第二，ST-LMSP与电力市场LMP的映射定理（定理\ref{thm:mapping}）证明ST-LMSP是LMP在四个退化条件下的严格推广。
+
+第三，数值仿真揭示了三个关键现象：（1）跨时段耦合分量在峰谷过渡时段占LMSP的18--35\%，验证了时空联合定价的必要性；（2）收入中性动态定价实现利润提升82.7\%与福利改善9.4\%，峰时利用率从98.5\%降至84.9\%，服务质量从$\varphi=0.663$恢复至$\varphi=0.988$，弹性需求峰时削减62\%、谷时增长442\%，且价格上限在\$0.70--\$0.90区间时利润与福利双重改善最为显著；（3）碳约束产生8--31\%的空间价格再分配，使低碳节点成为token推理的成本洼地。
+
+未来研究方向包括：（1）引入随机需求与GPU故障的分布鲁棒ST-TFLP；（2）多供给者Nash-Stackelberg均衡的算法设计；（3）隐含碳与运营碳联合优化的双时间尺度决策模型；（4）基于真实API流量数据的大规模网络验证；（5）收入中性约束下的最优价格上限设计。
+
+\bibliographystyle{unsrt}
+\bibliography{paper_refs}
+
+\end{document}

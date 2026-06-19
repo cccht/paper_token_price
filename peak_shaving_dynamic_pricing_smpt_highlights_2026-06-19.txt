@@ -1,0 +1,5 @@
+An auditable simulation model links AI inference pricing and QoS.
+Time-of-use pricing lowers peak utilization in congested settings.
+Finite-grid mixed diagnostics reduce regret to 0.203.
+QoS gains persist under local fixed-policy stress tests.
+Profit improvements are not robust across solver objects.

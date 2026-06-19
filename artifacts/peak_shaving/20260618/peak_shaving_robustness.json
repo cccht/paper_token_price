@@ -1,0 +1,49 @@
+{
+  "qos_shapes": {
+    "threshold": {
+      "system_profit": 968.5693311692543,
+      "peak_util": 0.2597153992732451,
+      "min_qos": 1.0,
+      "sweeps": 6,
+      "converged": false
+    },
+    "linear": {
+      "system_profit": 968.5693311692543,
+      "peak_util": 0.2597153992732451,
+      "min_qos": 1.0,
+      "sweeps": 6,
+      "converged": false
+    },
+    "sigmoid": {
+      "system_profit": 968.5563636281477,
+      "peak_util": 0.260159183588987,
+      "min_qos": 0.9999999498766423,
+      "sweeps": 6,
+      "converged": false
+    },
+    "sqrt": {
+      "system_profit": 968.5693311692543,
+      "peak_util": 0.2597153992732451,
+      "min_qos": 1.0,
+      "sweeps": 6,
+      "converged": false
+    }
+  },
+  "u0_sensitivity": {
+    "-1.0": {
+      "system_profit": 1131.5617451855296
+    },
+    "0.0": {
+      "system_profit": 1011.2053811243654
+    },
+    "1.0": {
+      "system_profit": 792.1373500509749
+    }
+  },
+  "cross_seed": {
+    "mean": 1010.9002951492504,
+    "std": 0.43550006243186407,
+    "rel_std": 0.00043080416982919803,
+    "n": 3
+  }
+}

@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "A Simulation-Based Study of Time-of-Use Pricing for Fixed-Capacity AI Inference Services"
+message: "If you use this simulation artifact, please cite the associated manuscript."
+type: software
+authors:
+  - family-names: "Anonymous"
+    given-names: "Author"
+abstract: "Simulation code and artifacts for studying time-of-use pricing, QoS protection, and profit boundaries in fixed-capacity AI inference service markets."
+keywords:
+  - simulation modelling
+  - inference service
+  - dynamic pricing
+  - QoS
+  - peak shaving
+  - finite-grid regret
+license: "NOASSERTION"
+version: "2026-06-19-smpt"
+date-released: "2026-06-19"

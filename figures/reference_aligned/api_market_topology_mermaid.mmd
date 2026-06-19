@@ -1,0 +1,43 @@
+---
+config:
+  layout: elk
+  theme: base
+  themeVariables:
+    fontFamily: Arial, Helvetica, sans-serif
+    primaryTextColor: "#17202A"
+    lineColor: "#64748B"
+    background: "#FFFFFF"
+    edgeLabelBackground: "#FFFFFF"
+---
+%% Mermaid CLI: 11.15.0
+%% Render command:
+%% npx -y @mermaid-js/mermaid-cli -i figures/reference_aligned/api_market_topology_mermaid.mmd -o figures/reference_aligned/api_market_topology_mermaid.png -p figures/mermaid_puppeteer_config.json -b white
+block-beta
+  columns 3
+  Supply["Exogenous model API supply<br/>DeepSeek / Claude / GPT<br/>and other API inputs"]
+  Platform["Platform wholesale layer<br/>sets wholesale price w_t<br/>observes settlement and QoS"]
+  Brokered["Brokered retail APIs<br/>Broker 1: p_1t, g_1t<br/>Broker 2: p_2t, g_2t<br/>Broker 3: p_3t, g_3t"]
+  Direct["Direct API channel<br/>j = 0 outside option<br/>pD_t, gD_t"]
+  Users["User classes and time slots<br/>choose broker, direct channel,<br/>or shift across periods"]
+  QoS["QoS feedback<br/>utilization and congestion<br/>q_jt, qD_t enter utility"]
+
+  Supply --> Platform
+  Platform --> Brokered
+  Platform --> Direct
+  Brokered --> Users
+  Direct --> Users
+  Users --> QoS
+
+  classDef supply fill:#F8FAFC,stroke:#64748B,color:#334155,stroke-width:2px,stroke-dasharray:6 4;
+  classDef platform fill:#FFF4D6,stroke:#D97706,color:#6B3D00,stroke-width:2px;
+  classDef broker fill:#ECFDF3,stroke:#059669,color:#064E3B,stroke-width:2px;
+  classDef direct fill:#F8F7FF,stroke:#7C3AED,color:#4C1D95,stroke-width:2px;
+  classDef users fill:#FFF1F2,stroke:#E11D48,color:#7F1D1D,stroke-width:2px;
+  classDef qos fill:#F8FAFC,stroke:#475569,color:#1E293B,stroke-width:2px,stroke-dasharray:8 5;
+
+  class Supply supply;
+  class Platform platform;
+  class Brokered broker;
+  class Direct direct;
+  class Users users;
+  class QoS qos;

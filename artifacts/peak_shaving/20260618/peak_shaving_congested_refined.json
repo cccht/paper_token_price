@@ -1,0 +1,64 @@
+{
+  "regime": "congested_refined",
+  "firm_capacity": [
+    300.0,
+    120.0
+  ],
+  "qos_shape": "sigmoid",
+  "firm_grid": "wbar3 x delta5 x pdbar3 x deltad5",
+  "uniform": {
+    "system_profit": 1895.0479716128882,
+    "peak_util": 0.6170365868002078,
+    "min_qos_firm": 0.9977372357677761,
+    "firm_params": [
+      [
+        0.77275,
+        -0.399028,
+        0.6006075,
+        -0.399028
+      ],
+      [
+        0.57469625,
+        -0.399028,
+        0.8800000000000001,
+        -0.399028
+      ]
+    ],
+    "sweeps": 5
+  },
+  "dynamic": {
+    "system_profit": 1731.5803602232754,
+    "peak_util": 0.7108479298732016,
+    "min_qos_firm": 0.9635457566419796,
+    "firm_params": [
+      [
+        0.58033925,
+        0.18968600000000008,
+        0.60018225,
+        -0.19985419999999998
+      ],
+      [
+        0.57469625,
+        0.11970840000000002,
+        0.6006804,
+        0.19985420000000007
+      ]
+    ],
+    "sweeps": 6
+  },
+  "predictions": {
+    "P2_peak_shaving": false,
+    "P3_qos_improve": false,
+    "profit_gain_pct": -8.626040809430508,
+    "P1_migration": {
+      "elastic_shift": -0.004745175555791015,
+      "rigid_shift": -0.01036572881724318,
+      "holds": false
+    },
+    "P4_small_firm": {
+      "delta_A": 0.18968600000000008,
+      "delta_B": 0.11970840000000002,
+      "holds": false
+    }
+  }
+}

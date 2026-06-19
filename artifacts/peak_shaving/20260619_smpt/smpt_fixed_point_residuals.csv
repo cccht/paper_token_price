@@ -1,0 +1,6 @@
+case,converged,damping,final_residual,initial_qos,iterations,max_residual
+optimal_static_qos_routing,True,0.35,8.320706346154338e-10,1.0,52,0.9781773765177244
+off_peak_discount_only,True,0.35,8.225664593908277e-10,1.0,32,0.8396549913036346
+peak_surcharge_only,True,0.35,9.71215663447822e-10,1.0,34,0.27251476454637813
+dynamic_coarse,True,0.35,8.521310324027809e-10,1.0,33,0.05314509755262453
+dynamic_fine,True,0.35,6.441621680508547e-10,1.0,35,0.011535826022800899

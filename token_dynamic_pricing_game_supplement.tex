@@ -1,0 +1,425 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{hidelinks}
+\captionsetup{font=small}
+
+\newcommand{\qos}{q}
+\newcommand{\D}{D}
+
+\title{补充材料：面向 Token 推理服务的三方跨时段定价博弈}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+本补充材料保存主文压缩过程中移出的参数、诊断、鲁棒性、用户保护、
+厂家直供API和校准压力实验。补充材料中的数值均来自2026-06-08重跑工件。
+这些结果用于支撑边界检查和可复核性，不把数值候选提升为全局Nash证书或
+生产部署结论。
+
+\section*{S1 完整仿真参数与来源审计}
+
+\begin{table}[H]
+\centering
+\caption{仿真参数设置}
+\label{tab:supp_simulation_parameters}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+参数 & 符号 & 值 & 含义 \\
+\midrule
+\multicolumn{4}{l}{\textbf{市场结构参数}} \\
+时段数 & $T$ & 8 & 每日调度窗口 \\
+中间商数 & $J$ & 3 & 竞争渠道数目 \\
+每时段时长 & $h$ & 3.0 & 小时 \\
+需求基数组件 & -- & 刚性200--900/弹性400 & 按时段变化 \\
+\midrule
+\multicolumn{4}{l}{\textbf{容量参数}} \\
+各中间商容量预算 & $G_j$ & $(1050,1080,1080)$ & 归一化日容量单位 \\
+容量正下界 & $\underline g$ & $10^{-6}$ & 避免利用率奇异的数值下界 \\
+单位容量成本 & $c_g$ & 0.015 & 每单位容量每小时成本 \\
+\midrule
+\multicolumn{4}{l}{\textbf{价格参数}} \\
+基准批发价 & $w_0$ & 0.40 & 初始统一批发价 \\
+基准零售价 & $p_0$ & 0.80 & 固定基线零售价 \\
+批发价边界 & $[\underline w,\overline w]$ & $[0.25,0.90]$ & 平台候选范围 \\
+零售价边界 & $[\underline p,\overline p]$ & $[0.45,2.10]$ & 中间商可行范围 \\
+刚性支付意愿 & $\bar v$ & 1.80 & 刚性需求保留价格 \\
+刚性流失速率 & $\beta$ & 5.0 & sigmoid需求响应陡度 \\
+弹性市场增长 & $\bar g$ & 1.2 & 低价吸引额外需求的增长因子 \\
+\midrule
+\multicolumn{4}{l}{\textbf{QoS参数}} \\
+退化阈值利用率 & $\bar u$ & 0.82 & QoS开始下降的利用率临界值 \\
+退化强度 & $\kappa$ & 15.0 & $\exp[-\kappa(u-\bar u)^2]$中的衰减速率 \\
+单位退化成本 & $c_q$ & 0.35 & 每单位需求QoS退化的惩罚成本 \\
+QoS反馈权重 & $\gamma$ & 1.0 & logit效用中$(1-q)$的系数 \\
+\midrule
+\multicolumn{4}{l}{\textbf{用户行为参数}} \\
+价格敏感度 & $\alpha$ & 3.5 & 确定性效用中价格的系数 \\
+时段偏好 & $a_t$ & $(0.30,0.20,0.50,0.80,1.00,1.00,0.90,0.40)$ & 各时段相对偏好 \\
+迁移成本 & $c_s$ & 0.20 & 跨时段迁移的效用惩罚 \\
+品牌质量 & $b_j$ & $(1.04,1.00,0.96)$ & 中间商品牌吸引力因子 \\
+\midrule
+\multicolumn{4}{l}{\textbf{算法参数}} \\
+多起点搜索批数 & $K$ & 8 & 平台层随机重启次数 \\
+SLSQP最大迭代 & $M$ & 140 & 每个中间商最优响应的迭代上限 \\
+最优响应轮数 & $B$ & 24 & 中间商层Gauss--Seidel轮数上限 \\
+固定点阻尼系数 & $\eta$ & 0.35 & 用户层QoS迭代更新阻尼权重 \\
+固定点收敛容差 & $\epsilon$ & $10^{-9}$ & QoS残差阈值 \\
+固定点最大迭代 & $L$ & 200 & 用户层固定点最大迭代次数 \\
+有限博弈人数 & $N$ & 60 & 有限参与者拥塞博弈用户数 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{关键参数来源审计}
+\label{tab:supp_parameter_source_audit}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+参数 & 符号 & 基准值/来源值 & 来源类型 & 仍需校准的含义 \\
+\midrule
+基准QoS阈值 & $\bar u$ & 0.82 & 合成 & 基准QoS退化阈值 \\
+基准QoS强度 & $\kappa$ & 15.0 & 合成 & 基准QoS退化强度 \\
+vLLM QoS剖面 & $\bar u,\kappa$ & 1.00/0.52；1.06/0.94 & 测量拟合 & 受控vLLM QoS曲线 \\
+到达率形态 & $a_t$ & 8/16/32 rps重放 & 测量重放 & 受控到达率峰谷形态 \\
+价格敏感度 & $\alpha$ & 3.5 & 合成 & 用户需求弹性 \\
+迁移成本 & $c_s$ & 0.20 & 合成 & 跨时段迁移摩擦 \\
+单位容量成本 & $c_g$ & 0.015 & 合成 & 中间商运营成本 \\
+单位退化成本 & $c_q$ & 0.35 & 合成 & SLA违约或流失惩罚 \\
+QoS反馈权重 & $\gamma$ & 1.0 & 合成 & 用户对QoS下降的响应 \\
+直供API偏好 & $b_0$ & 1.08 & 假设 & 直供品牌/便利性偏好 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+刚性需求采用
+\[
+\D^{\mathrm{rigid}}_{j,t}
+=a_t^{\mathrm{base}}\sigma[\beta(\bar v-p_{j,t})]\sum_k s_{k,t},
+\]
+弹性需求采用logit份额分配：
+\[
+s_{j,t}=\frac{\exp(V_{j,t})}{\sum_{k,\tau}\exp(V_{k,\tau})},\quad
+V_{j,t}=\ln b_j+\ln a_t-\alpha[p_{j,t}+c_s(1-\pi_t)-p_0]-\gamma(1-q_{j,t}).
+\]
+其中$\pi_t$表示用户原生时段分布，在没有真实原生调用时段数据时由$a_t$归一化得到。
+
+\section*{S2 主结果可视化与机制诊断}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{artifacts/intermediary/20260608-144953/three_layer_baselines.pdf}
+\caption{三方市场不同策略的系统利润、最低QoS和峰值利用率比较。}
+\label{fig:supp_three_layer_baselines}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{artifacts/reviewer_response/20260608-151841/profit_slices.pdf}
+\caption{完整候选解附近的中间商利润切面诊断。左图扫描峰值时段零售价，右图扫描低偏好时段向峰值时段的容量转移。}
+\label{fig:supp_profit_slices}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{有限用户PSNE经验分布与连续logit SUE份额的差距}
+\label{tab:supp_finite_logit_bridge}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+有限用户数 & 重复次数 & 平均$L_1$份额差距 & 平均最大单元差距 & 平均余弦相似度 \\
+\midrule
+60 & 4 & 0.3156 & 0.0510 & 0.9657 \\
+120 & 4 & 0.2240 & 0.0363 & 0.9801 \\
+240 & 4 & 0.1558 & 0.0162 & 0.9906 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{S3 鲁棒性、采样收敛与测量QoS}
+
+本节包含两类数值设置。平台候选数量收敛、容量消融、测量QoS替换和平台参考候选搜索用于补充主实验机制；需求规模压力测试和QoS阈值敏感性采用筛查型配置以控制扫描成本，其脚本入口为\texttt{experiments/run\_intermediary\_sci\_experiments.py}，其中\texttt{SCREENING\_TRIALS=3}且\texttt{SCREENING\_MAXITER=60}。因此，表~\ref{tab:supp_demand_scale_sweep} 中$\rho=1.00$的三层QoS感知结果用于横向比较需求规模变化下的趋势，不替代表~\ref{tab:supp_platform_trials_sweep} 和主文完整候选搜索下的主数值结论。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{artifacts/intermediary_sci/20260608-150237/platform_trials_sweep.pdf}
+\caption{平台批发价候选数量对系统利润、最低QoS和峰值利用率的影响。}
+\label{fig:supp_platform_trials_sweep}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{平台候选数量收敛实验}
+\label{tab:supp_platform_trials_sweep}
+\begin{tabular}{rrrrr}
+\toprule
+候选数$K$ & 平台收入 & 系统利润 & 最低QoS & 最大regret \\
+\midrule
+1 & 2691.97 & 9444.10 & 1.0000 & 0.00 \\
+2 & 3510.53 & 9529.36 & 1.0000 & $2.31\times10^{-7}$ \\
+4 & 4013.46 & 9525.12 & 1.0000 & $1.66\times10^{-7}$ \\
+8 & 4013.46 & 9525.12 & 1.0000 & $1.66\times10^{-7}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{artifacts/intermediary_sci/20260608-150237/capacity_ablation.pdf}
+\caption{容量固定与策略性容量分配的消融对比。}
+\label{fig:supp_capacity_ablation}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{容量固定消融实验}
+\label{tab:supp_capacity_ablation}
+\begin{tabular}{lrrrr}
+\toprule
+容量模式 & 系统利润 & 最低QoS & 峰值利用率 & 最大regret \\
+\midrule
+固定容量 & 8949.98 & 0.9977 & 0.8324 & $3.61\times10^{-8}$ \\
+策略性容量 & 9525.12 & 1.0000 & 0.8200 & $1.66\times10^{-7}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{artifacts/intermediary_sci/20260608-150237/demand_scale_sweep.pdf}
+\caption{需求规模变化下统一零售和三层QoS感知策略的利润与QoS对比。}
+\label{fig:supp_demand_scale_sweep}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{需求规模压力测试（筛查设置）}
+\label{tab:supp_demand_scale_sweep}
+\begin{tabular}{lrrrr}
+\toprule
+需求比例$\rho$与策略 & 系统利润 & 最低QoS & 峰值利用率 & 最大regret \\
+\midrule
+$0.85$ 统一零售 & 4464.62 & 0.9819 & 0.8549 & -- \\
+$0.85$ 三层QoS感知 & 7380.68 & 1.0000 & 0.8200 & $4.96\times10^{-10}$ \\
+$1.00$ 统一零售 & 4911.97 & 0.8428 & 0.9268 & -- \\
+$1.00$ 三层QoS感知 & 8708.64 & 1.0000 & 0.8198 & $9.77\times10^{-10}$ \\
+$1.15$ 统一零售 & 4690.49 & 0.6702 & 0.9833 & -- \\
+$1.15$ 三层QoS感知 & 10036.60 & 1.0000 & 0.8194 & $1.57\times10^{-9}$ \\
+$1.30$ 统一零售 & 3803.70 & 0.4800 & 1.0412 & -- \\
+$1.30$ 三层QoS感知（压力） & 11357.67 & 0.9999 & 0.8222 & 0.0186 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{artifacts/intermediary_sci/20260608-150237/qos_threshold_sweep.pdf}
+\caption{QoS退化阈值变化下三层QoS感知策略的利润、QoS和利用率。}
+\label{fig:supp_qos_threshold_sweep}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{vLLM后端测量QoS曲线下的三层候选结果}
+\label{tab:supp_empirical_qos_calibration}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+QoS剖面 & $\bar u$ & $\kappa$ & RMSE & 系统利润 & 活跃最低QoS & 需求加权QoS & 最大regret \\
+\midrule
+合成默认 & 0.8200 & 15.00 & -- & 9525.12 & 1.0000 & 1.0000 & $1.66\times10^{-7}$ \\
+vLLM剖面A & 1.0000 & 0.52 & 0.0683 & 9525.15 & 1.0000 & 1.0000 & $3.64\times10^{-9}$ \\
+vLLM剖面B & 1.0582 & 0.94 & $6.33\times10^{-10}$ & 9525.08 & 1.0000 & 1.0000 & $2.82\times10^{-10}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{平台候选参考搜索与收入gap}
+\label{tab:supp_platform_reference_gap}
+\small
+\begin{tabular}{rrrrrr}
+\toprule
+候选数$K$ & 平台收入 & 平台收入gap & 系统利润 & 系统利润损失 & 最大regret \\
+\midrule
+4 & 4013.46 & 0.00 & 9525.12 & 0.00 & $1.66\times10^{-7}$ \\
+8 & 4013.46 & 0.00 & 9525.12 & 0.00 & $1.66\times10^{-7}$ \\
+16 & 4013.46 & 0.00 & 9525.12 & 0.00 & $1.66\times10^{-7}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{S4 用户保护与厂家直供API敏感性}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{artifacts/review_strengthening/20260608-145716/user_protection_frontier.pdf}
+\caption{用户保护价格上限扫描下的平台收入--inclusive value权衡。}
+\label{fig:supp_user_protection_frontier}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{用户保护价格上限敏感性代表点}
+\label{tab:supp_user_protection_sweep}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{rrrrrrl}
+\toprule
+零售价上限 & 批发价上限 & 平台收入 & 系统利润 & Inclusive value & 活跃最低QoS & 解释 \\
+\midrule
+0.80 & 0.80 & 4184.13 & 5294.55 & 2.1359 & 1.0000 & 保护策略 \\
+0.80 & 0.90 & 4635.85 & 5294.55 & 2.1359 & 1.0000 & 高平台收入，低中间商利润 \\
+0.82 & 0.80 & 4181.71 & 5427.30 & 2.0659 & 1.0000 & 用户效用低于统一零售 \\
+0.85 & 0.90 & 4628.62 & 5625.46 & 1.9609 & 1.0000 & 价格上限过宽 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{artifacts/review_strengthening/20260608-145716/direct_api_sensitivity.pdf}
+\caption{厂家直供API价格--容量敏感性。}
+\label{fig:supp_direct_api_sensitivity}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{厂家直供API价格--容量敏感性代表点}
+\label{tab:supp_direct_api_sensitivity}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{rrrrrrrl}
+\toprule
+直供价 & 直供容量 & 平台收益 & 系统利润 & Inclusive value & 活跃最低QoS & 直供份额 & 解释 \\
+\midrule
+0.75 & 500 & 3573.78 & 4607.35 & 2.3399 & $1.32\times10^{-7}$ & 24.08\% & 容量不足 \\
+0.75 & 1500 & 5579.00 & 6627.77 & 2.4927 & 1.0000 & 25.73\% & 最高用户体验 \\
+0.82 & 1500 & 5705.80 & 6762.33 & 2.4253 & 1.0000 & 25.01\% & 原直供设置 \\
+1.00 & 1500 & 6030.58 & 7108.48 & 2.3003 & 1.0000 & 23.45\% & 最高平台收益 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\section*{S5 校准扰动、vLLM压力与到达率重放}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{artifacts/calibration_uncertainty/20260608-151211/calibration_uncertainty.pdf}
+\caption{合成经济参数扰动下的校准不确定性扫描。}
+\label{fig:supp_calibration_uncertainty}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{校准不确定性扫描代表点}
+\label{tab:supp_calibration_uncertainty}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrl}
+\toprule
+扰动场景 & 策略 & 平台收入增益 & Inclusive value增益 & 活跃最低QoS & 解释 \\
+\midrule
+低价格敏感度 & 用户保护 & 1525.73 & 0.0282 & 1.0000 & 三项改善 \\
+低价格敏感度 & 直供API & 3053.58 & 0.3252 & 1.0000 & 三项改善 \\
+高价格敏感度 & 直供API & 3129.77 & 0.3196 & 1.0000 & 三项改善 \\
+高迁移成本 & 用户保护 & 1651.31 & 0.0479 & 1.0000 & 三项改善 \\
+低QoS反馈 & 用户保护 & 1616.89 & 0.0185 & 1.0000 & 三项改善 \\
+高需求规模 & 用户保护 & 2323.38 & 0.1422 & 0.9296 & 收入--体验仍改善 \\
+高需求规模 & 直供API & 4285.77 & 0.4238 & $6.80\times10^{-10}$ & 直供通道拥塞 \\
+低直供偏好 & 直供API & 3087.64 & 0.3057 & 1.0000 & 三项改善 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{vLLM后端测量QoS下的需求压力测试}
+\label{tab:supp_vllm_pressure}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+QoS剖面 & 需求比例$\rho$ & 系统利润 & 活跃最低QoS & 需求加权QoS & 峰值利用率 & 最大regret \\
+\midrule
+vLLM-0.5B & 1.00 & 9525.15 & 1.0000 & 1.0000 & 1.0000 & $3.64\times10^{-9}$ \\
+vLLM-0.5B & 1.15 & 10975.58 & 1.0000 & 1.0000 & 1.0000 & $1.46\times10^{-8}$ \\
+vLLM-0.5B & 1.30 & 12426.00 & 1.0000 & 1.0000 & 1.0001 & $1.28\times10^{-8}$ \\
+vLLM-3B & 1.00 & 9525.08 & 1.0000 & 1.0000 & 1.0582 & $2.82\times10^{-10}$ \\
+vLLM-3B & 1.15 & 10975.55 & 1.0000 & 1.0000 & 1.0582 & $2.68\times10^{-11}$ \\
+vLLM-3B & 1.30 & 12425.95 & 1.0000 & 1.0000 & 1.0582 & $3.04\times10^{-10}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{artifacts/calibration_uncertainty/20260608-151211/measured_qos_stress.pdf}
+\caption{measured-QoS固定容量压力基线。}
+\label{fig:supp_measured_qos_stress}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{measured-QoS固定容量压力基线代表点}
+\label{tab:supp_measured_qos_stress}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrlrrr}
+\toprule
+QoS剖面 & 需求比例 & 容量比例 & 策略 & 系统利润 & 活跃最低QoS & 最大regret \\
+\midrule
+vLLM-0.5B & 1.15 & 0.85 & 固定容量 & 10237.83 & 0.9752 & $1.22\times10^{-8}$ \\
+vLLM-0.5B & 1.15 & 0.85 & 自适应容量 & 10058.27 & 1.0000 & $1.21\times10^{-7}$ \\
+vLLM-0.5B & 1.30 & 0.85 & 固定容量 & 11204.87 & 0.9680 & $8.71\times10^{-9}$ \\
+vLLM-0.5B & 1.30 & 0.85 & 自适应容量 & 11386.18 & 1.0000 & $4.35\times10^{-8}$ \\
+vLLM-3B & 1.30 & 1.00 & 固定容量 & 11692.49 & 0.9856 & $6.67\times10^{-9}$ \\
+vLLM-3B & 1.30 & 1.00 & 自适应容量 & 11364.56 & 1.0000 & $1.56\times10^{-8}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{测量驱动到达率重放实验}
+\label{tab:supp_arrival_replay}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+策略 & 系统利润 & 平均零售价 & Inclusive value & 需求加权QoS & 活跃最低QoS & 最大regret \\
+\midrule
+统一零售 & 4585.34 & 0.8000 & 1.5358 & 0.8550 & 0.5980 & -- \\
+无QoS动态定价 & 8319.08 & 1.5260 & $-1.1028$ & 0.8603 & 0.7275 & $3.89\times10^{-10}$ \\
+三层QoS感知定价 & 10165.54 & 1.5217 & $-0.9754$ & 1.0000 & 1.0000 & $4.37\times10^{-10}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\end{document}

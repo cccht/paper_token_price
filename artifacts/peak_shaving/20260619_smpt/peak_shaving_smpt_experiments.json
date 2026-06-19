@@ -1,0 +1,522 @@
+{
+  "metadata": {
+    "note": "SMPT-oriented diagnostics; budgeted re-solve rows are not equilibrium proofs."
+  },
+  "baselines": [
+    {
+      "case": "optimal_static_qos_routing",
+      "system_profit": 1783.239231608924,
+      "peak_utilization": 0.7822217827449163,
+      "minimum_qos": 0.756455957358171,
+      "served_volume": 2610.105444507793,
+      "average_paid_price": 0.760482001886527,
+      "exit_probability_rigid": 0.157773400237847,
+      "exit_probability_elastic": 0.0871477543412051,
+      "weighted_inclusive_value": 2.2027283454863458,
+      "fixed_point_converged": true,
+      "fixed_point_iterations": 52
+    },
+    {
+      "case": "off_peak_discount_only",
+      "system_profit": 1872.9036159631862,
+      "peak_utilization": 0.7664316142233594,
+      "minimum_qos": 0.8330016338242416,
+      "served_volume": 2849.246827085535,
+      "average_paid_price": 0.722127424656115,
+      "exit_probability_rigid": 0.1445746929901201,
+      "exit_probability_elastic": 0.07323855199952577,
+      "weighted_inclusive_value": 2.342003597386446,
+      "fixed_point_converged": true,
+      "fixed_point_iterations": 32
+    },
+    {
+      "case": "peak_surcharge_only",
+      "system_profit": 1886.954939756367,
+      "peak_utilization": 0.7382757356710703,
+      "minimum_qos": 0.9206877193053253,
+      "served_volume": 2672.3495273333674,
+      "average_paid_price": 0.7682278830824608,
+      "exit_probability_rigid": 0.15511913470598332,
+      "exit_probability_elastic": 0.08568513858355939,
+      "weighted_inclusive_value": 2.2196702668205917,
+      "fixed_point_converged": true,
+      "fixed_point_iterations": 34
+    },
+    {
+      "case": "dynamic_coarse",
+      "system_profit": 1948.7877581277107,
+      "peak_utilization": 0.705901425170401,
+      "minimum_qos": 0.9684143534133162,
+      "served_volume": 2865.3796027956846,
+      "average_paid_price": 0.7347928365088477,
+      "exit_probability_rigid": 0.14478387452104144,
+      "exit_probability_elastic": 0.07485144364592847,
+      "weighted_inclusive_value": 2.3283551962842024,
+      "fixed_point_converged": true,
+      "fixed_point_iterations": 33
+    },
+    {
+      "case": "dynamic_fine",
+      "system_profit": 1748.7937984034195,
+      "peak_utilization": 0.6662669479948348,
+      "minimum_qos": 0.9901656568016834,
+      "served_volume": 3042.987652234993,
+      "average_paid_price": 0.6249746649680031,
+      "exit_probability_rigid": 0.11873552327277993,
+      "exit_probability_elastic": 0.04369650518969938,
+      "weighted_inclusive_value": 2.730634992824918,
+      "fixed_point_converged": true,
+      "fixed_point_iterations": 35
+    },
+    {
+      "case": "dynamic_coarse_equal_routing",
+      "system_profit": 1887.959138736088,
+      "peak_utilization": 0.7531675667189393,
+      "minimum_qos": 0.881318223056546,
+      "served_volume": 2817.3422245980955,
+      "average_paid_price": 0.7335977825226134,
+      "exit_probability_rigid": 0.14655110244759464,
+      "exit_probability_elastic": 0.07556740423244507,
+      "weighted_inclusive_value": 2.3177905855044267,
+      "fixed_point_converged": true,
+      "fixed_point_iterations": 34
+    },
+    {
+      "case": "admission_control_uniform",
+      "admitted_fraction_min": 0.902431306238114,
+      "admitted_fraction_mean": 0.9744067830027762,
+      "peak_utilization_target": 0.705901425170401,
+      "minimum_qos_reference": 0.756455957358171,
+      "note": "Diagnostic only: period-level admission fractions needed to keep peak utilization below threshold."
+    }
+  ],
+  "baseline_summary": {
+    "optimal_static_qos_routing": {
+      "profit_gain_pct_vs_reference": 0.0,
+      "qos_gain_vs_reference": 0.0,
+      "peak_reduction_vs_reference": 0.0
+    },
+    "off_peak_discount_only": {
+      "profit_gain_pct_vs_reference": 5.028174726358095,
+      "qos_gain_vs_reference": 0.07654567646607069,
+      "peak_reduction_vs_reference": 0.015790168521556902
+    },
+    "peak_surcharge_only": {
+      "profit_gain_pct_vs_reference": 5.816141003911495,
+      "qos_gain_vs_reference": 0.1642317619471544,
+      "peak_reduction_vs_reference": 0.04394604707384597
+    },
+    "dynamic_coarse": {
+      "profit_gain_pct_vs_reference": 9.283584814888854,
+      "qos_gain_vs_reference": 0.21195839605514522,
+      "peak_reduction_vs_reference": 0.07632035757451527
+    },
+    "dynamic_fine": {
+      "profit_gain_pct_vs_reference": -1.931621545496517,
+      "qos_gain_vs_reference": 0.2337096994435125,
+      "peak_reduction_vs_reference": 0.1159548347500815
+    },
+    "dynamic_coarse_equal_routing": {
+      "profit_gain_pct_vs_reference": 5.872454198569913,
+      "qos_gain_vs_reference": 0.124862265698375,
+      "peak_reduction_vs_reference": 0.02905421602597702
+    }
+  },
+  "ablations": [
+    {
+      "variant": "baseline",
+      "uniform_min_qos": 0.756455957358171,
+      "dynamic_min_qos": 0.9684143534133162,
+      "qos_gain": 0.21195839605514522,
+      "peak_reduction": 0.07632035757451527,
+      "profit_gain_pct": 9.283584814888854
+    },
+    {
+      "variant": "no_outside_option",
+      "uniform_min_qos": 0.6028461675058867,
+      "dynamic_min_qos": 0.9096218848876471,
+      "qos_gain": 0.30677571738176035,
+      "peak_reduction": 0.06668983659497862,
+      "profit_gain_pct": 11.323767013163401
+    },
+    {
+      "variant": "suppressed_direct_channel",
+      "uniform_min_qos": 0.9999107807711469,
+      "dynamic_min_qos": 0.9999998310535352,
+      "qos_gain": 8.905028238825885e-05,
+      "peak_reduction": 0.20878878777997145,
+      "profit_gain_pct": 0.0036930243868481868
+    },
+    {
+      "variant": "homogeneous_capacity",
+      "uniform_min_qos": 0.9994334170171917,
+      "dynamic_min_qos": 0.9453701837940502,
+      "qos_gain": -0.05406323322314144,
+      "peak_reduction": -0.1541440697317421,
+      "profit_gain_pct": -3.6234077389519674
+    },
+    {
+      "variant": "no_time_flexible_users",
+      "uniform_min_qos": 0.7783833104680355,
+      "dynamic_min_qos": 0.9332935935139319,
+      "qos_gain": 0.15491028304589638,
+      "peak_reduction": 0.04607163346613807,
+      "profit_gain_pct": 6.090082684613335
+    },
+    {
+      "variant": "fixed_equal_routing",
+      "uniform_min_qos": 0.756455957358171,
+      "dynamic_min_qos": 0.881318223056546,
+      "qos_gain": 0.124862265698375,
+      "peak_reduction": 0.02905421602597702,
+      "profit_gain_pct": 5.872454198569913
+    }
+  ],
+  "phase_grid": [
+    {
+      "capacity_scale": 0.8,
+      "alpha_scale": 0.7,
+      "qos_gain": 0.2958353974646809,
+      "peak_reduction": 0.05766286489699368,
+      "profit_gain_pct": 10.218037140558252
+    },
+    {
+      "capacity_scale": 0.8,
+      "alpha_scale": 0.85,
+      "qos_gain": 0.334045554965466,
+      "peak_reduction": 0.0677826879578679,
+      "profit_gain_pct": 11.933565308781514
+    },
+    {
+      "capacity_scale": 0.8,
+      "alpha_scale": 1.0,
+      "qos_gain": 0.35186626194557624,
+      "peak_reduction": 0.07327263743291557,
+      "profit_gain_pct": 13.076989673487537
+    },
+    {
+      "capacity_scale": 0.8,
+      "alpha_scale": 1.15,
+      "qos_gain": 0.38597956971269726,
+      "peak_reduction": 0.08269605296151328,
+      "profit_gain_pct": 14.416177912421453
+    },
+    {
+      "capacity_scale": 0.8,
+      "alpha_scale": 1.3,
+      "qos_gain": 0.4181249774970055,
+      "peak_reduction": 0.0926255015303431,
+      "profit_gain_pct": 15.45937680665145
+    },
+    {
+      "capacity_scale": 0.9,
+      "alpha_scale": 0.7,
+      "qos_gain": 0.20597098428119176,
+      "peak_reduction": 0.04316669233027426,
+      "profit_gain_pct": 8.780297578195341
+    },
+    {
+      "capacity_scale": 0.9,
+      "alpha_scale": 0.85,
+      "qos_gain": 0.23737969714890084,
+      "peak_reduction": 0.050692619076397216,
+      "profit_gain_pct": 10.071635566066105
+    },
+    {
+      "capacity_scale": 0.9,
+      "alpha_scale": 1.0,
+      "qos_gain": 0.2763456428201193,
+      "peak_reduction": 0.058035665053852936,
+      "profit_gain_pct": 12.380905007976258
+    },
+    {
+      "capacity_scale": 0.9,
+      "alpha_scale": 1.15,
+      "qos_gain": 0.3104641595070664,
+      "peak_reduction": 0.07231573273381875,
+      "profit_gain_pct": 13.604473730355547
+    },
+    {
+      "capacity_scale": 0.9,
+      "alpha_scale": 1.3,
+      "qos_gain": 0.33726501276861076,
+      "peak_reduction": 0.08859573135060816,
+      "profit_gain_pct": 14.487191692252319
+    },
+    {
+      "capacity_scale": 1.0,
+      "alpha_scale": 0.7,
+      "qos_gain": 0.18547454116373374,
+      "peak_reduction": 0.05864990939577275,
+      "profit_gain_pct": 6.690436635157527
+    },
+    {
+      "capacity_scale": 1.0,
+      "alpha_scale": 0.85,
+      "qos_gain": 0.2048647952387217,
+      "peak_reduction": 0.07182335942723062,
+      "profit_gain_pct": 7.417721114232883
+    },
+    {
+      "capacity_scale": 1.0,
+      "alpha_scale": 1.0,
+      "qos_gain": 0.21195839605514522,
+      "peak_reduction": 0.07632035757451527,
+      "profit_gain_pct": 9.283584814888854
+    },
+    {
+      "capacity_scale": 1.0,
+      "alpha_scale": 1.15,
+      "qos_gain": 0.22669377019165715,
+      "peak_reduction": 0.09508234448368036,
+      "profit_gain_pct": 9.93082787328429
+    },
+    {
+      "capacity_scale": 1.0,
+      "alpha_scale": 1.3,
+      "qos_gain": 0.23571334448944958,
+      "peak_reduction": 0.11860984127030338,
+      "profit_gain_pct": 10.312683008592611
+    },
+    {
+      "capacity_scale": 1.1,
+      "alpha_scale": 0.7,
+      "qos_gain": 0.14416160895385177,
+      "peak_reduction": 0.08330431305826458,
+      "profit_gain_pct": 4.289518030616029
+    },
+    {
+      "capacity_scale": 1.1,
+      "alpha_scale": 0.85,
+      "qos_gain": 0.153223588176856,
+      "peak_reduction": 0.10199238273938671,
+      "profit_gain_pct": 4.587397492522984
+    },
+    {
+      "capacity_scale": 1.1,
+      "alpha_scale": 1.0,
+      "qos_gain": 0.15622965758132523,
+      "peak_reduction": 0.10686899905052494,
+      "profit_gain_pct": 6.260550082997881
+    },
+    {
+      "capacity_scale": 1.1,
+      "alpha_scale": 1.15,
+      "qos_gain": 0.16069858261102832,
+      "peak_reduction": 0.13085587763048867,
+      "profit_gain_pct": 6.551408699292098
+    },
+    {
+      "capacity_scale": 1.1,
+      "alpha_scale": 1.3,
+      "qos_gain": 0.1618411240546619,
+      "peak_reduction": 0.15731599442686062,
+      "profit_gain_pct": 6.693957556711416
+    },
+    {
+      "capacity_scale": 1.2,
+      "alpha_scale": 0.7,
+      "qos_gain": 0.09368652324692262,
+      "peak_reduction": 0.11329685766577491,
+      "profit_gain_pct": 2.0261516817279297
+    },
+    {
+      "capacity_scale": 1.2,
+      "alpha_scale": 0.85,
+      "qos_gain": 0.09669523415971226,
+      "peak_reduction": 0.13373796587761488,
+      "profit_gain_pct": 2.1154734564857582
+    },
+    {
+      "capacity_scale": 1.2,
+      "alpha_scale": 1.0,
+      "qos_gain": 0.09775125618702263,
+      "peak_reduction": 0.1384117904380241,
+      "profit_gain_pct": 3.6810245047019925
+    },
+    {
+      "capacity_scale": 1.2,
+      "alpha_scale": 1.15,
+      "qos_gain": 0.09832980774498834,
+      "peak_reduction": 0.16242216162543732,
+      "profit_gain_pct": 3.840520188045878
+    },
+    {
+      "capacity_scale": 1.2,
+      "alpha_scale": 1.3,
+      "qos_gain": 0.09734706558400008,
+      "peak_reduction": 0.18750892401438202,
+      "profit_gain_pct": 3.9104760829680743
+    }
+  ],
+  "fixed_point_residuals": [
+    {
+      "case": "optimal_static_qos_routing",
+      "iterations": 52,
+      "final_residual": 8.320706346154338e-10,
+      "max_residual": 0.9781773765177244,
+      "converged": true,
+      "initial_qos": 1.0,
+      "damping": 0.35
+    },
+    {
+      "case": "off_peak_discount_only",
+      "iterations": 32,
+      "final_residual": 8.225664593908277e-10,
+      "max_residual": 0.8396549913036346,
+      "converged": true,
+      "initial_qos": 1.0,
+      "damping": 0.35
+    },
+    {
+      "case": "peak_surcharge_only",
+      "iterations": 34,
+      "final_residual": 9.71215663447822e-10,
+      "max_residual": 0.27251476454637813,
+      "converged": true,
+      "initial_qos": 1.0,
+      "damping": 0.35
+    },
+    {
+      "case": "dynamic_coarse",
+      "iterations": 33,
+      "final_residual": 8.521310324027809e-10,
+      "max_residual": 0.05314509755262453,
+      "converged": true,
+      "initial_qos": 1.0,
+      "damping": 0.35
+    },
+    {
+      "case": "dynamic_fine",
+      "iterations": 35,
+      "final_residual": 6.441621680508547e-10,
+      "max_residual": 0.011535826022800899,
+      "converged": true,
+      "initial_qos": 1.0,
+      "damping": 0.35
+    }
+  ],
+  "resolved_sensitivity": [
+    {
+      "scenario": "capacity_0.90",
+      "uniform_profit": 1717.092586025397,
+      "dynamic_profit": 1932.259341580299,
+      "profit_gain_pct": 12.530876745147134,
+      "uniform_min_qos": 0.6386568700882232,
+      "dynamic_min_qos": 0.9188507142877067,
+      "qos_gain": 0.28019384419948345,
+      "peak_reduction": 0.059719933529423064,
+      "restricted_rounds": 4,
+      "restricted_candidates_per_firm": 4,
+      "left_params": [
+        0.8304347826086957,
+        -0.3826086956521739,
+        0.7065217391304348,
+        -0.12753623188405802
+      ],
+      "right_params": [
+        0.8326086956521737,
+        0.0,
+        0.7078260869565219,
+        0.12753623188405794
+      ]
+    },
+    {
+      "scenario": "alpha_1.15",
+      "uniform_profit": 1754.8979808567412,
+      "dynamic_profit": 1729.6705698762994,
+      "profit_gain_pct": -1.4375428803061145,
+      "uniform_min_qos": 0.7549180305637355,
+      "dynamic_min_qos": 0.9963869925075198,
+      "qos_gain": 0.2414689619437843,
+      "peak_reduction": 0.14981928252776033,
+      "restricted_rounds": 4,
+      "restricted_candidates_per_firm": 4,
+      "left_params": [
+        0.5781707317073171,
+        -0.058536585365853655,
+        0.6060975609756101,
+        -0.1951219512195123
+      ],
+      "right_params": [
+        0.579390243902439,
+        0.27804878048780507,
+        0.6068292682926831,
+        0.2048780487804879
+      ]
+    },
+    {
+      "scenario": "flexible_share_0.70",
+      "uniform_profit": 1784.2816403495835,
+      "dynamic_profit": 1749.9801048397346,
+      "profit_gain_pct": -1.922428317041273,
+      "uniform_min_qos": 0.7524905163289123,
+      "dynamic_min_qos": 0.9944480034549771,
+      "qos_gain": 0.2419574871260648,
+      "peak_reduction": 0.13586968514929032,
+      "restricted_rounds": 4,
+      "restricted_candidates_per_firm": 4,
+      "left_params": [
+        0.5781707317073171,
+        -0.058536585365853655,
+        0.6060975609756101,
+        -0.1951219512195123
+      ],
+      "right_params": [
+        0.579390243902439,
+        0.27804878048780507,
+        0.6068292682926831,
+        0.2048780487804879
+      ]
+    },
+    {
+      "scenario": "qos_threshold_0.78",
+      "uniform_profit": 1742.9168490616958,
+      "dynamic_profit": 1934.879862355446,
+      "profit_gain_pct": 11.013893944343591,
+      "uniform_min_qos": 0.7050947355800086,
+      "dynamic_min_qos": 0.9460123027098487,
+      "qos_gain": 0.24091756712984014,
+      "peak_reduction": 0.06639404597683995,
+      "restricted_rounds": 4,
+      "restricted_candidates_per_firm": 4,
+      "left_params": [
+        0.8304347826086957,
+        -0.3826086956521739,
+        0.7065217391304348,
+        -0.12753623188405802
+      ],
+      "right_params": [
+        0.8326086956521737,
+        0.0,
+        0.7078260869565219,
+        0.12753623188405794
+      ]
+    },
+    {
+      "scenario": "outside_utility_0.50",
+      "uniform_profit": 1695.5949518049526,
+      "dynamic_profit": 1707.802859836826,
+      "profit_gain_pct": 0.7199778472375181,
+      "uniform_min_qos": 0.8160340281655081,
+      "dynamic_min_qos": 0.9724250728255928,
+      "qos_gain": 0.1563910446600847,
+      "peak_reduction": 0.06910602813819988,
+      "restricted_rounds": 4,
+      "restricted_candidates_per_firm": 4,
+      "left_params": [
+        0.8090909090909092,
+        -0.36363636363636365,
+        0.7136363636363635,
+        -0.36363636363636365
+      ],
+      "right_params": [
+        0.579390243902439,
+        0.27804878048780507,
+        0.6068292682926831,
+        0.2048780487804879
+      ]
+    }
+  ],
+  "resolved_sensitivity_boundary": "Restricted local candidate re-solve over static, dynamic, off-peak-only, and peak-only candidate families."
+}

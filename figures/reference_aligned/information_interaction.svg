@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Figure 2: Stakeholder Information Interaction and Game Flow</title>
+  <desc id="desc">Academic block diagram showing exogenous API supply, platform, API brokers, users, QoS monitor, diagnostics, and feedback loop.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555555"/>
+    </marker>
+    <marker id="arrowFeedback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#888888"/>
+    </marker>
+    <style>
+      .bg { fill:#FFFFFF; }
+      .box { fill:#F5F5F8; stroke:#6B6B6B; stroke-width:2.2; }
+      .dashbox { fill:#F5F5F8; stroke:#999999; stroke-width:2.2; stroke-dasharray:10 8; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size:28px; font-weight:700; fill:#000000; text-anchor:middle; }
+      .subtitle { font-family: Arial, Helvetica, sans-serif; font-size:17px; font-weight:400; fill:#555555; text-anchor:middle; }
+      .section { font-family: Arial, Helvetica, sans-serif; font-size:20px; font-weight:700; fill:#777777; text-anchor:middle; letter-spacing:.7px; text-transform:uppercase; }
+      .side-label { font-family: Arial, Helvetica, sans-serif; font-size:20px; font-weight:700; fill:#777777; text-anchor:middle; letter-spacing:.7px; }
+      .arrow { fill:none; stroke:#555555; stroke-width:2.8; marker-end:url(#arrow); }
+      .feedback { fill:none; stroke:#888888; stroke-width:2.2; stroke-dasharray:9 9; marker-end:url(#arrowFeedback); }
+      .feedback-text { font-family: Arial, Helvetica, sans-serif; font-size:18px; font-style:italic; fill:#777777; text-anchor:middle; }
+      .bracket { fill:none; stroke:#999999; stroke-width:2; stroke-dasharray:4 7; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="900"/>
+
+  <!-- Section labels -->
+  <text class="section" x="336" y="78">EXOGENOUS INPUT</text>
+  <text class="section" x="784" y="78">UPPER LAYER (PLATFORM)</text>
+  <text class="section" x="1232" y="78">MIDDLE LAYER (BROKERS)</text>
+
+  <!-- Box geometry: x,y,w,h -->
+  <!-- Top row -->
+  <rect class="dashbox" x="160" y="125" width="352" height="198" rx="20" ry="20"/>
+  <text class="title" x="336" y="214">Exogenous API Supply</text>
+  <text class="subtitle" x="336" y="260">token capacity, API cost, reliability inputs</text>
+
+  <rect class="box" x="608" y="125" width="352" height="198" rx="20" ry="20"/>
+  <text class="title" x="784" y="214">Stage 1: Platform</text>
+  <text class="subtitle" x="784" y="260">wholesale price w_t; anticipates responses</text>
+
+  <rect class="box" x="1056" y="125" width="352" height="198" rx="20" ry="20"/>
+  <text class="title" x="1232" y="214">Stage 2: API Brokers</text>
+  <text class="subtitle" x="1232" y="260">retail price p_jt; allocate capacity g_jt</text>
+
+  <!-- Bottom row -->
+  <rect class="dashbox" x="160" y="548" width="352" height="198" rx="20" ry="20"/>
+  <text class="title" x="336" y="637">Objective Diagnostics</text>
+  <text class="subtitle" x="336" y="676">platform / broker / system payoff</text>
+  <text class="subtitle" x="336" y="706">user value</text>
+
+  <rect class="box" x="608" y="548" width="352" height="198" rx="20" ry="20"/>
+  <text class="title" x="784" y="637">QoS Monitor</text>
+  <text class="subtitle" x="784" y="676">u_jt, q_jt</text>
+  <text class="subtitle" x="784" y="706">served demand D_jt * q_jt</text>
+
+  <rect class="box" x="1056" y="548" width="352" height="198" rx="20" ry="20"/>
+  <text class="title" x="1232" y="637">Stage 3: Users</text>
+  <text class="subtitle" x="1232" y="676">broker-period choice</text>
+  <text class="subtitle" x="1232" y="706">cross-period migration</text>
+
+  <!-- Solid arrows -->
+  <path class="arrow" d="M 512 224 L 608 224"/>
+  <path class="arrow" d="M 960 224 L 1056 224"/>
+  <path class="arrow" d="M 1232 323 L 1232 548"/>
+  <path class="arrow" d="M 1056 647 L 960 647"/>
+  <path class="arrow" d="M 608 647 L 512 647"/>
+
+  <!-- Feedback arrow -->
+  <path class="feedback" d="M 336 548 C 350 460, 520 462, 626 430 C 708 405, 730 360, 740 323"/>
+  <text class="feedback-text" x="512" y="449">feedback loop</text>
+
+  <!-- Group labels -->
+  <text class="side-label" x="1500" y="636">LOWER LAYER</text>
+  <text class="side-label" x="1500" y="670">(USERS)</text>
+
+  <path class="bracket" d="M 250 760 L 250 804 L 784 804 L 784 760"/>
+  <text class="section" x="517" y="846">QOS &amp; DIAGNOSTICS</text>
+</svg>

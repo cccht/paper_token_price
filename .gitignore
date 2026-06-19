@@ -1,0 +1,49 @@
+# Python caches and environments
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+.pptx_deps/
+
+# Local notebooks and checkpoints
+.ipynb_checkpoints/
+
+# Local archive snapshots and generated rewrite workspaces
+2026-06-*/
+paper_rewriting_output/
+latex_aux/
+
+# Historical/generated artifacts outside the active peak-shaving package
+artifacts/*
+!artifacts/peak_shaving/
+!artifacts/peak_shaving/**
+
+# LaTeX build debris
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.synctex*
+*.toc
+*.xdv
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# OS/editor metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,18 @@
+{
+  "dynamic_coarse": {
+    "scenarios": 9,
+    "qos_gain_positive": 9,
+    "peak_reduction_positive": 9,
+    "profit_gain_positive": 9,
+    "min_qos_gain": 0.12626481590252547,
+    "min_peak_reduction": 0.0643259210331818
+  },
+  "dynamic_fine": {
+    "scenarios": 9,
+    "qos_gain_positive": 9,
+    "peak_reduction_positive": 9,
+    "profit_gain_positive": 1,
+    "min_qos_gain": 0.12906940509820686,
+    "min_peak_reduction": 0.06447207065953975
+  }
+}

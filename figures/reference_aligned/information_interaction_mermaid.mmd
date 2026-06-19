@@ -1,0 +1,43 @@
+---
+config:
+  layout: dagre
+  theme: base
+  themeVariables:
+    fontFamily: Arial, Helvetica, sans-serif
+    primaryTextColor: "#17202A"
+    lineColor: "#64748B"
+    background: "#FFFFFF"
+    edgeLabelBackground: "#FFFFFF"
+---
+%% Mermaid CLI: 11.15.0
+%% Render command:
+%% npx -y @mermaid-js/mermaid-cli -i figures/reference_aligned/information_interaction_mermaid.mmd -o figures/reference_aligned/information_interaction_mermaid.png -p figures/mermaid_puppeteer_config.json -b white
+block-beta
+  columns 3
+  Provider["Exogenous API supply<br/>token capacity, API cost,<br/>reliability inputs"]
+  Platform["Stage 1: platform<br/>wholesale price w_t<br/>anticipates responses"]
+  Broker["Stage 2: API brokers<br/>retail price p_jt<br/>capacity g_jt"]
+  Revenue["Objective diagnostics<br/>platform, broker, system payoff<br/>user value as diagnostic"]
+  Monitor["QoS monitor<br/>u_jt, q_jt<br/>served demand D_jt q_jt"]
+  User["Stage 3: users<br/>broker/time choice s_jt<br/>cross-period migration"]
+
+  Provider --> Platform
+  Platform --> Broker
+  Broker --> User
+  User --> Monitor
+  Monitor --> Revenue
+  Revenue -.-> Platform
+
+  classDef provider fill:#F8FAFC,stroke:#64748B,color:#334155,stroke-width:2px,stroke-dasharray:6 4;
+  classDef platform fill:#FFF4D6,stroke:#D97706,color:#6B3D00,stroke-width:2px;
+  classDef broker fill:#ECFDF3,stroke:#059669,color:#064E3B,stroke-width:2px;
+  classDef user fill:#FFF1F2,stroke:#E11D48,color:#7F1D1D,stroke-width:2px;
+  classDef monitor fill:#F8F7FF,stroke:#7C3AED,color:#4C1D95,stroke-width:2px;
+  classDef revenue fill:#F8FAFC,stroke:#475569,color:#1E293B,stroke-width:2px,stroke-dasharray:8 5;
+
+  class Provider provider;
+  class Platform platform;
+  class Broker broker;
+  class User user;
+  class Monitor monitor;
+  class Revenue revenue;

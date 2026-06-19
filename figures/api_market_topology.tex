@@ -1,0 +1,78 @@
+% ── Figure 3: API market topology with direct channel ──
+% Compile: xelatex -interaction=nonstopmode api_market_topology.tex
+
+\documentclass[tikz,border=8pt]{standalone}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds,calc}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=1.7cm and 1.0cm,
+    block/.style 2 args={
+        rectangle, draw=#1, fill=#2, rounded corners=3pt,
+        text width=5.2cm, minimum height=1.3cm, align=center,
+        line width=0.8pt, font=\small, inner sep=4pt,
+    },
+    wideblock/.style 2 args={
+        rectangle, draw=#1, fill=#2, rounded corners=3pt,
+        text width=6.8cm, minimum height=1.0cm, align=center,
+        line width=0.8pt, font=\small, inner sep=3pt,
+    },
+    arrow/.style={-{Stealth[scale=0.8]}, line width=0.8pt, color=black!55},
+]
+
+\definecolor{bgSupply} {HTML}{F4F6F8}
+\definecolor{bdSupply} {HTML}{64748B}
+\definecolor{bgPlat}   {HTML}{FFF4D6}
+\definecolor{bdPlat}   {HTML}{D97706}
+\definecolor{bgBroker} {HTML}{ECFDF3}
+\definecolor{bdBroker} {HTML}{059669}
+\definecolor{bgDirect} {HTML}{F3EDFC}
+\definecolor{bdDirect} {HTML}{7C3AED}
+\definecolor{bgUser}   {HTML}{FFF1F2}
+\definecolor{bdUser}   {HTML}{E11D48}
+\definecolor{bgQoS}    {HTML}{F4F6F8}
+\definecolor{bdQoS}    {HTML}{475569}
+
+% ── nodes ──────────────────────────────────────────
+\node [wideblock={bdSupply}{bgSupply}] (supply) {
+    \textbf{Exogenous model API supply}\\[2pt]
+    {\footnotesize DeepSeek \,/\, Claude \,/\, GPT and other API inputs}
+};
+
+\node [block={bdPlat}{bgPlat}, below=of supply] (plat) {
+    \textbf{Platform wholesale layer}\\[2pt]
+    {\footnotesize sets wholesale price $w_t$; observes settlement and QoS}
+};
+
+\node [block={bdBroker}{bgBroker}, below left=1.6cm and -0.8cm of plat] (broker) {
+    \textbf{Brokered retail APIs}\\[2pt]
+    {\footnotesize Broker 1: $p_{1t},g_{1t}$\quad Broker 2: $p_{2t},g_{2t}$\quad Broker 3: $p_{3t},g_{3t}$}
+};
+
+\node [block={bdDirect}{bgDirect}, below right=1.6cm and -0.8cm of plat] (direct) {
+    \textbf{Direct API channel}\\[2pt]
+    {\footnotesize $j=0$ outside option; $p^D_t,\, g^D_t$}
+};
+
+\node [block={bdUser}{bgUser}, below right=1.6cm and -0.5cm of broker] (user) {
+    \textbf{User classes and time slots}\\[2pt]
+    {\footnotesize choose broker, direct channel, or shift across periods}
+};
+
+\node [wideblock={bdQoS}{bgQoS}, below=1.8cm of user] (qos) {
+    \textbf{QoS feedback}\\[2pt]
+    {\footnotesize utilization and congestion; $q_{jt},\, q^D_t$ enter utility}
+};
+
+% ── arrows ─────────────────────────────────────────
+\draw [arrow] (supply.south)  -- (plat.north);
+\draw [arrow] (plat.south west) -- ++(-0.3,0) |- (broker.north);
+\draw [arrow] (plat.south east) -- ++(0.3,0)  |- (direct.north);
+\draw [arrow] (broker.south east) -- (user.north west);
+\draw [arrow] (direct.south west) -- (user.north east);
+\draw [arrow] (user.south) |- (qos.north);
+
+\end{tikzpicture}
+\end{document}

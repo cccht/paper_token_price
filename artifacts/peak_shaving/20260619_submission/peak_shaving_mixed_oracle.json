@@ -1,0 +1,204 @@
+{
+  "metadata": {
+    "grid_size": 225,
+    "qos_shape": "sigmoid",
+    "capacity": [
+      300.0,
+      120.0
+    ],
+    "fp_iterations": 2000,
+    "evaluated_pairs": 2225
+  },
+  "row_support_indices": [
+    32,
+    91,
+    106,
+    121,
+    151
+  ],
+  "col_support_indices": [
+    108,
+    112,
+    123,
+    138,
+    183
+  ],
+  "row_support_vectors": [
+    [
+      0.27,
+      0.0,
+      0.6,
+      0.0
+    ],
+    [
+      0.575,
+      -0.2,
+      0.6,
+      -0.2
+    ],
+    [
+      0.575,
+      0.0,
+      0.6,
+      -0.2
+    ],
+    [
+      0.575,
+      0.20000000000000007,
+      0.6,
+      -0.2
+    ],
+    [
+      0.88,
+      -0.4,
+      0.6,
+      -0.2
+    ]
+  ],
+  "col_support_vectors": [
+    [
+      0.575,
+      0.0,
+      0.6,
+      0.20000000000000007
+    ],
+    [
+      0.575,
+      0.0,
+      1.1,
+      0.0
+    ],
+    [
+      0.575,
+      0.20000000000000007,
+      0.6,
+      0.20000000000000007
+    ],
+    [
+      0.575,
+      0.4,
+      0.6,
+      0.20000000000000007
+    ],
+    [
+      0.88,
+      0.0,
+      0.6,
+      0.20000000000000007
+    ]
+  ],
+  "row_mix": [
+    0.0004987531172069825,
+    0.00997506234413965,
+    0.0004987531172069825,
+    0.9456359102244389,
+    0.04339152119700748
+  ],
+  "col_mix": [
+    0.20897755610972568,
+    0.0004987531172069825,
+    0.00997506234413965,
+    0.7800498753117207,
+    0.0004987531172069825
+  ],
+  "trace": [
+    {
+      "oracle_round": 1,
+      "row_support": 3,
+      "col_support": 3,
+      "restricted_max_regret": 0.13902722657951472,
+      "full_max_regret": 12.920364635839292,
+      "evaluated_pairs": 1341,
+      "fp_last_regret": 0.13902722657951472
+    },
+    {
+      "oracle_round": 2,
+      "row_support": 4,
+      "col_support": 3,
+      "restricted_max_regret": 0.1302726918318058,
+      "full_max_regret": 0.4863972459767183,
+      "evaluated_pairs": 1563,
+      "fp_last_regret": 0.1302726918318058
+    },
+    {
+      "oracle_round": 3,
+      "row_support": 4,
+      "col_support": 4,
+      "restricted_max_regret": 0.1384627875311253,
+      "full_max_regret": 5.8762605032083,
+      "evaluated_pairs": 1784,
+      "fp_last_regret": 0.1384627875311253
+    },
+    {
+      "oracle_round": 4,
+      "row_support": 5,
+      "col_support": 4,
+      "restricted_max_regret": 0.1446178953223125,
+      "full_max_regret": 0.5587345320516306,
+      "evaluated_pairs": 2005,
+      "fp_last_regret": 0.1446178953223125
+    },
+    {
+      "oracle_round": 5,
+      "row_support": 5,
+      "col_support": 5,
+      "restricted_max_regret": 0.20253154148201702,
+      "full_max_regret": 0.20253154148201702,
+      "evaluated_pairs": 2225,
+      "fp_last_regret": 0.20253154148201702
+    }
+  ],
+  "fp_trace": [
+    {
+      "iteration": 1.0,
+      "max_regret": 48.367502953480766
+    },
+    {
+      "iteration": 200.0,
+      "max_regret": 2.3878003468540783
+    },
+    {
+      "iteration": 400.0,
+      "max_regret": 0.8199692757120829
+    },
+    {
+      "iteration": 600.0,
+      "max_regret": 0.7317056199250374
+    },
+    {
+      "iteration": 800.0,
+      "max_regret": 0.6124153178218421
+    },
+    {
+      "iteration": 1000.0,
+      "max_regret": 0.3493012584215194
+    },
+    {
+      "iteration": 1200.0,
+      "max_regret": 0.35529440518951105
+    },
+    {
+      "iteration": 1400.0,
+      "max_regret": 0.3497543370084486
+    },
+    {
+      "iteration": 1600.0,
+      "max_regret": 0.3004797047668717
+    },
+    {
+      "iteration": 1800.0,
+      "max_regret": 0.2059734604881669
+    },
+    {
+      "iteration": 2000.0,
+      "max_regret": 0.20253154148201702
+    }
+  ],
+  "expected_metrics": {
+    "firm_A_profit": 889.5858918502524,
+    "firm_B_profit": 727.2570825466236,
+    "system_profit": 1733.1319878128468,
+    "peak_utilization": 0.7030252482394335,
+    "minimum_qos": 0.9698756172771479
+  }
+}

@@ -1,0 +1,162 @@
+% ============================================================================
+% 他人博弈模型分类总结（token推理动态定价相关）
+% ============================================================================
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{ctex}
+\usepackage{amssymb,amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+
+\title{\textbf{Token推理动态定价博弈模型分类综述}\\\large 按博弈结构、解概念与应用领域组织}
+\author{文献汇总}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{概述}
+
+本文总结与token推理动态定价相关的已有博弈模型，按\textbf{博弈结构}分为五大类：Stackelberg层次博弈、拥塞势博弈、重复博弈与算法合谋、机制设计与信息博弈、瓶颈调度博弈。每类给出代表性模型、解概念、核心结论及与本文的差异。
+
+\section{分类表格}
+
+\begin{table}[htbp]
+\centering
+\caption{Token推理动态定价相关博弈模型分类总结。SP=单领导者单跟随者，MP=多参与方，EV=实证验证，TH=理论推导，NU=数值仿真。}
+\label{tab:game_models}
+\scriptsize
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{p{0.3cm}p{2.5cm}p{1.8cm}p{0.8cm}p{0.8cm}p{2.5cm}p{2cm}p{2.5cm}}
+\toprule
+& \textbf{模型} & \textbf{博弈结构} & \textbf{解概念} & \textbf{方法} & \textbf{核心机制} & \textbf{关键结论} & \textbf{与本文差异} \\
+\midrule
+\multicolumn{8}{l}{\textbf{A. Stackelberg层次博弈}} \\
+\midrule
+1 & Guo et al. (2025)\newline PrILM & 平台领导者\newline 用户跟随者\newline SP & SPNE & EV+TH & 平台定价→用户路由\newline 弹性需求+拥塞效用 & $\exists$唯一Nash\newline 定价策略可达95\%最优利润 & 多平台竞争\newline 无退化函数\\
+2 & Yan et al. (2026)\newline GPU云 & 云平台领导者\newline 用户群体跟随者\newline MP & SPNE + 动量护栏 & TH+NU & 可排出性护栏\newline 动作盾\newline 大规模Stackelberg & 护栏保证系统\newline 不进入不可排态 & 关注系统可靠性\newline 而非定价效率\\
+3 & Brenner et al. (2026)\newline 空间负荷转移 & 节点运营商\newline 弹性用户\newline MP & SPNE & TH & 空间负荷转移\newline 跨区域调度 & 策略性转移\newline 影响市场效率 & 空间vs时间维度\newline 无收入中性约束\\
+\midrule
+\multicolumn{8}{l}{\textbf{B. 拥塞/势博弈}} \\
+\midrule
+4 & Monderer-Shapley\newline (1996) & 多用户\newline 有限纯策略\newline MP & PNE & TH & 势函数\Phi\newline 单边偏离=势变化 & PNE $\Leftrightarrow$ \Phi局部最优\newline BRD收敛 & 通用框架\newline 不涉及退化\\
+5 & Rosen (1965)\newline 凹Nash博弈 & 多玩家\newline 连续策略\newline MP & PNE & TH & 凹性+对角严格凹\newline ⇒均衡唯一 & $\exists$唯一PNE\newline 在凸紧集+凹性下 & 需效用函数凹性\newline 退化破坏凹性\\
+6 & Vickrey (1969)\newline 拥塞定价 & 同质用户\newline 单人决策\newline SP & 边际成本定价 & TH & 外部性内生化\newline Pigouvian税收 & 最优拥堵费=\newline 边际外部成本 & 连续交通流\newline 非离散时段\\
+\midrule
+\multicolumn{8}{l}{\textbf{C. 重复博弈与算法合谋}} \\
+\midrule
+7 & Fish et al. (2024)\newline LLM合谋 & LLM定价智能体\newline 寡头垄断\newline MP & SPE（无名氏定理） & EV+TH & 重复Bertrand博弈\newline 差异化产品 & LLM达成隐性合谋\newline 价格高于竞争水平 & 多平台竞争\newline 非单一垄断\\
+8 & Akata et al. (2025)\newline LLM重复博弈 & LLM vs LLM\newline 或LLM vs 人类\newline MP & 行为博弈论 & EV & 有限重复2×2博弈\newline 社会链式思考 & LLM在囚徒困境好\newline 在协调博弈差 & 关注AI智能体行为\newline 而非定价机制\\
+\midrule
+\multicolumn{8}{l}{\textbf{D. 机制设计与信息博弈}} \\
+\midrule
+9 & Myerson (1981)\newline 最优拍卖 & 卖方→买方\newline 单边信息不对称\newline SP & BNE & TH & 显示原理\newline IC+IR约束 & 最优拍卖=\newline 保留价下的二级价 & 单期静态\newline 无退化/拥挤\\
+10 & Mussa-Rosen\newline (1978) 质量歧视 & 垄断者→消费者\newline 质量维度筛选\newline SP & 自选择菜单 & TH & 不同质量-价格组合\newline 消费者自选择 & 最优菜单质量\newline 向下扭曲 & 质量外生可控\newline 本文质量内生于需求\\
+11 & Rochet-Tirole\newline (2003) 双边平台 & 平台+两侧用户\newline 交叉网络效应\newline MP & 均衡价格结构 & TH & 用户基础外部性\newline 跨侧补贴 & 最优价格=\newline 弹性倒数法则 & 双边vs单边市场\newline 无时段维度\\
+\midrule
+\multicolumn{8}{l}{\textbf{E. 瓶颈/调度博弈}} \\
+\midrule
+12 & Arnott et al.\newline (1993) 瓶颈模型 & 通勤者\newline 时间选择\newline MP & 用户均衡 & TH & 固定容量\newline 早到/晚到惩罚\newline 排队形成 & 总等待成本=\newline 与时间价值无关 & 早/晚对称vs偏好峰\newline 排队vs退化\\
+13 & Small (1982)\newline 时间偏好异质 & 通勤者\newline 时间价值异质\newline MP & 用户均衡 & EV+TH & $\alpha$-$\beta$-$\gamma$\newline 时间价值分布 & 异质性改变\newline 最优收费结构 & 连续vs离散时间\newline 非token场景\\
+\midrule
+\multicolumn{8}{l}{\textbf{F. 动态定价/收益管理}} \\
+\midrule
+14 & Gallego-van Ryzin\newline (1994) & 垄断者\newline 有限库存\newline SP & 最优控制 & TH & 随机需求\newline 易逝品定价 & 最优价格=\newline 需求弹性倒数 & 不涉及用户\newline 策略性行为\\
+15 & Borenstein (2005)\newline 实时定价 & 电力市场\newline 用户弹性\newline SP & 竞争均衡 & EV+TH & 实时价格信号\newline 效率增益依赖于弹性 & 弹性越大\newline 效率增益越大 & 电力vstoken\newline 无退化函数\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\newpage
+\section{分类讨论}
+
+\subsection{Stackelberg层次博弈（A类）}
+
+Guo等人\cite{guo2025prilm}的PrILM模型将LLM服务市场建模为\textbf{单领导者多跟随者Stackelberg博弈}：服务商设定单价，用户根据价格和拥塞水平路由token需求。用户侧博弈具有唯一Nash均衡（基于Rosen\cite{rosen1965existence}的凹Nash条件），平台利用深度聚合网络加速均衡计算。PrILM与本文的核心差异在于：（1）PrILM考虑多平台竞争（平台间价格竞争），本文假设单一平台；（2）PrILM无退化函数——拥塞直接影响用户延迟（效用函数中的显式项），而非间接影响服务质量$\varphi$。
+
+Yan等人\cite{yan2026stackelberg}的GPU云定价模型引入了\textbf{可排出性护栏}（expellable guardrails）和\textbf{动作盾}（action shields）——系统约束防止进入不可排出的失效状态。该模型关注系统可靠性保障（保证GPU集群不因积压过载崩溃），而非本文聚焦的效率/利润优化。两者的互补性在于：Yan的护栏提供了容量管理的\textit{安全约束}，本文的定价提供了容量管理的\textit{效率机制}。
+
+Brenner等人\cite{brenner2026spatial}将空间负荷转移建模为Stackelberg博弈，与本文时间维度形成对比。空间Stackelberg中，弹性用户在不同地理节点间转移需求以响应区域价格差，均衡条件与时间维度数学结构同构——空间距离成本$\leftrightarrow$时间转移成本$c_s$，区域容量差异$\leftrightarrow$时段容量相同。
+
+\subsection{拥塞/势博弈（B类）}
+
+Monderer和Shapley\cite{monderer1996potential}的势博弈理论是本文\textbf{弹性用户时段选择博弈}的方法论起点。势博弈的关键性质是：每个用户的单方面偏离导致的效用变化等价于势函数的变化，因此Nash均衡等价于势函数的局部最优。但本文第一版中直接声称logit模型下的时段选择博弈是势博弈是不准确的——logit模型中用户的效用不直接依赖其他用户的策略（退化函数通过$u_t$引入了间接依赖性）。本文最终采用了Brouwer不动点存在性而非势博弈均衡存在性，但势博弈分析框架在Stackelberg扩展中仍具有重要意义：给定$\mathbf{p}$，弹性用户的时段选择博弈是\textbf{加权势博弈}（weighted potential game）\cite{mas-colell1984existence}，因为退化函数$\varphi(u_t)$关于$u_t$单调递减，使效用函数满足势博弈的差分条件。
+
+Rosen\cite{rosen1965existence}的凹Nash博弈理论给出了均衡存在性与唯一性的经典条件，但本文的利润函数因退化函数$\varphi$的非凹性不满足Rosen的凹性要求。这是本文理论分析的核心困难之一。
+
+Vickrey\cite{vickrey1969congestion}和Pigou\cite{pigou1920economics}的拥塞定价理论将\textbf{外部性内生化}：用户的额外需求增加了所有人的拥堵（或退化）。本文的退化函数$\varphi(u_t)$本质上是Pigouvian外部性的token实现——峰时价格中的$p_t - w$包含了退化外部性的补偿。
+
+\subsection{重复博弈与算法合谋（C类）}
+
+Fish等人\cite{fish2024algorithmic}将LLM定价智能体放入\textbf{重复Bertrand寡头博弈}（differentiated products）中，发现GPT-4等模型可在无需显式通信的情况下达成隐性合谋——价格显著高于竞争水平。该发现对token市场的启示是双重的：（1）如果多个token推理平台存在，算法合谋可能使价格高于竞争水平，损害消费者福利；（2）本文的单一平台垄断假设是一个简化的第一步，未来扩展需考虑多平台竞争中的均衡定价行为。
+
+Akata等人\cite{akata2025playing}的重复博弈实验显示LLM在\textbf{囚徒困境}中表现优异（追求个体利益最大化），但在\textbf{性别战}（coordination games）中表现欠佳。这表明LLM作为定价智能体在竞争性场景中可能过于"理性"，忽视了协调合作可能带来的共同利益。
+
+\subsection{机制设计与信息博弈（D类）}
+
+Myerson\cite{myerson1981optimal}的最优拍卖理论为信息不对称下的机制设计提供了\textbf{显示原理}（revelation principle）——任何机制都可被一个直接显示机制（用户报告类型，机制分配结果）替代而不损失效率。本文的机制设计扩展（第5节）遵循这一原理：平台提供价格菜单$\{p_t^{\text{rigid}}, p_t^{\text{flex}}\}$，用户自选择类型。但退化函数的存在使平台的收益函数非凹，无法直接应用Myerson的经典结果，需要结合Mussa-Rosen\cite{mussa1978monopoly}的质量歧视模型进行适应。
+
+Mussa和Rosen的质量歧视模型与本文\textbf{最直接相关}：垄断者通过提供不同质量-价格组合实现消费者筛选。在经典模型中，质量是外生可控变量（如产品耐用性），消费者选择最符合其偏好的质量水平。在本文中，质量（服务质量$\varphi$）内生决定于需求分配——弹性用户转移到谷时后，不仅获得更低价格，也间接造成峰时质量改善。这种"质量内生化"使得最优价格菜单的结构比Mussa-Rosen更复杂。
+
+Rochet和Tirole\cite{rochet2003platform}的双边平台理论在本文的Stackelberg扩展中具有方法论价值：平台作为需求侧（刚性/弹性用户）和供给侧（GPU容量）的中介，需平衡两侧激励。
+
+\subsection{瓶颈/调度博弈（E类）}
+
+Arnott等人\cite{arnott1993structure}的瓶颈模型是\textbf{与本文数学结构最近似}的已有模型：通勤者在瓶颈容量约束下选择出发时间，早到或晚到面临\textit{schedule delay}惩罚。在用户均衡中，所有选择的时间点具有相同的一般化出行成本（travel time + schedule delay）。
+
+瓶颈模型与本文的结构对应关系：
+\begin{itemize}
+  \item 瓶颈容量 $s \leftrightarrow$ GPU容量 $G$
+  \item 通勤者 $\leftrightarrow$ 弹性用户
+  \item schedule delay $\leftrightarrow$ 转移成本 $c_s$ + 时段偏好 $\tau_t$
+  \item 排队等候时间 $\leftrightarrow$ 退化函数 $1-\varphi(u_t)$
+  \item 最优拥堵费 $\leftrightarrow$ 动态峰时溢价
+\end{itemize}
+
+关键差异在于：（1）瓶颈模型中早到/晚到惩罚对称（$\beta$和$\gamma$），本文中时段偏好可完全不对称；（2）瓶颈模型中的排队是显式物理过程，本文的退化是隐式服务质量衰减——前者的拥堵直接影响每个用户，后者的退化通过$\varphi$影响所有用户的\textit{有效收入}而非直接的效用损失。
+
+Small\cite{small1982scheduling}将通勤者的时间价值异质性引入瓶颈模型，发现时间价值分布显著影响最优收费结构。类似地，本文的$\alpha$（logit温度）和$c_s$（转移成本）异质性对动态定价的福利效果有重要影响（见第6.3节）。
+
+\subsection{动态定价/收益管理（F类）}
+
+Gallego和van Ryzin\cite{gallego1994multiproduct}的经典动态定价模型处理的是\textbf{有限库存+随机需求}的最优定价问题。本文的token推理市场属于"可持续容量"（GPU容量每时段可复用，但有限），与飞机座位（一次性库存）有本质区别。可持续容量下，动态定价的主要动机是时间维度上的需求平滑（peak shaving），而非库存管理。
+
+Borenstein\cite{borenstein2005long}的实时定价研究从电力市场的实证数据发现：用户弹性是决定动态定价福利效果的关键参数——弹性越高，效率增益越大。本文的数值仿真（第6.3节）证实了这一点：$\alpha$从0.5到8.0，福利增益从8.0\%增至10.2\%。但token市场的用户弹性通过logit选择模型实现，比电力市场的恒弹性需求函数更灵活。
+
+\section{本文的博弈创新点}
+
+与上述15个模型相比，本文的博弈建模创新体现在三个维度：
+
+\begin{enumerate}
+  \item \textbf{退化函数 $\varphi(u_t)$：} 将服务质量内生化于利用率，建立了需求分配$\rightarrow$质量$\rightarrow$有效收入的因果链条，这是已有模型未涉及的。
+  \item \textbf{收入中性约束：} 平均价格固定的条件下，动态定价只能通过需求重分配而非提价来增加利润——这种约束来源于监管或市场竞争，突出价格结构的效率而非价格水平。已有Stackelberg模型（PrILM、Yan等）无此约束。
+  \item \textbf{机制设计与拥塞的交叉：} 信息不对称下的用户类型区分在退化环境下呈现出非标准性质——信息租金关于转移成本非单调（$c_s$很小时MD因折扣上界太紧而效率低，$c_s$很大时MD接近FB），这在经典机制设计中不出现。
+\end{enumerate}
+
+\begin{thebibliography}{99}
+\bibitem{guo2025prilm} Z. Guo, W. Bai, and J. Jin. Pricing Online LLM Services with Data-Calibrated Stackelberg Routing Game. \textit{arXiv:2511.09062}, 2025.
+\bibitem{yan2026stackelberg} Y. Yan et al. Large-Scale Population Stackelberg Game for GPU Cloud Pricing. \textit{Working paper}, 2026.
+\bibitem{brenner2026spatial} R. Brenner et al. Strategic Spatial Load Shifting in Distributed Inference Markets. \textit{Working paper}, 2026.
+\bibitem{monderer1996potential} D. Monderer and L. S. Shapley. Potential Games. \textit{Games and Economic Behavior}, 14(1):124--143, 1996.
+\bibitem{rosen1965existence} J. B. Rosen. Existence and Uniqueness of Equilibrium Points for Concave $N$-Person Games. \textit{Econometrica}, 33(3):520--534, 1965.
+\bibitem{vickrey1969congestion} W. S. Vickrey. Congestion Theory and Transport Investment. \textit{American Economic Review}, 59(2):251--260, 1969.
+\bibitem{pigou1920economics} A. C. Pigou. \textit{The Economics of Welfare}. Macmillan, 1920.
+\bibitem{fish2024algorithmic} S. Fish, Y. A. Gonczarowski, and R. I. Shorrer. Algorithmic Collusion by Large Language Models. \textit{arXiv:2404.00845}, 2024.
+\bibitem{akata2025playing} E. Akata et al. Playing Repeated Games with Large Language Models. \textit{arXiv:2405.13247}, 2025.
+\bibitem{myerson1981optimal} R. B. Myerson. Optimal Auction Design. \textit{Mathematics of Operations Research}, 6(1):58--73, 1981.
+\bibitem{mussa1978monopoly} M. Mussa and S. Rosen. Monopoly and Product Quality. \textit{Journal of Economic Theory}, 18(2):301--317, 1978.
+\bibitem{rochet2003platform} J.-C. Rochet and J. Tirole. Platform Competition in Two-Sided Markets. \textit{Journal of the European Economic Association}, 1(4):990--1029, 2003.
+\bibitem{arnott1993structure} R. Arnott, A. de Palma, and R. Lindsey. A Structural Model of Peak-Period Congestion: A Traffic Bottleneck with Elastic Demand. \textit{American Economic Review}, 83(1):161--179, 1993.
+\bibitem{small1982scheduling} K. A. Small. The Scheduling of Consumer Activities: Work Trips. \textit{American Economic Review}, 72(3):467--479, 1982.
+\bibitem{gallego1994multiproduct} G. Gallego and G. van Ryzin. Optimal Dynamic Pricing of Inventories with Stochastic Demand over Finite Horizons. \textit{Management Science}, 40(8):999--1020, 1994.
+\bibitem{borenstein2005long} S. Borenstein. The Long-Run Efficiency of Real-Time Electricity Pricing. \textit{The Energy Journal}, 26(3):93--116, 2005.
+\bibitem{mas-colell1984existence} A. Mas-Colell. On the Existence of Equilibrium without Free Disposal. \textit{Journal of Mathematical Economics}, 13(1):1--15, 1984.
+\end{thebibliography}
+
+\end{document}

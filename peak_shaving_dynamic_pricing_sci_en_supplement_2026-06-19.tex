@@ -1,0 +1,278 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\setlength{\emergencystretch}{3em}
+
+\title{\textbf{Supplementary Material:\\
+Time-of-Use Pricing for Fixed-Capacity Inference Services}}
+\author{Anonymous Author}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{S1. Parameters}
+
+Table~\ref{tab:params} reports the main parameters used in the peak-shaving
+experiments. Unless stated otherwise, values come from
+\path{pricing_sim/peak_shaving_config.py}. These are synthetic calibrations for
+mechanism analysis, not production estimates.
+
+\begin{longtable}{p{0.28\textwidth}p{0.23\textwidth}p{0.39\textwidth}}
+\caption{Main simulation parameters}
+\label{tab:params}\\
+\toprule
+Parameter & Value & Meaning \\
+\midrule
+\endfirsthead
+\toprule
+Parameter & Value & Meaning \\
+\midrule
+\endhead
+$T$ & 8 & Number of periods in one day. \\
+$h$ & 3 hours & Length of one period. \\
+$G_A,G_B$ baseline & 1500, 600 & Fixed provider capacities. \\
+$G_A,G_B$ congested & 300, 120 & Tightened capacities used to activate QoS degradation. \\
+$\pi_R,\pi_E$ baseline & 0.6, 0.4 & Population shares of time-rigid and time-flexible users. \\
+$\pi_R,\pi_E$ congested & 0.4, 0.6 & Population shares in the congested experiments. \\
+\texttt{base\_rigid} & \begin{tabular}[t]{@{}l@{}}200,150,300,600,\\800,900,700,250\end{tabular} & Rigid-demand baseline. \\
+\texttt{time\_preference} & \begin{tabular}[t]{@{}l@{}}0.30,0.20,0.50,0.80,\\1.00,1.00,0.90,0.40\end{tabular} & Exogenous period preference. \\
+\texttt{intermediary\_brand} & 1.05 & Intermediary convenience parameter. \\
+\texttt{firm\_brand} & 1.0, 1.0 & Providers are nearly homogeneous in model quality. \\
+\texttt{flexible\_baseline} & 400 & Flexible-demand scale. \\
+\texttt{rigid\_wtp} & 1.80 & Reservation value for rigid or replay demand. \\
+\texttt{rigid\_churn\_rate} & 5.0 & Price-response slope for rigid demand. \\
+\texttt{market\_growth} & 1.2 & Flexible market expansion at low prices. \\
+$p_0$ & 0.80 & Baseline price. \\
+Direct price bounds & [0.45, 2.10] & Provider direct retail-price bounds. \\
+Wholesale price bounds & [0.25, 0.90] & Provider wholesale-price bounds. \\
+$\alpha_R,\alpha_E$ & 2.0, 5.0 & Price sensitivity of time-rigid and time-flexible users. \\
+$c_s^R,c_s^E$ & 0.60, 0.10 & Switching costs of time-rigid and time-flexible users. \\
+$\bar u$ & 0.82 & QoS degradation threshold. \\
+\texttt{qos\_strength} & 15.0 & QoS degradation strength. \\
+$\gamma$ & 1.0 & QoS feedback weight in utility. \\
+$c_g$ & 0.015 & Fixed capacity holding cost. \\
+$c_q$ & 0.35 & QoS degradation cost. \\
+$u_0$ & 0.0 & Utility of the no-purchase outside option. \\
+\bottomrule
+\end{longtable}
+
+\section*{S2. Pricing Shape and Grids}
+
+Provider strategies are restricted to four scalar parameters,
+$(\bar w_m,\delta_m,\bar p^D_m,\delta^D_m)$. The period prices are
+\[
+  w_{m,t}=\bar w_m(1+\delta_m\widehat{\ell}_t),\qquad
+  p^D_{m,t}=\bar p^D_m(1+\delta^D_m\widehat{\ell}_t),
+\]
+with clipping to the allowed price bounds. Uniform pricing is implemented by
+setting $\widehat{\ell}_t=0$, so internal $\delta$ values do not create
+period-varying prices.
+
+The coarse fictitious-play grid uses
+\[
+\begin{aligned}
+\bar w&\in\{0.30,0.85\},&
+\delta&\in\{-0.4,-0.133,0.133,0.4\},\\
+\bar p^D&\in\{0.70,1.50\},&
+\delta^D&\in\{-0.4,-0.133,0.133,0.4\}.
+\end{aligned}
+\]
+The fine-grid check uses
+\[
+\begin{aligned}
+\bar w&\in\{0.27,0.575,0.88\},&
+\delta&\in\{-0.4,-0.2,0,0.2,0.4\},\\
+\bar p^D&\in\{0.60,1.10,1.60\},&
+\delta^D&\in\{-0.4,-0.2,0,0.2,0.4\}.
+\end{aligned}
+\]
+The intermediary response is computed over a three-parameter grid: retail base
+price, retail dynamic intensity, and routing price sensitivity.
+
+\section*{S3. Artifact Map}
+
+\begin{longtable}{p{0.28\textwidth}p{0.31\textwidth}p{0.31\textwidth}}
+\caption{Artifact sources for main-paper quantities}
+\label{tab:artifact-map}\\
+\toprule
+Main-paper quantity & Artifact & Fields \\
+\midrule
+\endfirsthead
+\toprule
+Main-paper quantity & Artifact & Fields \\
+\midrule
+\endhead
+Uncongested profit and utilization & \path{artifacts/peak_shaving/20260618/peak_shaving_summary.json} & \path{uniform}, \path{dynamic}. \\
+Uncongested demand shift & \path{artifacts/peak_shaving/20260618/peak_shaving_summary.json} & \path{P1_migration.rigid_shift}, \path{P1_migration.elastic_shift}. \\
+Elastic-population scan & \path{artifacts/peak_shaving/20260618/peak_shaving_summary.json} & \path{elastic_sweep}. \\
+Congested uniform baseline & \path{artifacts/peak_shaving/20260618/peak_shaving_congested_fp.json} & \path{uniform.system_profit}, \path{uniform.peak_util}, \path{uniform.min_qos_firm}. \\
+Dynamic coarse grid & \path{artifacts/peak_shaving/20260618/peak_shaving_fp_dynamic_converged.json} & \path{system_profit}, \path{peak_util}, \path{min_qos}, \path{delta_A}, \path{delta_B}. \\
+Dynamic fine snapshot & \path{artifacts/peak_shaving/20260618/peak_shaving_fp_dynamic_converged_fine.json} & \path{system_profit}, \path{peak_util}, \path{min_qos}, \path{delta_A}, \path{delta_B}. \\
+Fine-grid pure-snapshot regret & \path{artifacts/peak_shaving/20260618/fp_dynamic_ckpt_fine.json} & \path{round=40}, \path{maxreg=22.3029}. \\
+Coarse-grid regret & \path{artifacts/peak_shaving/20260618/fp_dynamic_ckpt.json} & \path{round=22}, \path{maxreg=4.9821}. \\
+Mechanism diagnostics & \path{artifacts/peak_shaving/20260619/} & \path{peak_shaving_diagnostics.json}, CSV summaries, time profiles. \\
+Mixed-strategy diagnostic & \path{artifacts/peak_shaving/20260619_submission/peak_shaving_mixed_oracle.json} & \path{trace}, \path{expected_metrics}, \path{row_mix}, \path{col_mix}. \\
+Parameter stress tests & \path{artifacts/peak_shaving/20260619_submission/peak_shaving_parameter_sweep_summary.json} & QoS gains, peak-utilization reductions, profit signs. \\
+SMPT diagnostics & \path{artifacts/peak_shaving/20260619_smpt/} & Strong baselines, ablations, phase grid, residuals, restricted re-solve. \\
+Public price scale & \path{artifacts/peak_shaving/20260619_submission/public_api_price_anchor.json} & Z.AI, DeepSeek, and OpenAI prices checked on 2026-06-19. \\
+vLLM QoS anchor & \path{artifacts/peak_shaving/20260619_submission/vllm_qos_anchor_summary.json}, \path{vllm_qos_anchor_points.csv} & TTFT-SLA curves, fitted parameters, and source CSVs. \\
+\bottomrule
+\end{longtable}
+
+\section*{S4. Submission-Strengthening Diagnostics}
+
+The high-regret fine-grid pure snapshot could be misread as an equilibrium if
+reported alone. The script \path{experiments/run_peak_shaving_mixed_oracle.py}
+uses a double-oracle diagnostic over the full 225-point fine grid. It
+starts from a small support, repeatedly adds best deviations, and solves an
+empirical fictitious-play profile on the restricted support. The current run
+obtains a $5\times5$ support in round 5. Full-grid maximum regret is $0.2025$.
+The expected peak utilization is $0.7030$, the minimum QoS is $0.9699$, and
+system profit is $1733.13$.
+
+The script \path{experiments/run_peak_shaving_parameter_sweep.py} performs the
+local fixed-policy stress test. It evaluates nine perturbation scenarios covering
+capacity scale, price sensitivity, switching cost, and the QoS threshold. Both
+dynamic snapshots keep positive minimum-QoS gains and positive peak-utilization
+reductions in all nine scenarios. Profit is not stable: the dynamic fine snapshot
+is positive in only one scenario.
+
+\section*{S5. SMPT Additional Diagnostics}
+
+The script \path{experiments/run_peak_shaving_smpt_experiments.py} adds diagnostics
+requested by the SMPT-oriented review. Outputs are stored under
+\path{artifacts/peak_shaving/20260619_smpt/} and
+\path{figures/peak_shaving_smpt/}. Table~\ref{tab:smpt-files} lists the generated
+files.
+
+\begin{longtable}{p{0.32\textwidth}p{0.55\textwidth}}
+\caption{SMPT diagnostic artifact bundle}
+\label{tab:smpt-files}\\
+\toprule
+File & Contents \\
+\midrule
+\endfirsthead
+\toprule
+File & Contents \\
+\midrule
+\endhead
+\path{peak_shaving_smpt_experiments.json} & Full bundle with metadata, baselines, ablations, phase grid, fixed-point residuals, and restricted re-solved sensitivity. \\
+\path{smpt_baselines.csv} & Static pricing, off-peak discount only, peak surcharge only, dynamic coarse/fine, equal routing, and admission-control diagnostic rows. \\
+\path{smpt_ablations.csv} & Outside-option, direct-channel, capacity-homogeneity, time-flexibility, and equal-routing ablations. \\
+\path{smpt_phase_grid.csv} & Fixed-policy grid over capacity scale and price-sensitivity scale. \\
+\path{smpt_fixed_point_residuals.csv} & Iterations and final residuals for the main baseline and dynamic-policy fixed points. \\
+\path{smpt_vv_damping_initial.csv} & Initial-condition and damping-factor audit for uniform, dynamic coarse, and dynamic fine fixed points. \\
+\path{smpt_resolved_sensitivity.csv} & Restricted local candidate re-solve for five selected perturbation scenarios. \\
+\bottomrule
+\end{longtable}
+
+The strongest new baseline comparison is not a new equilibrium proof. It shows
+that one-sided price shapes improve QoS but do not match the full dynamic coarse
+policy: off-peak-only discounting reaches minimum QoS $0.833$, peak-only
+surcharge reaches $0.921$, and dynamic coarse reaches $0.968$. Equal routing
+with the same dynamic coarse prices reaches $0.881$, showing that routing and
+price timing both contribute. The admission-control diagnostic indicates that
+matching the dynamic coarse peak-utilization target with static pricing would
+require a minimum admitted fraction of $0.902$ in the tightest period.
+
+The fixed-point residual check reports final residuals below $10^{-9}$ for the
+static baseline, off-peak-only, peak-only, dynamic coarse, and dynamic fine rows.
+The damping and initialization audit evaluates three initial QoS levels and
+three damping factors for uniform, dynamic coarse, and dynamic fine. It converges
+in 24 of 27 rows. Dynamic coarse and dynamic fine converge in all 18 rows; the
+three non-converged rows are the static uniform baseline with damping $0.5$.
+The fixed-policy phase grid has positive QoS gain and peak-utilization reduction
+in all 25 capacity--elasticity grid points. The restricted local candidate
+re-solve keeps positive QoS gain in all five selected scenarios; profit is
+positive in three and negative in two, preserving the profit-boundary conclusion.
+
+\section*{S6. Price and QoS Anchors}
+
+The public price anchor is stored in
+\path{artifacts/peak_shaving/20260619_submission/public_api_price_anchor.json}.
+It is used only to check order of magnitude. It is not an estimate of demand
+elasticity.
+
+The controlled vLLM QoS-shape anchor is produced by
+\path{experiments/build_peak_shaving_measurement_anchor.py}. Inputs are
+\path{artifacts/vllm-study/20260531-190126/controlled_aggregate.csv} and
+\path{artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv}.
+Both scans use vLLM 0.22.0 and an NVIDIA GeForce RTX 4090. QoS is the
+attainment rate for a 0.5-second time-to-first-token SLA. Table~\ref{tab:vllm}
+reports the fitted threshold-type QoS parameters.
+
+\begin{table}[H]
+\centering
+\caption{Controlled vLLM single-GPU QoS-shape anchor}
+\label{tab:vllm}
+\footnotesize
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Profile & Healthy conc. & $\bar u$ & $\kappa$ & RMSE & Drop conc. & Min QoS \\
+\midrule
+Qwen2.5-0.5B & 224 & 1.000 & 0.517 & 0.068 & 384 & 0.500 \\
+Qwen2.5-3B & 224 & 1.058 & 0.942 & $6.3\times10^{-10}$ & 384 & 0.667 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{S7. Reproduction Commands}
+
+Run the following commands in
+\path{/root/paper_code/0427_tokenrl/paper_token_cross_survey}.
+
+\begin{verbatim}
+uv run --with-requirements requirements.txt \
+  python experiments/build_peak_shaving_diagnostics.py
+uv run --with-requirements requirements.txt \
+  python experiments/run_peak_shaving_parameter_sweep.py
+uv run --with-requirements requirements.txt \
+  python experiments/run_peak_shaving_mixed_oracle.py
+uv run --with-requirements requirements.txt \
+  python experiments/run_peak_shaving_smpt_experiments.py
+uv run --with-requirements requirements.txt \
+  python experiments/run_peak_shaving_smpt_vv_audit.py
+uv run --with-requirements requirements.txt \
+  python experiments/build_peak_shaving_measurement_anchor.py
+\end{verbatim}
+
+Compile the English manuscript and supplement with:
+
+\begin{verbatim}
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex
+bibtex peak_shaving_dynamic_pricing_sci_en_2026-06-19
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex
+\end{verbatim}
+
+\section*{S8. Known Boundaries}
+
+The fine-grid pure snapshot does not reach the regret $<5$ criterion within
+40 rounds. Its profit, dynamic intensity, and demand-centroid values should be
+read as high-regret snapshot diagnostics. The mixed-strategy diagnostic lowers
+regret on the finite 225-point grid, but it is not a continuous-strategy
+equilibrium proof.
+
+The SMPT diagnostics strengthen the baseline and sensitivity evidence but do not
+remove the calibration boundary. The phase grid is still fixed-policy evidence,
+and the re-solved sensitivity uses a restricted local candidate set rather than
+a full continuous-strategy search. The paper does not calibrate price sensitivity,
+switching cost, or outside-option utility from real request traces. Public API
+prices provide only a price-scale anchor. The vLLM scans provide only a single-GPU,
+small-model, short-generation QoS-shape anchor. Production use would require
+traces, multi-GPU measurements, long-context workloads, user behavior calibration,
+and online evaluation.
+
+\end{document}

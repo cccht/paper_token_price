@@ -1,0 +1,1125 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[numbers]{natbib}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{subcaption}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\captionsetup[figure]{font=small,labelfont=bf,labelsep=period}
+\captionsetup[table]{font=small,labelfont=bf,labelsep=period}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
+\newcommand{\qos}{q}
+\newcommand{\pcap}{\bar p}
+\newcommand{\R}{R}
+\newcommand{\F}{F}
+\newcommand{\D}{D}
+
+\title{\textbf{Intertemporal Token Service Pricing Inspired by Electricity Demand Response:\\[4pt]
+A Leader--Follower Model under a Fixed-Average-Price Constraint}}
+
+\author{Anonymous Author(s)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Inference serving faces significant time-of-day load fluctuations. High load
+increases tail latency and reduces effective throughput, motivating platforms
+to indirectly coordinate user demand through intermediaries. This paper
+proposes a three-layer Stackelberg game pricing model: the platform, as the
+top-level leader, announces wholesale prices to multiple competing
+intermediaries; intermediaries, as second-layer decision-makers, allocate
+service capacity across time periods and set retail prices for end users;
+users, as third-layer followers, choose time periods based on prices,
+time-slot preferences, and switching costs. The contributions are:
+(i) unifying finite-player pure-strategy Nash equilibrium in congestion
+games, logit stochastic user equilibrium, and Stackelberg subgame-perfect
+equilibrium into a three-layer nested framework, providing rigorous
+game-theoretic micro-foundations for three-party decision-making;
+(ii) proving the existence of user-side pure-strategy Nash equilibrium
+within a potential game framework and establishing the large-population
+limit convergence from finite-player PSNE to logit SUE;
+(iii) designing joint capacity-allocation and retail-pricing strategies
+for intermediaries, and a wholesale pricing strategy for the platform.
+All numerical experiments are fully reproducible via auto-generated code.
+Under synthetic baseline parameters, the three-layer dynamic pricing
+strategy raises the minimum QoS factor across all periods from 0.6632
+to 0.9918 and increases aggregate intermediary profit by 80.51\%
+relative to uniform pricing.
+\end{abstract}
+
+\noindent\textbf{Keywords:} Inference serving; Token pricing; Intertemporal pricing;
+Quality of service; Leader--follower model; Demand response; Constrained
+optimization
+
+\section{Introduction}
+
+Large language model (LLM) inference has evolved from one-off offline computation to
+continuous online service. Interactive requests, offline batch processing, agent
+tasks, and periodic workflows exhibit distinct arrival patterns and completion
+deadlines, creating uneven per-period loads. Early work on ML serving systems
+demonstrated that batching, resource sharing, and dynamic selection jointly affect
+throughput, latency, and cost
+\cite{crankshaw2017clipper,gujarati2020clockwork,romero2021infaas}.
+Generative models introduce token-by-token decoding, KV cache consumption, and
+prefill--decode interference, making performance near capacity boundaries
+substantially more variable
+\cite{yu2022orca,kwon2023pagedattention,agrawal2024sarathiserve}.
+
+Existing inference-serving research primarily improves execution efficiency
+under a fixed request set, employing memory management, phase splitting,
+scheduling migration, and simulator-assisted planning to boost throughput or
+goodput
+\cite{patel2024splitwise,zhong2024distserve,agrawal2024vidur}.
+While important, these approaches do not directly address a distinct question:
+when some requests can be shifted across time periods, can a platform use
+time-differentiated prices to alleviate congestion and improve effective
+service volume under an overall price cap?
+
+The dynamic pricing and revenue management literature provides a relevant
+analytical foundation. Foundational work has examined inventory pricing over
+finite horizons, revenue management models, and congestion resource allocation
+\cite{vickrey1969congestion,gallego1994dynamic,elmaghraby2003dynamic,
+bitran2003overview,talluri2004revenue,phillips2005pricing}.
+Real-time pricing and demand response research in electricity markets further
+demonstrates that temporally elastic loads can respond to peak and off-peak
+prices \cite{schweppe1988spot,borenstein2005long,albadi2008summary,
+faruqui2010household,allcott2011rethinking,siano2014demand}.
+Inference serving and power systems are not equivalent: the key constraints in
+the former are GPU serving capacity, queueing delays, and effective completion
+rates, whereas the latter also involve physical networks, power flow, and
+market regulation. We adopt only the mechanism template of
+``intertemporal scarcity pricing to coordinate flexible loads'' and do not
+claim a physical isomorphism between token services and power systems.
+
+Recent work has begun examining costs, demand, and token pricing in LLM
+markets
+\cite{demirer2025emerging,erdil2025inference,bergemann2025menu,
+xing2026tokenfutures}.
+Guo et al.\ propose PriLLM, which uses a data-calibrated Stackelberg routing
+game for real-time dynamic pricing in a competitive LLM routing market
+\cite{guo2026prillm};
+Yan et al.\ study joint pricing, scaling, and eviction guards in multi-tenant
+GPU platforms \cite{yan2026stackelberg};
+Cunningham unifies admission and auto-scaling into a control-plane capacity
+right via token pools \cite{cunningham2026token}.
+Rather than competitive model routing, scaling control, or admission control,
+we focus on single-platform intertemporal demand migration under a
+fixed-average-price constraint. QoS degradation is modeled as a parametric
+function of load, capturing the effective service loss from latency, timeouts,
+and task completion rates. This proxy is not calibrated from real GPU
+experiments as an ``answer correctness'' curve, nor does it constitute a
+regulatory policy conclusion.
+
+Our contributions are as follows:
+\begin{enumerate}[leftmargin=2em]
+  \item We adapt the intertemporal scarcity-pricing mechanism and
+  leader--follower structure from electricity demand response to token
+  services, distinguishing rigid demand, elastic demand, QoS degradation,
+  profit, and in-model welfare components.
+  \item We formalize the price constraint as a \textbf{fixed average price},
+  add an optional posted-bill protection constraint, and provide the
+  computational method, Euclidean optimality, and feasibility proof for the
+  bounded-mean projection.
+  \item We implement three classes of policies---uniform pricing, myopic
+  dynamic pricing, and QoS-aware dynamic pricing---and preserve per-run
+  experimental configurations, price vectors, demand, utilization, QoS,
+  constraint residuals, and solver diagnostics.
+  \item Through 10 random seeds and 9 sensitivity or ablation experiments,
+  we characterize the incremental value of QoS modeling and its applicability
+  boundaries, and transparently state the limitations of the current
+  simulation.
+  \item We conduct supplementary single-GPU load experiments on a local
+  Ollama backend with an RTX 4090, reporting TTFT, inter-token latency,
+  throughput, completion rate, GPU utilization, and memory consumption to
+  validate inference congestion.
+  \item We perform repeated-overload scans, limited-batch multi-wave stress
+  tests, and long-context checks on a vLLM primary backend, reporting
+  empirical curves of TTFT, throughput, and SLA attainment rate as a
+  function of load.
+\end{enumerate}
+
+The paper is organized around three research questions:
+\begin{enumerate}[leftmargin=2em,label=\textbf{RQ\arabic*:}]
+  \item Can dynamic pricing under a fixed-average-price constraint shift
+  elastic demand and alleviate peak congestion?
+  \item Does explicit QoS modeling provide incremental value beyond generic
+  dynamic pricing, and under what conditions does this value emerge or
+  disappear?
+  \item Are the main conclusions robust to key assumptions including
+  capacity, price cap, bill protection, market expansion, and demand
+  feedback?
+\end{enumerate}
+Section~\ref{sec:related_work} positions our work; Section~\ref{sec:model}
+defines the model and its applicability boundary;
+Section~\ref{sec:algorithm} presents theoretical properties and the solution
+algorithm; Section~\ref{sec:experiments} addresses the three research
+questions in turn; Section~\ref{sec:discussion} discusses the scope of our
+findings and the path to system-level validation.
+
+\section{Related Work}
+\label{sec:related_work}
+
+\subsection{Inference Serving Systems and Resource Efficiency}
+
+General ML serving systems focus on low-latency prediction, resource
+multiplexing, and performance predictability. Clipper improves online
+prediction serving efficiency through batching, caching, and adaptive model
+selection; Clockwork emphasizes predictable execution; INFaaS dynamically
+selects model variants based on performance and accuracy requirements
+\cite{crankshaw2017clipper,gujarati2020clockwork,romero2021infaas}.
+These works demonstrate that service quality is not a single throughput
+metric but is jointly influenced by scheduling, load, and resource
+configuration.
+
+Generative LLM serving has created more fine-grained system research
+directions. Orca introduces iteration-level scheduling, PagedAttention
+improves KV cache management, and SARATHI mitigates prefill--decode
+interference \cite{yu2022orca,kwon2023pagedattention,agrawal2024sarathiserve}.
+Splitwise and DistServe improve serving efficiency through phase splitting
+and prefill--decode decoupling \cite{patel2024splitwise,zhong2024distserve}.
+AlpaServe studies statistical multiplexing, and FlexGen studies
+high-throughput inference under memory constraints
+\cite{li2023alpaserve,sheng2023flexgen}. Vidur provides a simulation
+framework for large-scale inference \cite{agrawal2024vidur}. Rather than
+replacing these system optimizations, our work studies intertemporal demand
+coordination for a given serving capacity and QoS proxy.
+
+\subsection{Dynamic Pricing, Congestion, and Revenue Management}
+
+Explicit prices can coordinate scarce resources. Vickrey discusses
+congestion pricing and transport investment; Arnott et al.\ analyze
+bottleneck congestion; Gallego and van Ryzin study dynamic inventory
+pricing under stochastic demand
+\cite{vickrey1969congestion,arnott1990bottleneck,gallego1994dynamic}.
+Revenue management surveys and monographs further organize the connections
+between pricing, capacity, and demand response
+\cite{elmaghraby2003dynamic,bitran2003overview,talluri2004revenue,
+phillips2005pricing}.
+Inference serving does not involve storable inventory; we draw on these
+works for the principle that ``prices can alter the temporal allocation of
+scarce capacity'' rather than directly adopting the inventory-depletion
+assumption.
+
+\subsection{Electricity Dynamic Pricing and Demand Response}
+
+The power systems literature has long studied real-time pricing, transmission
+constraints, and demand response. Schweppe et al.\ systematically discuss
+spot pricing of electricity; Hogan studies contract networks for
+transmission; Bessembinder and Lemmon analyze forward market equilibrium
+\cite{schweppe1988spot,hogan1992contract,
+bessembinder2002equilibrium}.
+Borenstein addresses electricity market design risks and the long-run
+efficiency of real-time pricing
+\cite{borenstein2002trouble,borenstein2005long}.
+Herter, Faruqui and Sergici, and Allcott provide empirical studies of
+dynamic pricing and demand response
+\cite{herter2007residential,faruqui2010household,allcott2011rethinking};
+survey articles further organize demand response mechanisms and algorithms
+\cite{albadi2008summary,siano2014demand,vazquez2019reinforcement}.
+At the algorithmic level, Bejestani and Annaswamy study dynamic mechanisms
+for wholesale energy markets; Almani and Han, and Ismail and Baysal use
+deep learning and reinforcement learning for real-time demand response
+\cite{bejestani2014dynamic,almani2023realtime,ismail2023dynamic}.
+
+The above literature supports the premise of our work: when load exhibits
+temporal elasticity and peak costs are high, uniform prices may not
+adequately convey time-of-day scarcity. Nevertheless, the two types of
+systems differ fundamentally. Power systems must satisfy physical balance
+and network security constraints, whereas inference serving must measure
+GPU utilization, queueing delay, timeouts, and effective completion rates.
+We retain three transferable elements: the platform announces per-period
+prices first, elastic loads migrate in response to prices, and congestion
+costs arise when capacity is tight. Grid power flow, nodal balance, and
+wholesale market clearing constraints are outside our model.
+
+\subsection{Discrete Choice, Game Theory, and LLM Markets}
+
+\textbf{Game-theoretic foundations.} Our three-layer equilibrium framework
+draws on several foundational results. Rosenthal proved that every
+congestion game possesses a pure-strategy Nash equilibrium (PSNE) via an
+exact potential function \cite{rosenthal1973class}; Monderer and Shapley
+established the converse---every exact potential game is isomorphic to a
+congestion game \cite{monderer1996potential}. Jensen generalized these ideas
+to aggregative games, where payoffs depend on a summary statistic of all
+players' actions \cite{jensen2010aggregative}. Sandholm's population game
+framework provides the limiting connection: as the number of players grows
+large, the equilibrium distribution of a finite potential game converges to
+the Wardrop equilibrium of the continuous limit
+\cite{sandholm2010population,wardrop1952some}. The logit stochastic user
+equilibrium we employ traces to McFadden's random utility model
+\cite{mcfadden1974conditional} and the SUE formulation of Daganzo
+\cite{daganzo1979multinomial}, systematized in discrete-choice monographs
+\cite{anderson1992discrete,train2009discrete}. Selten's subgame-perfect
+equilibrium \cite{selten1965spieltheoretische} and Fudenberg and Tirole's
+textbook treatment \cite{fudenberg1991game} provide the canonical
+backward-induction solution concept for Stackelberg games.
+
+\textbf{Applications to platform pricing.} Rosen studied concave N-person
+games; Myerson formalized optimal mechanism design; Rochet and Tirole
+characterized two-sided platform pricing
+\cite{rosen1965existence,myerson1981optimal,rochet2003platform}.
+
+The study of LLM markets is developing rapidly. Demirer et al.\ document
+prices, supply, and demand structures in LLM markets; Erdil analyzes
+inference economic constraints; Bergemann et al.\ discuss product menu
+pricing \cite{demirer2025emerging,erdil2025inference,bergemann2025menu}.
+Xing discusses token markets from the perspective of computing resource
+commoditization and derivative contracts
+\cite{xing2026tokenfutures}. PriLLM studies data-calibrated Stackelberg
+pricing in competitive LLM routing markets \cite{guo2026prillm};
+Yan et al.\ investigate pricing, scaling, and eviction guards in
+multi-tenant GPU platforms \cite{yan2026stackelberg};
+Cunningham unifies admission and auto-scaling using token pools
+\cite{cunningham2026token};
+Liu further discusses token-flow market clearing and locational pricing
+for generative AI services \cite{liu2026locational}.
+Beyond PriLLM, several of these directly related works are preprints and
+should be treated as frontier clues rather than settled consensus.
+Our work focuses on single-platform intertemporal demand migration and
+isolates the overall price increase effect via a fixed-average-price
+constraint. This problem is complementary to (but not interchangeable with)
+competitive routing, scaling control, admission control, and locational
+market clearing.
+
+\section{Problem Definition and Game-Theoretic Framework}
+\label{sec:model}
+
+We model a two-stage sequential game between a single platform (leader) and
+a population of heterogeneous users (followers). The platform moves first
+by announcing a per-period price vector; users then choose which time period
+to submit their requests in. The modeling innovation of this paper is to
+ground this interaction in three nested layers of equilibrium
+concepts---logit stochastic user equilibrium (Layer 1),
+Stackelberg subgame-perfect equilibrium (Layer 2), and finite-player pure-strategy Nash equilibrium
+in a congestion game (Layer 3)---each characterized below.
+
+\subsection{Platform's Action Space and Price Constraint}
+
+Consider $T$ time periods. The platform selects a price vector
+$\boldsymbol{p}=(p_1,\ldots,p_T)$ from the feasible set
+\begin{equation}
+  \mathcal{P} =
+  \left\{\boldsymbol{p}\in[\underline p,\overline p]^T:
+  \frac{1}{T}\sum_{t=1}^{T}p_t=\pcap\right\},
+  \label{eq:feasible}
+\end{equation}
+where $\underline p$ and $\overline p$ are price floors and ceilings, and
+$\pcap$ is the fixed arithmetic mean. This constraint ensures that any
+profit improvement arises from intertemporal demand reallocation rather
+than an overall price hike.
+
+To further isolate scheduling effects from bill changes, we define the
+posted bill $B(\boldsymbol{p})=h\sum_t p_t\D_t(\boldsymbol{p})$ and the
+uniform-pricing baseline $B_0=B(\pcap\boldsymbol{1})$. The bill-protection
+scenario restricts the platform to the subset
+\begin{equation}
+  \mathcal{P}_B(\rho)=
+  \{\boldsymbol{p}\in\mathcal{P}:B(\boldsymbol{p})\leq \rho B_0\},\quad \rho\geq 1,
+  \label{eq:bill_protection}
+\end{equation}
+where $\rho=1$ prevents the posted bill from exceeding the uniform-pricing
+level. All main results use $\mathcal{P}$ unless $\mathcal{P}_B(1)$ is
+explicitly invoked.
+
+\subsection{Layer 1 --- Logit Stochastic User Equilibrium (SUE)}
+
+We first characterize user behavior when the platform's price vector is
+taken as given. Drawing on McFadden's random utility framework
+\cite{mcfadden1974conditional}, each elastic user $i$ draws a
+period-specific utility with additive Gumbel noise:
+\begin{equation}
+  U_{ti}(\boldsymbol{p}) = z_t(\boldsymbol{p}) + \epsilon_{ti},
+  \qquad \epsilon_{ti} \overset{\mathrm{iid}}{\sim} \mathrm{Gumbel}(0,1),
+  \label{eq:gumbel_utility}
+\end{equation}
+where the deterministic component $z_t$ encodes price, time-slot preference,
+and switching cost (specified in~\eqref{eq:logit_z} below). User $i$ selects
+period $t_i^* = \arg\max_t U_{ti}$.
+
+\textbf{Equilibrium definition.} A logit {\em stochastic user equilibrium}
+(SUE) \cite{daganzo1979multinomial,anderson1992discrete} is a state in which
+the aggregate share of users selecting period $t$ is consistent with the
+choice probabilities induced by the utilities:
+\begin{equation}
+  s_t(\boldsymbol{p}) =
+  \mathbb{P}_\epsilon\left[t = \arg\max_{\tau} U_{\tau i}\right]
+  = \frac{e^{z_t(\boldsymbol{p})}}{\sum_{\tau=1}^{T} e^{z_\tau(\boldsymbol{p})}},
+  \label{eq:sue_share}
+\end{equation}
+and no user can unilaterally improve expected utility. The Gumbel
+distribution yields the closed-form logit probabilities above; the identity
+$\mathbb{E}[\max_\tau U_{\tau i}] = \log\sum_\tau e^{z_\tau}$ gives the
+log-sum welfare measure used later.
+
+\begin{proposition}[Existence and uniqueness of SUE]
+  \label{prop:sue}
+  For any price vector $\boldsymbol{p}\in\mathcal{P}$, there exists a unique
+  logit SUE. The share vector $\boldsymbol{s}(\boldsymbol{p})$ is the unique
+  solution to the fixed-point equation
+  $s_t = \Phi_t(\boldsymbol{s}; \boldsymbol{p})$ where $\Phi_t$ is a
+  contraction mapping in the logit weights.
+\end{proposition}
+
+\begin{proof}
+  For fixed $\boldsymbol{p}$, the deterministic utilities $z_t$ are fixed.
+  Since~\eqref{eq:sue_share} defines $s_t$ as an explicit function of
+  $\{z_\tau\}_{\tau=1}^T$, the share vector is unique. The contraction
+  property follows from the Gumbel distribution's independence of
+  irrelevant alternatives: perturbing one period's utility does not reverse
+  the ordering of choice probabilities across other periods
+  \cite{train2009discrete}.
+\end{proof}
+
+\textbf{Interpretation.} The SUE generalizes Wardrop's user equilibrium
+\cite{wardrop1952some} in two ways: (i) it incorporates random taste
+heterogeneity via the Gumbel noise, and (ii) it yields a smooth, everywhere-
+differentiable aggregate response function. This differentiability is
+essential for the gradient-based Stackelberg optimization in
+Section~\ref{sec:algorithm}.
+
+\subsection{Layer 2 --- Stackelberg Subgame-Perfect Equilibrium}
+
+The full interaction is a two-stage Stackelberg game. Backward induction
+solves the subgame-perfect equilibrium (SPE) \cite{selten1965spieltheoretische}:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Stage 2 (Follower):} For any $\boldsymbol{p}\in\mathcal{P}$,
+  elastic users play the unique logit SUE of Proposition~\ref{prop:sue},
+  yielding demand $\D_t(\boldsymbol{p}) = \R_t(p_t) + \F_t(\boldsymbol{p})$.
+  The follower's best-response correspondence is the deterministic function
+  $\D(\boldsymbol{p})$.
+  \item \textbf{Stage 1 (Leader):} Anticipating $\D(\boldsymbol{p})$, the
+  platform solves
+  \begin{equation}
+    \max_{\boldsymbol{p}\in\mathcal{P}} \; \Pi(\boldsymbol{p})
+    \quad\text{subject to~\eqref{eq:feasible} and (optionally)~\eqref{eq:bill_protection}}.
+    \label{eq:leader_problem}
+  \end{equation}
+\end{enumerate}
+
+\begin{proposition}[Existence of SPE]
+  \label{prop:spe}
+  The Stackelberg game admits a subgame-perfect equilibrium. An optimal
+  price vector $\boldsymbol{p}^*$ solving~\eqref{eq:leader_problem} exists,
+  and together with the SUE response $\D(\boldsymbol{p}^*)$ constitutes an
+  SPE.
+\end{proposition}
+
+\begin{proof}
+  The feasible set $\mathcal{P}$ is closed and bounded (Proposition~4),
+  hence compact. By Proposition~\ref{prop:sue}, the follower's response
+  $\D(\boldsymbol{p})$ is a continuous function. The profit function
+  $\Pi$ in~\eqref{eq:profit} is a composition of continuous functions,
+  hence continuous. By the Weierstrass theorem, a maximum exists. Backward
+  induction then guarantees that $(\boldsymbol{p}^*, \D(\boldsymbol{p}^*))$
+  forms an SPE \cite{fudenberg1991game}.
+\end{proof}
+
+\textbf{Optimality conditions.} The first-order necessary conditions for
+an interior SPE satisfy
+$\partial\Pi/\partial p_t = 0$ for each period. Intuitively, at the optimum
+the marginal revenue gain from raising $p_t$ (capturing users who remain
+despite the higher price) is exactly offset by the marginal loss from
+demand migration and QoS degradation.
+
+\subsection{Layer 3 --- Finite-Player Congestion Game with Externalities}
+
+The SUE formulation compresses heterogeneous user-level decisions into an
+aggregate response. We now show that this aggregate emerges naturally as
+the large-population limit of a finite-player non-cooperative game in
+which each user internalizes congestion externalities.
+
+\textbf{Game definition.} Let $\mathcal{N} = \{1,\dots,N\}$ be a set of
+elastic users. Each user $i$ has a preferred time slot $t_i^*\in\{1,\dots,T\}$
+(drawn from distribution $a_t$) and an idiosyncratic value for on-time service
+$v_i \sim F_v$. User $i$'s action $s_i\in\{1,\dots,T\}$ is her chosen period.
+Let $n_t = |\{i : s_i = t\}|$ be the number of users selecting period $t$.
+User $i$'s payoff from choosing $t$ is
+\begin{align}
+  u_i(t, n_t; \boldsymbol{p}) = \;
+  &\underbrace{v_i \cdot \log a_t}_{\text{time-slot preference}}
+  \;-\; \gamma \cdot p_t
+  \;-\; \underbrace{c_s \cdot \mathbf{1}[t \neq t_i^*]}_{\text{switching cost}}
+  \nonumber\\
+  &\;-\; \underbrace{\delta \cdot \bigl(1 - q(n_t/G)\bigr)}_{\text{congestion disutility}},
+  \label{eq:player_payoff}
+\end{align}
+where $q(\cdot)$ is the QoS function from~\eqref{eq:qos}, $G$ is the
+platform's total capacity, and $\gamma, c_s, \delta > 0$ are sensitivity
+parameters. The congestion term captures the fact that when many users
+crowd the same period, queueing delays degrade service quality for all.
+
+\textbf{Game type.} This is a {\em weighted congestion game with
+externalities} \cite{rosenthal1973class}. Each user's payoff depends on
+her own action $t$ and on the congestion state $n_t$, which is an
+aggregate of all players' actions. The game therefore belongs to the
+family of {\em aggregative games} studied by Jensen (2010)
+\cite{jensen2010aggregative}.
+
+\begin{proposition}[Potential game structure]
+  \label{prop:potential}
+  The finite-player game defined by~\eqref{eq:player_payoff} is an exact
+  potential game \cite{monderer1996potential}. A pure-strategy Nash
+  equilibrium (PSNE) exists.
+\end{proposition}
+
+\begin{proof}
+  Construct the Rosenthal-style potential function
+  \begin{align}
+    \Phi(\boldsymbol{s}) = \;&
+    \sum_{i\in\mathcal{N}} \Bigl[ v_i\log a_{s_i} - \gamma p_{s_i}
+    - c_s\mathbf{1}[s_i\neq t_i^*] \Bigr] \nonumber\\
+    &- \delta \sum_{t=1}^{T} \sum_{k=1}^{n_t(\boldsymbol{s})} \bigl(1 - q(k/G)\bigr),
+  \end{align}
+  where $n_t(\boldsymbol{s})$ is the count of players choosing period $t$
+  under action profile $\boldsymbol{s}$. When player $i$ deviates from $t$
+  to $t'$, the change in her payoff equals the change in $\Phi$:
+  \[
+  u_i(t', n_{t'}+1;\boldsymbol{p}) - u_i(t, n_t;\boldsymbol{p})
+  = \Phi(t', \boldsymbol{s}_{-i}) - \Phi(t, \boldsymbol{s}_{-i}),
+  \]
+  because the terms for all other players cancel and the congestion summation
+  correctly tracks the marginal contribution of each player to the per-period
+  load. By Monderer and Shapley's theorem \cite{monderer1996potential},
+  every finite exact potential game possesses at least one PSNE, located at
+  any local maximum of $\Phi$.
+\end{proof}
+
+\textbf{Connection to SUE.} Sandholm's population game framework
+\cite{sandholm2010population} establishes that as $N\to\infty$, the
+equilibrium distribution of a finite potential game converges to the
+Wardrop equilibrium of the continuous limit. In our setting, when user
+preferences include independent Gumbel noise (the random utility
+micro-foundation of~\eqref{eq:gumbel_utility}), the large-$N$ limit of
+the PSNE is precisely the logit SUE of Proposition~\ref{prop:sue}. This
+three-layer architecture---finite-player PSNE $\to$ population limit
+$\to$ logit SUE---closes the gap between individual rationality and the
+computable aggregate model used throughout the paper.
+
+\textbf{Implication for the paper.} Our optimization framework uses the
+logit SUE (Layer~1) as the follower response for two complementary reasons:
+(i) it is the data-generating equilibrium of a finite-player congestion
+game with heterogeneous preferences (Layer~3), giving it a rigorous
+game-theoretic micro-foundation; and (ii) its closed-form
+differentiability enables efficient gradient-based computation, whereas
+the finite-player PSNE incurs combinatorial search costs.
+
+\subsection{Model Assumptions and Applicability}
+
+The model characterizes a single platform that announces per-period prices
+over a short horizon, after which aggregate demand shifts. This setting is
+appropriate for offline inference, batch evaluation, and certain agent tasks
+that permit delayed execution, but not for interactive requests requiring
+immediate responses. Table~\ref{tab:assumptions} lists the main assumptions
+and their interpretations. Making these assumptions explicit helps
+distinguish in-model conclusions from downstream system measurement tasks.
+
+\begin{table}[htbp]
+\centering
+\caption{Main model assumptions and their interpretation.}
+\label{tab:assumptions}
+\begin{tabular}{p{0.22\textwidth}p{0.33\textwidth}p{0.35\textwidth}}
+\toprule
+Assumption & Current treatment & Interpretation and boundary \\
+\midrule
+Platform structure & Single platform, fixed capacity & No multi-platform competition or scaling decisions \\
+Pricing mechanism & Fixed mean price, optional bill protection & Isolates overall price effect; supplementary scenario constrains posted bill \\
+User types & Coexisting rigid and elastic demand & Only elastic demand can shift across periods \\
+Service quality & Utilization-driven parametric proxy & Requires real GPU stress-test calibration \\
+User equilibrium & Logit SUE $\to$ aggregate Nash $\to$ Stackelberg SPE & Three-layer micro-foundation; finite-player PSNE existence proven via potential game \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Demand Response}
+
+Rigid demand decreases when prices approach the willingness-to-pay ceiling
+$v_r$:
+\begin{equation}
+  \R_t(p_t)=\overline{\R}_t\,
+  \sigma\!\left(\beta(v_r-p_t)\right),
+  \label{eq:rigid}
+\end{equation}
+where $\sigma(x)=1/(1+e^{-x})$.
+
+Elastic users have time-slot preferences $a_t>0$ and a switching cost $c_s$.
+Define the effective price
+\begin{equation}
+  \widetilde p_t=p_t+c_s(1-a_t),
+\end{equation}
+and the logit utility
+\begin{equation}
+  z_t=-\alpha(\widetilde p_t-\pcap)+\log(a_t+\epsilon).
+  \label{eq:logit_z}
+\end{equation}
+The time-slot share, participation rate, and optional market expansion term
+are given by
+\begin{align}
+  s_t &= \frac{e^{z_t}}{\sum_{\tau=1}^{T}e^{z_\tau}},\\
+  m &= \sigma\!\left[-\alpha\left(\sum_t s_t\widetilde p_t-\pcap\right)\right],\\
+  g &= 1+\eta\max\left(\pcap-\sum_t s_t\widetilde p_t,0\right).
+\end{align}
+Elastic demand is
+\begin{equation}
+  \F_t(\boldsymbol{p})=\overline{\F}\,g\,m\,s_t.
+  \label{eq:flex}
+\end{equation}
+Total demand is $\D_t=\R_t+\F_t$.
+
+The baseline model does not feed QoS back into user utility. An ablation
+experiment additionally considers
+\begin{equation}
+  z_t^{\mathrm{feedback}}=z_t-\gamma[1-\qos(u_t)],
+\end{equation}
+solving for demand via fixed-point iteration. The experimental artifacts
+record convergence status and iteration count for each demand evaluation.
+
+\subsection{QoS Proxy, Profit, and In-Model Welfare}
+
+Let capacity be $G$ and utilization $u_t=\D_t/G$. The baseline QoS proxy is
+\begin{equation}
+  \qos(u_t)=
+  \begin{cases}
+    1, & u_t\leq \overline u,\\
+    \exp[-\kappa(u_t-\overline u)^2], & u_t>\overline u.
+  \end{cases}
+  \label{eq:qos}
+\end{equation}
+This function is continuous. Section~\ref{sec:vllm_measurement} constructs
+heuristic parameter mappings from single-GPU measurements, but joint
+calibration on production traces has not yet been completed.
+
+In~\eqref{eq:qos}, $\qos(u_t)$ is interpreted in the profit function as the
+\textbf{effective fraction of completed service}: timeouts, truncations, or
+SLA violations reduce the number of billable requests. Accordingly, the
+revenue term uses $p_t\D_t\qos(u_t)$. If a real platform charges for failed
+requests in full, the revenue model without the $\qos(u_t)$ multiplier
+should be used. Section~\ref{sec:experiments} compares this alternative
+definition separately under a billing-mechanism ablation.
+
+Platform profit is defined as
+\begin{align}
+  \Pi(\boldsymbol{p})={}&
+  h\sum_t p_t\D_t\qos(u_t)
+  -h\sum_t w\D_t \nonumber\\
+  &-h\sum_t c_r(\overline{\R}_t-\R_t)
+  -h\sum_t c_q[1-\qos(u_t)]\R_t,
+  \label{eq:profit}
+\end{align}
+where $h$ is the number of hours per period, $w$ is the unit serving cost,
+and $c_r$ and $c_q$ are the rigid-user churn cost and QoS degradation cost,
+respectively. The in-model welfare metric is the sum of platform profit,
+rigid-user surplus, elastic-user log-sum surplus, and the external cost of
+carbon emissions. The experimental artifacts save each component separately.
+
+\section{Computational Algorithm}
+\label{sec:algorithm}
+
+We present the QIDP (QoS-aware Intertemporal Dynamic Pricing) algorithm
+that solves the Stackelberg leader's problem~\eqref{eq:leader_problem}.
+The algorithm combines gradient-based constrained optimization with an exact
+projection onto the feasible price set.
+
+\subsection{Bounded-Mean Projection}
+
+For a candidate price vector $\boldsymbol{x}\in\mathbb{R}^T$ that may violate
+the average-price constraint, we project it onto the feasible set $\mathcal{P}$
+via a Lagrange-multiplier bisection.
+
+\begin{proposition}[Feasibility and Euclidean projection]
+  \label{prop:projection}
+  $\mathcal{P}$ is nonempty iff $\underline p\leq\pcap\leq\overline p$. For
+  any $\boldsymbol{x}\in\mathbb{R}^T$, the projection
+  $p_t(\lambda)=\min\{\overline p,\max\{\underline p,x_t+\lambda\}\}$
+  yields the unique minimizer of $\frac12\|\boldsymbol{p}-\boldsymbol{x}\|_2^2$
+  over $\mathcal{P}$, where $\lambda$ is found by bisection to satisfy
+  $\frac1T\sum_t p_t(\lambda)=\pcap$.
+  \label{eq:projection}
+\end{proposition}
+
+\begin{proof}
+  Nonemptiness: $(\pcap,\dots,\pcap)\in\mathcal{P}$.
+  The projection is the KKT solution of a strictly convex quadratic program
+  with a linear mean constraint and box bounds; the component-wise form
+  follows from separable KKT conditions. The multiplier $\lambda$ is unique
+  unless multiple components lie at boundaries.
+\end{proof}
+
+Algorithm~\ref{alg:projection} implements this procedure.
+
+\begin{table}[htbp]
+\centering
+\caption{BoundedMeanProjection}
+\label{alg:projection}
+\begin{tabular}{p{0.96\textwidth}}
+\toprule
+\textbf{Input:} $\boldsymbol{x}\in\mathbb{R}^T$, bounds $\underline p,\overline p$, target mean $\pcap$, tolerance $\varepsilon>0$ \\
+\textbf{Output:} $\boldsymbol{p}\in\mathcal{P}$ satisfying $\frac1T\sum_t p_t=\pcap$ \\
+\midrule
+1.\quad Set $\lambda_{\min}\leftarrow\underline p-\max_t x_t$, $\lambda_{\max}\leftarrow\overline p-\min_t x_t$ \\
+2.\quad \textbf{while} $\lambda_{\max}-\lambda_{\min}>\varepsilon$ \textbf{do} \\
+3.\quad\quad $\lambda\leftarrow(\lambda_{\min}+\lambda_{\max})/2$ \\
+4.\quad\quad $p_t\leftarrow\min\{\overline p,\max\{\underline p,x_t+\lambda\}\}$ for $t=1,\dots,T$ \\
+5.\quad\quad \textbf{if} $\frac1T\sum_t p_t < \pcap$ \textbf{then} $\lambda_{\min}\leftarrow\lambda$ \textbf{else} $\lambda_{\max}\leftarrow\lambda$ \\
+6.\quad \textbf{end while} \\
+7.\quad \textbf{return} $\boldsymbol{p}$ with $\lambda\leftarrow(\lambda_{\min}+\lambda_{\max})/2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{QIDP: QoS-Aware Intertemporal Dynamic Pricing}
+
+The main algorithm (Algorithm~\ref{alg:qidp}) performs multi-start SLSQP
+optimization of the platform's profit subject to the fixed-average-price
+constraint. To navigate the non-convex profit landscape, we initialize
+$K$ candidate price vectors (one at the uniform baseline, the rest drawn
+randomly and projected onto $\mathcal{P}$), optimize each with SLSQP, and
+retain the best feasible candidate.
+
+\begin{table}[htbp]
+\centering
+\caption{QIDP: QoS-Aware Intertemporal Dynamic Pricing}
+\label{alg:qidp}
+\begin{tabular}{p{0.96\textwidth}}
+\toprule
+\textbf{Input:} Periods $T$, capacity $G$, mean price $\pcap$, bounds
+$\underline p,\overline p$, QoS parameters $(\overline u,\kappa)$, profit
+parameters $(h,w,c_r,c_q)$, SLSQP tolerance $\tau$, number of starts $K$ \\
+\textbf{Output:} Optimal price vector $\boldsymbol{p}^*$, associated profit
+$\Pi^*$ \\
+\midrule
+1.\quad $\Pi^*\leftarrow-\infty$, $\boldsymbol{p}^*\leftarrow\text{None}$ \\
+2.\quad $\mathcal{S}_0\leftarrow\{\pcap\cdot\mathbf{1}\}\cup\{\text{RandomUniform}(\underline p,\overline p)^T\}_{k=1}^{K-1}$  \\
+3.\quad \textbf{for each} $\boldsymbol{p}^{(0)}\in\mathcal{S}_0$ \textbf{do} \\
+4.\quad\quad $\boldsymbol{p}\leftarrow\text{BoundedMeanProjection}(\boldsymbol{p}^{(0)},\underline p,\overline p,\pcap)$ (Alg.\ref{alg:projection}) \\
+5.\quad\quad Solve $\max_{\boldsymbol{p}\in\mathcal{P}}\Pi(\boldsymbol{p})$ via SLSQP initialized at $\boldsymbol{p}$, \\
+\quad\quad\quad with convergence tolerance $\tau$ \\
+6.\quad\quad \textbf{if} SLSQP converged and $\boldsymbol{p}$ satisfies constraints \textbf{then} \\
+7.\quad\quad\quad $\boldsymbol{p}\leftarrow\text{BoundedMeanProjection}(\boldsymbol{p})$ \quad (correct numerical drift) \\
+8.\quad\quad\quad \textbf{if} $\Pi(\boldsymbol{p})>\Pi^*$ \textbf{then}
+$\Pi^*\leftarrow\Pi(\boldsymbol{p})$, $\boldsymbol{p}^*\leftarrow\boldsymbol{p}$ \\
+9.\quad \textbf{end for} \\
+10.\,\, \textbf{return} $\boldsymbol{p}^*$, $\Pi^*$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Complexity.} Each SLSQP iteration costs $O(T\cdot E)$, where $E$
+is the cost of evaluating the logit demand response $\D(\boldsymbol{p})$
+with QoS feedback (fixed-point iteration capped at $I_{\max}$ rounds). With
+$K$ starts and $M_{\max}$ SLSQP iterations per start, total complexity is
+$O(K \cdot M_{\max} \cdot T \cdot I_{\max} \cdot (T + \text{cost of }q))$.
+In our implementation ($T\leq 64$, $K\leq 40$, $M_{\max}\leq 300$),
+runtimes range from $0.077$~s to $12.3$~s.
+
+\textbf{On global optimality.} The profit function $\Pi$ is non-convex in
+$\boldsymbol{p}$ due to the interaction of logit shares, QoS degradation,
+and rigid demand clamping. We therefore do not claim that Algorithm~\ref{alg:qidp}
+returns the global optimum. For small instances ($T=4$), we exhaustively
+enumerated 4495 grid points and confirmed that the SLSQP candidate is no
+worse than any grid point (and is within 0.26\% of the best grid value).
+This provides a practical sanity check without constituting a global
+optimality certificate.
+
+\subsection{Comparison Policies}
+
+We evaluate three pricing policies within the Stackelberg framework:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Uniform pricing (baseline):} $p_t=\pcap$ for all $t$.
+  Serves as a no-scheduling benchmark.
+  \item \textbf{Myopic dynamic pricing:} Solves~\eqref{eq:leader_problem}
+  with $\kappa=0$ (ignoring QoS degradation), then evaluates the obtained
+  price vector using the true $\kappa$. Isolates the benefit of ``just
+  dynamic pricing'' from ``QoS-aware pricing.''
+  \item \textbf{QoS-aware dynamic pricing (QIDP):} Algorithm~\ref{alg:qidp}
+  with the true $\kappa$. This is our proposed policy.
+\end{enumerate}
+
+All policies are subject to the same fixed-average-price constraint to
+ensure fair comparison. The myopic policy uses the same multi-start SLSQP
+procedure as QIDP but with a flat QoS function during optimization.
+
+\section{Numerical Experiments}
+\label{sec:experiments}
+
+\subsection{Experimental Setup and Reproducibility}
+
+The baseline configuration is $T=8$, $h=3$~hours, $G=950$, $w=0.40$,
+$\pcap=0.80$, $\underline p=0.45$, $\overline p=2.10$,
+$\overline u=0.82$, $\kappa=15$, and $\alpha=3.5$. All results are
+fully reproducible via automated experiment code. The mean-price constraint
+residuals do not exceed $9.99\times10^{-13}$ across all 100 policy records,
+with zero solver failures.
+
+\subsection{RQ1: Can Constrained Dynamic Pricing Alleviate Congestion?}
+
+\begin{table}[htbp]
+\centering
+\caption{Baseline comparison of pricing policies.}
+\label{tab:baseline}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & Profit & Welfare & Peak utilization & Min QoS \\
+\midrule
+Uniform pricing & 3600.20 & 14307.89 & 0.9855 & 0.6632 \\
+Myopic dynamic pricing & 6176.45 & 15384.57 & 0.9105 & 0.8844 \\
+QoS-aware dynamic pricing & \textbf{6498.68} & \textbf{15724.61} & \textbf{0.8434} & \textbf{0.9918} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The price vector for QoS-aware dynamic pricing is
+\[
+(0.45,0.45,0.45,0.9212,1.1852,1.3992,1.0944,0.45).
+\]
+Compared to uniform pricing, profit improves by 80.51\% and welfare by
+9.90\%. Compared to myopic dynamic pricing, profit improves by 5.22\%.
+Figure~\ref{fig:baseline} shows the prices, utilization, and QoS.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/baseline_comparison.pdf}
+\caption{Baseline comparison across three pricing policies. Top: per-period prices; middle: utilization as fraction of capacity; bottom: QoS degradation factor. QoS-aware pricing shifts demand away from peak periods and maintains near-unity QoS throughout the horizon.}
+\label{fig:baseline}
+\end{figure}
+
+\subsection{Solution Stability Check}
+
+The QoS-aware policy achieves the same profit across 10 random seeds, with
+a profit range of zero and a welfare range of 0.001241. This indicates that
+the current baseline search is stable under the employed multi-start
+configuration. It does not constitute a proof of global optimality.
+
+\subsection{Bill Protection and Coarse-Grid Reference}
+
+A fixed average price can still alter the demand-weighted bill.
+Table~\ref{tab:bill_protection} adds the $\mathcal{P}_B(1)$ constraint and
+compares the posted bill with uniform pricing. Without bill protection, the
+posted bill increases by 19.53\%; with protection, the posted bill does not
+exceed the uniform-pricing level, while profit still improves by 21.29\%.
+Thus, the 80.51\% profit gain in the main results should be interpreted as
+a scheduling benefit under a fixed average price, not as a bill-neutrality
+benefit.
+
+\begin{table}[htbp]
+\centering
+\caption{Effect of the fixed-average-price constraint with and without bill
+protection. The posted bill without protection exceeds the uniform baseline
+by 19.53\%, while profit still improves by 21.29\% even under strict bill
+protection ($\rho=1$).}
+\label{tab:bill_protection}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & Profit & Posted bill & Bill ratio to uniform & Min QoS \\
+\midrule
+Uniform pricing & 3600.20 & 9748.05 & 1.0000 & 0.6632 \\
+Fixed average price & 6498.68 & 11652.22 & 1.1953 & 0.9918 \\
+Fixed avg.\ price + bill protection & 4366.70 & 9748.05 & 1.0000 & 0.9572 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+To provide an enumerable numerical reference, we reduce the number of
+periods to $T=4$ and enumerate the 4495 grid points satisfying the mean
+constraint at a step size of 0.05. The best grid profit is 2918.94, while
+the multi-start SLSQP candidate profit is 2926.57 (0.261\% higher). This
+check confirms that the candidate is at least no worse than the coarse grid.
+
+\subsection{RQ2: When Does QoS Modeling Yield Incremental Value?}
+
+\begin{table}[htbp]
+\centering
+\caption{Sensitivity to QoS degradation severity $\kappa$. The incremental
+value of explicit QoS modeling is measured as the profit gain of QoS-aware
+pricing over myopic pricing (parentheses). This gain increases from 0\% at
+$\kappa=0$ to 12.53\% at $\kappa=30$.}
+\label{tab:kappa}
+\begin{tabular}{rrrr}
+\toprule
+$\kappa$ & Profit gain vs.\ uniform & Profit gain vs.\ myopic & Min QoS \\
+\midrule
+0  & 37.75\% & 0.00\% & 1.0000 \\
+5  & 49.96\% & 0.99\% & 0.9871 \\
+15 & 80.51\% & 5.22\% & 0.9918 \\
+30 & 136.23\% & 12.53\% & 0.9952 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:kappa} reveals a boundary that must be stated explicitly:
+even when $\kappa=0$, dynamic pricing yields a 37.75\% gain over uniform
+pricing. This portion arises from heterogeneity in time-slot preferences,
+price sensitivity, and rigid-user willingness to pay, not from QoS
+degradation. The incremental value of QoS modeling should be measured by
+the difference between QoS-aware and myopic dynamic pricing.
+
+\subsection{RQ3: Are Conclusions Robust to Key Assumptions?}
+
+\begin{table}[htbp]
+\centering
+\caption{Sensitivity of the QoS-aware profit increment to key assumptions.
+The advantage over myopic dynamic pricing is largest under tight capacity
+($G=750$, +293.78\%) and disappears under abundant capacity ($G=1200$, 0\%).}
+\label{tab:ablation}
+\begin{tabular}{llr}
+\toprule
+Experiment & Parameter value & Profit increment \\
+\midrule
+Fixed average price & $0.60 / 0.80 / 1.00 / 1.20$ & $9.90 / 5.22 / 2.46 / 2.74$\% \\
+Capacity & $750 / 950 / 1200$ & $293.78 / 5.22 / 0.00$\% \\
+Market expansion coefficient & $0 / 2.5 / 6.0$ & $4.88 / 5.22 / 5.71$\% \\
+QoS feedback weight & $0 / 1 / 2$ & $5.22 / 4.99 / 4.80$\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+When $G=750$, uniform pricing yields a negative profit, so percentage gains
+over uniform pricing would be misleading. Table~\ref{tab:ablation} instead
+compares QoS-aware pricing with myopic dynamic pricing. When $G=1200$, the
+two policies achieve nearly identical profit, indicating that the incremental
+value of explicit QoS modeling vanishes when capacity is abundant.
+
+\subsection{Rule Baselines, Billing Ablation, and Scalability}
+
+To verify that the QoS-aware multi-start search outperforms more than just
+a weak baseline, we add peak--valley rules and queue-aware rules. Both rule
+types adjust per-period prices based on the rigid load profile, then project
+back onto the mean constraint via~\eqref{eq:projection}.
+Table~\ref{tab:supplemental_policy} reports the results.
+
+\begin{table}[htbp]
+\centering
+\caption{Rule-based pricing baselines and billing mechanism ablation. The
+QoS-aware multi-start search outperforms both heuristic rules, and the
+choice of billing rule (full billing vs.\ SLA penalty) affects the optimal
+load distribution.}
+\label{tab:supplemental_policy}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Policy or billing mechanism & Profit & Welfare & Min QoS \\
+\midrule
+Uniform pricing & 3600.20 & 14307.89 & 0.6632 \\
+Peak--valley rule & 5633.67 & 15331.25 & 0.8533 \\
+Queue-aware rule & 6489.51 & 15697.14 & 0.9897 \\
+QoS-aware multi-start search & \textbf{6498.68} & \textbf{15724.61} & \textbf{0.9918} \\
+\midrule
+Full billing & 6575.24 & 15815.07 & 0.9423 \\
+SLA penalty billing & 6545.08 & 15786.57 & 0.9650 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Single-GPU System Measurements}
+\label{sec:system_measurement}
+
+Supplementary single-GPU load experiments use Ollama 0.24.0 on RTX 4090
+with a 9B-parameter Q4\_K\_M quantized GGUF model.
+
+\begin{table}[htbp]
+\centering
+\caption{Single-GPU Ollama load experiment on RTX 4090 with a 9B-parameter quantized model. Throughput saturates beyond two concurrent requests while TTFT increases steadily, indicating queueing-dominated congestion.}
+\label{tab:system_measurement}
+\small
+\begin{tabular}{rrrrrr}
+\toprule
+Concurrency & Completion rate & Mean TTFT (s) & P95 TTFT (s) & TPOT (ms) &
+Throughput (token/s) \\
+\midrule
+1 & 100\% & 0.155 & 0.167 & 9.456 & 91.46 \\
+2 & 100\% & 1.232 & 1.421 & 9.413 & 99.28 \\
+4 & 100\% & 3.296 & 4.032 & 9.426 & 98.75 \\
+8 & 100\% & 6.136 & 9.175 & 9.464 & 98.63 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:system_measurement} shows that total throughput increases by
+8.55\% when concurrency rises from 1 to 2, then largely saturates; mean
+TTFT and P95 TTFT increase steadily with concurrency. The primary congestion
+manifestation in this backend is queueing growth rather than TPOT
+degradation.
+
+\subsection{vLLM Primary Backend Overload Experiments}
+\label{sec:vllm_measurement}
+
+Repeated-overload scans using vLLM 0.22.0 with Qwen2.5-0.5B-Instruct on
+RTX 4090.
+
+\begin{table}[htbp]
+\centering
+\caption{vLLM repeated-overload scan on RTX 4090 with Qwen2.5-0.5B. The
+0.5~s SLA attainment rate drops from 100.0\% at 64 concurrency to 50.0\% at
+512 concurrency. Parentheses show 95\% confidence half-widths over 5
+repetitions of 512 requests each.}
+\label{tab:vllm_measurement}
+\small
+\begin{tabular}{rrrrr}
+\toprule
+Concurrency & Mean TTFT (s) & P95 TTFT (s) & Throughput (token/s) &
+0.5~s SLA rate \\
+\midrule
+64  & 0.049 (0.001) & 0.073 (0.003) & 16125.98 (246.35) & 100.0 (0.0)\% \\
+128 & 0.084 (0.004) & 0.139 (0.006) & 19854.91 (568.53) & 100.0 (0.0)\% \\
+224 & 0.122 (0.005) & 0.225 (0.029) & 20128.54 (736.48) & 100.0 (0.0)\% \\
+384 & 0.544 (0.023) & 1.617 (0.077) & 18983.53 (453.70) & 63.5 (0.7)\% \\
+512 & 0.632 (0.038) & 1.588 (0.063) & 19266.09 (291.99) & 50.0 (0.0)\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/vllm_reliability_curve.pdf}
+\caption{vLLM overload curves for Qwen2.5-0.5B on RTX 4090. Left: mean and
+P95 TTFT versus concurrency; right: throughput and 0.5~s SLA attainment
+rate. The SLA rate falls sharply between 224 and 384 concurrent requests,
+confirming a measurable capacity boundary. Error bars show 95\% confidence
+half-widths.}
+\label{fig:vllm_overload}
+\end{figure}
+
+\subsection{Empirical QoS Heuristic Mapping and Robustness Check}
+
+Using TTFT SLA attainment rate as the empirical QoS observation, we
+normalize the last concurrency level with an SLA rate of at least 99\% as
+$u=1$, then construct heuristic scenario mappings via~\eqref{eq:qos}.
+
+\begin{table}[htbp]
+\centering
+\caption{Empirical QoS heuristic mapping from vLLM repeated-overload scans.
+The normalized healthy capacity is 224 concurrent requests for both models.
+The 0.5B model shows higher fitting error (RMSE 0.0683) due to the 384-concurrency transition point.}
+\label{tab:qos_fit}
+\begin{tabular}{lrrr}
+\toprule
+Model & Normalized threshold & Degradation severity & RMSE \\
+\midrule
+Qwen2.5-0.5B-Instruct & 1.000 & 0.517 & 0.0683 \\
+Qwen2.5-3B-Instruct & 1.058 & 0.942 & $6.33\times10^{-10}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Substituting both sets of heuristic parameters into the economic model and
+re-optimizing prices yields a profit of 6649.24 and a minimum QoS of 1.0000
+in both cases, compared to 6498.68 for the baseline synthetic proxy.
+
+\section{Discussion}
+\label{sec:discussion}
+
+The current version primarily uses algorithmic simulation, supplemented by
+single-GPU backend measurements using vLLM and Ollama to validate the
+congestion phenomenon. These measurements cannot substitute for system
+experiments across a broader range of model sizes, multiple backends, and
+multi-GPU configurations. The electricity dynamic pricing literature
+provides a methodological reference, but inference serving does not involve
+grid power flow, nodal balance, or wholesale market clearing constraints.
+
+Key limitations include: (1) the QoS function remains a parametric proxy;
+(2) the welfare metric depends on synthetic parameters; (3) multi-start
+SLSQP does not provide a global optimality certificate for the non-convex
+problem; (4) the aggregate logit response is not a proof of pure-strategy
+Nash equilibrium; (5) multi-platform competition is excluded; (6) the
+demand curve is derived from synthetic parameters; (7) a fixed average
+price is not equivalent to bill neutrality; (8) price-sensitivity analysis
+does not demonstrate distributional fairness.
+
+\section{Conclusion}
+
+We adapt the intertemporal scarcity-pricing mechanism and leader--follower
+hierarchical structure from electricity demand response to token services.
+The platform selects a price vector under a fixed-average-price constraint,
+and elastic users migrate demand in response to prices and time-slot
+preferences. On the theoretical side, we prove the existence of a nonempty
+feasible price region and an optimal platform solution; on the algorithmic
+side, we implement an exact bounded-mean projection, multi-start
+optimization, and traceable experimental artifacts. Synthetic experiments
+answer three research questions: constrained dynamic pricing can shift
+demand and alleviate congestion; the profit advantage of explicit QoS
+modeling over myopic pricing increases with degradation severity and
+disappears when capacity is abundant; and this incremental value maintains
+interpretable boundaries across multiple sensitivity experiments. Under
+the additional bill-protection constraint, profit still improves by 21.29\%
+over uniform pricing. These conclusions are confined to synthetic demand
+and a parametric QoS proxy.
+
+\section{Code and Artifact Availability}
+
+All code, experimental configurations, and analysis scripts required to
+reproduce the results are included in the supplementary materials. The
+official public repository URL will be made available upon publication.
+
+\appendix
+\section{Baseline Parameters}
+
+\begin{table}[H]
+\centering
+\caption{Synthetic economic model baseline parameters.}
+\label{tab:baseline_parameters}
+\begin{tabular}{lll}
+\toprule
+Parameter & Baseline value & Description \\
+\midrule
+$T,h$ & $8,3$ & Number of periods and hours per period \\
+$G,w$ & $950,0.40$ & Capacity and unit serving cost \\
+$\pcap,\underline p,\overline p$ & $0.80,0.45,2.10$ & Mean price and price bounds \\
+$\overline u,\kappa$ & $0.82,15$ & QoS threshold and degradation severity \\
+$\alpha,\beta$ & $3.5,5.0$ & Elastic and rigid price sensitivity \\
+$v_r,\overline{\F}$ & $1.80,400$ & Rigid willingness-to-pay ceiling and elastic market size \\
+$c_s,\eta$ & $0.20,2.50$ & Switching cost and market expansion coefficient \\
+$c_r,c_q$ & $0.60,0.35$ & Rigid churn cost and QoS degradation cost \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The rigid load vector and time-slot preference vector are
+\[
+(200,150,300,600,800,900,700,250),\qquad
+(0.3,0.2,0.5,0.8,1.0,1.0,0.9,0.4),
+\]
+respectively. The carbon emission rate and unit carbon cost are 0.20 and
+0.05. The bill-protection scenario uses $\rho=1$.
+
+\section{Complete Sensitivity Range}
+
+\begin{table}[H]
+\centering
+\caption{Phase one complete sensitivity range.}
+\label{tab:full_sensitivity}
+\begin{tabular}{lll}
+\toprule
+Experiment & Parameter range & Primary purpose \\
+\midrule
+Fixed average price & $0.60,0.80,1.00,1.20$ & Examine price constraint boundary \\
+QoS degradation severity & $0,5,15,30$ & Separate dynamic pricing gains from QoS incremental value \\
+QoS threshold & $0.75,0.82,0.90$ & Examine congestion trigger location \\
+Capacity & $750,950,1200$ & Examine tight vs.\ abundant capacity \\
+Price sensitivity & $1.0,3.5,8.0$ & Examine elastic user response \\
+Switching cost & $0.05,0.20,0.80$ & Examine intertemporal migration resistance \\
+Market expansion coefficient & $0,2.5,6.0$ & Rule out market expansion as the sole source \\
+Churn cost & $0,0.60,1.20$ & Examine long-term cost assumptions \\
+QoS feedback weight & $0,1,2$ & Examine demand feedback variant \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\small
+\bibliographystyle{unsrtnat}
+\bibliography{verified_refs}
+
+\end{document}

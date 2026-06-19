@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "generated_at": "2026-06-19T20:12:45",
+    "qos_definition": "TTFT SLA rate with threshold 0.5 seconds",
+    "fit_function": "q(u)=exp(-strength * max(u-threshold,0)^2)",
+    "source_count": 2,
+    "runtime": [
+      {
+        "profile": "vllm-0.5b",
+        "metadata": {
+          "backend": "vllm",
+          "model": "Qwen/Qwen2.5-0.5B-Instruct",
+          "gpu": "NVIDIA GeForce RTX 4090, 596.21, 24564",
+          "versions": {
+            "torch": "2.11.0+cu130",
+            "vllm": "0.22.0"
+          },
+          "served_models": {
+            "object": "list",
+            "data": [
+              {
+                "id": "Qwen/Qwen2.5-0.5B-Instruct",
+                "object": "model",
+                "created": 1780225289,
+                "owned_by": "vllm",
+                "root": "Qwen/Qwen2.5-0.5B-Instruct",
+                "parent": null,
+                "max_model_len": 2048,
+                "permission": [
+                  {
+                    "id": "modelperm-ae24fcaecb6e8f02",
+                    "object": "model_permission",
+                    "created": 1780225289,
+                    "allow_create_engine": false,
+                    "allow_sampling": true,
+                    "allow_logprobs": true,
+                    "allow_search_indices": false,
+                    "allow_view": true,
+                    "allow_fine_tuning": false,
+                    "organization": "*",
+                    "group": null,
+                    "is_blocking": false
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "profile": "vllm-3b",
+        "metadata": {
+          "backend": "vllm",
+          "model": "Qwen/Qwen2.5-3B-Instruct",
+          "gpu": "NVIDIA GeForce RTX 4090, 596.21, 24564",
+          "versions": {
+            "torch": "2.11.0+cu130",
+            "vllm": "0.22.0"
+          },
+          "served_models": {
+            "object": "list",
+            "data": [
+              {
+                "id": "Qwen/Qwen2.5-3B-Instruct",
+                "object": "model",
+                "created": 1780235233,
+                "owned_by": "vllm",
+                "root": "Qwen/Qwen2.5-3B-Instruct",
+                "parent": null,
+                "max_model_len": 2048,
+                "permission": [
+                  {
+                    "id": "modelperm-9e6c2f3b7dd1136d",
+                    "object": "model_permission",
+                    "created": 1780235233,
+                    "allow_create_engine": false,
+                    "allow_sampling": true,
+                    "allow_logprobs": true,
+                    "allow_search_indices": false,
+                    "allow_view": true,
+                    "allow_fine_tuning": false,
+                    "organization": "*",
+                    "group": null,
+                    "is_blocking": false
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "profiles": [
+    {
+      "profile": "vllm-0.5b",
+      "model": "Qwen2.5-0.5B-Instruct",
+      "source": "artifacts/vllm-study/20260531-190126/controlled_aggregate.csv",
+      "metadata": "artifacts/vllm-study/20260531-190126/study_metadata.json",
+      "capacity_concurrency": 224.0,
+      "qos_threshold": 1.0000000000000002,
+      "qos_strength": 0.5167225442616331,
+      "fit_rmse": 0.0683367321910386,
+      "repeats": 5,
+      "min_observed_qos": 0.5,
+      "first_sla_drop_concurrency": 384.0
+    },
+    {
+      "profile": "vllm-3b",
+      "model": "Qwen2.5-3B-Instruct",
+      "source": "artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv",
+      "metadata": "artifacts/vllm-study-qwen25-3b/20260531-214710/study_metadata.json",
+      "capacity_concurrency": 224.0,
+      "qos_threshold": 1.0581587442241542,
+      "qos_strength": 0.9418412558700301,
+      "fit_rmse": 6.333536957582759e-10,
+      "repeats": 5,
+      "min_observed_qos": 0.6666666666666666,
+      "first_sla_drop_concurrency": 384.0
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="nature-skills" agent="opencode">
+  <diagram id="framework-diagram" name="Token Pricing Framework">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" page="1" pageWidth="1270" pageHeight="714" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ── Title Bar ── -->
+        <mxCell id="title-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B3A5C;fontColor=#FFFFFF;fontSize=16;fontStyle=1;arcSize=8;strokeColor=#1B3A5C;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="40" y="30" width="1190" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="title-text" value="&lt;b&gt;Token Service Cross-Period Pricing &amp;amp; Demand Response Game Framework&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontColor=#FFFFFF;fontStyle=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="30" width="1190" height="52" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Column Header Row ── -->
+        <!-- User Header -->
+        <mxCell id="user-header" value="&lt;b&gt;User Side&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007C7C;fontColor=#FFFFFF;fontSize=13;fontStyle=1;arcSize=6;strokeColor=#007C7C;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="40" y="100" width="320" height="36" as="geometry"/>
+        </mxCell>
+        <!-- Platform Header -->
+        <mxCell id="platform-header" value="&lt;b&gt;Platform / Broker Side&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E07A2B;fontColor=#FFFFFF;fontSize=13;fontStyle=1;arcSize=6;strokeColor=#E07A2B;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="380" y="100" width="490" height="36" as="geometry"/>
+        </mxCell>
+        <!-- Provider Header -->
+        <mxCell id="provider-header" value="&lt;b&gt;Provider / Supply Side&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8B4E;fontColor=#FFFFFF;fontSize=13;fontStyle=1;arcSize=6;strokeColor=#2D8B4E;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="890" y="100" width="340" height="36" as="geometry"/>
+        </mxCell>
+
+        <!-- ── User Side Boxes ── -->
+        <!-- Rigid Users -->
+        <mxCell id="rigid-users" value="&lt;b&gt;Rigid Users&lt;/b&gt;&lt;hr&gt;R&amp;#8321; = R̄&amp;#8321; · σ(β(v&amp;#8782; − p&amp;#8321;))&lt;br&gt;Price-sensitive demand,&lt;br&gt;drop only near willingness-to-pay cap" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4F4;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#007C7C;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="40" y="150" width="320" height="98" as="geometry"/>
+        </mxCell>
+        <!-- Elastic Users -->
+        <mxCell id="elastic-users" value="&lt;b&gt;Elastic Users (Logit Choice)&lt;/b&gt;&lt;hr&gt;F&amp;#8321; = F̄ · g · m · s&amp;#8321;&lt;br&gt;s&amp;#8321; = exp(z&amp;#8321;) / Σ exp(z&amp;#8321;)&lt;br&gt;Cross-period migration via discrete choice" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4F4;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#007C7C;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="40" y="262" width="320" height="105" as="geometry"/>
+        </mxCell>
+        <!-- Aggregate Demand -->
+        <mxCell id="agg-demand" value="&lt;b&gt;Aggregate Demand&lt;/b&gt;&lt;hr&gt;D&amp;#8321; = R&amp;#8321; + F&amp;#8321;&lt;br&gt;&lt;i&gt;Price-responsive total load&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007C7C;fontColor=#FFFFFF;fontSize=12;fontStyle=1;arcSize=6;strokeColor=#007C7C;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="40" y="381" width="320" height="56" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Platform Side Boxes ── -->
+        <!-- Price Vector -->
+        <mxCell id="price-vector" value="&lt;b&gt;Price Vector&lt;/b&gt;&lt;hr&gt;p = (p&amp;#8321;,...,p&amp;#8322;) ∈ [p̲, p̄]&lt;sup&gt;T&lt;/sup&gt;&lt;br&gt;Fixed mean: Σp&amp;#8321;/T = p̄" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E8;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#E07A2B;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="380" y="150" width="490" height="75" as="geometry"/>
+        </mxCell>
+        <!-- Stackelberg Leader -->
+        <mxCell id="stackelberg" value="&lt;b&gt;Stackelberg Leader&lt;/b&gt;&lt;hr&gt;Platform posts price p before users respond&lt;br&gt;Game-theoretic first-mover advantage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E8;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#E07A2B;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="380" y="239" width="490" height="75" as="geometry"/>
+        </mxCell>
+        <!-- Profit Maximization -->
+        <mxCell id="profit-max" value="&lt;b&gt;Profit Maximization&lt;/b&gt;&lt;hr&gt;Π(p) = h Σ p&amp;#8321; D&amp;#8321; q(u&amp;#8321;) − h Σ w D&amp;#8321; − h Σ c&amp;#8330;(R̄&amp;#8321;−R&amp;#8321;) − h Σ c&amp;#8323;[1−q(u&amp;#8321;)]R&amp;#8321;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E8;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#E07A2B;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="380" y="328" width="490" height="65" as="geometry"/>
+        </mxCell>
+        <!-- Constraints -->
+        <mxCell id="constraints" value="&lt;b&gt;Constraints &amp;amp; Strategy&lt;/b&gt;&lt;hr&gt;Bounded Mean Projection (λ bisection, KKT optimal)&lt;br&gt;3 strategies: Uniform / Myopic (κ=0) / QoS-aware (true κ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E8;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#E07A2B;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="380" y="407" width="490" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Provider Side Boxes ── -->
+        <!-- GPU Cluster -->
+        <mxCell id="gpu-cluster" value="&lt;b&gt;GPU Inference Cluster&lt;/b&gt;&lt;hr&gt;Capacity G&lt;br&gt;vLLM 0.22.0 / Ollama 0.24.0&lt;br&gt;RTX 4090 · Qwen2.5-0.5B/3B" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4EC;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#2D8B4E;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="150" width="340" height="95" as="geometry"/>
+        </mxCell>
+        <!-- Utilization -->
+        <mxCell id="utilization" value="&lt;b&gt;Utilization&lt;/b&gt;&lt;hr&gt;u&amp;#8321; = D&amp;#8321; / G" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4EC;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#2D8B4E;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="259" width="340" height="60" as="geometry"/>
+        </mxCell>
+        <!-- QoS Proxy -->
+        <mxCell id="qos-proxy" value="&lt;b&gt;QoS Degradation Proxy&lt;/b&gt;&lt;hr&gt;q(u&amp;#8321;) = 1 (u&amp;#8321; ≤ ū)&lt;br&gt;q(u&amp;#8321;) = exp[−κ(u&amp;#8321;−ū)²] (u&amp;#8321; &amp;gt; ū)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4EC;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#2D8B4E;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="333" width="340" height="75" as="geometry"/>
+        </mxCell>
+        <!-- Empirical -->
+        <mxCell id="empirical" value="&lt;b&gt;Empirical Validation&lt;/b&gt;&lt;hr&gt;TTFT · TPOT · Throughput · SLA (TTFT &amp;lt; 0.5s)&lt;br&gt;Heuristic QoS mapping" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4EC;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#2D8B4E;strokeWidth=2;verticalAlign=top;align=center;" parent="1" vertex="1">
+          <mxGeometry x="890" y="422" width="340" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Algorithm & Game Layer ── -->
+        <!-- Background -->
+        <mxCell id="algo-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D6E4F0;fontColor=#333333;fontSize=11;arcSize=8;strokeColor=#1B3A5C;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="40" y="495" width="1190" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="algo-title" value="&lt;b&gt;Algorithm &amp;amp; Game Layer&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#1B3A5C;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="495" width="1190" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Game Structure -->
+        <mxCell id="game-struct" value="&lt;b&gt;Game Structure&lt;/b&gt;&lt;hr&gt;• Stackelberg Leader–Follower: platform posts p, users respond via logit&lt;br&gt;• Congestion externality: GPU overload → QoS ↓ → effective service ↓&lt;br&gt;• Welfare decomposition: profit + rigid surplus + elastic log-sum − carbon cost" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#1B3A5C;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=8;" parent="1" vertex="1">
+          <mxGeometry x="60" y="530" width="550" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- Numerical Optimization -->
+        <mxCell id="num-opt" value="&lt;b&gt;Numerical Optimization&lt;/b&gt;&lt;hr&gt;• Multi-start SLSQP + equality/bound/bill-protection constraints&lt;br&gt;• Bounded Mean Projection: λ bisection, KKT optimal&lt;br&gt;• Candidates sorted by profit; solver convergence + constraint residuals &amp;lt; 10⁻¹²&lt;br&gt;• Scalability: T=8→64, 5→40 starts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;fontColor=#333333;fontSize=11;arcSize=6;strokeColor=#1B3A5C;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=8;" parent="1" vertex="1">
+          <mxGeometry x="650" y="530" width="560" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Arrows / Connectors ── -->
+
+        <!-- Platform → Users: Price Signal (dashed bidirectional) -->
+        <mxCell id="arrow-price" value="&lt;i&gt;Price Signal p&amp;#8321;&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#E07A2B;strokeWidth=2;dashed=1;endArrow=openThin;endFill=0;startArrow=openThin;startFill=0;fontSize=10;fontColor=#E07A2B;labelBackgroundColor=#FFFFFF;" parent="1" source="platform-header" target="user-header" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="625" y="136" as="sourcePoint"/>
+            <mxPoint x="200" y="136" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="625" y="90"/>
+              <mxPoint x="200" y="90"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Users → Platform: Demand (solid arrow) -->
+        <mxCell id="arrow-demand" value="&lt;i&gt;Demand D&amp;#8321;&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#007C7C;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;fontColor=#007C7C;labelBackgroundColor=#FFFFFF;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="408" as="sourcePoint"/>
+            <mxPoint x="380" y="408" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Platform → Provider: Load/Scheduling (solid) -->
+        <mxCell id="arrow-load" value="&lt;i&gt;Load / Scheduling&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E07A2B;strokeWidth=2;endArrow=block;endFill=1;fontSize=10;fontColor=#E07A2B;labelBackgroundColor=#FFFFFF;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="200" as="sourcePoint"/>
+            <mxPoint x="890" y="200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Provider → Platform: QoS feedback (dashed bidirectional) -->
+        <mxCell id="arrow-qos" value="&lt;i&gt;QoS q(u&amp;#8321;) / u&amp;#8321;&lt;/i&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2D8B4E;strokeWidth=2;dashed=1;endArrow=openThin;endFill=0;startArrow=openThin;startFill=0;fontSize=10;fontColor=#2D8B4E;labelBackgroundColor=#FFFFFF;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="370" as="sourcePoint"/>
+            <mxPoint x="380" y="370" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="860" y="370"/>
+              <mxPoint x="860" y="380"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Users ↔ Provider: Congestion Externality (dashed diagonal) -->
+        <mxCell id="arrow-congestion" value="&lt;i&gt;Congestion Externality&lt;/i&gt;" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#999999;strokeWidth=1.5;dashed=1;endArrow=openThin;endFill=0;startArrow=openThin;startFill=0;fontSize=9;fontColor=#999999;labelBackgroundColor=#FFFFFF;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="380" as="sourcePoint"/>
+            <mxPoint x="890" y="300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Key Results Callout -->
+        <mxCell id="results-callout" value="&lt;b&gt;Key Results:&lt;/b&gt; QoS-aware vs Myopic &lt;b&gt;+12.53%&lt;/b&gt; · QoS floor 0.6632 → &lt;b&gt;0.9918&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B3A5C;fontColor=#FFFFFF;fontSize=11;arcSize=6;strokeColor=#1B3A5C;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="400" y="690" width="470" height="32" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

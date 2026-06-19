@@ -1,0 +1,408 @@
+\documentclass[11pt,twocolumn]{article}
+
+\usepackage{ctex}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,fit,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{xcolor}
+\usepackage{subcaption}
+
+\title{\textbf{Token定价与电力市场的交叉视角：\\从价格形成机制到市场设计的系统综述}}
+
+\author{研究综述}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+大语言模型（LLM）推理服务的token定价与电力市场定价之间存在深层的结构同构性：二者均面临不可存储性、短期供给刚性、时空约束下的需求响应以及策略性行为的挑战。本综述以"token定价与电力市场交叉视角"为核心框架，系统整合47篇相关文献，涵盖电力市场定价理论、token商品属性与市场实证、网络约束下的空间定价、时序定价与风险管理、策略行为的博弈论分析、信息不对称下的机制设计以及可持续性优化等七个维度。我们识别出三类核心映射关系：（1）节点边际电价（LMP）与节点边际服务价格（LMSP）的结构对应；（2）电力需求响应与token需求弹性在激励设计上的同构；（3）电力市场中的策略性负荷转移与token市场中的策略性路由在博弈结构上的等价。综述进一步揭示了四个开放问题：时空联合定价模型的缺失、策略性供给者行为在网络市场中的影响尚无定论、随机需求与容量不确定性下的鲁棒定价机制、以及碳-水-成本多维协同优化的实际部署挑战。本综述为token定价机制的设计提供了从电力市场成熟经验中系统迁移的方法论路径。
+
+\textbf{关键词：} token定价；电力市场；节点边际定价；Stackelberg博弈；机制设计；空间定价；需求响应；可持续性
+\end{abstract}
+
+%=============================================================================
+\section{引言}
+%=============================================================================
+
+大语言模型推理服务的商业化正在催生一个全新的市场形态——token市场。在这个市场中，推理计算以token为基本交易单位，供给方（GPU云平台）提供算力，需求方（应用开发者）购买推理服务。2023至2025年间，SOTA模型的token价格下降了约1000倍\cite{demirer2025emerging}，但开源模型尽管便宜90\%，token份额仍不足30\%\cite{demirer2025emerging}。这种剧烈的价格波动与结构性异质性，与电力市场在放松管制初期所经历的阵痛高度相似。
+
+事实上，token定价与电力市场定价之间存在深层的结构同构性。首先，\textbf{不可存储性}——电力必须即时生产与消费，token推理亦然：GPU算力无法跨时段存储，未使用的算力即为永久损失。其次，\textbf{短期供给刚性}——发电机组有容量约束与爬坡速率限制，GPU集群同样面临硬件部署周期与热设计功耗约束。第三，\textbf{时空约束}——电力受输电线路容量限制形成拥塞，token推理受带宽与延迟约束形成地理价格差异。第四，\textbf{策略性行为}——电力市场中的发电商可能策略性持留容量\cite{du2021approximating}，token市场中的供给者同样可能通过定价策略影响用户路由\cite{guo2025prilm}。
+
+Xing\cite{xing2026tokenfutures}率先系统论证了token与电力作为标准化商品的类比基础，并指出"电力是token最接近的类比物"。Liu\cite{liu2026locational}则进一步将DC最优潮流（DC-OPF）框架迁移至token流网络，推导出与LMP结构完全对应的节点边际服务价格（LMSP）。这些工作奠定了token定价从电力市场经验中系统迁移的方法论基础，但现有综述尚未在统一框架下整合这两个领域的研究成果。
+
+本综述的贡献在于：（1）建立token定价与电力市场定价之间的完整映射框架，识别三类核心同构关系；（2）系统整合47篇跨领域文献，涵盖电力市场理论、token定价核心研究及新近的电力-token交叉工作；（3）从空间、时间、策略、机制、可持续性五个维度组织现有研究，揭示研究空白与未来方向。
+
+本文其余部分组织如下：第2节建立电力市场定价基础；第3节分析token的商品属性与市场实证；第4-5节分别从空间与时序维度展开定价分析；第6节讨论策略行为的博弈论视角；第7节讨论机制设计与信息不对称；第8节讨论可持续性优化；第9节提出开放性问题；第10节总结全文。
+
+%=============================================================================
+\section{电力市场定价基础}
+%=============================================================================
+
+本节介绍token定价分析所依赖的电力市场核心概念与定价机制，为后续的交叉映射奠定基础。
+
+\subsection{节点边际定价（LMP）}
+
+节点边际定价（Locational Marginal Pricing, LMP）是电力市场定价的基石\cite{schweppe1988spot,hogan1992contract}。在日前市场中，独立系统运营商（ISO）通过求解最优潮流（OPF）问题确定各节点的边际电价。LMP可分解为三个组分：
+
+\begin{equation}
+\text{LMP}_i = \underbrace{\lambda_{\text{energy}}}_{\text{能量分量}} + \underbrace{\mu_i^{\text{congestion}}}_{\text{拥塞分量}} + \underbrace{\mu_i^{\text{loss}}}_{\text{损耗分量}},
+\label{eq:lmp}
+\end{equation}
+
+其中能量分量$\lambda_{\text{energy}}$为参考节点的系统边际成本，拥塞分量$\mu_i^{\text{congestion}}$反映输电线路容量约束对节点价格的影响，损耗分量$\mu_i^{\text{loss}}$反映输电损耗的边际成本\cite{stofft2002power}。当系统无拥塞且无损耗时，所有节点的LMP相等，等于系统边际成本；当输电线路达到容量上限时，拥塞分量产生，导致不同节点价格出现显著差异。
+
+\subsection{时序定价：分时电价与实时定价}
+
+电力市场通过分时电价（Time-of-Use, TOU）和实时定价（Real-Time Pricing, RTP）实现时间维度上的价格信号。TOU将一天划分为峰、平、谷时段，对应不同价格水平；RTP则基于实际系统运行状态动态调整价格。Bessembinder和Lemmon\cite{bessembinder2002equilibrium}证明，电力远期合约的价格升水与价格波动性及需求弹性相关，为电力期货市场提供了理论基础。
+
+\subsection{需求响应与弹性负荷}
+
+V\'azquez-Canteli和Nagy\cite{vazquez2019reinforcement}系统综述了强化学习在需求响应中的应用，涵盖37种RL算法在制冷、制热、电动汽车充电和热水管理等场景的部署。关键发现包括：（1）多智能体方法在分布式需求响应中优于单智能体方法；（2）Q-learning在简单场景中足够，但连续动作空间需要DDPG/SAC等策略梯度方法；（3）奖励函数设计——特别是对用户舒适度的惩罚——是实际部署的核心挑战。
+
+\subsection{策略性行为与博弈论建模}
+
+电力市场中的策略性行为是一个长期关注的问题。Cheng和Yu\cite{cheng2019game}综述了博弈论在电力需求响应中的应用，涵盖Stackelberg博弈、Nash博弈和演化博弈三类框架。在日前市场中，Du等人\cite{du2021approximating}证明MADDPG学习到的竞价策略具有可解释性：无拥塞时发电商学到诚实竞价，有拥塞时拥有市场势力的发电商通过策略持留获得超额利润。
+
+\subsection{空间负荷转移}
+
+数据中心的地理灵活性为电力系统提供了新型的空间需求响应资源。Brenner等人\cite{brenner2026spatial}将大型灵活消费者建模为DC-OPF市场出清中的Stackelberg领导者，证明分散式成本最小化的负荷转移不必与系统运行成本最小化对齐——不对齐发生在DC-OPF运行机制的边界处，微小的负荷变化可引发边际发电机或拥塞模式的离散切换。Brenner等人\cite{brenner2025strategic}进一步发现，策略性消费者可以通过在容量边界附近定位来抵消输电扩建的边际效益——尽管影子价格表明额外容量有价值，策略性消费者会重新优化以抵消流量变化，使得调度与成本保持不变。
+
+Wan等人\cite{wan2025grid}从电网运营角度分析了数据中心空间灵活性的效益，包括拥塞缓解、可再生能源弃电减少和成本节约。当DC灵活性超过20--30\%时，系统可获得显著的运营收益，但具体阈值依赖于系统拓扑和DC位置。
+
+这些电力市场的基础概念——LMP、时序定价、需求响应、策略行为、空间负荷转移——构成了后续token定价分析的参照系。
+
+%=============================================================================
+\section{Token的商品属性与市场实证}
+%=============================================================================
+
+\subsection{Token与电力的结构同构性}
+
+Xing\cite{xing2026tokenfutures}系统论证了AI推理token具备标准化商品的基本属性，并指出电力是token最接近的类比物。二者的结构同构性体现在四个维度：
+
+\begin{table}[htbp]
+\centering
+\caption{Token与电力的商品属性对比}
+\label{tab:token_electricity}
+\begin{tabular}{p{2cm}p{3cm}p{3cm}}
+\toprule
+\textbf{属性} & \textbf{电力} & \textbf{Token} \\
+\midrule
+不可存储性 & 即产即消，无经济存储 & 算力不可跨时段存储 \\
+供给刚性 & 机组容量+爬坡速率 & GPU部署周期+TDP约束 \\
+时空异质性 & LMP节点价格差异 & 延迟约束下的地理价格差异 \\
+需求弹性 & 短期弹性低，长期可通过DR提升 & 短期弹性约1\cite{demirer2025emerging} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{三因子供给模型}
+
+Xing\cite{xing2026tokenfutures}提出token供给的三因子模型：
+\begin{equation}
+Q_{\text{Token}} = \frac{\eta_H \cdot \eta_A}{C_E} \cdot K,
+\label{eq:threefactor}
+\end{equation}
+其中$C_E$为单位能耗成本，$\eta_H$为硬件效率（FLOPS/\$），$\eta_A$为算法效率（tokens/FLOP），$K$为总投资规模。供给增长率为三项增长率之和：$g_Q = g_{\eta_H} + g_{\eta_A} - g_{C_E} + g_K$，解释了2023--2025年token价格的快速下降。
+
+\subsection{LLM市场实证}
+
+Demirer等人\cite{demirer2025emerging}使用OpenRouter和Microsoft Azure的API数据记录了LLM市场的六个关键事实：（i）由开源进入者驱动的快速增长；（ii）SOTA模型价格下降约1000倍，但开源模型token份额不足30\%；（iii）频繁的市场动态更替；（iv）无单一模型主导的水平与垂直差异化；（v）短期价格弹性略高于1；（vi）多归属行为呈实验性而非持续依赖。
+
+Erdil\cite{erdil2025inference}建立了LLM推理的"屋顶线模型"，推导出最优实例规模和最小token延迟的解析表达式。关键洞见是网络延迟（而非内存带宽）是大规模推理的关键瓶颈，token-延迟缩放关系（约$\sqrt{N_{\text{param}}}$）与PaLM和Llama实证数据吻合。
+
+Luo和Yang\cite{luo2026aiinference}将AI推理视为"可迁移的电力需求"，发展了一个三层架构（客户端-服务节点-计算节点）的能-地理框架。该框架的核心概念是"能量-延迟前沿"：放宽推理延迟预算所解锁的边际成本与碳效益。研究结果揭示，延迟松弛扩展可行地理范围，但迁移摩擦、出口成本、状态局部性、法律约束和容量限制会急剧削减已实现的效益。
+
+\subsection{Token管理抽象}
+
+Cunningham\cite{cunningham2026token}引入token池（Token Pools）——一种控制平面抽象，将推理容量表示为以推理原生单位（token吞吐量、KV缓存、并发度）表达的显式权利。与速率限制不同，token池同时授权准入和自动缩放，确保承诺与供给之间的一致性。关键洞见是准入控制应位于API网关而非GPU调度器——当请求到达推理运行时，系统已承诺资源。在Kubernetes集群上的实验表明，token池在过载期间通过选择性节流spot流量维持有界P99延迟，而无限流控制的基线则经历无界延迟退化。
+
+%=============================================================================
+\section{空间定价：网络约束下的Token定价}
+%=============================================================================
+
+\subsection{从LMP到LMSP：结构映射}
+
+Liu\cite{liu2026locational}提供了从电力LMP到token LMSP最直接的实现。该文将分布式GenAI服务基础设施建模为token流网络，构建了一个与DC-OPF高度类比的线性规划：
+
+\begin{align}
+\min_{g, f} \; & \sum_{k \in \mathcal{K}} \sum_{s \in \mathcal{N}} \gamma_s g_{s,k} + \sum_{k \in \mathcal{K}} \sum_{(i,j) \in \mathcal{E}} c_{ij,k} f_{ij,k} \label{eq:lp}\\
+\text{s.t.} \quad & g_{s,k} + \sum_{j} f_{js,k} = D_{s,k} + \sum_{i} f_{si,k}, \quad \forall s, k \label{eq:flow}\\
+& 0 \leq g_{s,k} \leq \overline{G}_{s,k}, \quad \forall s, k \label{eq:gencap}\\
+& 0 \leq \sum_{k} f_{ij,k} \leq \overline{F}_{ij}, \quad \forall (i,j) \label{eq:linecap}\\
+& \sum_{k} \mathbb{1}\{\text{latency}_k > L_k\} f_{ij,k} = 0, \quad \forall (i,j) \label{eq:latency}
+\end{align}
+
+对偶变量给出节点边际服务价格：
+\begin{equation}
+\pi_{o,k} = \underbrace{\gamma_{s,k}}_{\text{能耗成本}} + \underbrace{\mu_{s,k}}_{\text{算力稀缺}} + \sum_{(i,j) \in P} \bigl(\underbrace{c_{ij,k}}_{\text{路由成本}} + \underbrace{\eta_{ij}}_{\text{拥塞租金}}\bigr).
+\label{eq:lmsp}
+\end{equation}
+
+LMSP与LMP的组分对照如表\ref{tab:lmp_lmsp}所示。
+
+\begin{table}[htbp]
+\centering
+\caption{LMP与LMSP组分对照表。数据来源：LMP分解见\cite{schweppe1988spot,hogan1992contract}；LMSP分解见\cite{liu2026locational}式(12)。}
+\label{tab:lmp_lmsp}
+\begin{tabular}{p{1.5cm}p{2.5cm}p{2.5cm}}
+\toprule
+\textbf{组分} & \textbf{LMP（电力）} & \textbf{LMSP（Token）} \\
+\midrule
+基准 & 系统边际发电成本 & 边际推理能耗成本 \\
+稀缺 & 发电机容量约束对偶 & GPU算力容量约束对偶 \\
+拥塞 & 输电线路容量对偶 & 带宽容量约束对偶 \\
+损耗 & 输电损耗边际成本 & 路由跳数边际成本 \\
+附加 & — & 延迟约束对偶分量 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{LMSP的数值发现}
+
+Liu\cite{liu2026locational}在美国5节点网络上的数值仿真揭示了四个关键现象：
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{优先顺序调度}：低成本计算节点（西雅图、达拉斯）优先调度，类似发电机优先顺序。
+\item \textbf{稀缺悬崖}：图像生成价格从\$41.9/M tokens跳升至\$89.2/M tokens（需求从35$\times$到40$\times$），揭示尖锐的容量悬崖。
+\item \textbf{延迟诱导的价格分离}：聊天机器人延迟从100\,ms收紧至15\,ms，将5节点网络分割为东西两个集群；硅谷的聊天机器人价格上升117\%。
+\item \textbf{传输感知瓶颈}：图像生成的大字节/token比在有用token流不大时即饱和骨干链路。
+\end{enumerate}
+
+\subsection{空间负荷转移的效率与策略}
+
+在电力侧，Brenner等人\cite{brenner2026spatial}在73母线RTS-GMLC测试系统上评估了策略性空间负荷转移。关键发现是：分散式成本最小化的负荷转移在大多数时段降低系统运行成本，但在DC-OPF运行机制边界处出现不对齐——微小的负荷变化可引发边际发电机或拥塞模式的离散切换，导致价格不连续，使灵活消费者的采购激励与系统总运行成本脱钩。
+
+Brenner等人\cite{brenner2025strategic}进一步发现两个市场失灵：（1）发电机容量极限处的非连续价格变化可诱导灵活消费者向更高成本区域转移负荷以触发其他区域的价格下降——这种策略行为虽然降低了消费者支付，但增加了总运行成本；（2）策略性消费者可抵消输电扩建的边际效益。
+
+Wan等人\cite{wan2025grid}从正面评估了DC空间灵活性的电网运营效益：通过共优化框架实现拥塞缓解、可再生能源弃电减少和成本节约。当DC灵活性阈值超过20--30\%时，效益显著，但具体阈值依赖系统拓扑。
+
+Luo和Yang\cite{luo2026aiinference}从token侧研究了空间转移——将推理工作负载从用户侧服务节点迁移至远程计算节点，等效于电力的"数字迁移"。能量-延迟前沿量化了放宽延迟预算所解锁的地理能源多样性，但迁移摩擦、出口成本和法律约束会削减实际效益。
+
+图\ref{fig:spatial_mapping}总结了电力侧与token侧空间定价的映射关系。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=0.8cm and 2.5cm,
+    box/.style={draw, rounded corners, minimum width=2.2cm, minimum height=0.7cm, align=center, font=\scriptsize},
+    arr/.style={-{Stealth[length=2mm]}, thick, dashed, blue!60}
+]
+\node[box, fill=red!10] (lmp) {LMP\\节点边际电价};
+\node[box, fill=red!10, below=of lmp] (cong) {拥塞分量\\输电约束对偶};
+\node[box, fill=red!10, below=of cong] (spatial) {空间负荷转移\\DC灵活性};
+\node[box, fill=blue!10, right=of lmp] (lmsp) {LMSP\\节点边际服务价};
+\node[box, fill=blue!10, below=of lmsp] (bw) {拥塞分量\\带宽约束对偶};
+\node[box, fill=blue!10, below=of bw] (migrate) {推理迁移\\延迟-地理框架};
+\draw[arr] (lmp) -- (lmsp);
+\draw[arr] (cong) -- (bw);
+\draw[arr] (spatial) -- (migrate);
+\node[above=0.3cm of lmp, font=\tiny\bfseries, red!70] {电力市场};
+\node[above=0.3cm of lmsp, font=\tiny\bfseries, blue!70] {Token市场};
+\end{tikzpicture}
+\caption{空间定价的电力-Token映射关系。来源：LMP理论\cite{schweppe1988spot}；LMSP模型\cite{liu2026locational}；空间负荷转移\cite{brenner2026spatial,brenner2025strategic,wan2025grid}；推理迁移\cite{luo2026aiinference}。}
+\label{fig:spatial_mapping}
+\end{figure}
+
+%=============================================================================
+\section{时序定价：风险管理与需求响应}
+%=============================================================================
+
+\subsection{Token期货与电力期货}
+
+Xing\cite{xing2026tokenfutures}提出标准推理token（SIT）作为期货标的物，采用现金结算对标token价格指数（TPI）。蒙特卡洛模拟均值回归跳跃扩散过程表明，token期货可将企业计算成本波动性降低62--78\%。这一结果与电力期货的对冲效果\cite{bessembinder2002equilibrium}在量级上相当——Bessembinder和Lemmon证明电力远期价格升水与价格波动性正相关，而Xing在token市场观察到类似的价格动态特征。
+
+\subsection{动态定价与RL方法}
+
+Lange等人\cite{lange2025reinforcement}首次系统比较了7种RL算法与数据驱动动态规划（DP）在动态定价中的表现。关键发现是数据量切换点：约10个episode时DP仍有竞争力；约100个episode时RL超越DP；约1000个episode时TD3、DDPG、PPO、SAC达到最优的90\%以上。PPO被识别为该设置下整体最佳的RL算法。
+
+在电力需求响应中，V\'azquez-Canteli和Nagy\cite{vazquez2019reinforcement}发现类似规律：简单场景中Q-learning足够，但连续动作空间和复杂市场规则需要策略梯度方法。这种从简单到复杂算法的递进规律在两个市场中高度一致。
+
+\subsection{频率调节与在线定价}
+
+在电力市场中，频率调节是秒级的实时平衡机制。token市场的等价物是推理负载的瞬时弹性：Cunningham\cite{cunningham2026token}的token池设计通过动态调整每权利限制实现细粒度的过载控制，类似电力市场中的自动发电控制（AGC）。token池的债务机制——低优先级流量在容量充足时回填——与电力市场的工作节能量回收机制同构。
+
+\subsection{时序维度的研究缺口}
+
+现有token时序定价研究存在两个显著缺口：
+
+\textbf{时空联合定价}。Liu\cite{liu2026locational}提供了空间框架但使用静态确定模型；Xing\cite{xing2026tokenfutures}提供了时间框架但忽略网络约束。统一模型——同时跨越网络节点和时间周期定价token，类似电力市场的节点边际定价+分时电价——尚未被探索。
+
+\textbf{随机需求与容量}。所有四篇核心token定价论文\cite{liu2026locational,xing2026tokenfutures,guo2025prilm,zhong2026token}将需求和计算可用性视为确定性。电力市场常规处理随机负荷、可再生发电和备用容量。token市场面临类似的不确定性：病毒式应用的流量尖峰、GPU故障和能源价格波动。
+
+%=============================================================================
+\section{策略行为：博弈论视角}
+%=============================================================================
+
+\subsection{Stackelberg博弈框架}
+
+Stackelberg博弈在两个市场中均占据核心地位。在token市场，Yan等人\cite{yan2026stackelberg}将多租户GPU云平台的联合定价-扩容问题建模为大规模群体Stackelberg博弈。平台为领导者，设定价格和服务容量；异质租户为跟随者，根据价格和拥塞决定提交量。模型的闭环结构揭示了一种\textbf{结构性失效模式}：延迟不敏感工作负载维持残余需求底线，使积压在有限价格和容量下不可排出（undrainable）。这一洞见催生了\textbf{可排出性护栏}（drainability guardrail）——认证残余需求区域中一致负漂移的可计算条件。满足护栏的固定价格-容量对具有唯一运行点与全局收敛性。进一步，作者发展了优化器无关的动作盾（action shield），在模型无关RL中提升安全性与鲁棒性。
+
+在电力市场，Brenner等人\cite{brenner2026spatial}同样使用Stackelberg框架——大型灵活消费者为领导者，DC-OPF市场出清为跟随者。两个Stackelberg模型在结构上等价：领导者决策影响市场出清结果，跟随者的反应通过均衡条件反馈至领导者的优化问题。
+
+\subsection{策略性路由与拥塞博弈}
+
+Guo等人\cite{guo2025prilm}将LLM服务市场建模为Stackelberg拥塞博弈，供给方（领导者）设定单价，用户（跟随者）路由token需求。每个用户$u_i$最小化路由成本：
+\begin{equation}
+C_i = \sum_{j \in \mathcal{S}} f_{ij}\bigl(w_p p_j + w_q Q_j(\mathbf{f}) + w_d d_{ij} - b_j\bigr),
+\label{eq:prilm_cost}
+\end{equation}
+其中$p_j$为单价，$Q_j(\mathbf{f}) = \sum_i f_{ij}/\alpha_j$为拥塞因子，$d_{ij}$为传输延迟，$b_j$为用户对供给方的感知价值。用户侧博弈具有唯一Nash均衡（通过Rosen定理和精确势函数证明）。使用OpenRouter真实数据校准，PriLLM在拟合用户流量流时达到$R^2 = 0.898$，在$<5\%$计算时间内达到$>95\%$最优利润。
+
+\subsection{算法合谋}
+
+Fish等人\cite{fish2024algorithmic}首次证明基于LLM的定价智能体可在无显式合谋指令下自主达到超竞争价格。Akata等人\cite{akata2025playing}揭示了LLM预测能力与策略能力的惊人分离：GPT-4能正确预测对手在性别之战中的轮替模式但不据此行动。LLM智能体的"推理"可能不真正反映内部决策机制，这为token市场中的算法合谋监管带来了新的复杂性。
+
+\subsection{跨市场策略行为对比}
+
+表\ref{tab:strategic}对比了两个市场中的策略行为研究。
+
+\begin{table}[htbp]
+\centering
+\caption{策略行为的跨市场对比。数据来源：各文献的实验与理论结果。}
+\label{tab:strategic}
+\scriptsize
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{p{1.5cm}p{1.8cm}p{2cm}p{2cm}p{2cm}}
+\toprule
+\textbf{文献} & \textbf{市场} & \textbf{博弈类型} & \textbf{关键发现} & \textbf{局限} \\
+\midrule
+\cite{yan2026stackelberg} & Token/GPU & Stackelberg & 可排出性护栏+动作盾 & 大群体近似 \\
+\cite{guo2025prilm} & Token/LLM & Stackelberg拥塞 & 势函数+真实数据校准 & 无网络约束 \\
+\cite{brenner2026spatial} & 电力 & Stackelberg+DC-OPF & 机制边界不对齐 & 单一灵活消费者 \\
+\cite{brenner2025strategic} & 电力 & 双层优化 & 输电价值抵消 & 两区域模型 \\
+\cite{fish2024algorithmic} & Token & Bertrand双寡头 & 自主算法合谋 & 仅双寡头 \\
+\cite{du2021approximating} & 电力 & MADDPG竞价 & 策略持留可解释 & 3个竞价者 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+%=============================================================================
+\section{机制设计：信息不对称与筛选}
+%=============================================================================
+
+\subsection{紧急性筛选与信息设计}
+
+Zhong\cite{zhong2026token}从最优机制设计角度研究token定价，将垄断者出售对信念过程$\langle \mu_t \rangle$的访问权建模为信息-吞吐量约束$\chi$下的动态信息服务筛选问题。用户在私下已知的紧急性（折现率$r$）上异质。最优机制具有惊人的简洁形式：部署单一偏好对齐的信念过程——贪婪探索过程——通过一维停止时间上限菜单$\chi T(r)$筛选用户。虚拟时间偏好：
+\begin{equation}
+\rho_r(t) = e^{-rt}\Bigl(1 - t \frac{G(r)}{g(r)}\Bigr),
+\label{eq:virtual}
+\end{equation}
+保持凸性，使得同一贪婪过程对所有类型同时最优——仅上限随类型变化，每token价格随上限递减。这一结果合理化了消费端订阅等级（Anthropic/OpenAI的滚动窗口消息配额）和B2B API服务等级（Priority/Standard/Flex/Batch）。
+
+\subsection{菜单定价与质量筛选}
+
+Bergemann等人\cite{bergemann2026menu}研究LLM用户的静态筛选，用户在跨任务价值异质。聚合引理将无限维任务-价值异质性坍缩为标量聚合类型，产生具有丰富数量-扭曲结构的最优菜单——承诺消费合同或两部收费。在开源竞争下，低类型完全从开源边缘购买，中间类型从领导者购买恰好阻止开源补充的数量，高类型如纯垄断下服务。
+
+\subsection{反欺诈机制}
+
+Cao等人\cite{cao2025pay}设计了首个针对不诚实LLM提供商的机制。不可能性定理证明不存在$o(T)$-近似激励相容机制能渐近保证最优效用。所提出的$O(T^{1-\varepsilon}\log T)$-近似IC机制通过四阶段运行：探索（测试提供商）→利用（使用最佳已知提供商）→盲目信任I（有限继续信任）→盲目信任II（最终验证）。
+
+\subsection{Token池作为控制平面机制}
+
+Cunningham\cite{cunningham2026token}的token池抽象可被视为一种\textbf{准入控制机制}，在信息不对称（平台不完全知道租户的真实需求模式）下通过显式权利授权+动态限制实现资源分配。其优先级感知分配、服务等级差异化保证和债务公平机制，与电力市场中的可中断服务合同和优先级服务定价\cite{stofft2002power}在机制设计层面同构。
+
+\subsection{机制设计的跨市场启示}
+
+表\ref{tab:mechanism}对比了两个市场中的机制设计研究。
+
+\begin{table}[htbp]
+\centering
+\caption{机制设计的跨市场对比。数据来源：各文献的理论与实验结果。}
+\label{tab:mechanism}
+\scriptsize
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{p{1.5cm}p{2cm}p{2cm}p{2.5cm}}
+\toprule
+\textbf{文献} & \textbf{筛选维度} & \textbf{机制类型} & \textbf{核心保证/发现} \\
+\midrule
+\cite{zhong2026token} & 紧急性（时间偏好） & 停止时间上限菜单 & 贪婪过程对所有类型最优 \\
+\cite{bergemann2026menu} & 任务价值（质量需求） & 承诺消费/两部收费 & 聚合引理简化1D筛选 \\
+\cite{cao2025pay} & 提供商诚实性 & 四阶段探索-利用 & 不可能性定理+次优IC \\
+\cite{cunningham2026token} & 租户需求模式 & Token池+债务公平 & 优先级感知准入控制 \\
+\cite{hogan1992contract} & 输电权（位置） & 合同网络+LMP & 激励相容输电调度 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+%=============================================================================
+\section{可持续性：碳-水-成本协同优化}
+%=============================================================================
+
+\subsection{碳感知推理系统}
+
+Li等人\cite{li2025ecoserve}基于两个GenAI服务的生产部署数据提出三个观察：（1）GPU主导运营碳，但主机处理系统（CPU、内存、存储）主导隐含碳；（2）离线批量推理占服务容力的55\%；（3）硬件与工作负载存在不同水平的异质性。基于此，EcoServe框架采用4R原则（Reduce, Reuse, Rightsize, Recycle），通过跨栈ILP公式实现：在维持性能目标的同时，相比性能、能耗和成本优化设计点降低碳排放达47\%。
+
+\subsection{碳-水-成本协同调度}
+
+Moore等人\cite{moore2025slit}提出SLIT框架，协同优化LLM服务质量（time-to-first token）、碳排放、水耗和能源成本。核心创新在于将水耗纳入优化目标——每20--50次LLM推理请求消耗约500\,ml淡水。框架使用基于机器学习的元启发式算法，在地理分布式云数据中心间调度LLM工作负载。
+
+\subsection{能-地理框架中的碳效益}
+
+Luo和Yang\cite{luo2026aiinference}的能-地理框架引入碳回报延迟（Carbon Return on Latency, CRoL）指标，量化放宽延迟预算所解锁的边际碳效益。研究表明，当延迟预算足够宽松时，推理工作负载可迁移至低碳强度区域，实现碳减排与成本节约的双赢。然而，迁移摩擦（状态局部性、数据出口限制）会显著缩减实际碳效益。
+
+\subsection{电力侧碳信号与负荷转移}
+
+在电力侧，Wan等人\cite{wan2025grid}发现DC空间灵活性可显著减少可再生能源弃电——通过将计算负载迁移至可再生能源富集区域，既降低弃电率又降低运行成本。这与Luo和Yang\cite{luo2026aiinference}在token侧的发现形成呼应：地理迁移的碳效益在两个市场中具有相同的机制——空间灵活性解锁低碳/低成本区域的访问。
+
+\subsection{可持续性的研究缺口}
+
+\textbf{运营碳vs隐含碳的权衡}。EcoServe\cite{li2025ecoserve}发现主机系统主导隐含碳，但现有碳感知调度框架（SLIT\cite{moore2025slit}、能-地理框架\cite{luo2026aiinference}）仅优化运营碳。隐含碳的优化需要硬件生命周期视角，与短期运营调度形成不同时间尺度的决策问题。
+
+\textbf{水-碳-成本帕累托前沿的实际部署}。SLIT\cite{moore2025slit}提供了多维优化的理论框架，但在实际部署中，水耗数据的获取（云提供商通常不公开水耗）和多目标之间的偏好聚合仍是未解决的挑战。
+
+%=============================================================================
+\section{开放性问题}
+%=============================================================================
+
+我们从上述七个维度的分析中推导出以下开放性问题。
+
+\textbf{OP1：时空联合Token定价模型。} Liu\cite{liu2026locational}提供了空间框架，Xing\cite{xing2026tokenfutures}提供了时间框架，但二者的统一——同时跨越网络节点和时间周期定价token——尚未被探索。电力市场中的节点边际定价+分时电价提供了自然参照：LMSP应如何在时间维度上扩展以反映需求波动、GPU可用性变化和能源价格的时间变化？Stoft\cite{stofft2002power}证明电力市场中时空联合定价可实现更高效的资源配置；token市场是否具有类似结论有待验证。
+
+\textbf{OP2：网络市场中的策略性供给者行为。} PriLLM\cite{guo2025prilm}建模策略定价但抽象掉网络拓扑；Liu\cite{liu2026locational}假设竞争性行为（价格接受供给方）。将博弈论供给者竞争整合到网络约束token流框架中——策略性LMSP与市场势力——是开放问题。Brenner等人\cite{brenner2026spatial,brenner2025strategic}在电力侧的发现——策略性负荷转移可在机制边界处产生社会低效——暗示token网络市场可能存在类似的市场失灵。
+
+\textbf{OP3：随机需求与容量下的鲁棒定价。} 所有核心token定价论文\cite{liu2026locational,xing2026tokenfutures,guo2025prilm,zhong2026token}处理需求与计算可用性为确定性。电力市场常规处理随机负荷、可再生发电和备用容量。Yan等人\cite{yan2026stackelberg}的可排出性护栏为处理随机性提供了一个起点——护栏条件确保在固定价格-容量对下的系统稳定性——但动态价格调整下的鲁棒性保证尚未建立。分布鲁棒优化或机会约束规划可能是自然的扩展方向。
+
+\textbf{OP4：碳-水-成本多维协同优化的实际部署。} EcoServe\cite{li2025ecoserve}和SLIT\cite{moore2025slit}提供了理论框架，但实际部署面临数据获取（水耗、隐含碳）、多目标偏好聚合和跨时间尺度决策（短期运营vs长期硬件生命周期）的挑战。特别是，隐含碳的优化需要与硬件采购和退役决策联合建模，形成与运营调度不同时间尺度的双层决策问题。
+
+\textbf{OP5：人机混合市场的均衡与福利。} 所有综述研究假设全人类或全AI市场。实践中，token市场将日益出现人类决策者和AI智能体同时交互。Akata等人\cite{akata2025playing}的人机实验提供了起点但限于简单2$\times$2博弈。混合市场的均衡性质——特别是AI智能体的速度优势和涌现行为对人类参与者的福利影响——尚未被刻画。
+
+\textbf{OP6：算法合谋的监管机制。} Fish等人\cite{fish2024algorithmic}证明LLM智能体可自主合谋，但仅限于双寡头。3个以上竞争者时合谋是否持续？Cao等人\cite{cao2025pay}设计了反欺诈机制但未针对合谋。专门设计用于防止或检测LLM智能体算法合谋的市场规则是关键的开放方向。
+
+%=============================================================================
+\section{结论}
+%=============================================================================
+
+本综述以"token定价与电力市场交叉视角"为核心框架，系统整合了47篇跨领域文献，从空间、时间、策略、机制、可持续性五个维度组织了现有研究。
+
+我们识别出三类核心映射关系。（1）\textbf{LMP-LMSP结构对应}：电力市场的节点边际定价在token市场中具有完整的结构对应物——LMSP\cite{liu2026locational}，包括能量、稀缺、拥塞和损耗四个组分，外加token特有的延迟约束分量。（2）\textbf{需求响应同构}：电力需求响应\cite{vazquez2019reinforcement}与token需求弹性在激励设计上同构——均通过价格信号引导需求在时间和空间上重新分配，且均面临用户舒适度/服务质量与系统效率的权衡。（3）\textbf{策略行为等价}：电力市场中的策略性负荷转移\cite{brenner2026spatial,brenner2025strategic}与token市场中的策略性路由\cite{guo2025prilm}在Stackelberg博弈结构上等价——领导者决策影响市场出清，跟随者反应通过均衡条件反馈至领导者优化。
+
+综述同时揭示了四个深层张力。（1）理论优雅性与实际适用性的张力：Bergemann等人\cite{bergemann2026menu}的聚合引理和Zhong\cite{zhong2026token}的贪婪过程最优性依赖强假设，在真实市场的异质性和不确定性下可能不成立。（2）效率与策略的张力：Brenner等人\cite{brenner2026spatial}证明分散式灵活性不必然提升系统效率，策略性行为可在机制边界处产生社会低效。（3）运营优化与可持续性的张力：现有碳感知调度\cite{li2025ecoserve,moore2025slit}聚焦运营碳，但隐含碳可能主导总碳足迹。（4）竞争与合谋的张力：LLM智能体在定价中可自主合谋\cite{fish2024algorithmic}，但在基本协调任务上却失败\cite{akata2025playing}——这种非对称性对市场监管具有深远影响。
+
+未来研究的核心方向是从电力市场的成熟经验中系统迁移定价机制，同时考虑token市场的独特特征——延迟约束作为"输电约束"的等价物、token池作为"需求响应"的控制平面抽象、以及LLM智能体的涌现行为对市场均衡的扰动。时空联合定价、策略性LMSP、鲁棒随机定价和碳-水-成本协同优化是最紧迫的开放问题。
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\end{document}

@@ -1,0 +1,10 @@
+{
+  "note": "fine-grid FP, plateaued ~round18 regret16.2 (NOT fully converged)",
+  "system_profit": 1761.4780590891003,
+  "peak_util": 0.6582015483915449,
+  "min_qos": 0.9922628422984157,
+  "delta_A": 5.204170427930421e-18,
+  "delta_B": 0.3157894736842107,
+  "maxreg_at_stop": 16.219367921919456,
+  "round": 18
+}

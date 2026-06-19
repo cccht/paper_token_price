@@ -1,0 +1,5 @@
+matplotlib>=3.6
+numpy>=1.23
+pytest>=7.0
+requests>=2.28
+scipy>=1.9

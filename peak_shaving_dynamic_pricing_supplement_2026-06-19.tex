@@ -1,0 +1,242 @@
+\documentclass[UTF8,11pt]{ctexart}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\setlength{\emergencystretch}{3em}
+
+\title{\textbf{补充材料：算力固定下的推理服务分时动态定价}}
+\author{匿名作者}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{S1. 参数表}
+
+表~\ref{tab:params} 给出正文削峰填谷实验的主要参数。除特别说明外，参数来自
+代码文件\path{pricing_sim/peak_shaving_config.py}。这些参数是合成标定，用于说明
+机制方向，不代表生产环境预测。
+
+\begin{longtable}{p{0.26\textwidth}p{0.26\textwidth}p{0.38\textwidth}}
+\caption{主要仿真参数}
+\label{tab:params}\\
+\toprule
+参数 & 取值 & 含义 \\
+\midrule
+\endfirsthead
+\toprule
+参数 & 取值 & 含义 \\
+\midrule
+\endhead
+$T$ & 8 & 一天划分为8个时段。 \\
+$h$ & 3小时 & 每个时段长度。 \\
+$G_A,G_B$（基准） & 1500, 600 & 两家厂家的固定算力。 \\
+$G_A,G_B$（拥塞） & 300, 120 & 激活QoS退化的拥塞设定。 \\
+$\pi_R,\pi_E$（基准） & 0.6, 0.4 & 刚性用户与弹性用户占比。 \\
+$\pi_R,\pi_E$（拥塞） & 0.4, 0.6 & 拥塞实验中提高弹性用户占比。 \\
+\texttt{base\_rigid} & \begin{tabular}[t]{@{}l@{}}200,150,300,600,\\800,900,700,250\end{tabular} & 刚性需求基线。 \\
+\texttt{time\_preference} & \begin{tabular}[t]{@{}l@{}}0.30,0.20,0.50,0.80,\\1.00,1.00,0.90,0.40\end{tabular} & 外生时段偏好。 \\
+\texttt{intermediary\_brand} & 1.05 & 中间商便利性参数。 \\
+\texttt{firm\_brand} & (1.0,1.0) & 两家厂家服务近似同质。 \\
+\texttt{flexible\_baseline} & 400 & 弹性需求基准规模。 \\
+\texttt{rigid\_wtp} & 1.80 & 刚性/重放需求的保留价值。 \\
+\texttt{rigid\_churn\_rate} & 5.0 & 刚性需求价格响应斜率。 \\
+\texttt{market\_growth} & 1.2 & 低价时的弹性市场扩张强度。 \\
+$p_0$ & 0.80 & 基准价格。 \\
+直连价格区间 & [0.45, 2.10] & 厂家直连零售价约束。 \\
+批发价格区间 & [0.25, 0.90] & 厂家批发价约束。 \\
+$\alpha_R,\alpha_E$ & 2.0, 5.0 & 刚性/弹性用户价格敏感度。 \\
+$c_s^R,c_s^E$ & 0.60, 0.10 & 刚性/弹性用户迁移成本。 \\
+$\bar u$ & 0.82 & QoS退化阈值。 \\
+\texttt{qos\_strength} & 15.0 & 阈值型QoS退化强度。 \\
+$\gamma$ & 1.0 & QoS反馈权重。 \\
+$c_g$ & 0.015 & 固定算力持有成本。 \\
+$c_q$ & 0.35 & QoS退化成本。 \\
+$u_0$ & 0.0 & no-purchase退出选项效用。 \\
+\bottomrule
+\end{longtable}
+
+\section*{S2. 策略形状与网格}
+
+厂家策略限制在四个标量：
+\[
+  (\bar w_m,\delta_m,\bar p^D_m,\delta^D_m).
+\]
+正文中的分时价格由
+\[
+  w_{m,t}=\bar w_m(1+\delta_m\widehat{\ell}_t),\qquad
+  p^D_{m,t}=\bar p^D_m(1+\delta^D_m\widehat{\ell}_t)
+\]
+生成，并裁剪到价格上下界内。统一定价实验通过将
+\(\widehat{\ell}_t\) 置零实现，因此即使求解器内部保留
+\(\delta\) 参数，最终价格仍然不随时段变化。
+
+粗网格虚拟博弈使用
+\[
+\begin{aligned}
+\bar w&\in\{0.30,0.85\},&
+\delta&\in\{-0.4,-0.133,0.133,0.4\},\\
+\bar p^D&\in\{0.70,1.50\},&
+\delta^D&\in\{-0.4,-0.133,0.133,0.4\}.
+\end{aligned}
+\]
+细网格复核使用
+\[
+\begin{aligned}
+\bar w&\in\{0.27,0.575,0.88\},&
+\delta&\in\{-0.4,-0.2,0,0.2,0.4\},\\
+\bar p^D&\in\{0.60,1.10,1.60\},&
+\delta^D&\in\{-0.4,-0.2,0,0.2,0.4\}.
+\end{aligned}
+\]
+中间商响应使用三标量网格：零售基准价、零售动态强度和路由价格敏感度。
+
+\section*{S3. 正文数字与工件映射}
+
+\begin{longtable}{p{0.27\textwidth}p{0.25\textwidth}p{0.38\textwidth}}
+\caption{正文关键数字的工件来源}
+\label{tab:artifact-map}\\
+\toprule
+正文位置 & 工件 & 字段 \\
+\midrule
+\endfirsthead
+\toprule
+正文位置 & 工件 & 字段 \\
+\midrule
+\endhead
+非拥塞统一/动态利润与利用率 & \path{peak_shaving_summary.json} & \path{uniform}, \path{dynamic}。 \\
+非拥塞负载迁移 & \path{peak_shaving_summary.json} & \path{P1_migration.rigid_shift}, \path{P1_migration.elastic_shift}。 \\
+弹性占比扫描 & \path{peak_shaving_summary.json} & \path{elastic_sweep}。 \\
+拥塞统一定价基准 & \path{peak_shaving_congested_fp.json} & \path{uniform.system_profit}, \path{uniform.peak_util}, \path{uniform.min_qos_firm}。 \\
+拥塞动态粗网格 & \path{peak_shaving_fp_dynamic_converged.json} & \path{system_profit}, \path{peak_util}, \path{min_qos}, \path{delta_A}, \path{delta_B}。 \\
+拥塞动态细网格 & \path{peak_shaving_fp_dynamic_converged_fine.json} & \path{system_profit}, \path{peak_util}, \path{min_qos}, \path{delta_A}, \path{delta_B}。 \\
+细网格regret & \path{fp_dynamic_ckpt_fine.json} & \path{round=40}, \path{maxreg=22.3029}。 \\
+粗网格regret & \path{fp_dynamic_ckpt.json} & \path{round=22}, \path{maxreg=4.9821}。 \\
+机制诊断与图表 & \path{artifacts/peak_shaving/20260619/} & \path{peak_shaving_diagnostics.json}, \path{peak_shaving_mechanism_summary.csv}, \path{peak_shaving_time_profiles.csv}。 \\
+混合策略诊断 & \path{artifacts/peak_shaving/20260619_submission/peak_shaving_mixed_oracle.json} & \path{trace}, \path{expected_metrics}, \path{row_mix}, \path{col_mix}。 \\
+参数压力测试 & \path{artifacts/peak_shaving/20260619_submission/peak_shaving_parameter_sweep_summary.json} & 9个扰动场景的QoS增益、峰值利用率下降和利润符号。 \\
+公开价格锚点 & \path{public_api_price_anchor.json} & Z.AI、DeepSeek和OpenAI公开API价格，访问日期为2026-06-19。 \\
+vLLM QoS测量锚点 & \path{vllm_qos_anchor_summary.json}, \path{vllm_qos_anchor_points.csv} & 两个单GPU受控过载剖面的TTFT-SLA曲线、拟合参数和图表来源。 \\
+\bottomrule
+\end{longtable}
+
+\section*{S4. 机制诊断和图表来源}
+
+正文新增的机制诊断图表由
+\path{experiments/build_peak_shaving_diagnostics.py} 生成。该脚本不重新搜索均衡，
+只读取已有策略工件并重建三个对象：拥塞统一定价基准、动态粗网格时间平均策略、
+动态细网格快照。输出包括：
+
+\begin{itemize}
+  \item \path{artifacts/peak_shaving/20260619/peak_shaving_diagnostics.json}：
+  完整诊断数据，包括价格、路由、需求、QoS、退出概率、inclusive value 和利润组成。
+  \item \path{artifacts/peak_shaving/20260619/peak_shaving_mechanism_summary.csv}：
+  正文机制段使用的摘要指标。
+  \item \path{artifacts/peak_shaving/20260619/peak_shaving_time_profiles.csv}：
+  时段需求、服务量、利用率和QoS剖面。
+  \item \path{figures/peak_shaving_diagnostics/}：
+  正文图~1--4使用的PDF图表。
+\end{itemize}
+
+诊断脚本内置一致性检查：重建得到的统一、动态粗网格和动态细网格系统利润需与
+20260618工件中的已报告数值一致。当前运行没有触发 validation warning。
+
+\section*{S5. 投稿增强实验与校准锚点}
+
+细网格单快照在40轮后仍有较高regret。为避免把单个快照误读为均衡，本文增加
+\path{experiments/run_peak_shaving_mixed_oracle.py}。该脚本使用完整225点细网格，
+以双重oracle方式反复加入当前混合剖面的最优偏离，并在受限支持上运行经验虚拟博弈。
+当前运行在第5轮得到$5\times5$支持，完整细网格最大regret为$0.2025$。对应混合剖面
+的期望峰值利用率为$0.7030$，最低QoS为$0.9699$，系统利润为$1733.13$。
+
+参数压力测试由 \path{experiments/run_peak_shaving_parameter_sweep.py} 生成。它评估
+容量规模、价格敏感度、迁移成本和QoS阈值的9个局部扰动场景。动态粗网格和动态细网格
+快照在所有9个场景中均保持正的最低QoS增益和正的峰值利用率下降；但利润仍不稳健，
+动态细网格只有1个场景为正。
+
+公开API价格锚点存放于
+\path{artifacts/peak_shaving/20260619_submission/public_api_price_anchor.json}。Z.AI官方
+价格页给出GLM-4.7每百万token输入\$0.6、输出\$2.2；DeepSeek官方价格页给出
+deepseek-chat cache-miss输入\$0.27、输出\$1.10；OpenAI官方GPT-4o页面给出输入\$2.50、
+输出\$10.00。该锚点只用于说明本文归一化价格处在真实API价格数量级内，不用于估计
+需求弹性或QoS曲线。
+
+受控vLLM QoS测量锚点由
+\path{experiments/build_peak_shaving_measurement_anchor.py} 生成。输入为两组已有
+重复测量工件：
+\path{artifacts/vllm-study/20260531-190126/controlled_aggregate.csv} 和
+\path{artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv}。
+两组测量均使用vLLM 0.22.0和NVIDIA GeForce RTX 4090，QoS观测量为0.5秒首token延迟
+SLA达标率。表~\ref{tab:vllm_qos_anchor} 给出拟合到
+$q(u)=\exp[-\kappa(u-\bar u)^2_+]$ 后的参数。该锚点用于约束QoS退化形态，不用于估计
+需求弹性、迁移成本或生产到达过程。
+
+\begin{table}[H]
+\centering
+\caption{受控vLLM单GPU QoS测量锚点}
+\label{tab:vllm_qos_anchor}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+剖面 & 最大健康并发 & $\bar u$ & $\kappa$ & RMSE & 首次SLA下降并发 & 最低观测QoS \\
+\midrule
+Qwen2.5-0.5B & 224 & 1.000 & 0.517 & 0.068 & 384 & 0.500 \\
+Qwen2.5-3B & 224 & 1.058 & 0.942 & $6.3\times10^{-10}$ & 384 & 0.667 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{S6. 复现命令}
+
+以下命令应在WSL项目目录 \path{/root/paper_code/0427_tokenrl/paper_token_cross_survey}
+中运行。当前仓库使用 \path{requirements.txt}，未迁移为 \path{pyproject.toml}。
+
+\begin{verbatim}
+python -m pip install -r requirements.txt
+python experiments/run_peak_shaving_experiments.py
+python experiments/run_peak_shaving_congested_fp.py
+python experiments/run_fp_dynamic_converge.py
+FP_TAG=fine python experiments/run_fp_dynamic_converge.py
+python experiments/run_peak_shaving_robustness.py
+uv run --with-requirements requirements.txt \
+  python experiments/build_peak_shaving_diagnostics.py
+uv run --with-requirements requirements.txt \
+  python experiments/run_peak_shaving_parameter_sweep.py
+uv run --with-requirements requirements.txt \
+  python experiments/run_peak_shaving_mixed_oracle.py
+uv run --with-requirements requirements.txt \
+  python experiments/build_peak_shaving_measurement_anchor.py
+\end{verbatim}
+
+编译正文与补充材料：
+
+\begin{verbatim}
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_2026-06-19.tex
+bibtex peak_shaving_dynamic_pricing_2026-06-19
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_2026-06-19.tex
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_2026-06-19.tex
+xelatex -interaction=nonstopmode -halt-on-error \
+  peak_shaving_dynamic_pricing_supplement_2026-06-19.tex
+\end{verbatim}
+
+\section*{S7. 已知限制}
+
+拥塞区间的细网格单快照在40轮内没有达到regret$<5$的判据。因此，细网格快照利润、
+动态强度和时段重心等数值仍只能作为未收敛快照使用。混合策略诊断显著降低了有限细网格
+上的regret，但它仍是225点候选集上的混合/平均策略诊断，不是连续策略空间的全局均衡
+证明。
+
+本文没有使用真实请求轨迹校准价格敏感度、迁移成本和退出效用。公开API价格只提供价格
+尺度锚点，受控vLLM测量只提供单GPU、小模型、短生成长度下的QoS形态锚点。二者都不能
+替代真实负载、长上下文、多模型、多GPU和用户行为校准。后续工作需要用生产轨迹重新
+标定这些参数，并报告跨参数、跨网格和跨求解预算的置信区间或exploitability边界。
+
+\end{document}

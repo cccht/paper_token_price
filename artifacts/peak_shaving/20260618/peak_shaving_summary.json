@@ -1,0 +1,92 @@
+{
+  "uniform": {
+    "system_profit": 1193.2649288504072,
+    "peak_util": 0.21297890507561082,
+    "min_qos_firm": 1.0,
+    "converged": true,
+    "firm_params": [
+      [
+        0.57457475,
+        -0.199514,
+        0.6006075,
+        -0.199514
+      ],
+      [
+        0.57469625,
+        -0.199514,
+        0.6006804,
+        -0.199514
+      ]
+    ]
+  },
+  "dynamic": {
+    "system_profit": 1139.4043677649088,
+    "peak_util": 0.26079119033098214,
+    "min_qos_firm": 1.0,
+    "converged": true,
+    "firm_params": [
+      [
+        0.57457475,
+        -0.199514,
+        0.6006075,
+        -0.199514
+      ],
+      [
+        0.57469625,
+        -0.199514,
+        0.6006804,
+        -0.199514
+      ]
+    ]
+  },
+  "P1_migration": {
+    "rigid_shift": 0.07698358151750817,
+    "elastic_shift": 0.17727821817268552,
+    "P1_holds": true,
+    "uniform": {
+      "rigid_centroid": 4.3408884988471375,
+      "elastic_centroid": 4.282903084829876
+    },
+    "dynamic": {
+      "rigid_centroid": 4.417872080364646,
+      "elastic_centroid": 4.460181303002561
+    }
+  },
+  "P4_delta": {
+    "delta_A": 0.199514,
+    "delta_B": 0.199514,
+    "P4_holds": false
+  },
+  "elastic_sweep": [
+    {
+      "pop_elastic": 0.0,
+      "uniform": 1575.3022533555627,
+      "dynamic": 1575.3022533555627,
+      "gain_pct": 0.0
+    },
+    {
+      "pop_elastic": 0.2,
+      "uniform": 1191.83084358103,
+      "dynamic": 1187.9801581206596,
+      "gain_pct": -0.3230899318564761
+    },
+    {
+      "pop_elastic": 0.4,
+      "uniform": 1193.2649288504072,
+      "dynamic": 1139.4043677649088,
+      "gain_pct": -4.513713575524901
+    },
+    {
+      "pop_elastic": 0.6,
+      "uniform": 1194.6990141197844,
+      "dynamic": 1149.838017611946,
+      "gain_pct": -3.755004061913489
+    },
+    {
+      "pop_elastic": 0.8,
+      "uniform": 1196.1330993891615,
+      "dynamic": 1160.271667458983,
+      "gain_pct": -2.9981138343627562
+    }
+  ]
+}

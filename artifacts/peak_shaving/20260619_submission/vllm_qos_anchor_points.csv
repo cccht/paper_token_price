@@ -1,0 +1,11 @@
+﻿profile,model,source,concurrency,repeats,normalized_utilization,observed_qos,observed_qos_ci95,fitted_qos
+vllm-0.5b,Qwen2.5-0.5B-Instruct,artifacts/vllm-study/20260531-190126/controlled_aggregate.csv,64.0,5,0.2857142857142857,1.0,0.0,1.0
+vllm-0.5b,Qwen2.5-0.5B-Instruct,artifacts/vllm-study/20260531-190126/controlled_aggregate.csv,128.0,5,0.5714285714285714,1.0,0.0,1.0
+vllm-0.5b,Qwen2.5-0.5B-Instruct,artifacts/vllm-study/20260531-190126/controlled_aggregate.csv,224.0,5,1.0,1.0,0.0,1.0
+vllm-0.5b,Qwen2.5-0.5B-Instruct,artifacts/vllm-study/20260531-190126/controlled_aggregate.csv,384.0,5,1.7142857142857142,0.634765625,0.006954134407067676,0.768254706942078
+vllm-0.5b,Qwen2.5-0.5B-Instruct,artifacts/vllm-study/20260531-190126/controlled_aggregate.csv,512.0,5,2.2857142857142856,0.5,0.0,0.42563461937830316
+vllm-3b,Qwen2.5-3B-Instruct,artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv,32.0,5,0.14285714285714285,1.0,0.0,1.0
+vllm-3b,Qwen2.5-3B-Instruct,artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv,64.0,5,0.2857142857142857,1.0,0.0,1.0
+vllm-3b,Qwen2.5-3B-Instruct,artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv,128.0,5,0.5714285714285714,1.0,0.0,1.0
+vllm-3b,Qwen2.5-3B-Instruct,artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv,224.0,5,1.0,1.0,0.0,1.0
+vllm-3b,Qwen2.5-3B-Instruct,artifacts/vllm-study-qwen25-3b/20260531-214710/controlled_aggregate.csv,384.0,5,1.7142857142857142,0.6666666666666666,0.0,0.6666666652504447

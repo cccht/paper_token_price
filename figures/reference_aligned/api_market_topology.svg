@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Figure 3: API Market Topology with Direct Channel Outside Option</title>
+  <desc id="desc">Academic block diagram showing exogenous model API supply, platform wholesale layer, brokered retail APIs, direct API channel, and users.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#555555"/>
+    </marker>
+    <style>
+      .bg { fill:#FFFFFF; }
+      .box { fill:#F5F5F8; stroke:#6B6B6B; stroke-width:2.2; }
+      .dashbox { fill:#F5F5F8; stroke:#999999; stroke-width:2.2; stroke-dasharray:10 8; }
+      .title { font-family: Arial, Helvetica, sans-serif; font-size:27px; font-weight:700; fill:#000000; text-anchor:middle; }
+      .subtitle { font-family: Arial, Helvetica, sans-serif; font-size:17px; fill:#555555; text-anchor:middle; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size:16px; fill:#555555; text-anchor:middle; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size:18px; fill:#777777; text-anchor:middle; }
+      .arrow { fill:none; stroke:#555555; stroke-width:2.7; marker-end:url(#arrow); }
+      .separator { stroke:#D7D7D7; stroke-width:1.2; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="900"/>
+
+  <!-- Separator lines between layers -->
+  <line class="separator" x1="40" y1="218" x2="1160" y2="218"/>
+  <line class="separator" x1="40" y1="510" x2="1160" y2="510"/>
+  <line class="separator" x1="40" y1="760" x2="1160" y2="760"/>
+
+  <!-- Top supply box -->
+  <rect class="dashbox" x="180" y="34" width="840" height="150" rx="14" ry="14"/>
+  <text class="title" x="600" y="96">Exogenous Model API Supply</text>
+  <text class="subtitle" x="600" y="138">DeepSeek / Claude / GPT / Gemini, Qwen and other API inputs</text>
+
+  <!-- Platform layer -->
+  <rect class="box" x="336" y="265" width="528" height="150" rx="12" ry="12"/>
+  <text class="title" x="600" y="326">Platform Wholesale Layer</text>
+  <text class="subtitle" x="600" y="371">sets wholesale price w_t; observes settlement and QoS</text>
+
+  <!-- Middle row boxes -->
+  <rect class="box" x="96" y="548" width="408" height="204" rx="12" ry="12"/>
+  <text class="title" x="300" y="625">Brokered Retail APIs</text>
+  <text class="subtitle" x="300" y="666">Broker 1: p_1t, g_1t</text>
+  <text class="subtitle" x="300" y="692">Broker 2: p_2t, g_2t</text>
+  <text class="subtitle" x="300" y="718">Broker 3: p_3t, g_3t</text>
+  <text class="small" x="300" y="738">OpenRouter-like aggregator model</text>
+
+  <rect class="box" x="696" y="548" width="408" height="204" rx="12" ry="12"/>
+  <text class="title" x="900" y="625">Direct API Channel (j = 0)</text>
+  <text class="subtitle" x="900" y="674">outside option: pD_t, gD_t</text>
+  <text class="small" x="900" y="714">platform self-operated</text>
+  <text class="small" x="900" y="738">SLA-guaranteed reserve capacity</text>
+
+  <!-- Bottom users box -->
+  <rect class="box" x="336" y="804" width="528" height="78" rx="12" ry="12"/>
+  <text class="title" x="600" y="837">User Classes &amp; Time Slots</text>
+  <text class="subtitle" x="600" y="866">choose broker / direct channel / shift across periods</text>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M 600 184 L 600 265"/>
+  <path class="arrow" d="M 476 415 L 300 558"/>
+  <path class="arrow" d="M 724 415 L 900 558"/>
+  <path class="arrow" d="M 300 752 L 470 804"/>
+  <path class="arrow" d="M 900 752 L 730 804"/>
+
+  <!-- Arrow labels -->
+  <text class="label" x="278" y="477">Brokered path</text>
+  <text class="label" x="922" y="477">Outside option</text>
+</svg>

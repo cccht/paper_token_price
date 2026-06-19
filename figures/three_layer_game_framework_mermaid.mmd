@@ -1,0 +1,35 @@
+---
+config:
+  layout: dagre
+  theme: base
+  themeVariables:
+    fontFamily: Arial, Helvetica, sans-serif
+    primaryTextColor: "#17202A"
+    lineColor: "#64748B"
+    background: "#FFFFFF"
+    edgeLabelBackground: "#FFFFFF"
+---
+flowchart LR
+  U["<b>Users</b><br/>(Applications / API Loads)<br/><br/>Chat Apps<br/>Coding Agents<br/>Enterprise APIs<br/>Developers / SDK"]
+  I["<b>Cloud Platform / API Intermediary</b><br/>(OpenRouter-like Aggregator)<br/><br/>DB: usage data<br/>FC: forecast<br/>OPT: pricing<br/>QoS: monitor"]
+  G["<b>Dynamic Pricing & Stackelberg Game</b><br/><br/>D_jt -> p_jt -> g_jt -> profit,q<br/><br/><b>Iterative Feedback</b><br/>SUE / SPE"]
+  S["<b>Model Manufacturers / Suppliers</b><br/>(LLM APIs & Compute Grid)<br/><br/>DeepSeek API<br/>Claude API<br/>GPT / OpenAI API<br/>Gemini / Qwen API<br/><br/>GPU pools / API quota<br/>cost, latency, availability"]
+
+  U -->|"demand / preference"| I
+  I -->|"routing / QoS"| G
+  I -->|"wholesale / quota"| S
+  S -->|"capacity / cost"| I
+  I -->|"retail price / incentives"| U
+  U -. "load shifting" .-> G
+  S -. "token supply" .-> G
+  G -. "update demand / price / routing" .-> I
+
+  classDef user fill:#F8FCF9,stroke:#258B47,color:#0D5C2D,stroke-width:2px;
+  classDef mid fill:#EAF6FF,stroke:#0B73C7,color:#123B63,stroke-width:2px;
+  classDef game fill:#FFFFFF,stroke:#7042A5,color:#7042A5,stroke-width:2px,stroke-dasharray:8 6;
+  classDef supplier fill:#FBFAFF,stroke:#7042A5,color:#4D2378,stroke-width:2px;
+
+  class U user;
+  class I mid;
+  class G game;
+  class S supplier;
