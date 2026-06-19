@@ -1687,6 +1687,50 @@ self-review. All numerical claims continue to trace to `artifacts/peak_shaving/2
     `gh auth setup-git` and `git push -u origin main`.
 * Status: blocked on GitHub account authorization.
 
+### 2026-06-20 01:02 - GitHub authentication and first remote push
+
+* Goal: complete GitHub authentication through an alternative route and push the
+  local manuscript repository to `cccht/paper_token_price`.
+* Context:
+  * The first GitHub device-flow attempt succeeded only after adding
+    `read:org`, but the Ubuntu-packaged `gh 2.4.0` did not provide a clean Git
+    credential response for HTTPS pushes.
+  * Global Git config contained a URL-specific helper installed by
+    `gh auth setup-git`, but that old helper returned an unsupported `erase`
+    operation path during failed pushes.
+* Actions:
+  * Re-ran GitHub device-flow login with `repo read:org`.
+  * Verified that the stored GitHub token can access `cccht/paper_token_price`
+    through the GitHub API and has repository push permission.
+  * Configured a repository-local credential helper that reads the token from
+    `~/.config/gh/hosts.yml` at Git credential time. The token is not stored in
+    the repository and is not printed in logs.
+  * Pushed the local `main` branch to GitHub.
+* Commands:
+  ```powershell
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && gh auth status 2>&1 | sed -n "1,80p"'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && printf "protocol=https\nhost=github.com\n\n" | git credential fill | awk -F= "/^password=/{print \"password_length=\" length(\$2)} /^username=/{print}" && GIT_TERMINAL_PROMPT=0 git push -u origin main'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && git ls-remote --heads origin main'
+  ```
+* Results:
+  * GitHub login status reports `Logged in to github.com as cccht`.
+  * Git credential fill returns `username=x-access-token` and a non-empty
+    password without printing the token.
+  * Push succeeded:
+    `Branch 'main' set up to track remote branch 'main' from 'origin'.`
+  * Remote branch confirmed:
+    `ca720396616762c9ee35a59618b784d230c00baa refs/heads/main`.
+* Decision:
+  * Keep the repository-local helper because it avoids storing the token in Git
+    config while bypassing the old `gh auth git-credential` behavior.
+  * Do not amend the already-pushed first commit; record this successful
+    authentication step as a normal follow-up commit.
+* Next:
+  * Commit and push this README authentication record.
+  * Re-run the focused SMPT test after the README commit to confirm local
+    research code is unchanged.
+* Status: first remote push verified; README record pending commit.
+
 ## Manuscript Build
 
 
