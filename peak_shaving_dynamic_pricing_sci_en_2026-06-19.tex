@@ -51,12 +51,26 @@ This paper focuses on a fixed-capacity setting. GPU procurement and deployment h
 
 Inference markets also differ from the single-platform monopoly often used in simple pricing models. The same open-source model family, such as GLM, can be deployed by more than one provider. If the user-visible model capability is similar, competition turns on price, available capacity, and realized QoS. Provider capacity is also uneven. A smaller provider can enter congestion sooner when an intermediary routes traffic to it. These observations motivate a two-provider model with heterogeneous fixed capacities, one API intermediary that routes traffic between providers, and users who may also buy directly from providers or leave the market.
 
-The paper is positioned between three literatures. Systems work on inference serving explains why batching, memory management, and scheduling affect latency and throughput \cite{crankshaw2017clipper,gujarati2020clockwork,romero2021infaas,yu2022orca,li2023alpaserve,sheng2023flexgen,kwon2023pagedattention,agrawal2024sarathiserve,patel2024splitwise,zhong2024distserve,agrawal2024vidur}. This line of work usually treats the request set as given and does not put prices, outside options, and cross-provider competition in the same market model. Congestion pricing and revenue management study how prices allocate scarce capacity under time-varying demand \cite{vickrey1969congestion,arnott1990bottleneck,gallego1994dynamic,elmaghraby2003dynamic,bitran2003overview,talluri2004revenue,phillips2005pricing}. Recent work on AI-service markets has begun to discuss inference costs, menu pricing, token-capacity contracts, and Stackelberg-style pricing for GPU services \cite{demirer2025emerging,erdil2025inference,bergemann2025menu,guo2026prillm,yan2026stackelberg,cunningham2026token,liu2026locational}. Our contribution is narrower: we combine QoS congestion, provider heterogeneity, an API intermediary, direct-provider options, and user exit in one reproducible simulation framework. User choice follows standard discrete-choice and platform-market tools \cite{mcfadden1974conditional,anderson1992discrete,train2009discrete,rochet2003platform}.
+The simulation study is organized around three questions:
+\begin{enumerate}[label=\textbf{RQ\arabic*.},leftmargin=2.8em]
+  \item Under fixed GPU serving capacity, can time-of-use pricing reduce peak utilization and protect the worst-period QoS?
+  \item Which modelling components make the QoS result appear: time flexibility, provider heterogeneity, direct-provider channels, outside-option exit, or QoS-aware routing?
+  \item Does the same mechanism also produce a reliable profit gain, or does it mainly reallocate surplus and congestion loss?
+\end{enumerate}
 
-The study makes three contributions. First, it gives a fixed-capacity model of time-of-use inference pricing with two competing providers, one routing intermediary, time-rigid and time-flexible users, and an outside option. Second, it uses a low-dimensional pricing-shape family and fictitious play to obtain reproducible candidate responses, while reporting regret where the solver has not reached a strong equilibrium certificate. Third, it separates the QoS result from the profit result. The experiments support a finite-grid QoS-protection claim in the congested setting, but they do not support a reliable profit-improvement claim.
+The paper contributes a reproducible simulation workflow rather than a closed-form equilibrium theory. First, it gives a fixed-capacity model of time-of-use inference pricing with two competing providers, one routing intermediary, time-rigid and time-flexible users, and an outside option. Second, it uses a low-dimensional pricing-shape family and fictitious play to obtain reproducible candidate responses, while reporting regret where the solver has not reached a strong equilibrium certificate. Third, it separates the QoS result from the profit result. The experiments support a finite-grid QoS-protection claim in the congested setting, but they do not support a reliable profit-improvement claim.
 
-\section{Simulation Model}
+\section{Related Work and Positioning}
+\label{sec:related}
+
+The paper is positioned between three literatures. Systems work on inference serving explains why batching, memory management, and scheduling affect latency and throughput \cite{crankshaw2017clipper,gujarati2020clockwork,romero2021infaas,yu2022orca,li2023alpaserve,sheng2023flexgen,kwon2023pagedattention,agrawal2024sarathiserve,patel2024splitwise,zhong2024distserve,agrawal2024vidur}. This line of work usually treats the request set as given and does not put prices, outside options, and cross-provider competition in the same market model. Congestion pricing and revenue management study how prices allocate scarce capacity under time-varying demand \cite{vickrey1969congestion,arnott1990bottleneck,gallego1994dynamic,elmaghraby2003dynamic,bitran2003overview,talluri2004revenue,phillips2005pricing}. Recent work on AI-service markets has begun to discuss inference costs, menu pricing, token-capacity contracts, and Stackelberg-style pricing for GPU services \cite{demirer2025emerging,erdil2025inference,bergemann2025menu,guo2026prillm,yan2026stackelberg,cunningham2026token,liu2026locational}. User choice follows standard discrete-choice and platform-market tools \cite{mcfadden1974conditional,anderson1992discrete,train2009discrete,rochet2003platform}.
+
+The gap addressed here is therefore methodological and application-specific. We do not propose a new serving scheduler, a new revenue-management theorem, or a production demand forecast. The contribution is a transparent simulation model that puts QoS congestion, provider heterogeneity, intermediary routing, direct-provider alternatives, and market exit in the same fixed-capacity experiment, then reports where the numerical evidence is strong and where it is not.
+
+\section{Conceptual Simulation Model}
 \label{sec:model}
+
+The conceptual model abstracts one inference-service day into interacting price, routing, demand, load, QoS, and profit components. It is not intended to be a digital twin of a specific provider. The purpose is to keep enough structure to trace how a price-shape change moves demand across time and channels, while keeping the implementation small enough for artifact-level verification.
 
 \subsection{Market structure}
 
@@ -121,8 +135,10 @@ Provider profit is wholesale revenue plus direct retail revenue, minus fixed cap
 \end{equation}
 The holding cost $c_gG_m$ is charged on fixed capacity, not on realized utilization. It gives providers a reason to fill off-peak capacity. Intermediary profit is retail revenue minus wholesale cost and QoS degradation cost. System profit is the sum of provider profits and intermediary profit.
 
-\section{Model Implementation and Candidate-Response Solver}
+\section{Computational Implementation and Candidate-Response Solver}
 \label{sec:solver}
+
+The computational model follows the equations in Section~\ref{sec:model} with deterministic candidate evaluation. Each strategy candidate is converted into period prices, the intermediary solves a routing and retail-pricing response, and a damped QoS fixed point maps routed demand into provider utilization and effective service. This section describes the search restriction and the diagnostics used to keep the solver boundary visible.
 
 \subsection{Pricing-shape family}
 
@@ -144,10 +160,10 @@ Naive best-response iteration cycles in the congested regime. The providers repe
 In the uncongested regime, QoS is always one and the fixed point converges in one step. Across random seeds, the relative standard deviation of system profit is $4.31\times10^{-4}$. The congested regime is more delicate. On the coarse grid, fictitious-play regret declines from $133.6$ to $4.98$ in 22 rounds. On the fine-grid pure snapshot, regret bottoms near $14$ around round 10 and later drifts to about $22$ by round 40. The double-oracle finite-grid mixed diagnostic obtains a $5\times5$ support profile with full-grid maximum regret $0.203$ on the complete 225-point grid. This supports a finite-grid mixed-strategy interpretation of the QoS result, but not a continuous-space equilibrium theorem.
 \end{remark}
 
-\section{Verification and Validation}
+\section{Verification, Validation, and Credibility Boundaries}
 \label{sec:vv}
 
-The simulation is deterministic conditional on the reported grids, parameter settings, and solver seeds. Verification in this draft focuses on whether the implemented model reproduces the reported accounting relationships and whether the numerical solver is stable enough for the bounded claims made in the paper.
+The simulation is deterministic conditional on the reported grids, parameter settings, and solver seeds. Verification asks whether the code implements the accounting, routing, and fixed-point calculations used in the paper. Validation asks a narrower question: whether the abstractions are credible enough for a mechanism study of fixed-capacity inference pricing. The checks below are meant to bound the claims, not to certify a production service model.
 
 \subsection{Implementation verification}
 
@@ -165,6 +181,8 @@ The sensitivity evidence is reported in three layers. First, a fixed-policy stre
 \label{sec:setup}
 
 The horizon has $T=8$ periods and $h=3$ hours per period. Baseline capacity is $G_A=1500,G_B=600$. The congested setting tightens capacity to $G_A=300,G_B=120$. Baseline population weights are $(\pi_R,\pi_E)=(0.6,0.4)$; the congested setting uses $(0.4,0.6)$ to increase peak pressure. All economic parameters are synthetic calibrations used to study mechanism direction, not production forecasts.
+
+The experimental design has four evidence layers. The first compares uniform pricing with dynamic candidate responses in uncongested and congested regimes. The second reports solver diagnostics, including pure-strategy regret and the finite-grid mixed oracle. The third adds service-management baselines and structural ablations. The fourth uses fixed-policy stress tests, a capacity--elasticity phase grid, and restricted local re-solves. The main output measures are peak utilization, minimum QoS, served volume, system profit, exit probabilities, and regret. This design lets the paper test the QoS mechanism without treating every profit change as a robust finding.
 
 We use public API prices only as scale checks. The verified public prices are: Z.AI GLM-4.7 at \$0.6 per million input tokens and \$2.2 per million output tokens; DeepSeek-chat at \$0.27 cache-miss input and \$1.10 output; and OpenAI GPT-4o at \$2.50 input and \$10.00 output \cite{zaiPricing2026,deepseekPricing2026,openaiGpt4oPricing2026}. These values are not used to estimate user elasticity.
 
@@ -380,7 +398,7 @@ Machine-readable artifacts are under \path{artifacts/peak_shaving/}, with the ma
 grid definitions, artifact mappings, and reproduction commands are provided in
 \path{peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex}.
 
-At the time of this draft, the artifacts are described by repository-relative local paths. A formal submission should deposit the code, configuration files, raw JSON/CSV artifacts, figure scripts, and generated figures in a public repository or archival data service and cite the resulting persistent identifier in this section. Until that deposit is complete, this manuscript should be treated as an auditable local reproducibility draft rather than a fully compliant data-availability package.
+The current artifact package is available in the public repository \url{https://github.com/cccht/paper_token_price}. A formal submission should cite a frozen release or archival DOI for the code, configuration files, raw JSON/CSV artifacts, figure scripts, and generated figures. Until that archival release is created, the GitHub repository should be treated as a living reproducibility package rather than a persistent data identifier.
 
 \section*{Declaration of Generative AI and AI-Assisted Technologies}
 

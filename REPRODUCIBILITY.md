@@ -6,6 +6,8 @@ LaTeX sources for the SMPT-targeted manuscript:
 > A Simulation-Based Study of Time-of-Use Pricing for Fixed-Capacity AI
 > Inference Services: QoS Protection and the Profit Boundary
 
+Public repository: <https://github.com/cccht/paper_token_price>
+
 ## Environment
 
 The experiments are intended to run on Linux or WSL. The verified local

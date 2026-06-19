@@ -1731,6 +1731,78 @@ self-review. All numerical claims continue to trace to `artifacts/peak_shaving/2
     research code is unchanged.
 * Status: first remote push verified; README record pending commit.
 
+### 2026-06-20 01:05 - SMPT manuscript fit polishing
+
+* Goal: continue improving the English SMPT-targeted manuscript after the first
+  GitHub push by making the paper read more clearly as a simulation-modelling
+  contribution rather than as a narrow pricing-game report.
+* Context:
+  * The target journal remains Simulation Modelling Practice and Theory.
+  * Elsevier's journal scope emphasizes original, high-quality work on systems
+    simulation and modelling, with application papers making model development,
+    computer implementation, V&V, experimental design, and applicability clear.
+  * The current manuscript already contains these ingredients, but several parts
+    are still distributed across the introduction, solver, V&V, and artifact
+    sections.
+* Actions planned:
+  * Add explicit simulation research questions and clarify the paper's simulation
+    contribution in the introduction.
+  * Separate related-work positioning from the introduction narrative.
+  * Retitle and sharpen model, implementation, and V&V sections to match SMPT
+    expectations.
+  * Add an experimental-design paragraph that names factors, baselines, output
+    measures, and evidence layers.
+  * Replace the old local-only data-availability sentence with the now-public
+    GitHub repository URL while keeping the DOI limitation explicit.
+* Command:
+  ```powershell
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && git status --short && git rev-parse --short HEAD && git remote -v && date +"%Y-%m-%d %H:%M %Z"'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && rg -n -F "\\section" peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex && rg -n "RQ[0-9]|Related Work|Conceptual Simulation Model|Credibility Boundaries|github.com/cccht" peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex DATA_AVAILABILITY.md REPRODUCIBILITY.md'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex >/tmp/ps_smpt_polish_main1.log && bibtex peak_shaving_dynamic_pricing_sci_en_2026-06-19 >/tmp/ps_smpt_polish_bib.log && xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex >/tmp/ps_smpt_polish_main2.log && xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex >/tmp/ps_smpt_polish_main3.log && xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex >/tmp/ps_smpt_polish_supp1.log && xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex >/tmp/ps_smpt_polish_supp2.log'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && grep -nE "undefined|Undefined|LaTeX Error|Overfull|Citation.*undefined|There were undefined" peak_shaving_dynamic_pricing_sci_en_2026-06-19.log peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.log /tmp/ps_smpt_polish_bib.log /tmp/ps_smpt_polish_main3.log /tmp/ps_smpt_polish_supp2.log || true'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && pdfinfo peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf | grep -E "^(Pages|Page size):" && pdfinfo peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.pdf | grep -E "^(Pages|Page size):"'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && pdftotext peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf /tmp/ps_smpt_polish_main.txt && pdftotext peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.pdf /tmp/ps_smpt_polish_supp.txt && grep -nE "RQ1|Related Work and Positioning|Conceptual Simulation Model|Verification, Validation, and Credibility Boundaries|https://github.com/cccht/paper_token_price|living reproducibility package|public repository" /tmp/ps_smpt_polish_main.txt /tmp/ps_smpt_polish_supp.txt | head -120'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && python3 - <<"PY"
+import re
+text=open("peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex", encoding="utf-8").read().lower()
+terms=["robust","therefore","thus","moreover","furthermore","additionally","highlight","underscore","crucial","important","novel","framework","mechanism","diagnostic","boundary","not only","it is worth noting"]
+for term in terms:
+    print(f"{term}: {len(re.findall(re.escape(term), text))}")
+PY'
+  ```
+* Result:
+  * Repository is on pushed commit `cc31c28` before this manuscript-polishing pass.
+  * Remote origin is `https://github.com/cccht/paper_token_price.git`.
+  * Main manuscript changes:
+    - Added explicit simulation research questions RQ1--RQ3.
+    - Split `Related Work and Positioning` into its own section.
+    - Retitled the model, implementation, and V&V sections to better match an
+      application-oriented simulation paper.
+    - Added an experimental-design paragraph naming evidence layers and output
+      measures.
+    - Replaced the local-only artifact statement with the public GitHub
+      repository URL while keeping the archival DOI boundary.
+  * Companion-file changes:
+    - Updated `DATA_AVAILABILITY.md`, `REPRODUCIBILITY.md`, and the supplement
+      reproduction section to point to `https://github.com/cccht/paper_token_price`.
+  * Compile result:
+    - Main PDF regenerated: `peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf`,
+      16 pages, A4.
+    - Supplement PDF regenerated:
+      `peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.pdf`, 6 pages,
+      A4.
+    - Log scans returned no undefined references/citations, no LaTeX errors, and
+      no overfull boxes.
+  * PDF text check confirms RQ1, `Related Work and Positioning`,
+    `Conceptual Simulation Model`, `Verification, Validation, and Credibility
+    Boundaries`, the GitHub URL, and the supplement repository statement are
+    present in the generated PDFs.
+  * Humanizer-style term scan found no high-risk filler such as `Furthermore`,
+    `Moreover`, `Additionally`, `highlight`, `underscore`, or `It is worth
+    noting`; repeated `diagnostic` and `boundary` terms are retained because they
+    name the paper's solver and evidence-limit concepts.
+* Status: verified locally; commit and push pending.
+
 ## Manuscript Build
 
 
