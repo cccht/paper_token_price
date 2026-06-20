@@ -3764,7 +3764,38 @@ PY'
   * Commit and push the URL/title/manifest updates.
   * Create the new GitHub release at the pushed commit and upload the final
     submission-candidate assets.
-* Status: verified locally; publication pending.
+* Publication commands:
+  ```bash
+  git commit -m "Prepare SMPT submission candidate release"
+  GIT_TERMINAL_PROMPT=0 git push origin main
+  GH_PROMPT_DISABLED=1 gh release create smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --target 195c60bb9f9752ebd04e5024e209b4e60f5e59a9 \
+    --title "SMPT submission-candidate package (2026-06-21)" \
+    --notes "Versioned package for the Simulation Modelling Practice and Theory submission candidate. Includes the final manuscript PDF/TEX, highlights, cover-letter draft, declarations template, package manifest, and editable Figure 1 Draw.io source. This release is versioned for review; DOI archival release remains pending if required by the journal or authors." \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex \
+    docs/submission/smpt_highlights_2026-06-21.txt \
+    docs/submission/smpt_cover_letter_draft_2026-06-21.md \
+    docs/submission/smpt_declarations_template_2026-06-21.md \
+    docs/submission/smpt_submission_package_manifest_2026-06-21.md \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --json tagName,name,isDraft,isPrerelease,url,targetCommitish,assets
+  ```
+* Publication result:
+  * Commit pushed: `195c60b` (`Prepare SMPT submission candidate release`).
+  * Release URL:
+    `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`.
+  * Release target:
+    `195c60bb9f9752ebd04e5024e209b4e60f5e59a9`.
+  * Release is not a draft and not a prerelease.
+  * Release assets: final manuscript PDF/TEX, highlights, cover-letter draft,
+    declarations template, package manifest, Draw.io source, and Figure 1 PNG
+    preview.
+* Status: verified and published.
 
 ## Manuscript Build
 
