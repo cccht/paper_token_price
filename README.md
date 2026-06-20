@@ -1803,6 +1803,124 @@ PY'
     name the paper's solver and evidence-limit concepts.
 * Status: verified locally; commit and push pending.
 
+### 2026-06-20 11:08 - Full-paper SMPT language polishing
+
+* Goal: polish the English main manuscript for submission to Simulation Modelling
+  Practice and Theory, focusing on academic English, terminology consistency,
+  paragraph logic, and simulation-modelling style.
+* Constraints:
+  * Do not change technical meaning, numerical results, equations, table values,
+    figure references, labels, citation keys, or bibliography style.
+  * Do not add experiments, citations, or new claims.
+  * Preserve the bounded interpretation: simulation mechanism evidence,
+    finite-grid QoS protection, synthetic economic calibration, and non-robust
+    profit improvement.
+* Skills used:
+  * `journal-adapt`: applied hard-preserve principles and journal-fit framing.
+  * `nature-polishing`: applied research/methods paper, abstract, introduction,
+    methods, results, discussion, conclusion, English, and generic-journal
+    polishing rules.
+  * `humanizer`: applied AI-pattern cleanup, including avoiding inflated
+    significance language, filler transitions, negative parallelisms, and
+    excessive hedging.
+* Planned actions:
+  * Rewrite the abstract as context/problem, objective, approach, results, and
+    bounded implication.
+  * Tighten the introduction and related-work transition around the simulation
+    contribution.
+  * Improve methods, V&V, experimental design, results, discussion, limitations,
+    and conclusion for flow and reproducibility.
+  * Compile, scan logs, extract PDF text, run focused tests, and push the result.
+* Action:
+  * Edited `peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex` for full-paper
+    SMPT language polishing.
+  * Expanded first-use abbreviations where needed, including artificial
+    intelligence, GPU, API, QoS, SLA, and DOI in the manuscript flow.
+  * Reworked the abstract, introduction, related-work positioning, computational
+    implementation, verification/validation discussion, results interpretation,
+    limitations, conclusion, and artifact statement without changing equations,
+    table values, figure labels, citation keys, or bibliography style.
+* Output:
+  * `peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex`
+  * `peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf`
+  * `peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.pdf`
+* Verification:
+  * Consistency check:
+    ```bash
+    uv run python - <<'PY'
+    import re, subprocess, pathlib, collections
+
+    path = 'peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex'
+    old = subprocess.check_output(['git', 'show', f'HEAD:{path}'], text=True)
+    new = pathlib.Path(path).read_text()
+    slash = chr(92)
+    patterns = {
+        'cite_keys': re.escape(slash + 'cite') + r'[{]([^}]*)[}]',
+        'labels': re.escape(slash + 'label') + r'[{]([^}]*)[}]',
+        'refs': re.escape(slash + 'ref') + r'[{]([^}]*)[}]',
+        'numbers': r'(?<![A-Za-z])[-+]?[0-9]+(?:[.][0-9]+)?%?',
+    }
+    for name, pat in patterns.items():
+        def items(text):
+            out = []
+            for match in re.findall(pat, text):
+                if name == 'cite_keys':
+                    out.extend(x.strip() for x in match.split(',') if x.strip())
+                else:
+                    out.append(match)
+            return collections.Counter(out)
+        a, b = items(old), items(new)
+        print(name, 'unchanged' if a == b else 'changed', sum(a.values()))
+    PY
+    ```
+    Result: citation keys unchanged (42), labels unchanged (28), refs
+    unchanged (4), numeric tokens unchanged (279). An initial local regex
+    version of this check failed before being corrected; it did not modify any
+    files.
+  * LaTeX build:
+    ```bash
+    xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex
+    bibtex peak_shaving_dynamic_pricing_sci_en_2026-06-19
+    xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex
+    xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex
+    xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex
+    xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex
+    ```
+    Result: main manuscript compiled to 16 A4 pages; supplement compiled to 6
+    A4 pages.
+  * Log scan:
+    ```bash
+    LC_ALL=C grep -nE "undefined|Undefined|LaTeX Error|Overfull|Citation.*undefined|There were undefined|Warning: Citation|Warning: Reference" \
+      peak_shaving_dynamic_pricing_sci_en_2026-06-19.log \
+      peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.log || true
+    ```
+    Result: no undefined references/citations, no LaTeX errors, and no overfull
+    boxes. One wider `/tmp` log-scan command timed out and one WSL call returned
+    a transient `E_UNEXPECTED`; the final project-log scan succeeded.
+  * PDF text check:
+    ```bash
+    pdftotext peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf /tmp/ps_full_polish_main.txt
+    rg -n "Quality-of-Service Protection|application programming interface|markets for artificial intelligence services|quality-of-service|Verification, Validation|Profit improvement is not treated|continuous-space equilibrium|public repository|digital object identifier|AI-assisted" /tmp/ps_full_polish_main.txt
+    ```
+    Result: polished title, abbreviation expansion, validation section,
+    profit-boundary wording, continuous-space boundary, repository statement,
+    DOI statement, and AI declaration are present in the generated PDF.
+  * Focused regression test:
+    ```bash
+    uv run pytest tests/test_peak_shaving_smpt_experiments.py -q
+    ```
+    Result: `9 passed in 1.42s`.
+  * Language and diff checks:
+    ```bash
+    git diff --check
+    rg -n "Furthermore|Moreover|Additionally|It is worth noting|not subtle|lesson is practical|highlight|underscore|pivotal|testament|as an AI|in conclusion,|delve|crucial|robust robust" peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex || true
+    ```
+    Result: no whitespace errors and no high-risk AI-style phrases from the
+    scan list.
+* Decision: keep this as the SMPT-polished full-paper version. The work remains
+  a language and expression polish; no new experiments or claims were added.
+* Status: verified locally and included in the SMPT language-polishing commit.
+
 ## Manuscript Build
 
 
