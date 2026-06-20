@@ -2,10 +2,10 @@
 
 Dear Editor,
 
-Please consider our manuscript, **"Simulation-Based Time-of-Use Pricing for LLM
-Inference Under Fixed Capacity: Provider Competition, QoS Protection, and the
-Profit Boundary"**, for publication in *Simulation Modelling Practice and
-Theory*.
+Please consider our manuscript, **"A Simulation-Based Study of Time-of-Use
+Pricing for Fixed-Capacity Inference Services: Provider Competition, QoS
+Protection, and the Profit Boundary"**, for publication in *Simulation Modelling
+Practice and Theory*.
 
 The manuscript develops an auditable simulation model for a fixed-capacity LLM
 inference-service market with two heterogeneous providers, one API intermediary,
@@ -39,7 +39,7 @@ accountable for the work. [AUTHOR TO CONFIRM BEFORE SUBMISSION.]
 Data, code, and artifact availability: the current manuscript, simulation code,
 figure scripts, and generated artifacts are available at
 https://github.com/cccht/paper_token_price, with a versioned release at
-https://github.com/cccht/paper_token_price/releases/tag/smpt-final-2026-06-21.
+https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21.
 An archival DOI should be added if the repository is mirrored to Zenodo, OSF, or
 another persistent archive before formal submission.
 

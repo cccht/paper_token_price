@@ -3715,6 +3715,57 @@ PY'
     candidate package unless a new archival DOI/release is created later.
 * Status: verified and published.
 
+### 2026-06-21 03:08 - Clean submission-candidate release URL
+
+* Goal:
+  * Replace the earlier release URL with a cleaner submission-candidate tag whose
+    repository source archive can point to the final documented state.
+* Context:
+  * The earlier release `smpt-final-2026-06-21` was useful for freezing assets,
+    but its tag target remained `2eda4c2` while later documentation and
+    data-availability wording were committed afterward.
+  * A new release tag is reserved:
+    `smpt-submission-candidate-2026-06-21`.
+* Action:
+  * Updated the final manuscript data-availability paragraph to cite
+    `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`.
+  * Updated the cover-letter draft and declarations template with the same
+    release URL.
+  * Corrected the cover-letter and declarations manuscript title so it exactly
+    matches the final TeX title.
+  * Updated the submission package manifest and final-gate reviewer report
+    addendum so the remaining repository risk is narrowed to DOI archiving, not
+    absence of a versioned release.
+* Commands:
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_smpt_candidate.txt
+  rg -n "smpt-submission-candidate-2026-06-21|versioned reproducibility package|QoS-protection instrument|profit-improvement mechanism|Declaration of Generative AI" \
+    /tmp/ps_smpt_candidate.txt
+  rg -n "LaTeX Error|Undefined control sequence|Citation.*undefined|Reference.*undefined|There were undefined|Overfull|Rerun to get cross-references" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    /tmp/ps_smpt_candidate_xelatex1.log \
+    /tmp/ps_smpt_candidate_xelatex2.log \
+    /tmp/ps_smpt_candidate_xelatex3.log \
+    /tmp/ps_smpt_candidate_bibtex.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Result:
+  * XeLaTeX/BibTeX/XeLaTeX/XeLaTeX completed successfully.
+  * PDF text contains the new submission-candidate release tag, versioned-package
+    wording, QoS/profit boundary, and generative-AI declaration.
+  * PDF remains 23 A4 pages.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warnings.
+* Next:
+  * Commit and push the URL/title/manifest updates.
+  * Create the new GitHub release at the pushed commit and upload the final
+    submission-candidate assets.
+* Status: verified locally; publication pending.
+
 ## Manuscript Build
 
 

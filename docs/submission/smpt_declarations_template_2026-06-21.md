@@ -6,8 +6,8 @@ Do not submit placeholder text.
 ## Title Page Metadata
 
 - Manuscript title:
-  Simulation-Based Time-of-Use Pricing for LLM Inference Under Fixed Capacity:
-  Provider Competition, QoS Protection, and the Profit Boundary
+  A Simulation-Based Study of Time-of-Use Pricing for Fixed-Capacity Inference
+  Services: Provider Competition, QoS Protection, and the Profit Boundary
 - Authors:
   - [AUTHOR 1 NAME], [AFFILIATION], [EMAIL], [ORCID]
   - [AUTHOR 2 NAME], [AFFILIATION], [EMAIL], [ORCID]
@@ -69,7 +69,7 @@ Recommended final text after the final public release exists:
 > The code, simulation scripts, generated artifacts, and plotting pipeline used
 > in this study are available at https://github.com/cccht/paper_token_price. The
 > versioned submission-candidate release is available at
-> https://github.com/cccht/paper_token_price/releases/tag/smpt-final-2026-06-21.
+> https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21.
 > The archived release is available at [DOI, if created]. The manuscript
 > distinguishes synthetic calibration, public price anchors, and controlled vLLM
 > QoS-shape measurements.

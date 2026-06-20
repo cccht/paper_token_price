@@ -31,6 +31,7 @@ Current manuscript: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
 | Main manuscript TeX | `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` | Active |
 | Main manuscript PDF | `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` | Builds locally |
 | Bibliography | `verified_refs.bib` | Active |
+| Versioned GitHub release | `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21` | Prepared for submission candidate |
 | Figure source script | `experiments/build_peak_shaving_diagnostics.py` | Active |
 | Figure 1 Draw.io script | `experiments/build_market_schematic_drawio.py` | Active |
 | Figure 1 Draw.io source | `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio` | Editable source |
@@ -83,7 +84,8 @@ These cannot be filled by Codex without author confirmation.
 - Declaration of competing interests.
 - CRediT author contribution statement.
 - Acknowledgements, if any.
-- Final public code/data repository URL and, preferably, frozen DOI.
+- Persistent archival DOI, if the authors choose to mirror the GitHub release
+  to Zenodo, OSF, or another archive before submission.
 - Decision on SSRN/preprint posting.
 
 ## Figure Policy Risk
@@ -107,8 +109,7 @@ Do not submit the earlier imagegen PNG drafts as manuscript figures.
 - Scientific manuscript: close to submission-candidate status for an internal
   author review.
 - Formal Elsevier submission package: not complete until author metadata,
-  declarations, funding/competing-interest statements, and repository/DOI
-  information are supplied.
+  declarations, funding and competing-interest statements, CRediT roles, and
+  any required archival DOI information are supplied.
 - Template status: the local WSL TeX installation does not currently expose
   `elsarticle.cls`; the manuscript remains in a generic LaTeX article format.
-

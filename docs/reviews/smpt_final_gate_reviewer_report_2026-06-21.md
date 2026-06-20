@@ -194,3 +194,15 @@ It now states that the repository exists, but a formal submission should cite a
 frozen release or archival DOI containing the final manuscript, code, artifacts,
 and figures.
 
+## Post-Release Addendum
+
+After the review above, a versioned GitHub release was prepared for the
+submission-candidate package:
+
+`https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`
+
+This resolves the reviewer concern that the package existed only as a moving
+repository branch. It does not create a persistent DOI. The remaining procedural
+items are author-specific: author metadata, funding and competing-interest
+statements, CRediT roles, acknowledgements if any, and author-approved export of
+Figure 1 from the Draw.io source before formal submission.
