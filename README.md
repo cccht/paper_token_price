@@ -3529,6 +3529,38 @@ PY'
     imagegen-only concept images.
 * Status: verified locally before Git commit.
 
+### 2026-06-21 02:50 - SMPT submission package GitHub publication
+
+* Goal:
+  * Publish the verified SMPT submission package and Draw.io figure assets to the
+    project GitHub repository.
+* Context:
+  * The remote repository is `https://github.com/cccht/paper_token_price.git`.
+  * The package commit follows the successful XeLaTeX/BibTeX verification and
+    figure/submission audit recorded above.
+* Commands:
+  ```bash
+  git commit -m "Prepare SMPT submission package"
+  GIT_TERMINAL_PROMPT=0 git push origin main
+  git rev-parse --short HEAD
+  git ls-remote --heads origin main
+  git status --short --ignored
+  ```
+* Output:
+  * Commit: `2e5132e` (`Prepare SMPT submission package`).
+  * Remote branch after push:
+    `2e5132edfcf7e8e2858b8688cdcc576c9b2e7fd9 refs/heads/main`.
+* Result:
+  * Git commit succeeded: `40 files changed, 5324 insertions(+), 56 deletions(-)`.
+  * Push succeeded from local `main` to remote `main`.
+  * The working tree has no unstaged or untracked formal submission files after
+    the package push; remaining reported paths are ignored local artifacts,
+    caches, LaTeX auxiliaries, render scratch files, and early concept images.
+* Decision:
+  * Add this README publication record as a separate follow-up documentation
+    commit. The formal package commit itself remains `2e5132e`.
+* Status: package pushed; README publication note pending commit.
+
 ## Manuscript Build
 
 
