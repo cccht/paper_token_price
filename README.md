@@ -3561,6 +3561,54 @@ PY'
     commit. The formal package commit itself remains `2e5132e`.
 * Status: package pushed; README publication note pending commit.
 
+### 2026-06-21 02:56 - Final data-availability wording refresh
+
+* Goal:
+  * Remove stale wording that implied the final SMPT draft might still contain
+    local revisions not pushed to GitHub.
+* Context:
+  * The SMPT package was pushed to `https://github.com/cccht/paper_token_price`
+    in commit `2e5132e`, followed by the README publication note in `956c926`.
+  * A frozen release or DOI is still not available and should remain a formal
+    submission boundary.
+* Action:
+  * Updated `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` so the
+    data-availability paragraph says the current manuscript, code, figure
+    scripts, and artifacts are available in the GitHub repository.
+  * Updated the SMPT cover-letter draft with the real repository URL and
+    `archival DOI pending` wording.
+  * Updated the declarations template so only the DOI remains a true placeholder.
+* Commands:
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_smpt_dataavail.txt
+  rg -n "current manuscript, code, figure scripts|frozen as a versioned release|living reproducibility package|Declaration of Generative AI" \
+    /tmp/ps_smpt_dataavail.txt
+  rg -n "LaTeX Error|Undefined control sequence|Citation.*undefined|Reference.*undefined|There were undefined|Overfull|Rerun to get cross-references" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    /tmp/ps_smpt_dataavail_xelatex1.log \
+    /tmp/ps_smpt_dataavail_xelatex2.log \
+    /tmp/ps_smpt_dataavail_xelatex3.log \
+    /tmp/ps_smpt_dataavail_bibtex.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Result:
+  * Manuscript and submission-package wording now match the current pushed
+    repository state.
+  * XeLaTeX/BibTeX/XeLaTeX/XeLaTeX completed successfully.
+  * PDF text contains the revised GitHub repository statement, frozen-release
+    boundary, living-repository warning, and generative-AI declaration.
+  * PDF remains 23 A4 pages.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warnings.
+* Decision:
+  * Preserve the warning that a formal submission should cite a frozen release or
+    archival DOI.
+* Status: verified.
+
 ## Manuscript Build
 
 

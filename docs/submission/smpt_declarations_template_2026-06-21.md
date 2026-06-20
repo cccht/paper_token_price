@@ -64,12 +64,12 @@ Fill with final author names.
 
 ## Data And Code Availability
 
-Recommended final text after a public release exists:
+Recommended final text after the final public release exists:
 
 > The code, simulation scripts, generated artifacts, and plotting pipeline used
-> in this study are available at [REPOSITORY URL]. The archived release is
-> available at [DOI]. The manuscript distinguishes synthetic calibration,
-> public price anchors, and controlled vLLM QoS-shape measurements.
+> in this study are available at https://github.com/cccht/paper_token_price. The
+> archived release is available at [DOI]. The manuscript distinguishes synthetic
+> calibration, public price anchors, and controlled vLLM QoS-shape measurements.
 
 If the repository is not public at submission:
 
@@ -96,4 +96,3 @@ be used to create or alter submitted figures/artwork unless that use is part of
 the research method. Figure 1 should therefore be manually reviewed and exported
 from its Draw.io source by the author before submission. Do not submit the
 earlier imagegen drafts as final artwork.
-

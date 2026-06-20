@@ -36,8 +36,10 @@ This manuscript has not been published previously and is not under consideration
 elsewhere. All authors have approved the submitted version and agree to be
 accountable for the work. [AUTHOR TO CONFIRM BEFORE SUBMISSION.]
 
-Data, code, and artifact availability: [INSERT FINAL REPOSITORY URL AND DOI, OR
-STATE WHY A DOI IS NOT YET AVAILABLE.]
+Data, code, and artifact availability: the current manuscript, simulation code,
+figure scripts, and generated artifacts are available at
+https://github.com/cccht/paper_token_price. A frozen archival DOI should be added
+after the final repository release is created.
 
 Funding: [INSERT FUNDING STATEMENT.]
 
@@ -50,4 +52,3 @@ Sincerely,
 [CORRESPONDING AUTHOR NAME]  
 [AFFILIATION]  
 [EMAIL]
-
