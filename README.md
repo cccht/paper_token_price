@@ -3964,6 +3964,22 @@ PY'
     `smpt_submission_portal_fields_2026-06-21.md`.
 * Status: verified and release assets refreshed.
 
+### 2026-06-21 03:32 - Completion audit synchronized with final release assets
+
+* Goal:
+  * Synchronize the completion audit with the current release state after the
+    upload bundle and submission portal fields were added.
+* Action:
+  * Updated
+    `docs/reviews/smpt_submission_candidate_completion_audit_2026-06-21.md`.
+* Result:
+  * The audit now states that the release contains 22 assets, including the final
+    manuscript PDF/TEX, bibliography, submission portal fields, upload checklist,
+    author-information form, standalone figure files, and bundled upload zip.
+  * The audit notes that these packaging additions do not change the manuscript's
+    scientific claims or experimental evidence.
+* Status: documented.
+
 ## Manuscript Build
 
 

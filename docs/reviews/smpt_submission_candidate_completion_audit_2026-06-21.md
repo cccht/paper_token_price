@@ -33,7 +33,7 @@ funding, competing interests, or CRediT roles.
 | Ensure table values match artifacts | `docs/reviews/smpt_table_value_audit_2026-06-21.md` reports 74 checks and 0 issues. | Achieved |
 | Compile the manuscript cleanly | Fresh XeLaTeX/BibTeX/XeLaTeX/XeLaTeX verification produced a 23-page A4 PDF with no LaTeX errors, undefined citations/references, overfull boxes, or rerun warnings in the checked logs. | Achieved |
 | Meet core SMPT package constraints | Abstract is 250 words, keywords are 7, highlights are 5 lines under 85 characters, and data/AI declarations are present. | Achieved |
-| Create a versioned submission package | GitHub release `smpt-submission-candidate-2026-06-21` exists, targets commit `195c60b`, is not draft/prerelease, and contains 8 submission assets. | Achieved |
+| Create a versioned submission package | GitHub release `smpt-submission-candidate-2026-06-21` exists, targets commit `195c60b`, is not draft/prerelease, and contains 22 release assets, including the final manuscript PDF/TEX, bibliography, submission portal fields, upload checklist, author-information form, standalone figure files, and bundled upload zip. | Achieved |
 
 ## Remaining Author-Only Items
 
@@ -59,3 +59,11 @@ The manuscript and reproducibility package are now a submission-candidate final
 draft for author review. The remaining work is procedural and author-specific
 rather than a missing modelling, experiment, figure, or manuscript-structure
 component.
+
+## Final Packaging Note
+
+After this audit was first written, the release package was expanded with
+standalone figure files, an Elsevier upload checklist, an author-information
+form, copy-ready submission portal fields, and a bundled upload zip. These
+additions improve submission logistics but do not change the manuscript's
+scientific claims or experimental evidence.
