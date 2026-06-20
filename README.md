@@ -3797,6 +3797,29 @@ PY'
     preview.
 * Status: verified and published.
 
+### 2026-06-21 03:16 - Submission-candidate completion audit
+
+* Goal:
+  * Record a requirement-by-requirement audit for the active SMPT manuscript
+    objective.
+* Context:
+  * The current submission candidate is versioned at
+    `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`.
+  * Remaining non-automatable items are author metadata, declarations, and any
+    DOI/archive decision.
+* Action:
+  * Added `docs/reviews/smpt_submission_candidate_completion_audit_2026-06-21.md`.
+* Result:
+  * The audit maps the requested electricity-pricing structure alignment,
+    formula/detail improvements, results presentation, reviewer-style checks,
+    figure audits, table audits, compilation evidence, SMPT package checks, and
+    versioned release to concrete files and command evidence.
+  * The audit classifies the manuscript and reproducibility package as a
+    submission-candidate final draft for author review.
+  * The audit keeps author-only submission fields separate rather than inventing
+    them.
+* Status: documented.
+
 ## Manuscript Build
 
 
