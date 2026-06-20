@@ -38,8 +38,10 @@ accountable for the work. [AUTHOR TO CONFIRM BEFORE SUBMISSION.]
 
 Data, code, and artifact availability: the current manuscript, simulation code,
 figure scripts, and generated artifacts are available at
-https://github.com/cccht/paper_token_price. A frozen archival DOI should be added
-after the final repository release is created.
+https://github.com/cccht/paper_token_price, with a versioned release at
+https://github.com/cccht/paper_token_price/releases/tag/smpt-final-2026-06-21.
+An archival DOI should be added if the repository is mirrored to Zenodo, OSF, or
+another persistent archive before formal submission.
 
 Funding: [INSERT FUNDING STATEMENT.]
 

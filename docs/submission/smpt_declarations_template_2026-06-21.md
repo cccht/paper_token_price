@@ -68,8 +68,11 @@ Recommended final text after the final public release exists:
 
 > The code, simulation scripts, generated artifacts, and plotting pipeline used
 > in this study are available at https://github.com/cccht/paper_token_price. The
-> archived release is available at [DOI]. The manuscript distinguishes synthetic
-> calibration, public price anchors, and controlled vLLM QoS-shape measurements.
+> versioned submission-candidate release is available at
+> https://github.com/cccht/paper_token_price/releases/tag/smpt-final-2026-06-21.
+> The archived release is available at [DOI, if created]. The manuscript
+> distinguishes synthetic calibration, public price anchors, and controlled vLLM
+> QoS-shape measurements.
 
 If the repository is not public at submission:
 

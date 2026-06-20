@@ -3609,6 +3609,77 @@ PY'
     archival DOI.
 * Status: verified.
 
+### 2026-06-21 03:00 - Versioned GitHub release for SMPT package
+
+* Goal:
+  * Freeze the current SMPT submission-candidate package as a versioned GitHub
+    release so it is easier to cite and audit than a moving branch.
+* Context:
+  * DOI archival release is still not available; Zenodo, OSF, or another archive
+    would be needed for a persistent data identifier.
+  * The GitHub release targets commit `2eda4c2`.
+* Commands:
+  ```bash
+  GH_PROMPT_DISABLED=1 gh release view smpt-final-2026-06-21 --repo cccht/paper_token_price
+  GH_PROMPT_DISABLED=1 gh release create smpt-final-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --target 2eda4c220423638e2cc725413f239aa9d513c1ac \
+    --title "SMPT final manuscript package (2026-06-21)" \
+    --notes "Versioned package for the Simulation Modelling Practice and Theory submission candidate. Includes the final manuscript PDF, submission highlights, cover-letter draft, package manifest, and editable Figure 1 Draw.io source. DOI archival release is still pending." \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    docs/submission/smpt_highlights_2026-06-21.txt \
+    docs/submission/smpt_cover_letter_draft_2026-06-21.md \
+    docs/submission/smpt_submission_package_manifest_2026-06-21.md \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png
+  GH_PROMPT_DISABLED=1 gh release view smpt-final-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --json tagName,name,isDraft,isPrerelease,url,targetCommitish,assets
+  ```
+* Output:
+  * Release URL:
+    `https://github.com/cccht/paper_token_price/releases/tag/smpt-final-2026-06-21`
+  * Release target:
+    `2eda4c220423638e2cc725413f239aa9d513c1ac`
+  * Assets:
+    `market_schematic_drawio_exact_2026-06-21.drawio`,
+    `market_schematic_drawio_exact_2026-06-21.png`,
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`,
+    `smpt_cover_letter_draft_2026-06-21.md`,
+    `smpt_highlights_2026-06-21.txt`, and
+    `smpt_submission_package_manifest_2026-06-21.md`.
+* Result:
+  * Release created successfully.
+  * Release is not a draft and not a prerelease.
+* Action:
+  * Updated the manuscript, cover-letter draft, and declarations template to cite
+    the versioned release while keeping the DOI limitation explicit.
+* Verification:
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_smpt_release.txt
+  rg -n "smpt-final-2026-06-21|versioned reproducibility package|persistent data identifier|Declaration of Generative AI" \
+    /tmp/ps_smpt_release.txt
+  rg -n "LaTeX Error|Undefined control sequence|Citation.*undefined|Reference.*undefined|There were undefined|Overfull|Rerun to get cross-references" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    /tmp/ps_smpt_release_xelatex1.log \
+    /tmp/ps_smpt_release_xelatex2.log \
+    /tmp/ps_smpt_release_xelatex3.log \
+    /tmp/ps_smpt_release_bibtex.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Verification result:
+  * PDF text contains the GitHub release tag, versioned-package wording,
+    persistent-identifier boundary, and generative-AI declaration.
+  * XeLaTeX/BibTeX/XeLaTeX/XeLaTeX completed successfully.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warnings.
+  * PDF remains 23 A4 pages.
+* Status: verified.
+
 ## Manuscript Build
 
 
