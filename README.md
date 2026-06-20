@@ -3820,6 +3820,57 @@ PY'
     them.
 * Status: documented.
 
+### 2026-06-21 03:18 - Elsevier upload checklist and standalone figure assets
+
+* Goal:
+  * Make the release closer to an actual Elsevier submission package by adding
+    upload checklists, an author information form, and standalone figure files.
+* Context:
+  * The manuscript PDF already embeds all figures.
+  * Formal submission systems often request figure files separately, so relying
+    only on the compiled manuscript PDF is less convenient for final upload.
+* Action:
+  * Added `docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md`.
+  * Added `docs/submission/smpt_author_information_form_2026-06-21.md`.
+  * Added `docs/submission/smpt_figure_file_inventory_2026-06-21.md`.
+  * Updated `docs/submission/smpt_submission_package_manifest_2026-06-21.md` to
+    reference the new submission files.
+  * Uploaded `verified_refs.bib`, the three new submission files, and standalone
+    Figure 2--8 PDF assets to the GitHub release.
+* Verification:
+  ```bash
+  python3 - <<'PY'
+  # Checked 18 expected manuscript, bibliography, submission, and figure files.
+  PY
+  rg -n "\| [1-8] \|" docs/submission/smpt_figure_file_inventory_2026-06-21.md
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --clobber \
+    verified_refs.bib \
+    docs/submission/smpt_author_information_form_2026-06-21.md \
+    docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md \
+    docs/submission/smpt_figure_file_inventory_2026-06-21.md \
+    figures/peak_shaving_submission/vllm_qos_anchor.pdf \
+    figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf \
+    figures/peak_shaving_diagnostics/profit_components_and_regret.pdf \
+    figures/peak_shaving_submission/mixed_oracle_regret.pdf \
+    figures/peak_shaving_submission/parameter_sweep_qos.pdf \
+    figures/peak_shaving_smpt/smpt_phase_qos_gain.pdf \
+    figures/peak_shaving_smpt/smpt_phase_profit_gain.pdf \
+    figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --json tagName,url,targetCommitish,assets
+  ```
+* Result:
+  * All 18 expected local files exist.
+  * Figure inventory lists all 8 manuscript figures.
+  * Release now contains 20 assets, including final manuscript PDF/TEX,
+    bibliography, highlights, cover letter, declarations, package manifest,
+    upload checklist, author information form, figure inventory, Draw.io source,
+    Figure 1 PNG, and standalone Figure 2--8 PDF assets.
+* Status: verified and release assets refreshed.
+
 ## Manuscript Build
 
 

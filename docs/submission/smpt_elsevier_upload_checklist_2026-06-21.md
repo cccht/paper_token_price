@@ -1,0 +1,65 @@
+# SMPT Elsevier Upload Checklist
+
+Target journal: *Simulation Modelling Practice and Theory*  
+Publisher: Elsevier  
+Prepared: 2026-06-21  
+Submission-candidate release:
+`https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`
+
+## Ready Files
+
+| Upload item | Local file | Status |
+|---|---|---|
+| Main manuscript PDF | `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` | Ready |
+| Main manuscript TeX | `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` | Ready |
+| Bibliography | `verified_refs.bib` | Ready |
+| Highlights | `docs/submission/smpt_highlights_2026-06-21.txt` | Ready |
+| Cover letter draft | `docs/submission/smpt_cover_letter_draft_2026-06-21.md` | Needs author metadata |
+| Declarations template | `docs/submission/smpt_declarations_template_2026-06-21.md` | Needs author metadata |
+| Package manifest | `docs/submission/smpt_submission_package_manifest_2026-06-21.md` | Ready |
+| Figure file inventory | `docs/submission/smpt_figure_file_inventory_2026-06-21.md` | Ready |
+
+## Journal-Facing Checks Already Satisfied
+
+- Abstract: exactly 250 words.
+- Keywords: 7.
+- Highlights: 5 items, each under 85 characters.
+- Main manuscript includes a generative-AI declaration.
+- Main manuscript includes data/code/release availability wording.
+- All figures and tables are cited in the manuscript.
+- Figure and table audits are documented under `docs/reviews/`.
+- The manuscript compiles through XeLaTeX/BibTeX/XeLaTeX/XeLaTeX.
+- The PDF is 23 A4 pages.
+
+## Upload Order
+
+1. Upload the main manuscript PDF.
+2. Upload the TeX source and `verified_refs.bib` if the submission system asks
+   for source files.
+3. Upload highlights as a separate editable text file.
+4. Upload the cover letter after author confirmation.
+5. Upload declarations / CRediT / funding / competing-interest statements after
+   author confirmation.
+6. Upload figure files using the mapping in
+   `smpt_figure_file_inventory_2026-06-21.md`.
+7. Add the GitHub release URL as the data/code availability link.
+8. Add an archival DOI only if the release has been mirrored to Zenodo, OSF, or
+   another persistent archive.
+
+## Must Be Filled By The Author Before Submission
+
+- Author names, order, affiliations, emails, ORCID identifiers.
+- Corresponding author and postal address if required.
+- Confirmation that the manuscript is not under review elsewhere.
+- Funding statement.
+- Declaration of competing interests.
+- CRediT roles.
+- Acknowledgements, if any.
+- Optional DOI/archive decision.
+- Author-approved export of Figure 1 from the Draw.io source.
+
+## Final Caution
+
+Do not upload the earlier imagegen concept images as final artwork. Figure 1
+should be reviewed in Draw.io and exported by the author before formal
+submission.

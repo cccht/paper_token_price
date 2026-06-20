@@ -39,6 +39,9 @@ Current manuscript: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
 | Table value audit | `docs/reviews/smpt_table_value_audit_2026-06-21.md` | Completed |
 | Reviewer audit | `docs/reviews/smpt_reviewer_round_2026-06-21.md` | Completed |
 | Journal adaptation checklist | `docs/reviews/smpt_submission_adaptation_checklist_2026-06-21.md` | Completed |
+| Elsevier upload checklist | `docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md` | Ready |
+| Author information form | `docs/submission/smpt_author_information_form_2026-06-21.md` | Needs author input |
+| Figure file inventory | `docs/submission/smpt_figure_file_inventory_2026-06-21.md` | Ready |
 
 ## Current Manuscript Statistics
 
@@ -71,6 +74,9 @@ Current manuscript: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
 - `docs/submission/smpt_cover_letter_draft_2026-06-21.md`
 - `docs/submission/smpt_highlights_2026-06-21.txt`
 - `docs/submission/smpt_declarations_template_2026-06-21.md`
+- `docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md`
+- `docs/submission/smpt_author_information_form_2026-06-21.md`
+- `docs/submission/smpt_figure_file_inventory_2026-06-21.md`
 
 ## Items Still Requiring Author Input
 
