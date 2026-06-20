@@ -3871,6 +3871,54 @@ PY'
     Figure 1 PNG, and standalone Figure 2--8 PDF assets.
 * Status: verified and release assets refreshed.
 
+### 2026-06-21 03:22 - Bundled Elsevier upload archive
+
+* Goal:
+  * Provide a single compressed upload bundle for author-side inspection and
+    Elsevier submission preparation.
+* Context:
+  * The release already contains individual manuscript, figure, and submission
+    files.
+  * A single zip package makes it easier to download and inspect the exact
+    submission candidate without selecting assets one by one.
+* Commands:
+  ```bash
+  rm -rf tmp/smpt_elsevier_upload_bundle_2026-06-21 tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  mkdir -p tmp/smpt_elsevier_upload_bundle_2026-06-21/{manuscript,figures,submission,reviews}
+  # Copy final manuscript PDF/TEX, verified_refs.bib, submission docs, figure
+  # files, and selected review/audit reports into the bundle directory.
+  cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21
+  unzip -l tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  python3 - <<'PY'
+  # Verified required zip entries, figure-file count, and required manuscript /
+  # bibliography / submission / review files.
+  PY
+  pdftotext tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_bundle_pdf.txt
+  rg -n "smpt-submission-candidate-2026-06-21|QoS-protection instrument|profit-improvement mechanism|Declaration of Generative AI" \
+    /tmp/ps_bundle_pdf.txt
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --clobber tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --json tagName,url,targetCommitish,assets
+  ```
+* Result:
+  * Created `tmp/smpt_elsevier_upload_bundle_2026-06-21.zip` with 30 zip
+    entries and size about 916 KB.
+  * The zip contains `manuscript/`, `figures/`, `submission/`, and `reviews/`
+    folders.
+  * Required entries were present; no required file was missing.
+  * Bundle PDF text contains the release tag, QoS/profit boundary, and
+    generative-AI declaration.
+  * Uploaded the zip to the release.
+  * Release now contains 21 assets and includes
+    `smpt_elsevier_upload_bundle_2026-06-21.zip`.
+* Decision:
+  * Keep the zip in ignored `tmp/` locally and publish it only as a release
+    asset, not as a tracked repository file.
+* Status: verified and release asset published.
+
 ## Manuscript Build
 
 
