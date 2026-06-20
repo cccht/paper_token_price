@@ -7,11 +7,13 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Rectangle
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from experiments.plot_style import configure_times_new_roman
 from pricing_sim.peak_shaving_config import PeakShavingConfig
 from pricing_sim.peak_shaving_equilibrium import FirmParams, intermediary_best_response
 from pricing_sim.peak_shaving_market import (
@@ -22,6 +24,8 @@ from pricing_sim.peak_shaving_market import (
     system_profit,
     type_channel_demand,
 )
+
+configure_times_new_roman()
 
 SRC = ROOT / "artifacts" / "peak_shaving" / "20260618"
 OUT = ROOT / "artifacts" / "peak_shaving" / "20260619"
@@ -184,27 +188,101 @@ def write_tables(bundle: dict[str, Any]) -> None:
 
 def plot_market_schematic() -> None:
     FIG.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=(7.2, 3.8))
+    fig, ax = plt.subplots(figsize=(9.4, 5.1))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
     ax.axis("off")
-    boxes = [("Users\nrigid / elastic", 0.08, 0.55), ("Intermediary\nretail price + routing", 0.43, 0.55),
-             ("Firm A\nlarge capacity", 0.78, 0.72), ("Firm B\nsmall capacity", 0.78, 0.36),
-             ("Outside option", 0.08, 0.18)]
-    for text, x, y in boxes:
-        ax.text(x, y, text, ha="center", va="center", fontsize=10,
-                bbox=dict(boxstyle="round,pad=0.35", facecolor="#F7F7F7", edgecolor="#444444"))
-    arrows = [((0.21, 0.55), (0.32, 0.55)), ((0.54, 0.62), (0.68, 0.72)),
-              ((0.54, 0.48), (0.68, 0.36)), ((0.21, 0.50), (0.69, 0.71)),
-              ((0.21, 0.44), (0.69, 0.37)), ((0.08, 0.45), (0.08, 0.29))]
-    for start, end in arrows:
-        ax.annotate("", xy=end, xytext=start, arrowprops=dict(arrowstyle="->", lw=1.5, color="#555555"))
-    ax.text(0.43, 0.87, "Fixed GPU capacity, time-varying demand, QoS feedback", ha="center", fontsize=11)
+
+    def panel(x, y, w, h, fc, ec, lw=1.2):
+        patch = FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.018,rounding_size=0.025",
+                               facecolor=fc, edgecolor=ec, linewidth=lw)
+        ax.add_patch(patch)
+        return patch
+
+    def arrow(start, end, *, dashed=False, rad=0.0, color="#333333", lw=1.4):
+        patch = FancyArrowPatch(start, end, arrowstyle="-|>", mutation_scale=12,
+                                connectionstyle=f"arc3,rad={rad}", linewidth=lw,
+                                linestyle="--" if dashed else "-", color=color)
+        ax.add_patch(patch)
+        return patch
+
+    def user_icon(cx, cy, scale=1.0, color="#1F3A24"):
+        ax.add_patch(Circle((cx, cy + 0.035 * scale), 0.022 * scale, fill=False, ec=color, lw=1.6))
+        ax.add_patch(FancyBboxPatch((cx - 0.035 * scale, cy - 0.035 * scale), 0.07 * scale, 0.055 * scale,
+                                    boxstyle="round,pad=0.004,rounding_size=0.012",
+                                    facecolor="none", edgecolor=color, linewidth=1.6))
+        for dx in (-0.065, 0.065):
+            ax.add_patch(Circle((cx + dx * scale, cy + 0.02 * scale), 0.014 * scale, fill=False, ec=color, lw=1.2))
+            ax.plot([cx + dx * scale - 0.025 * scale, cx + dx * scale + 0.025 * scale],
+                    [cy - 0.018 * scale, cy - 0.018 * scale], color=color, lw=1.2)
+
+    def server_icon(x, y, scale=1.0):
+        for i in range(3):
+            ax.add_patch(FancyBboxPatch((x, y + i * 0.038 * scale), 0.075 * scale, 0.03 * scale,
+                                        boxstyle="round,pad=0.002,rounding_size=0.004",
+                                        facecolor="#D9E7F7", edgecolor="#1F3B57", linewidth=1.1))
+            ax.add_patch(Circle((x + 0.061 * scale, y + i * 0.038 * scale + 0.015 * scale),
+                                0.0045 * scale, color="#1F3B57"))
+        ax.add_patch(Rectangle((x + 0.088 * scale, y + 0.02 * scale), 0.065 * scale, 0.06 * scale,
+                               facecolor="#E9F2FC", edgecolor="#1F3B57", linewidth=1.1))
+        for j in range(3):
+            ax.add_patch(Circle((x + 0.103 * scale + j * 0.018 * scale, y + 0.05 * scale),
+                                0.011 * scale, fill=False, edgecolor="#1F3B57", linewidth=1.0))
+
+    panel(0.03, 0.31, 0.19, 0.48, "#EAF6E1", "#4F7D3C")
+    ax.text(0.125, 0.755, "Users", ha="center", va="center", fontsize=15, fontweight="bold")
+    panel(0.055, 0.56, 0.14, 0.15, "#F5FAEE", "#6A9658")
+    ax.text(0.125, 0.675, "Time-rigid users", ha="center", va="center", fontsize=10.5, fontweight="bold")
+    user_icon(0.125, 0.605, 0.82)
+    panel(0.055, 0.36, 0.14, 0.15, "#F5FAEE", "#6A9658")
+    ax.text(0.125, 0.475, "Time-flexible users", ha="center", va="center", fontsize=10.5, fontweight="bold")
+    user_icon(0.125, 0.405, 0.82)
+
+    panel(0.04, 0.06, 0.17, 0.11, "#F5F5F5", "#666666")
+    ax.text(0.125, 0.14, "Outside option", ha="center", va="center", fontsize=11.5, fontweight="bold")
+    user_icon(0.125, 0.075, 0.55, color="#555555")
+
+    panel(0.36, 0.35, 0.27, 0.30, "#FFF0DB", "#CC7A1C")
+    ax.text(0.495, 0.605, "API Intermediary", ha="center", va="center", fontsize=14, fontweight="bold")
+    panel(0.385, 0.495, 0.22, 0.08, "#FFF8EF", "#D98A31", lw=1.0)
+    ax.text(0.495, 0.535, r"Retail price $p_t$", ha="center", va="center", fontsize=11.5)
+    panel(0.385, 0.385, 0.22, 0.08, "#FFF8EF", "#D98A31", lw=1.0)
+    ax.text(0.495, 0.425, r"QoS-aware routing $r_{m,t}$", ha="center", va="center", fontsize=11.5)
+
+    panel(0.76, 0.58, 0.20, 0.22, "#EAF3FF", "#2E5D9F")
+    ax.text(0.86, 0.755, "Provider A", ha="center", va="center", fontsize=13.5, fontweight="bold")
+    ax.text(0.86, 0.705, r"Large GPU capacity $G_A$", ha="center", va="center", fontsize=10.0)
+    server_icon(0.79, 0.59, 0.82)
+
+    panel(0.76, 0.22, 0.20, 0.22, "#EAF3FF", "#2E5D9F")
+    ax.text(0.86, 0.395, "Provider B", ha="center", va="center", fontsize=13.5, fontweight="bold")
+    ax.text(0.86, 0.345, r"Small GPU capacity $G_B$", ha="center", va="center", fontsize=10.0)
+    server_icon(0.79, 0.23, 0.82)
+
+    arrow((0.22, 0.50), (0.36, 0.50), lw=1.7)
+    ax.text(0.29, 0.535, "brokered API\npurchase", ha="center", va="bottom", fontsize=9.5)
+    arrow((0.63, 0.555), (0.76, 0.70), lw=1.6)
+    arrow((0.63, 0.445), (0.76, 0.315), lw=1.6)
+    arrow((0.76, 0.61), (0.63, 0.525), dashed=True, lw=1.1, color="#666666")
+    arrow((0.76, 0.265), (0.63, 0.405), dashed=True, lw=1.1, color="#666666")
+    ax.text(0.68, 0.595, "routed traffic", ha="center", va="center", fontsize=8.8, color="#333333")
+    ax.text(0.685, 0.385, r"QoS feedback $q_{m,t}$", ha="center", va="center", fontsize=8.8, color="#555555")
+    arrow((0.22, 0.68), (0.76, 0.73), dashed=True, rad=-0.18, lw=1.4)
+    arrow((0.22, 0.40), (0.76, 0.27), dashed=True, rad=0.18, lw=1.4)
+    ax.text(0.50, 0.765, "direct API access", ha="center", va="center", fontsize=10.5)
+    ax.text(0.50, 0.255, "direct API access", ha="center", va="center", fontsize=10.5)
+    arrow((0.125, 0.31), (0.125, 0.17), lw=1.5)
+    ax.text(0.17, 0.225, "exit /\nno purchase", ha="center", va="center", fontsize=9.5)
+
+    ax.text(0.50, 0.92, "Inference-Service Market Structure",
+            ha="center", va="center", fontsize=20, fontweight="bold")
     fig.savefig(FIG / "market_schematic.pdf", bbox_inches="tight")
     plt.close(fig)
 
 
 def plot_qos_utilization(bundle: dict[str, Any]) -> None:
     t = np.arange(1, 9)
-    fig, axes = plt.subplots(2, 1, figsize=(7.2, 5.6), sharex=True)
+    fig, axes = plt.subplots(2, 1, figsize=(7.4, 5.55), sharex=True)
     for name, rec in bundle["cases"].items():
         axes[0].plot(t, rec["utilization"].max(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
         axes[1].plot(t, rec["qos_firm"].min(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
@@ -213,8 +291,11 @@ def plot_qos_utilization(bundle: dict[str, Any]) -> None:
     axes[1].set_xlabel("Period")
     for ax in axes:
         ax.grid(alpha=0.25)
-        ax.legend(frameon=False, ncol=2, fontsize=8)
-    fig.tight_layout()
+    handles, labels = axes[0].get_legend_handles_labels()
+    axes[0].legend(handles, labels, frameon=False, ncol=4, loc="lower center",
+                   bbox_to_anchor=(0.5, 1.015), fontsize=8,
+                   borderaxespad=0.0, handlelength=1.6, columnspacing=1.0)
+    fig.tight_layout(rect=[0, 0, 1, 0.975])
     fig.savefig(FIG / "qos_utilization_profiles.pdf")
     plt.close(fig)
 
@@ -222,7 +303,7 @@ def plot_qos_utilization(bundle: dict[str, Any]) -> None:
 def plot_mechanism(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     x = np.arange(len(names))
-    fig, axes = plt.subplots(2, 2, figsize=(8.0, 6.0))
+    fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.2))
     for ax, metric, title in [
         (axes[0, 0], "average_paid_price", "Average paid price"),
         (axes[1, 0], "served_volume", "QoS-adjusted served volume"),
@@ -235,37 +316,45 @@ def plot_mechanism(bundle: dict[str, Any]) -> None:
     axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color="#72B7B2")
     axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color="#E45756")
     axes[0, 1].set_title("No-purchase probability", fontsize=10)
-    axes[0, 1].legend(frameon=False, fontsize=8)
+    axes[0, 1].legend(frameon=False, fontsize=8, loc="upper right")
     for ax in axes.ravel():
         ax.set_xticks(x, [CASE_LABELS[n] for n in names], rotation=18, ha="right")
         ax.grid(axis="y", alpha=0.25)
-    fig.tight_layout()
+    fig.tight_layout(pad=1.1)
     fig.savefig(FIG / "mechanism_diagnostics.pdf")
     plt.close(fig)
 
 
 def plot_profit_regret(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
-    fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.6))
+    fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.65))
     bottom = np.zeros(len(names))
-    parts = [("firm_A_profit", "#4C78A8"), ("firm_B_profit", "#72B7B2"), ("intermediary_profit", "#F58518")]
-    for key, color in parts:
+    parts = [("firm_A_profit", "#4C78A8", "Provider A"), ("firm_B_profit", "#72B7B2", "Provider B"),
+             ("intermediary_profit", "#F58518", "Intermediary")]
+    handles = []
+    legend_labels = []
+    for key, color, label in parts:
         vals = np.array([bundle["cases"][n]["summary"][key] for n in names])
-        axes[0].bar(np.arange(len(names)), vals, bottom=bottom, label=key.replace("_", " "), color=color)
+        handle = axes[0].bar(np.arange(len(names)), vals, bottom=bottom, label=label, color=color)
+        handles.append(handle[0])
+        legend_labels.append(label)
         bottom += vals
     axes[0].set_title("Profit by market participant", fontsize=10)
-    axes[0].legend(frameon=False, fontsize=8)
+    axes[0].set_xlim(-0.6, len(names) - 0.05)
+    axes[0].legend(handles, legend_labels, frameon=False, fontsize=8, loc="upper right",
+                   ncol=1, handlelength=1.4, borderaxespad=0.4)
     meta = bundle["metadata"]
     axes[1].bar([0, 1], [meta["dynamic_coarse_maxregret"], meta["dynamic_fine_maxregret"]],
                 color=[COLORS["dynamic_coarse"], COLORS["dynamic_fine"]])
     axes[1].axhline(5.0, color="#666666", lw=1, ls="--", label="target < 5")
     axes[1].set_xticks([0, 1], ["Coarse\nround 22", "Fine\nround 40"])
     axes[1].set_title("Final stored max regret", fontsize=10)
-    axes[1].legend(frameon=False, fontsize=8)
+    axes[1].set_xlim(-0.55, 1.55)
+    axes[1].legend(frameon=False, fontsize=8, loc="upper left", borderaxespad=0.4)
     axes[0].set_xticks(np.arange(len(names)), [CASE_LABELS[n] for n in names], rotation=18, ha="right")
     for ax in axes:
         ax.grid(axis="y", alpha=0.25)
-    fig.tight_layout()
+    fig.tight_layout(pad=1.0)
     fig.savefig(FIG / "profit_components_and_regret.pdf")
     plt.close(fig)
 

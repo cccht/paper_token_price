@@ -24,6 +24,7 @@ for import_path in (PROJECT_ROOT, SCRIPT_DIR):
 
 from pricing_sim.calibration import fit_qos_curve, load_controlled_aggregate
 from pricing_sim.qos import qos_factor
+from experiments.plot_style import configure_times_new_roman
 
 DEFAULT_SOURCES = (
     (
@@ -154,19 +155,10 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fields: tuple[str, ...] | 
 
 
 def plot_anchor(profiles: list[dict[str, Any]], points: list[dict[str, Any]], output: Path) -> None:
-    mpl.rcParams.update({
-        "font.family": "serif",
-        "font.serif": ["DejaVu Serif", "Times New Roman"],
-        "font.size": 9,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-        "axes.grid": True,
-        "grid.alpha": 0.18,
-        "pdf.fonttype": 42,
-        "svg.fonttype": "none",
-    })
+    configure_times_new_roman()
+    mpl.rcParams.update({"axes.grid": True, "grid.alpha": 0.18})
     colors = {"vllm-0.5b": "#0072B2", "vllm-3b": "#D55E00"}
-    fig, ax = plt.subplots(figsize=(6.6, 2.8))
+    fig, ax = plt.subplots(figsize=(6.8, 3.2))
     for profile in profiles:
         name = str(profile["profile"])
         rows = [row for row in points if row["profile"] == name]
@@ -179,13 +171,14 @@ def plot_anchor(profiles: list[dict[str, Any]], points: list[dict[str, Any]], ou
         grid = np.linspace(min(x), max(x), 160)
         fitted = qos_factor(grid, threshold=float(profile["qos_threshold"]), strength=float(profile["qos_strength"]))
         ax.plot(grid, fitted, color=color, linewidth=1.8, alpha=0.85, label=f"{profile['model']} fit")
-    ax.axvline(1.0, color="#444444", linestyle="--", linewidth=1.0, alpha=0.7)
-    ax.text(1.02, 0.06, "max healthy concurrency", fontsize=8, color="#444444")
+    ax.axvline(1.0, color="#444444", linestyle="--", linewidth=1.0, alpha=0.7,
+               label="healthy boundary")
     ax.set_xlabel("Normalized concurrency")
     ax.set_ylabel("TTFT SLA rate")
     ax.set_ylim(-0.02, 1.05)
-    ax.legend(loc="lower left", ncol=2, fontsize=7.5, frameon=False)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.28), ncol=3, fontsize=7.5, frameon=False)
     output.parent.mkdir(parents=True, exist_ok=True)
+    fig.tight_layout(rect=[0, 0, 1, 0.88])
     fig.savefig(output)
     fig.savefig(output.with_suffix(".png"), dpi=300)
     plt.close(fig)

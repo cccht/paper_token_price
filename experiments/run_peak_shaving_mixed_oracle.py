@@ -15,6 +15,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from experiments.plot_style import configure_times_new_roman
 from experiments.peak_shaving_submission_tools import (
     best_response_regret,
     empirical_fictitious_play,
@@ -30,6 +31,7 @@ OUT = ROOT / "artifacts" / "peak_shaving" / "20260619_submission"
 FIG = ROOT / "figures" / "peak_shaving_submission"
 CAP = np.array([300.0, 120.0])
 QOS_SHAPE = "sigmoid"
+configure_times_new_roman()
 
 
 def load_json(name: str) -> dict[str, Any]:
@@ -152,14 +154,14 @@ def plot_trace(result: dict[str, Any]) -> None:
     FIG.mkdir(parents=True, exist_ok=True)
     xs = [r["oracle_round"] for r in result["trace"]]
     ys = [r["full_max_regret"] for r in result["trace"]]
-    fig, ax = plt.subplots(figsize=(6.2, 3.4))
+    fig, ax = plt.subplots(figsize=(6.4, 3.6))
     ax.plot(xs, ys, marker="o", color="#0072B2")
     ax.axhline(5.0, color="#666666", ls="--", lw=1, label="target < 5")
     ax.set_xlabel("Double-oracle round")
     ax.set_ylabel("Full-grid max regret")
     ax.grid(alpha=0.25)
-    ax.legend(frameon=False)
-    fig.tight_layout()
+    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.18))
+    fig.tight_layout(rect=[0, 0, 1, 0.92])
     fig.savefig(FIG / "mixed_oracle_regret.pdf")
     plt.close(fig)
 

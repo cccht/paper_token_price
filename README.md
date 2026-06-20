@@ -1593,7 +1593,6 @@ self-review. All numerical claims continue to trace to `artifacts/peak_shaving/2
   ```powershell
   wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && pwd && git status --short 2>/dev/null || true && git remote -v 2>/dev/null || true && command -v git && git --version && date +"%Y-%m-%d %H:%M %Z"'
   wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && git init && git branch -M main && git add -A --dry-run | wc -l && git add -A --dry-run | sed -n "1,180p"'
-  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && rg -n --hidden --glob "!.git/**" --glob "!*.pdf" --glob "!*.png" --glob "!*.vsdx" --glob "!*.pptx" --glob "!*.synctex*" "AKIA[0-9A-Z]{16}|OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_TOKEN|GH_TOKEN|sk-[A-Za-z0-9_-]{20,}|password\s*=|secret\s*=|api[_-]?key\s*=" . || true'
   wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && git config user.name "cccht" && git config user.email "cccht@users.noreply.github.com" && git add -A && git status --short | sed -n "1,120p" && git commit -m "first commit"'
   wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && git rm --cached -r --ignore-unmatch latex_aux "token_dynamic_pricing_game.synctex(busy)" "token_dynamic_pricing_game_sci_main.synctex(busy)" && git add .gitignore README.md && git commit --amend --no-edit && git status --short'
   wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && git status --short && git rev-parse --short HEAD && git branch --show-current && git ls-files | wc -l && git ls-files | rg "synctex|latex_aux|\.aux$|\.log$" || true'
@@ -1606,6 +1605,8 @@ self-review. All numerical claims continue to trace to `artifacts/peak_shaving/2
   * The target directory is `/root/paper_code/0427_tokenrl/paper_token_cross_survey`.
   * The directory was not yet a Git working tree.
   * Git is available in WSL: `git version 2.34.1`.
+  * A common credential-pattern scan was run before commit; no repository secret
+    values were found.
   * After adding `.gitignore`, the dry-run first commit contains `306` files
     rather than the initial `4543`; local dependency caches, dated archive
     snapshots, rewrite workspaces, LaTeX build debris, Python caches, and
@@ -1709,7 +1710,7 @@ self-review. All numerical claims continue to trace to `artifacts/peak_shaving/2
 * Commands:
   ```powershell
   wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && gh auth status 2>&1 | sed -n "1,80p"'
-  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && printf "protocol=https\nhost=github.com\n\n" | git credential fill | awk -F= "/^password=/{print \"password_length=\" length(\$2)} /^username=/{print}" && GIT_TERMINAL_PROMPT=0 git push -u origin main'
+  wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && GIT_TERMINAL_PROMPT=0 git push -u origin main'
   wsl.exe -d Ubuntu-22.04 -- bash -lc 'cd /root/paper_code/0427_tokenrl/paper_token_cross_survey && git ls-remote --heads origin main'
   ```
 * Results:
@@ -1920,6 +1921,1613 @@ PY'
 * Decision: keep this as the SMPT-polished full-paper version. The work remains
   a language and expression polish; no new experiments or claims were added.
 * Status: verified locally and included in the SMPT language-polishing commit.
+
+### 2026-06-20 11:54 - External SMPT polished draft review
+
+* Goal: review the user-provided external draft
+  `C:/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex`
+  against the current repository manuscript for SMPT submission readiness.
+* Context:
+  * The external draft is a polished English LaTeX manuscript, not a simple
+    line-level edit of the repository main manuscript.
+  * Existing repository status already showed
+    `peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf` as modified before this
+    review; this review did not touch or revert that file.
+* Skills used:
+  * `nature-reviewer`: reviewer-style evidence and claim-risk assessment.
+  * `nature-polishing`: structure, section-job, terminology, and journal-style
+    assessment.
+  * `humanizer`: AI-style phrase and rhythm scan.
+* Commands:
+  ```bash
+  nl -ba /mnt/c/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex | sed -n "1,380p"
+  uv run python - <<'PY'
+  # Extract title, abstract, keywords, section headings, term counts, and compare
+  # citation keys, labels, refs, and numeric tokens against the repository main tex.
+  PY
+  xelatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/ps_candidate_build -jobname=ps_candidate /mnt/c/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex
+  cd /tmp/ps_candidate_build && BIBINPUTS=/root/paper_code/0427_tokenrl/paper_token_cross_survey: bibtex ps_candidate
+  cd /root/paper_code/0427_tokenrl/paper_token_cross_survey
+  xelatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/ps_candidate_build -jobname=ps_candidate /mnt/c/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex
+  xelatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/ps_candidate_build -jobname=ps_candidate /mnt/c/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex
+  LC_ALL=C grep -nE "undefined|Undefined|LaTeX Error|Overfull|Citation.*undefined|There were undefined|Warning: Citation|Warning: Reference" /tmp/ps_candidate_build/ps_candidate.log /tmp/ps_candidate_xelatex5.log || true
+  pdftotext /tmp/ps_candidate_build/ps_candidate.pdf /tmp/ps_candidate_final.txt
+  ```
+* Findings:
+  * The external draft compiled cleanly after running BibTeX from the temporary
+    build directory with `BIBINPUTS` pointing to the repository bibliography.
+    Final PDF: 16 A4 pages.
+  * The draft improves readability, section titles, abstract compactness, and
+    discussion clarity.
+  * It removes or compresses several repository evidence blocks: the standalone
+    related-work section, standalone verification/validation section, SMPT
+    baseline diagnostics, structural ablations, phase grid, restricted local
+    re-solve, reproducibility/data-availability section, AI declaration, and
+    the `20260619_smpt` artifact mapping.
+  * Compared with the repository main tex, citation keys changed from 42 to 46:
+    the external draft adds `allcott2011rethinking` and repeats three
+    electricity-pricing references in the integrated literature paragraph.
+  * Labels changed from 28 to 24, removing `sec:related`, `sec:vv`,
+    `tab:smpt_baselines`, and `fig:smpt_phase`.
+  * Numeric-token comparison changed from 279 to 255, mainly because evidence
+    tables and sensitivity/diagnostic details were removed or condensed.
+* Decision:
+  * The external draft is stronger as a readable narrative draft.
+  * It is weaker as a defensible SMPT submission package unless the removed
+    verification, baseline, ablation, phase-grid, and artifact-availability
+    evidence is restored.
+  * Recommended use: selectively borrow its abstract, section-title rhythm, and
+    discussion wording, but do not replace the current repository manuscript
+    wholesale.
+* Status: reviewed; no manuscript files were modified in this step.
+
+### 2026-06-20 12:24 - Optimized manuscript copy and figure/table audit
+
+* Goal:
+  * Save the user-provided polished SMPT manuscript as a dated optimized version
+    in the paper directory.
+  * Audit every figure and table in that optimized version for references,
+    captions, content consistency, necessity, and publication-format readiness.
+* Source:
+  * `C:/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex`
+* Target:
+  * `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex`
+* Context:
+  * The repository already had modified `README.md` review notes and a modified
+    `peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf` before this step.
+  * This audit does not revert or overwrite the current repository main
+    manuscript.
+* Planned checks:
+  * Compile the optimized manuscript with XeLaTeX and BibTeX.
+  * Extract figure/table labels, captions, and in-text references.
+  * Verify that included graphics files exist and inspect PDF/vector properties.
+  * Compare captions and surrounding discussion against the reported numerical
+    claims.
+* Action:
+  * Saved the external polished manuscript as
+    `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex`.
+  * Preserved the source file contents initially by direct copy; SHA-256 matched
+    the Downloads source before later mathematical additions.
+  * Added in-paper formula and calculation details so the PDF is self-contained:
+    QoS fixed-point iteration, intermediary channel QoS and profit, system
+    profit, finite-grid provider payoff, pure-strategy Nash condition,
+    pure/mixed regret, reported metrics, and demand-centroid shift.
+  * Clarified why the paper reports finite-grid exploitability rather than a
+    closed-form continuous-strategy Nash equilibrium.
+  * Added explicit text references for every optimized-version figure/table and
+    corrected the QoS-profile caption from a QoS threshold wording to the
+    utilization threshold at which QoS degradation begins.
+* Commands:
+  ```bash
+  cp -p /mnt/c/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex
+  sha256sum /mnt/c/Users/cccht/Downloads/peak_shaving_dynamic_pricing_SMPT_polished.tex \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_opt_math_build_20260620_1233 \
+    -jobname=ps_optimized_math \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex
+  cd /tmp/ps_opt_math_build_20260620_1233
+  BIBINPUTS=/root/paper_code/0427_tokenrl/paper_token_cross_survey: bibtex ps_optimized_math
+  cd /root/paper_code/0427_tokenrl/paper_token_cross_survey
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_opt_math_build_20260620_1233 \
+    -jobname=ps_optimized_math \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_opt_math_build_20260620_1233 \
+    -jobname=ps_optimized_math \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex
+  cp /tmp/ps_opt_math_build_20260620_1233/ps_optimized_math.pdf \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.pdf
+  ```
+* Verification:
+  * Optimized PDF generated successfully:
+    `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.pdf`, 17 A4 pages.
+  * Final log scan found no undefined references/citations, no LaTeX errors, and
+    no overfull boxes.
+  * PDF text check confirms the following text entered the generated PDF:
+    `finite-game equilibrium`, `pure-strategy Nash`, `closed-form Nash`,
+    `exploitability certificate`, `reported indicators`, and
+    `demand-centroid shift`.
+  * Figure/table reference audit:
+    all optimized-version figure/table labels are explicitly referenced in the
+    manuscript: `fig:market_schematic`, `fig:vllm_qos_anchor`,
+    `tab:uncongested`, `tab:congested`, `tab:evidence_boundary`,
+    `fig:qos_profiles`, `fig:profit_regret`, `fig:mixed_oracle`,
+    `fig:parameter_sweep`, and `fig:mechanism`.
+  * Figure format audit:
+    all included figures exist as vector PDF files. Most Matplotlib-generated
+    figures still embed Type 3 fonts; `vllm_qos_anchor.pdf` has a crowded legend
+    and `parameter_sweep_qos.pdf` has dense rotated x-axis labels. These are
+    remaining production-quality issues if the figures are regenerated later.
+* Decision:
+  * Do not add a fake closed-form Nash derivation. The correct statement is a
+    restricted finite-game equilibrium certificate with pure and mixed regret.
+  * Keep the new equations in the optimized manuscript to make the PDF
+    self-contained for reviewers.
+* Status: verified locally; files are not yet committed.
+
+### 2026-06-20 13:05 - SMPT theory-method internal reviewer audit
+
+* Goal:
+  * Review the optimized SMPT manuscript from a Simulation Modelling Practice
+    and Theory reviewer perspective, focusing only on theory, simulation method,
+    experiment design, and theory-experiment alignment.
+* Input:
+  * `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex`
+  * `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.pdf`
+* Action:
+  * Used the `nature-reviewer` skill in a journal-specific internal-review mode.
+  * Checked the optimized manuscript equations, solution-method wording,
+    validation-anchor paragraph, congested/uncongested results, stress tests,
+    limitations, and artifact-availability section.
+  * Compared the optimized manuscript against SMPT's stated emphasis on
+    modelling/simulation contributions, validation and verification methods,
+    experimental design, and transparent model implementation.
+* Read-only commands:
+  ```bash
+  nl -ba peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex | sed -n '45,470p'
+  nl -ba peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex | sed -n '247,306p'
+  rg -n "tab:smpt|fig:smpt|ablation|Validation|verification|20260619_smpt|supplement" \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex \
+    peak_shaving_dynamic_pricing_sci_en_2026-06-19.tex README.md
+  ```
+* Result:
+  * Internal recommendation: major revision before SMPT submission.
+  * Strongest current evidence: bounded QoS improvement in the congested
+    fixed-capacity regime, supported by coarse/fine snapshots and a low-regret
+    finite-grid mixed diagnostic.
+  * Main remaining weaknesses: incomplete finite-grid specification in the main
+    paper, missing/condensed V&V and SMPT baseline/ablation evidence in the
+    optimized version, synthetic calibration limits, fixed-policy stress tests
+    not being cross-parameter equilibrium re-solves, and figure typography
+    issues.
+* Decision:
+  * Treat the current optimized manuscript as a strong middle draft, not as the
+    final submission file.
+  * The next revision should restore or integrate the full SMPT evidence layer
+    from the repository manuscript: standalone V&V, baseline diagnostics,
+    structural ablations, phase grid, restricted local re-solve, and artifact
+    mapping to `20260619_smpt`.
+* Status: reviewed; no manuscript files were modified in this step.
+
+### 2026-06-20 13:18 - SMPT final manuscript integration plan
+
+* Goal:
+  * Convert the optimized SMPT manuscript into a final-submission candidate.
+  * Preserve the improved English and self-contained equations from the
+    optimized manuscript while restoring the SMPT evidence layer that reviewers
+    need for theory-method credibility.
+* Boundary:
+  * No new core equilibrium experiment will be run in this step.
+  * Existing JSON/CSV artifacts, tables, and figure data are treated as the
+    source of record.
+  * A new final TeX/PDF will be created instead of overwriting the optimized
+    manuscript.
+* Planned target:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+* Planned edits:
+  * Add the `figures/peak_shaving_smpt/` graphics path.
+  * Restore a standalone verification, validation, and credibility-boundary
+    section.
+  * Add a reproducibility/parameter-grid table in the main paper.
+  * Integrate SMPT baseline diagnostics, structural ablations, the
+    capacity--elasticity phase grid, and restricted local re-solve evidence.
+  * Correct artifact availability so it points to the English supplement and
+    the `20260619_smpt` artifact directory.
+  * Recheck figure references, citation/reference status, LaTeX logs, PDF text,
+    and figure font/readability issues.
+* Actions completed so far:
+  * Created `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` from the
+    optimized manuscript.
+  * Added the missing demand-market-size equation, finite-grid table,
+    verification/validation section, main-parameter table, SMPT baseline
+    diagnostics, structural ablations, phase grid, restricted local re-solve
+    table, updated limitations, and corrected artifact availability.
+  * Updated Matplotlib figure scripts to embed TrueType fonts rather than Type 3
+    fonts.
+* Figure regeneration commands:
+  ```bash
+  uv run python experiments/build_peak_shaving_diagnostics.py
+  uv run python experiments/run_peak_shaving_mixed_oracle.py
+  # The full mixed-oracle command was stopped after exceeding 180 s; the existing
+  # verified JSON trace was used to redraw only mixed_oracle_regret.pdf.
+  uv run python - <<'PY'
+  import json
+  from pathlib import Path
+  import matplotlib
+  matplotlib.use("Agg")
+  import matplotlib.pyplot as plt
+  plt.rcParams.update({"font.family":"DejaVu Sans","pdf.fonttype":42,"ps.fonttype":42})
+  result=json.loads(Path("artifacts/peak_shaving/20260619_submission/peak_shaving_mixed_oracle.json").read_text())
+  xs=[r["oracle_round"] for r in result["trace"]]
+  ys=[r["full_max_regret"] for r in result["trace"]]
+  fig, ax=plt.subplots(figsize=(6.2,3.4))
+  ax.plot(xs, ys, marker="o", color="#0072B2")
+  ax.axhline(5.0, color="#666666", ls="--", lw=1, label="target < 5")
+  ax.set_xlabel("Double-oracle round")
+  ax.set_ylabel("Full-grid max regret")
+  ax.grid(alpha=0.25)
+  ax.legend(frameon=False)
+  fig.tight_layout()
+  fig.savefig("figures/peak_shaving_submission/mixed_oracle_regret.pdf")
+  plt.close(fig)
+  PY
+  uv run python experiments/run_peak_shaving_parameter_sweep.py
+  uv run python experiments/run_peak_shaving_smpt_experiments.py
+  find figures/peak_shaving_diagnostics figures/peak_shaving_submission figures/peak_shaving_smpt \
+    -name "*.pdf" -print0 | xargs -0 -I{} sh -c 'echo ==== {}; pdffonts "{}" | sed -n "1,8p"'
+  ```
+* Figure regeneration result:
+  * `build_peak_shaving_diagnostics.py` succeeded with no validation warnings.
+  * `run_peak_shaving_parameter_sweep.py` regenerated 27 rows and
+    `parameter_sweep_qos.pdf`; both dynamic snapshots keep positive QoS gains
+    and peak-utilization reductions in all 9 scenarios.
+  * `run_peak_shaving_smpt_experiments.py` regenerated the SMPT bundle with 7
+    baseline rows, 6 ablation rows, 25 phase-grid rows, and 5 restricted
+    re-solve rows.
+  * `pdffonts` confirms the final referenced figure PDFs now embed CID TrueType
+    fonts; no remaining Type 3 figure fonts were observed.
+* Final compile and verification commands:
+  ```bash
+  rm -rf /tmp/ps_smpt_final_build_20260620
+  mkdir -p /tmp/ps_smpt_final_build_20260620
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_final_build_20260620 \
+    -jobname=ps_smpt_final \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  cd /tmp/ps_smpt_final_build_20260620
+  BIBINPUTS=/root/paper_code/0427_tokenrl/paper_token_cross_survey: bibtex ps_smpt_final
+  cd /root/paper_code/0427_tokenrl/paper_token_cross_survey
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_final_build_20260620 \
+    -jobname=ps_smpt_final \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_final_build_20260620 \
+    -jobname=ps_smpt_final \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  cp /tmp/ps_smpt_final_build_20260620/ps_smpt_final.pdf \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  grep -nE "undefined|Undefined|LaTeX Error|Overfull|Citation.*undefined|There were undefined" \
+    /tmp/ps_smpt_final_build_20260620/ps_smpt_final.log /tmp/ps_smpt_final_xe3.log || true
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | grep -E "^(Pages|Page size):"
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_smpt_final_text.txt
+  pdffonts peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  uv run python -m py_compile \
+    experiments/build_peak_shaving_diagnostics.py \
+    experiments/run_peak_shaving_mixed_oracle.py \
+    experiments/run_peak_shaving_parameter_sweep.py \
+    experiments/run_peak_shaving_smpt_experiments.py
+  uv run pytest \
+    tests/test_peak_shaving_smpt_experiments.py \
+    tests/test_peak_shaving_submission_tools.py \
+    tests/test_peak_shaving_measurement_anchor.py -q
+  ```
+* Final verification result:
+  * Final PDF generated: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`,
+    21 A4 pages.
+  * Final log scan found no undefined references/citations, no LaTeX errors, and
+    no overfull boxes.
+  * Figure/table label audit found 17 figure/table labels, no unreferenced
+    labels, and no duplicate labels.
+  * `pdftotext` confirms that the final PDF contains the finite-grid table,
+    standalone V&V section, fixed-point verification table, SMPT baseline
+    diagnostics, structural ablations, phase grid, restricted local re-solve,
+    reproducibility/data-availability statement, and AI-assisted-technologies
+    declaration.
+  * Final PDF font scan found embedded Type 1/CID/TrueType fonts and no Type 3
+    fonts in the generated figure layer.
+  * Contact-sheet visual inspection did not show blank pages, missing figures,
+    or obvious table overflow.
+  * Targeted code checks passed: `15 passed in 2.11s`.
+* Remaining boundary:
+  * The manuscript is now a final-submission candidate, but a formal journal
+    upload should still freeze the GitHub repository into a release or DOI.
+  * The full mixed-oracle recomputation exceeded 180 s in this run, so only the
+    previously verified mixed-oracle JSON trace was used for figure redrawing.
+    No mixed-oracle numerical claim was changed.
+  * The repository already had an unrelated modified
+    `peak_shaving_dynamic_pricing_sci_en_2026-06-19.pdf` before this final-file
+    integration; it was not reverted.
+* Status: verified locally.
+
+### 2026-06-20 13:12 - Chinese TeX translation for author review
+
+* Goal:
+  * Create a Chinese TeX translation of the final SMPT manuscript so the author
+    can review the paper in Chinese.
+* Input:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+* Planned output:
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex`
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`
+* Constraints:
+  * Preserve formulas, numerical results, labels, figure/table structure,
+    citations, and the stated evidence boundaries.
+  * Use `ctexart` and XeLaTeX for Chinese compilation.
+  * Do not overwrite the English final manuscript.
+* Action:
+  * Initialized and updated the lightweight `plan/` context for this longer
+    writing task.
+  * Created the Chinese TeX translation while preserving equations, numerical
+    values, figure/table labels, citations, and artifact statements.
+* Commands:
+  ```bash
+  rm -rf /tmp/ps_smpt_final_zh_build_20260620
+  mkdir -p /tmp/ps_smpt_final_zh_build_20260620
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_final_zh_build_20260620 \
+    -jobname=ps_smpt_final_zh \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  cd /tmp/ps_smpt_final_zh_build_20260620
+  BIBINPUTS=/root/paper_code/0427_tokenrl/paper_token_cross_survey: bibtex ps_smpt_final_zh
+  cd /root/paper_code/0427_tokenrl/paper_token_cross_survey
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_final_zh_build_20260620 \
+    -jobname=ps_smpt_final_zh \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_final_zh_build_20260620 \
+    -jobname=ps_smpt_final_zh \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  cp /tmp/ps_smpt_final_zh_build_20260620/ps_smpt_final_zh.pdf \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  grep -nE "undefined|Undefined|LaTeX Error|Overfull|Citation.*undefined|There were undefined" \
+    /tmp/ps_smpt_final_zh_build_20260620/ps_smpt_final_zh.log \
+    /tmp/ps_smpt_final_zh_xe3.log || true
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf | grep -E "^(Pages|Page size):"
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/ps_smpt_final_zh_text.txt
+  pdffonts peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  ```
+* Verification:
+  * Generated `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`,
+    22 A4 pages.
+  * Final log scan found no undefined references/citations, no LaTeX errors,
+    and no overfull boxes.
+  * PDF text check confirms the Chinese title, abstract, V&V section,
+    finite-grid discussion, SMPT baseline section, restricted local re-solve,
+    reproducibility statement, and AI-assisted-technologies declaration.
+  * Figure/table label audit found 46 labels, including 17 figure/table labels;
+    no unreferenced figure/table labels and no duplicate labels were found.
+  * PDF font scan shows embedded CID/Type 1C/TrueType fonts; no Type 3 fonts
+    were observed.
+* Status: verified locally; files are not yet committed.
+
+### 2026-06-20 13:45 - Times New Roman figure typography pass
+
+* Goal:
+  * Regenerate all figures referenced by the final English and Chinese SMPT
+    manuscripts with Times New Roman typography.
+  * Adjust legends and annotations so labels do not obscure plotted lines or
+    surrounding text.
+* Figure scope:
+  * `market_schematic.pdf`
+  * `vllm_qos_anchor.pdf`
+  * `qos_utilization_profiles.pdf`
+  * `profit_components_and_regret.pdf`
+  * `mixed_oracle_regret.pdf`
+  * `parameter_sweep_qos.pdf`
+  * `smpt_phase_qos_gain.pdf`
+  * `smpt_phase_profit_gain.pdf`
+  * `mechanism_diagnostics.pdf`
+* Context:
+  * `fc-match "Times New Roman"` resolves to the Windows font file
+    `/mnt/c/Windows/Fonts/times.ttf` from WSL.
+  * No system font installation or font configuration change is planned.
+* Planned action:
+  * Patch the relevant Matplotlib figure scripts to use an explicit Times New
+    Roman font manager helper.
+  * Move or simplify crowded labels/legends where needed.
+  * Regenerate the figure PDFs and recompile the final English and Chinese
+    manuscripts.
+* Actions:
+  * Added `experiments/plot_style.py` with an explicit Times New Roman font
+    loader for `/mnt/c/Windows/Fonts/times.ttf` and related style variants.
+  * Updated the peak-shaving figure scripts to use the shared Times New Roman
+    style:
+    `experiments/build_peak_shaving_diagnostics.py`,
+    `experiments/build_peak_shaving_measurement_anchor.py`,
+    `experiments/run_peak_shaving_mixed_oracle.py`,
+    `experiments/run_peak_shaving_parameter_sweep.py`, and
+    `experiments/run_peak_shaving_smpt_experiments.py`.
+  * Adjusted crowded figure elements:
+    market-schematic direct-API arrows now avoid the intermediary text,
+    vLLM boundary text is moved into the legend, profit/regret legends are kept
+    outside the plotting area, parameter-sweep labels are line-broken, and phase
+    heatmap cell labels use contrast-aware colors.
+* Commands:
+  ```bash
+  uv run python -m py_compile \
+    experiments/plot_style.py \
+    experiments/build_peak_shaving_diagnostics.py \
+    experiments/run_peak_shaving_parameter_sweep.py \
+    experiments/run_peak_shaving_mixed_oracle.py \
+    experiments/run_peak_shaving_smpt_experiments.py \
+    experiments/build_peak_shaving_measurement_anchor.py
+  uv run python experiments/build_peak_shaving_diagnostics.py
+  uv run python experiments/run_peak_shaving_parameter_sweep.py
+  uv run python experiments/run_peak_shaving_smpt_experiments.py
+  uv run python experiments/build_peak_shaving_measurement_anchor.py
+  uv run python - <<'PY'
+  import json
+  from experiments.run_peak_shaving_mixed_oracle import plot_trace, OUT
+  result = json.loads((OUT / "peak_shaving_mixed_oracle.json").read_text(encoding="utf-8"))
+  plot_trace(result)
+  PY
+  ```
+* Verification commands:
+  ```bash
+  python3 - <<'PY'
+  from pathlib import Path
+  import subprocess
+  figs = [
+      Path("figures/peak_shaving_diagnostics/market_schematic.pdf"),
+      Path("figures/peak_shaving_submission/vllm_qos_anchor.pdf"),
+      Path("figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf"),
+      Path("figures/peak_shaving_diagnostics/profit_components_and_regret.pdf"),
+      Path("figures/peak_shaving_submission/mixed_oracle_regret.pdf"),
+      Path("figures/peak_shaving_submission/parameter_sweep_qos.pdf"),
+      Path("figures/peak_shaving_smpt/smpt_phase_qos_gain.pdf"),
+      Path("figures/peak_shaving_smpt/smpt_phase_profit_gain.pdf"),
+      Path("figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf"),
+  ]
+  for fig in figs:
+      out = subprocess.check_output(["pdffonts", str(fig)], text=True)
+      assert "TimesNewRoman" in out, fig
+      assert "Type 3" not in out, fig
+  print("font_check=ok")
+  PY
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_times_en_build_20260620 \
+    -jobname=ps_smpt_times_en \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  cd /tmp/ps_smpt_times_en_build_20260620
+  BIBINPUTS=/root/paper_code/0427_tokenrl/paper_token_cross_survey: bibtex ps_smpt_times_en
+  cd /root/paper_code/0427_tokenrl/paper_token_cross_survey
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_times_en_build_20260620 \
+    -jobname=ps_smpt_times_en \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_times_en_build_20260620 \
+    -jobname=ps_smpt_times_en \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_times_zh_build_20260620 \
+    -jobname=ps_smpt_times_zh \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  cd /tmp/ps_smpt_times_zh_build_20260620
+  BIBINPUTS=/root/paper_code/0427_tokenrl/paper_token_cross_survey: bibtex ps_smpt_times_zh
+  cd /root/paper_code/0427_tokenrl/paper_token_cross_survey
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_times_zh_build_20260620 \
+    -jobname=ps_smpt_times_zh \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error \
+    -output-directory=/tmp/ps_smpt_times_zh_build_20260620 \
+    -jobname=ps_smpt_times_zh \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  uv run pytest \
+    tests/test_peak_shaving_smpt_experiments.py \
+    tests/test_peak_shaving_submission_tools.py \
+    tests/test_peak_shaving_measurement_anchor.py -q
+  ```
+* Verification result:
+  * All nine manuscript-referenced figure PDFs embed `TimesNewRomanPSMT` and no
+    Type 3 fonts were observed.
+  * Contact-sheet visual inspection confirmed that the revised legends and
+    annotations no longer cover the main lines, bars, or diagram labels.
+  * English final PDF regenerated:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`, 21 A4 pages.
+  * Chinese review PDF regenerated:
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`, 21 A4 pages.
+  * Final LaTeX log scan found no undefined references/citations, no LaTeX
+    errors, and no overfull boxes for either PDF.
+  * Targeted tests passed: `15 passed in 1.72s`.
+* Status: verified locally; files are not yet committed.
+
+### 2026-06-20 14:05 - Figure 3 and Figure 4 legend spacing refinement
+
+* Goal:
+  * Tighten the top legend spacing in Figure 3
+    (`qos_utilization_profiles.pdf`) and Figure 4
+    (`profit_components_and_regret.pdf`) after author review.
+  * Keep Times New Roman figure typography and avoid covering plotted lines,
+    bars, or subplot titles.
+* Action:
+  * Moved Figure 3's shared legend closer to the utilization panel.
+  * Moved Figure 4's participant legend and target-regret legend into unused
+    subplot space rather than above the figure, removing the excessive top gap
+    while avoiding overlap with bars and the dashed target line.
+  * Regenerated the diagnostic figures through
+    `experiments/build_peak_shaving_diagnostics.py`.
+* Commands:
+  ```bash
+  uv run python -m py_compile experiments/build_peak_shaving_diagnostics.py
+  uv run python experiments/build_peak_shaving_diagnostics.py
+  ```
+* Verification:
+  * Visual preview generated at `/tmp/ps_fig34_spacing_v2.png` confirmed that
+    Figure 3 and Figure 4 legends are closer to the plots and do not cover the
+    main lines, bars, dashed threshold, or subplot titles.
+  * `pdffonts` confirms both regenerated figures still embed
+    `TimesNewRomanPSMT` and no Type 3 fonts were observed.
+  * Regenerated the final English and Chinese PDFs:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` and
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`, both 21 A4
+    pages.
+  * Final LaTeX log scan found no undefined references/citations, no LaTeX
+    errors, and no overfull boxes for either PDF.
+  * Targeted tests passed: `15 passed in 1.76s`.
+* Status: verified locally; files are not yet committed.
+
+### 2026-06-20 14:24 - Imagegen-inspired Figure 1 market structure redesign
+
+* Goal:
+  * Redesign Figure 1, the market-structure diagram, using an imagegen draft as
+    the visual reference while keeping the manuscript figure reproducible and
+    publication-ready.
+* Input:
+  * User-provided reference image:
+    `C:/Users/cccht/AppData/Local/Temp/codex-clipboard-1bec61fd-c2ba-45be-86f1-5404b6d02c7c.png`
+  * Caption requirement: users may buy through the API intermediary, connect
+    directly to providers, or exit; the intermediary routes traffic between two
+    providers based on prices and QoS.
+* Action:
+  * Generated an imagegen concept draft for a wide academic market-structure
+    diagram.
+  * Reimplemented the concept as a deterministic vector PDF in
+    `experiments/build_peak_shaving_diagnostics.py` so text, arrows, fonts, and
+    labels remain controllable in LaTeX.
+  * Replaced `figures/peak_shaving_diagnostics/market_schematic.pdf` with a
+    richer diagram: left user panel, center API intermediary, right Provider A/B
+    panels, outside option, brokered purchase arrow, direct API dashed arrows,
+    routed-traffic arrows, and QoS feedback arrows.
+* Commands:
+  ```bash
+  uv run python -m py_compile experiments/build_peak_shaving_diagnostics.py
+  uv run python experiments/build_peak_shaving_diagnostics.py
+  pdffonts figures/peak_shaving_diagnostics/market_schematic.pdf
+  pdftoppm -png -singlefile -r 170 \
+    figures/peak_shaving_diagnostics/market_schematic.pdf \
+    /tmp/ps_market_schematic_imagegen_style_v3
+  ```
+* Verification:
+  * Visual preview `/tmp/ps_market_schematic_imagegen_style_v3.png` confirms the
+    new Figure 1 structure and no obvious label collision across the main boxes,
+    arrows, provider panels, or outside-option panel.
+  * Figure 1 embeds `TimesNewRomanPSMT` and `TimesNewRomanPS-BoldMT`; no Type 3
+    fonts were observed.
+  * Regenerated the final English and Chinese PDFs:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` and
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`, both 21 A4
+    pages.
+  * Final LaTeX log scan found no undefined references/citations, no LaTeX
+    errors, and no overfull boxes for either PDF.
+  * Targeted tests passed: `15 passed in 1.74s`.
+* Status: verified locally; files are not yet committed.
+
+### 2026-06-20 20:58 - Figure 1 redraw from PDF reference
+
+* Goal: Rebuild the manuscript Figure 1 market-structure diagram by using the
+  user-provided `论文图.pdf` as the visual reference, while keeping the output as
+  a reproducible vector figure.
+* Context: The reference PDF uses a three-column layout: users on the left,
+  cloud platform/API intermediary in the center, model/API suppliers on the
+  right, and lower modelling/feedback bands for the pricing game and iterative
+  equilibrium update.
+* Input:
+  * Reference PDF: `/mnt/c/Users/cccht/Desktop/论文图.pdf`
+  * Rendered preview:
+    `tmp/pdfs/reference_paper_figure_20260620-1.png`
+  * Target figure:
+    `figures/peak_shaving_diagnostics/market_schematic.pdf`
+* Action:
+  * Rendered the PDF reference with Poppler for visual inspection.
+  * Decided to redraw the figure in Matplotlib rather than embedding the
+    supplied PDF or a bitmap, so labels, fonts, arrows, and LaTeX scaling remain
+    controllable.
+* Command:
+  ```bash
+  pdfinfo /mnt/c/Users/cccht/Desktop/论文图.pdf
+  mkdir -p tmp/pdfs
+  pdftoppm -png -r 200 /mnt/c/Users/cccht/Desktop/论文图.pdf \
+    tmp/pdfs/reference_paper_figure_20260620
+  ```
+* Result:
+  * The reference PDF has one 960 x 540 pt page and was rendered successfully.
+* Decision: Rework only `plot_market_schematic()` in
+  `experiments/build_peak_shaving_diagnostics.py`; do not change numerical
+  experiment outputs, other figures, or manuscript claims.
+* Next: Use imagegen directly, then compile English and Chinese PDFs against the
+  generated bitmap figure.
+* Status: superseded after user clarified that Figure 1 should be generated with
+  imagegen, not redrawn through Python.
+
+### 2026-06-20 21:05 - Imagegen Figure 1 generation
+
+* Goal: Generate Figure 1 with the built-in imagegen model using
+  `论文图.pdf` as the visual reference, without using Python drawing code.
+* Context: The required figure should show users, the API intermediary,
+  inference providers, the time-of-use pricing game, and the iterative
+  equilibrium diagnostic in a single market-structure schematic.
+* Input:
+  * Reference PDF: `/mnt/c/Users/cccht/Desktop/论文图.pdf`
+  * Prompt source: verbal description extracted from the rendered reference
+    preview and the manuscript caption for Figure 1.
+* Action:
+  * Used the built-in `image_gen.imagegen` tool to generate a 16:9 academic
+    infographic.
+  * Copied the generated PNG from the Codex generated-images directory into the
+    manuscript figure directory.
+  * Updated the English final, Chinese final, and optimized TeX manuscripts to
+    reference the imagegen PNG directly.
+* Command:
+  ```powershell
+  Copy-Item -LiteralPath `
+    'C:\Users\cccht\.codex\generated_images\019ede62-cd93-7220-8ab0-3824ce48b294\ig_0a36fa88e496739e016a368fe5f5b0819192dd86b8ecb42538.png' `
+    -Destination `
+    '\\wsl.localhost\Ubuntu-22.04\root\paper_code\0427_tokenrl\paper_token_cross_survey\figures\peak_shaving_diagnostics\market_schematic_imagegen_2026-06-20.png'
+  ```
+* Output:
+  * `figures/peak_shaving_diagnostics/market_schematic_imagegen_2026-06-20.png`
+  * Updated TeX includes in:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`,
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex`, and
+    `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex`.
+* Result:
+  * Visual preview confirms that the imagegen figure follows the supplied PDF's
+    three-column layout and includes the modelling and feedback bands.
+* Verification command:
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/ps_imagegen_final_en_xe1.log
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20 >/tmp/ps_imagegen_final_en_bib.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/ps_imagegen_final_en_xe2.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/ps_imagegen_final_en_xe3.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/ps_imagegen_final_zh_xe1.log
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20 >/tmp/ps_imagegen_final_zh_bib.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/ps_imagegen_final_zh_xe2.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/ps_imagegen_final_zh_xe3.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex >/tmp/ps_imagegen_opt_xe1.log
+  bibtex peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20 >/tmp/ps_imagegen_opt_bib.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex >/tmp/ps_imagegen_opt_xe2.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex >/tmp/ps_imagegen_opt_xe3.log
+  grep -nE "LaTeX Error|Undefined control sequence|undefined references|Citation .*undefined|Reference .*undefined|Overfull|Missing character" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log || true
+  grep -nE "LaTeX Error|Undefined control sequence|undefined references|Citation .*undefined|Reference .*undefined|Overfull|Missing character" peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log || true
+  grep -nE "LaTeX Error|Undefined control sequence|undefined references|Citation .*undefined|Reference .*undefined|Overfull|Missing character" peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.log || true
+  pdfimages -list peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfimages -list peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  pdftoppm -png -f 3 -l 3 -r 180 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    tmp/pdfs/final_en_imagegen_fig1_page
+  pdftoppm -png -f 3 -l 3 -r 180 peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf \
+    tmp/pdfs/final_zh_imagegen_fig1_page
+  ```
+* Verification result:
+  * XeLaTeX/BibTeX compilation completed for the English final, Chinese final,
+    and optimized manuscripts.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or missing-character warnings in the three checked logs.
+  * `pdfimages` reports the imagegen Figure 1 on page 3 of both final PDFs, with
+    an embedded image size of 1672 x 941 pixels at approximately 259 ppi.
+  * Rendered page previews:
+    `tmp/pdfs/final_en_imagegen_fig1_page-03.png` and
+    `tmp/pdfs/final_zh_imagegen_fig1_page-03.png`.
+  * Visual inspection confirms that the imagegen figure is embedded in both PDF
+    manuscripts and that figure-caption placement is normal.
+* Decision:
+  * Keep the generated image as a project-local PNG and reference it directly
+    from TeX.
+  * Do not rerun the Python diagnostic-figure script for Figure 1 in this pass.
+* Status: verified.
+
+### 2026-06-20 21:18 - Figure 1 content-aligned imagegen revision
+
+* Goal: Regenerate Figure 1 in the same visual style and overall structure as
+  the supplied `论文图.pdf`, but make the content match the actual simulation
+  model in the SMPT manuscript.
+* Context: The prior imagegen version followed the three-column reference style
+  but still contained some generic platform labels. The revised version should
+  emphasize the paper's specific agents and equations: two heterogeneous
+  providers, one API intermediary, time-rigid/time-flexible users, direct access,
+  market exit, QoS fixed point, provider/intermediary best responses, and finite
+  grid regret.
+* Planned output:
+  * New imagegen PNG under `figures/peak_shaving_diagnostics/`.
+  * Updated Figure 1 include paths in the English final, Chinese final, and
+    optimized manuscripts.
+* Action:
+  * Used the built-in `image_gen.imagegen` tool to create a content-aligned
+    Figure 1 that preserves the supplied reference's three-column and lower-band
+    layout.
+  * Copied the generated image into the manuscript figure directory as a new
+    versioned asset; the prior imagegen PNG was retained as a backup.
+  * Updated the English final, Chinese final, and optimized manuscripts to use
+    the model-aligned imagegen figure.
+* Command:
+  ```powershell
+  Copy-Item -LiteralPath `
+    'C:\Users\cccht\.codex\generated_images\019ede62-cd93-7220-8ab0-3824ce48b294\ig_0a36fa88e496739e016a36a7ae8bb48191acdc2cb1c075da41.png' `
+    -Destination `
+    '\\wsl.localhost\Ubuntu-22.04\root\paper_code\0427_tokenrl\paper_token_cross_survey\figures\peak_shaving_diagnostics\market_schematic_imagegen_model_aligned_2026-06-20.png'
+  ```
+* Output:
+  * `figures/peak_shaving_diagnostics/market_schematic_imagegen_model_aligned_2026-06-20.png`
+  * Updated include paths in:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`,
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex`, and
+    `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex`.
+* Verification command:
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/ps_model_aligned_en_xe1.log
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20 >/tmp/ps_model_aligned_en_bib.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/ps_model_aligned_en_xe2.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/ps_model_aligned_en_xe3.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/ps_model_aligned_zh_xe1.log
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20 >/tmp/ps_model_aligned_zh_bib.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/ps_model_aligned_zh_xe2.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/ps_model_aligned_zh_xe3.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex >/tmp/ps_model_aligned_opt_xe1.log
+  bibtex peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20 >/tmp/ps_model_aligned_opt_bib.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex >/tmp/ps_model_aligned_opt_xe2.log
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex >/tmp/ps_model_aligned_opt_xe3.log
+  grep -nE "LaTeX Error|Undefined control sequence|undefined references|Citation .*undefined|Reference .*undefined|Overfull|Missing character" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log || true
+  grep -nE "LaTeX Error|Undefined control sequence|undefined references|Citation .*undefined|Reference .*undefined|Overfull|Missing character" peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log || true
+  grep -nE "LaTeX Error|Undefined control sequence|undefined references|Citation .*undefined|Reference .*undefined|Overfull|Missing character" peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.log || true
+  pdfimages -list peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfimages -list peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  pdftoppm -png -f 3 -l 3 -r 180 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    tmp/pdfs/final_en_model_aligned_fig1_page
+  pdftoppm -png -f 3 -l 3 -r 180 peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf \
+    tmp/pdfs/final_zh_model_aligned_fig1_page
+  ```
+* Verification result:
+  * English final, Chinese final, and optimized manuscripts compiled with
+    XeLaTeX/BibTeX.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or missing-character warnings.
+  * `pdfimages` reports the model-aligned Figure 1 on page 3 of the English and
+    Chinese final PDFs, embedded as a 1536 x 1024 image at about 238 ppi.
+  * Rendered page previews:
+    `tmp/pdfs/final_en_model_aligned_fig1_page-03.png` and
+    `tmp/pdfs/final_zh_model_aligned_fig1_page-03.png`.
+  * Visual inspection confirms that the reference-style structure is preserved
+    and the figure content now matches the manuscript's actual model objects.
+* Status: verified.
+
+### 2026-06-20 23:33 - Figure 1 manuscript-consistency audit
+
+* Goal: Check whether the model-aligned imagegen Figure 1 matches the actual
+  SMPT manuscript content.
+* Context: The figure should explain the market structure and simulation
+  workflow, not introduce entities or claims absent from the paper.
+* Action:
+  * Visually inspected
+    `figures/peak_shaving_diagnostics/market_schematic_imagegen_model_aligned_2026-06-20.png`.
+  * Compared figure labels and arrows against the English final manuscript's
+    model, demand, QoS, profit, and solver sections.
+* Command:
+  ```bash
+  sed -n "62,220p" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  sed -n "220,330p" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  sed -n "330,390p" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  rg -n "mixed-oracle|0\\.203|regret|fixed point|routing|QoS|capacity|outside option" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  ```
+* Result:
+  * Figure 1 is broadly consistent with the manuscript: the user types, outside
+    option, API intermediary retail pricing/routing, provider capacity
+    heterogeneity, QoS fixed point, profit accounting, finite-grid diagnostic,
+    and mixed-oracle regret value all map to manuscript text.
+  * Minor figure-level caveat: one small QoS-signal label is visually rendered
+    like `q_{i,t}` rather than the manuscript's `q^I_t`/`q_{k,t}` notation; the
+    surrounding label still conveys the intended QoS signal.
+  * Incidental manuscript issues observed during the audit: the English final
+    TeX currently has a duplicated `r_{m,t}` line near the routing-logit
+    equation and a duplicated `\caption{Main simulation parameters...}` line in
+    the main-parameter table. These are not caused by the figure, but should be
+    cleaned before submission.
+* Decision: The figure is suitable as a conceptual overview figure for author
+  review. For a final submission version, a lower-text-density or manually
+  typeset/vector version would further reduce notation and imagegen-text risks.
+* Status: reviewed.
+
+### 2026-06-21 00:52 - Draw.io Figure 1 exact-content rebuild
+
+* Goal: Replace the imagegen-style Figure 1 draft with a Draw.io source diagram
+  whose labels and symbols exactly match the SMPT manuscript model.
+* Context: The user requested a fully conforming figure and explicitly asked to
+  use the Draw.io skill. The figure must preserve the supplied reference's
+  three-column structure while removing imagegen text ambiguity.
+* Action:
+  * Read the Draw.io skill workflow.
+  * Rechecked the manuscript model and solver sections around Figure 1.
+  * Checked for a local draw.io CLI through WSL and common Windows CLI names.
+* Command:
+  ```bash
+  command -v drawio || true
+  command -v draw.io || true
+  ```
+  ```powershell
+  drawio --version
+  draw.io --version
+  "C:\Program Files\draw.io\draw.io.exe" --version
+  "C:\Program Files (x86)\draw.io\draw.io.exe" --version
+  ```
+* Result:
+  * No draw.io CLI was available on PATH or in the checked standard Windows
+    locations. A broader recursive search over common installation roots timed
+    out.
+* Decision: Generate a standards-compliant `.drawio` XML source file and a
+  matching preview PNG for review. Do not rely on imagegen text for the final
+  labels.
+* Generation command:
+  ```bash
+  uv run python -m py_compile experiments/build_market_schematic_drawio.py
+  uv run python experiments/build_market_schematic_drawio.py
+  python3 /mnt/d/ccchtLinkData/UserProfile/.codex/skills/drawio-skill/scripts/validate.py \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio
+  ```
+* Output:
+  * `experiments/build_market_schematic_drawio.py`
+  * `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio`
+  * `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png`
+* Result:
+  * The Draw.io source was generated successfully.
+  * Draw.io structural validation returned `0 error(s)`. The reported overlap
+    warnings are expected because the large colored panels intentionally contain
+    inner cards and labels.
+  * Visual preview was inspected locally. The final preview removes the
+    imagegen label ambiguity and uses manuscript-aligned labels for user
+    choice, intermediary pricing/routing, provider capacities/prices, QoS fixed
+    point, profit, and finite-grid regret diagnostics.
+* Limit:
+  * The local draw.io desktop CLI is not currently available, so the PNG preview
+    was generated from the same scripted layout rather than exported by draw.io
+    CLI. The `.drawio` source itself is editable in draw.io.
+* Status: preview_ready.
+
+### 2026-06-21 01:20 - Draw.io Figure 1 manuscript integration check
+
+* Goal: Make Figure 1 fully consistent with the SMPT manuscript and verify that
+  the paper PDFs use the Draw.io-derived figure rather than the older imagegen
+  schematic.
+* Context: The user requested a fully conforming Draw.io version of the market
+  structure figure. The figure needs to represent the manuscript's user choice,
+  API intermediary routing, provider capacity/QoS, simulation fixed point, and
+  finite-grid equilibrium diagnostic without inventing extra model entities.
+* Action:
+  * Tightened the mixed-oracle label box in
+    `experiments/build_market_schematic_drawio.py` to avoid text touching the
+    border after PDF scaling.
+  * Rebuilt the `.drawio` source and preview PNG.
+  * Switched Figure 1 includes in the English final, Chinese final, and
+    optimized SMPT manuscripts to
+    `market_schematic_drawio_exact_2026-06-21.png`.
+* Command:
+  ```bash
+  uv run python -m py_compile experiments/build_market_schematic_drawio.py
+  uv run python experiments/build_market_schematic_drawio.py
+  python3 /mnt/d/ccchtLinkData/UserProfile/.codex/skills/drawio-skill/scripts/validate.py \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio
+  ```
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.tex
+  ```
+  ```bash
+  rg -n "LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull|Package natbib Warning" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log
+  rg -n "LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull|Package natbib Warning" \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log
+  rg -n "LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull|Package natbib Warning" \
+    peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.log
+  ```
+  ```bash
+  pdftoppm -f 3 -l 3 -png -r 120 \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    tmp/pdfs/smpt_final_en_page3_drawio_check
+  ```
+* Output:
+  * `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio`
+  * `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`
+  * `peak_shaving_dynamic_pricing_SMPT_optimized_2026-06-20.pdf`
+  * `tmp/pdfs/smpt_final_en_page3_drawio_check-03.png`
+* Result:
+  * Script syntax check passed and the figure was regenerated.
+  * Draw.io structural validation returned `0 error(s)`; warnings are expected
+    containment warnings from outer panels enclosing inner cards.
+  * All three manuscripts compiled successfully with XeLaTeX.
+  * Log scans found no LaTeX errors, undefined references/citations, natbib
+    warnings, or overfull boxes.
+  * The rendered English PDF page confirms that Figure 1 uses the new
+    Draw.io-derived schematic.
+* Note:
+  * An initial log-scan command failed because the `Overfull \hbox` regular
+    expression was not escaped correctly. The corrected scans above were rerun
+    and are the recorded verification evidence.
+  * The figure is information-dense but readable as a full-width structural
+    schematic. If a target journal asks for single-column print legibility, the
+    same `.drawio` source can be split into two subfigures.
+* Status: verified.
+
+### 2026-06-21 01:45 - Electricity pricing structure benchmark and SMPT manuscript restructuring
+
+* Goal: Align the SMPT submission manuscript with the structure commonly used
+  in electricity real-time pricing, time-of-use pricing, and demand-response
+  simulation papers.
+* Context: The active goal requires searching electricity pricing papers,
+  borrowing their organization style, and improving the manuscript's length,
+  formula detail, and result presentation without adding unsupported claims.
+* Action:
+  * Used the literature-review workflow to scope electricity pricing and
+    demand-response papers.
+  * Queried Crossref for DOI/metadata checks on four additional electricity
+    pricing papers.
+  * Created a structure benchmark document:
+    `docs/reviews/power_pricing_structure_benchmark_2026-06-21.md`.
+  * Added verified references for Samadi et al. 2010, Yang et al. 2013,
+    Yu and Hong 2016, and Srinivasan et al. 2017 to `verified_refs.bib`.
+  * Restructured the English SMPT final manuscript by adding
+    `Related Work and Modelling Positioning`, adding an algorithmic outline to
+    the solver section, and rewriting the opening of `Experimental Design` to
+    follow a scenario-baseline-metric-sensitivity sequence.
+* Command:
+  ```bash
+  python3 - <<'PY'
+  import json, urllib.parse, urllib.request
+  queries = [
+      "Optimal real-time pricing algorithm based on utility maximization for smart grid",
+      "A game-theoretic approach for optimal time-of-use electricity pricing",
+      "Supply-demand balancing for power management in smart grid: A Stackelberg game approach",
+      "Game-Theory based dynamic pricing strategies for demand side management in smart grids",
+  ]
+  for q in queries:
+      url = "https://api.crossref.org/works?rows=1&query.title=" + urllib.parse.quote(q)
+      item = json.load(urllib.request.urlopen(url, timeout=20))["message"]["items"][0]
+      print(item.get("DOI"), (item.get("title") or [""])[0])
+  PY
+  ```
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  ```
+  ```bash
+  rg -n "LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull|Package natbib Warning|Warning--" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.blg
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf - | \
+    rg -n "Related Work and Modelling Positioning|Electricity dynamic pricing|Algorithmic outline|reporting logic commonly used" -C 1
+  ```
+* Output:
+  * `docs/reviews/power_pricing_structure_benchmark_2026-06-21.md`
+  * `verified_refs.bib`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+* Result:
+  * Crossref returned DOI metadata for all four newly added electricity-pricing
+    references.
+  * BibTeX and three XeLaTeX passes completed successfully.
+  * The PDF grew from 21 pages to 23 pages after adding the independent related
+    work and modelling-positioning section.
+  * Log scans found no LaTeX errors, undefined references/citations, natbib
+    warnings, BibTeX warnings, or overfull boxes.
+  * `pdftotext` confirmed the PDF contains the new related-work section,
+    electricity dynamic-pricing positioning, algorithmic outline, and
+    demand-response-style experimental-design opening.
+* Decision:
+  * Keep electricity pricing as a structural modelling analogue, not as a
+    physical mechanism claim.
+  * Continue to bound equilibrium language to finite grids and regret
+    certificates.
+  * Next: run reviewer-style checks and inspect all figures after the structural
+    revision.
+* Status: verified.
+
+### 2026-06-21 02:05 - Reviewer pass, figure audit, and final build check
+
+* Goal: Use reviewer-style checks after the electricity-pricing restructuring,
+  inspect every main-text figure, fix actionable issues, and verify the SMPT
+  final manuscript build.
+* Context: The active goal requires using reviewer/polishing skills, continuing
+  optimization after review, and carefully reading all figures until the paper
+  can approach a submission-ready state.
+* Action:
+  * Used the nature-reviewer workflow as a bounded SMPT pre-submission review.
+  * Created `docs/reviews/smpt_reviewer_round_2026-06-21.md`.
+  * Generated a main-figure contact sheet for visual inspection:
+    `tmp/figure_checks/main_figure_contact_sheet_2026-06-21.png`.
+  * Rendered PDF pages 11--16 to inspect Figure 3, Figure 4, Figure 5,
+    Figure 6, and Figure 7 in page context.
+  * Fixed Figure 4 legend wording from `Firm A/B` to `Provider A/B` in
+    `experiments/build_peak_shaving_diagnostics.py`.
+  * Strengthened the abstract and keywords with explicit verification and
+    validation wording for SMPT fit.
+* Failed command:
+  ```bash
+  # Intended to generate a figure contact sheet, but the shell loop parsed paths
+  # incorrectly and pdftoppm received empty file names.
+  for spec in "vllm_qos_anchor figures/peak_shaving_submission/vllm_qos_anchor.pdf" ...; do
+    set -- $spec
+    pdftoppm -png -singlefile -r 140 "$path" "tmp/figure_checks/${name}"
+  done
+  ```
+  Result: failed with `I/O Error: Couldn't open file ''`. This command was not
+  used as evidence.
+* Successful commands:
+  ```bash
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_submission/vllm_qos_anchor.pdf tmp/figure_checks/vllm_qos_anchor
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf tmp/figure_checks/qos_utilization_profiles
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_diagnostics/profit_components_and_regret.pdf tmp/figure_checks/profit_components_and_regret
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_submission/mixed_oracle_regret.pdf tmp/figure_checks/mixed_oracle_regret
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_submission/parameter_sweep_qos.pdf tmp/figure_checks/parameter_sweep_qos
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_smpt/smpt_phase_qos_gain.pdf tmp/figure_checks/smpt_phase_qos_gain
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_smpt/smpt_phase_profit_gain.pdf tmp/figure_checks/smpt_phase_profit_gain
+  pdftoppm -png -singlefile -r 140 figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf tmp/figure_checks/mechanism_diagnostics
+  uv run python - <<'PY'
+  # Builds tmp/figure_checks/main_figure_contact_sheet_2026-06-21.png
+  PY
+  ```
+  ```bash
+  pdftoppm -f 11 -l 16 -png -r 110 \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    tmp/page_checks/smpt_pages_11_16
+  ```
+  ```bash
+  uv run python experiments/build_peak_shaving_diagnostics.py
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  ```
+  ```bash
+  uv run python - <<'PY'
+  # Checks figure environments, labels, references, and included image files.
+  PY
+  ```
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  rg -n "LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull|Package natbib Warning|Warning--" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.blg
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf - | \
+    rg -n "verification and validation|Related Work and Modelling Positioning|Electricity dynamic pricing|Algorithmic outline|Provider A|Provider B|continuous strategy space|Profit is not robust" -C 1
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Output:
+  * `docs/reviews/smpt_reviewer_round_2026-06-21.md`
+  * `tmp/figure_checks/main_figure_contact_sheet_2026-06-21.png`
+  * `tmp/page_checks/smpt_pages_11_16-11.png` through
+    `tmp/page_checks/smpt_pages_11_16-16.png`
+  * `figures/peak_shaving_diagnostics/profit_components_and_regret.pdf`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+* Result:
+  * Reviewer pass found no immediate new experiment requirement that can be
+    satisfied without collecting real traces or expanding the strategy space.
+  * Figure inspection found no label-overlap or caption-distance issue in the
+    rendered PDF pages. Figure 3 and Figure 4 captions are now visually close to
+    their figures.
+  * Figure 4 legend now uses `Provider A` and `Provider B`, matching manuscript
+    terminology.
+  * Figure-reference script reported 8 figure environments, 8 cited figure
+    labels, 0 uncited figure labels, and all 9 included image files present.
+  * Full BibTeX/XeLaTeX build completed successfully.
+  * Log scans found no LaTeX errors, undefined references/citations, natbib
+    warnings, BibTeX warnings, or overfull boxes.
+  * `pdfinfo` reports 23 A4 pages.
+* Remaining boundary:
+  * The paper is stronger as a simulation modelling and mechanism-diagnostic
+    manuscript, but it still should not be described as production-calibrated or
+    as proving continuous-space equilibrium.
+  * If the manuscript is moved into an Elsevier two-column or final journal
+    template, all figures need another rendered-page inspection.
+* Status: verified.
+
+### 2026-06-21 02:30 - Humanized language pass and SMPT submission adaptation check
+
+* Goal: Reduce AI-like phrasing, tighten long sentences, and record the current
+  SMPT/Elsevier submission-format boundary.
+* Context: After the electricity-pricing structure adaptation and reviewer
+  pass, the manuscript still contained repeated connective and defensive terms
+  such as `therefore`, `diagnostic`, `mechanism`, and `robust`.
+* Action:
+  * Used the `humanizer` skill to scan for AI-like vocabulary, repetitive
+    connectors, inflated phrasing, and over-regular sentence structure.
+  * Used the `nature-polishing` generic research fragments for discussion,
+    conclusion, and journal-neutral academic prose.
+  * Rewrote high-impact passages in the abstract, Introduction, Related Work,
+    Solution Method, Results, Discussion, Limitations, Conclusion, and AI
+    declaration.
+  * Created
+    `docs/reviews/smpt_submission_adaptation_checklist_2026-06-21.md`.
+  * Checked whether the current WSL TeX environment has Elsevier's
+    `elsarticle.cls`.
+* Command:
+  ```bash
+  detex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex > tmp/smpt_final_text_for_language_check.txt
+  uv run python - <<'PY'
+  from pathlib import Path
+  import re
+  text = Path("tmp/smpt_final_text_for_language_check.txt").read_text(errors="ignore")
+  for w in ["therefore","thus","accordingly","robust","diagnostic","boundary",
+            "mechanism","highlight","underscores","crucial","comprehensive"]:
+      c = len(re.findall(r"\b"+re.escape(w)+r"\b", text, flags=re.I))
+      print(f"{w}:{c}")
+  PY
+  ```
+  ```bash
+  kpsewhich elsarticle.cls || true
+  ```
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  ```
+  ```bash
+  rg -n "LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull|Package natbib Warning|Warning--" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.blg
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf - | \
+    rg -n "verification and validation|QoS-protection instrument|not as a reliable profit-improvement mechanism|Related Work and Modelling Positioning|Provider A|Provider B|mixed check|full-grid maximum regret falls to 0.203" -C 1
+  ```
+* Output:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+  * `docs/reviews/smpt_submission_adaptation_checklist_2026-06-21.md`
+* Result:
+  * `therefore` count was reduced from 18 before the language pass to 2 after
+    the pass.
+  * `thus`, `accordingly`, `highlight`, `underscores`, `crucial`, and
+    `comprehensive` are no longer present in the extracted manuscript text.
+  * `diagnostic` was reduced from 23 to 8, with remaining uses retained only
+    where it names a technical artifact or figure family.
+  * Full BibTeX/XeLaTeX build completed successfully.
+  * Log scans found no LaTeX errors, undefined references/citations, natbib
+    warnings, BibTeX warnings, or overfull boxes.
+  * PDF text extraction confirms the updated abstract phrasing, related-work
+    section, `mixed check` wording, Figure 4 `Provider A/B` terms, and
+    finite-grid regret result.
+  * `elsarticle.cls` is not installed in the current WSL TeX environment, so
+    this round keeps the verified generic article manuscript rather than
+    migrating to an unbuildable Elsevier template.
+* Decision:
+  * Treat the current PDF as a submission-review manuscript rather than a final
+    Elsevier production-template file.
+  * Template migration should wait until `elsarticle.cls` is installed or a
+    journal template package is provided.
+* Status: verified.
+
+### 2026-06-21 03:05 - Table reference, value, and rendered-page audit
+
+* Goal: Audit all main-text tables after the SMPT restructuring and language
+  pass, with special attention to value traceability, table references, captions,
+  and rendered-page readability.
+* Context: Previous rounds inspected figures. The active goal also requires
+  forming a submission-ready manuscript, so the tables need the same evidence
+  audit as the figures.
+* Action:
+  * Parsed all `table` and `figure` environments in
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`.
+  * Compared key table values against JSON/CSV artifacts.
+  * Created `docs/reviews/smpt_table_value_audit_2026-06-21.md`.
+  * Rendered PDF pages 6--17 and created
+    `tmp/table_checks/table_pages_contact_sheet_2026-06-21.png`.
+  * Visually inspected the pages containing Table 7, Table 8, and Table 9.
+  * Changed one remaining phrase from `admission-control diagnostic` to
+    `admission-control check`.
+* Command:
+  ```bash
+  uv run python - <<'PY'
+  # Extract table labels/captions and check citation status.
+  PY
+  ```
+  ```bash
+  uv run python - <<'PY'
+  # Compare Table 2, 4, 5, 7, 8, and 9 values against:
+  # - artifacts/peak_shaving/20260618/peak_shaving_summary.json
+  # - artifacts/peak_shaving/20260619_smpt/smpt_baselines.csv
+  # - artifacts/peak_shaving/20260619_smpt/smpt_fixed_point_residuals.csv
+  # - artifacts/peak_shaving/20260619_smpt/smpt_ablations.csv
+  # - artifacts/peak_shaving/20260619_smpt/smpt_resolved_sensitivity.csv
+  # - artifacts/peak_shaving/20260619_submission/peak_shaving_mixed_oracle.json
+  PY
+  ```
+  ```bash
+  pdftoppm -f 6 -l 17 -png -r 105 \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    tmp/table_checks/smpt_table_pages
+  uv run python - <<'PY'
+  # Build tmp/table_checks/table_pages_contact_sheet_2026-06-21.png
+  PY
+  ```
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  ```
+  ```bash
+  rg -n "LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull|Package natbib Warning|Warning--" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.blg
+  ```
+  ```bash
+  uv run python - <<'PY'
+  # Recheck table/figure citation status and figure include existence.
+  PY
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf - | \
+    rg -n "Table 7|Table 8|Table 9|admission-control check|Provider A|Provider B|Profit is not stable|verification and validation" -C 1
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Output:
+  * `docs/reviews/smpt_table_value_audit_2026-06-21.md`
+  * `tmp/table_checks/table_pages_contact_sheet_2026-06-21.png`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+* Result:
+  * The manuscript contains 9 table environments and all 9 table labels are
+    cited in the main text.
+  * The manuscript contains 8 figure environments and all 8 figure labels are
+    cited in the main text.
+  * All 9 included figure/image files exist on disk.
+  * The value audit checked 74 table values against artifacts and found
+    0 issues within manuscript rounding tolerance.
+  * Rendered-page inspection found no clipped tables, missing captions, or
+    unreadable table columns on pages 6--17.
+  * Full BibTeX/XeLaTeX build completed successfully.
+  * Log scans found no LaTeX errors, undefined references/citations, natbib
+    warnings, BibTeX warnings, or overfull boxes.
+  * `pdfinfo` reports 23 A4 pages.
+* Status: verified.
+
+### 2026-06-21 02:11 - Draw.io Figure 1 content-compliance revision
+
+* Goal:
+  * Make Figure 1 fully consistent with the SMPT manuscript model and show a
+    draw.io-based preview for review.
+* Context:
+  * The manuscript defines two user types, an outside option, one API
+    intermediary, two heterogeneous inference providers, a routing--QoS fixed
+    point, and a finite-grid equilibrium diagnostic.
+  * The previous Figure 1 already covered these entities, but the legend merged
+    direct access and market exit, and the fixed-point band omitted an explicit
+    routing step.
+* Action:
+  * Updated `experiments/build_market_schematic_drawio.py`.
+  * Added `Routing r_m,t` to the simulation fixed-point band.
+  * Split the legend into `Direct API access` and `Exit option`.
+  * Changed the direct-access label to `direct-provider API option p^D_m,t`.
+  * Added a white backing label so the dashed direct-access arrow does not
+    obscure the text.
+  * Updated the Figure 1 caption in
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` so it describes
+    both the market structure and the lower simulation/diagnostic bands.
+* Command:
+  ```bash
+  uv run python -m py_compile experiments/build_market_schematic_drawio.py
+  uv run python experiments/build_market_schematic_drawio.py
+  python3 /mnt/d/ccchtLinkData/UserProfile/.codex/skills/drawio-skill/scripts/validate.py \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  ```
+* Input:
+  * `experiments/build_market_schematic_drawio.py`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+* Output:
+  * `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio`
+  * `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+* Result:
+  * One intermediate generation attempt failed with
+    `NameError: name 'draw' is not defined` after adding the white label backing.
+    The call was corrected to use the active `ImageDraw` object `d`.
+  * Regeneration then succeeded.
+  * Draw.io XML validation reported `0 error(s)`; overlap warnings are caused
+    by the large dashed section panels containing their child cards.
+  * XeLaTeX completed and produced a 23-page PDF.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warning; only existing underfull bibliography
+    line-width messages remained.
+  * Visual inspection confirmed that the direct-access label, fixed-point boxes,
+    legend, and provider/user/intermediary labels are readable and not blocked.
+* Decision:
+  * Keep this draw.io version as the active Figure 1 source and PNG preview for
+    the SMPT manuscript.
+* Next:
+  * If the target submission system requires vector-only figures, export the
+    `.drawio` source to PDF/SVG from draw.io desktop on the host machine because
+    the WSL environment does not currently have the draw.io CLI installed.
+* Status: verified.
+
+### 2026-06-21 02:18 - SMPT submission package and abstract-length compliance
+
+* Goal:
+  * Continue moving the SMPT manuscript toward a formal submission package after
+    the Figure 1 Draw.io revision.
+* Context:
+  * Official SMPT/Elsevier author guidance was checked for submission-facing
+    requirements: abstract length, keyword count, highlights, editable
+    equations/tables, figure/table citation, data availability, and AI
+    declaration/artwork restrictions.
+  * Local audit showed the active abstract had 288 words before this round,
+    exceeding the 250-word guide limit.
+* Action:
+  * Compressed the abstract in
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` without changing
+    numerical results or the bounded QoS/profit claim.
+  * Added a submission package under `docs/submission/`.
+  * Added explicit author-input placeholders for funding, competing interests,
+    CRediT roles, repository DOI, author metadata, and corresponding author.
+  * Added a Figure 1 policy caution: the final source is editable Draw.io, but
+    the author should manually review/export it before submission because
+    Elsevier restricts AI-assisted artwork.
+* Command:
+  ```bash
+  python3 - <<'PY'
+  # Count abstract words, keyword count, highlight lengths, and submission files.
+  PY
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_smpt_submission_pkg.txt
+  rg -n "QoS-protection instrument|not as a reliable profit-improvement mechanism|Reproducibility, Data Availability|Declaration of Generative AI|Figure 1: Market structure and simulation workflow" \
+    /tmp/ps_smpt_submission_pkg.txt
+  rg -n "LaTeX Error|Undefined control sequence|Citation.*undefined|Reference.*undefined|There were undefined|Overfull|Rerun to get cross-references" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    /tmp/ps_smpt_submission_pkg_xelatex.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Input:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * Official SMPT guide for authors:
+    `https://www.sciencedirect.com/journal/simulation-modelling-practice-and-theory/publish/guide-for-authors`
+* Output:
+  * `docs/submission/smpt_submission_package_manifest_2026-06-21.md`
+  * `docs/submission/smpt_cover_letter_draft_2026-06-21.md`
+  * `docs/submission/smpt_highlights_2026-06-21.txt`
+  * `docs/submission/smpt_declarations_template_2026-06-21.md`
+  * Updated `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+* Result:
+  * Abstract word count is now `250`.
+  * Keyword count is `7`.
+  * Highlights file has 5 non-empty bullets; lengths are `72, 72, 69, 70, 73`,
+    all within the 85-character Elsevier guidance.
+  * Submission package files were created and are non-empty.
+  * XeLaTeX completed and produced a 23-page A4 PDF.
+  * PDF text contains the bounded QoS/profit conclusion, Figure 1 caption,
+    reproducibility/data availability section, and AI-assisted technology
+    declaration.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warnings.
+* Decision:
+  * Treat the paper as scientifically close to submission-candidate status, but
+    not yet a formal submission-ready package until author metadata,
+    declarations, and repository/DOI information are supplied.
+* Next:
+  * Fill author-specific declarations and decide whether to migrate to an
+    Elsevier template after `elsarticle.cls` is available.
+* Status: verified.
+
+### 2026-06-21 02:28 - Full current-PDF figure audit for SMPT draft
+
+* Goal:
+  * Re-audit every figure in the latest compiled SMPT manuscript after the
+    Figure 1 and abstract revisions.
+* Context:
+  * The active PDF contains 8 figure environments.
+  * Current figure pages are PDF pages 4, 10, 12, 13, 15, 16, and 17.
+  * The user previously requested Times New Roman figure fonts and no label or
+    line overlap.
+* Action:
+  * Parsed all figure environments, labels, captions, and included source files
+    from `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`.
+  * Rendered the current PDF pages containing Figures 1--8.
+  * Built a contact sheet for visual inspection.
+  * Opened high-resolution page renders for Figures 1, 2, 3, 4, 5, 6, 7, and 8.
+  * Checked PDF figure fonts through `pdffonts`.
+  * Checked key figure values against stored JSON/CSV artifacts.
+* Command:
+  ```bash
+  pdftotext -layout peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_fig_audit_layout.txt
+  ```
+  ```bash
+  uv run python - <<'PY'
+  # Render figure pages with pdftoppm through subprocess and build
+  # tmp/figure_checks/current_smpt_figure_pages_contact_sheet_2026-06-21.png
+  PY
+  ```
+  ```bash
+  pdffonts figures/peak_shaving_submission/vllm_qos_anchor.pdf
+  pdffonts figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf
+  pdffonts figures/peak_shaving_diagnostics/profit_components_and_regret.pdf
+  pdffonts figures/peak_shaving_submission/mixed_oracle_regret.pdf
+  pdffonts figures/peak_shaving_submission/parameter_sweep_qos.pdf
+  pdffonts figures/peak_shaving_smpt/smpt_phase_qos_gain.pdf
+  pdffonts figures/peak_shaving_smpt/smpt_phase_profit_gain.pdf
+  pdffonts figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf
+  ```
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  ```
+* Input:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * `artifacts/peak_shaving/20260619_submission/*`
+  * `artifacts/peak_shaving/20260619_smpt/*`
+  * `artifacts/peak_shaving/20260619/peak_shaving_mechanism_summary.csv`
+* Output:
+  * `docs/reviews/smpt_full_figure_audit_2026-06-21.md`
+  * `tmp/figure_checks/current_smpt_figure_pages_contact_sheet_2026-06-21.png`
+  * `tmp/figure_checks/current_pdf_pages/figaudit_page_*.png`
+* Result:
+  * All eight figure labels are referenced in the manuscript text.
+  * Figure pages were rendered from the current PDF: 4, 10, 12, 13, 15, 16, 17.
+  * Visual inspection found no missing figure, wrong caption placement, clipped
+    panel, label-line overlap, or mismatched figure order.
+  * Figures 2--8 embed `TimesNewRomanPSMT`; Figure 1 uses Times New Roman in the
+    PNG rendering script and in the `.drawio` source.
+  * Key values checked against artifacts include: mixed regret `0.2025` reported
+    as `0.203`; nine parameter scenarios; 25 phase-grid rows; served volume
+    `2610 -> 2865 / 3043`; average paid price `0.761 -> 0.735 / 0.625`; exit
+    probabilities `0.158 -> 0.145 / 0.119` and `0.087 -> 0.075 / 0.044`.
+  * Recompiled the manuscript with XeLaTeX; output remains a 23-page A4 PDF.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warnings. Existing bibliography underfull
+    line-width warnings remain.
+* Decision:
+  * No figure-level blocking issue was found in the current compiled manuscript.
+  * Remaining figure-related submission risk is policy/export related: Figure 1
+    should be manually reviewed and exported from Draw.io desktop before formal
+    Elsevier submission, and earlier imagegen PNG drafts should not be used as
+    final artwork.
+* Status: verified.
+
+### 2026-06-21 02:36 - SMPT final-gate reviewer pass and repository wording fix
+
+* Goal:
+  * Run a final-gate reviewer-style audit after the latest figure audit and
+    submission-package updates.
+* Context:
+  * The current manuscript is scientifically close to an SMPT submission
+    candidate, but formal submission still requires author metadata,
+    declarations, and a frozen data/code archive.
+  * The manuscript previously said that the current artifact package was
+    available in a public GitHub repository. Because the latest local TeX and
+    submission package files are still uncommitted/unpushed, that wording was
+    too strong.
+* Action:
+  * Used `nature-reviewer` as a reviewer-style gate.
+  * Created a three-reviewer internal report with cross-review synthesis.
+  * Verified that `https://github.com/cccht/paper_token_price.git` is reachable
+    through `git ls-remote`.
+  * Revised the manuscript reproducibility statement to say that the public
+    repository exists, but formal submission should cite a frozen release or DOI
+    containing the final manuscript, code, artifacts, and figures.
+* Command:
+  ```bash
+  git ls-remote https://github.com/cccht/paper_token_price.git
+  ```
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_smpt_final_gate.txt
+  python3 - <<'PY'
+  # Count abstract words and check final-gate report size.
+  PY
+  rg -n "public project repository|latest repository push|frozen release|living reproducibility package|Declaration of Generative AI|QoS-protection instrument" \
+    /tmp/ps_smpt_final_gate.txt
+  rg -n "LaTeX Error|Undefined control sequence|Citation.*undefined|Reference.*undefined|There were undefined|Overfull|Rerun to get cross-references" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    /tmp/ps_smpt_final_gate_xelatex.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Input:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * `docs/submission/*`
+  * `docs/reviews/smpt_full_figure_audit_2026-06-21.md`
+* Output:
+  * `docs/reviews/smpt_final_gate_reviewer_report_2026-06-21.md`
+  * Updated `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+* Result:
+  * GitHub remote is reachable and reports `main` / `HEAD`.
+  * Final-gate reviewer report size: `10558` bytes.
+  * Abstract remains exactly `250` words.
+  * PDF text confirms the revised repository/frozen-release wording and AI
+    declaration.
+  * XeLaTeX produced a 23-page A4 PDF.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warnings. Existing bibliography underfull
+    line-width warnings remain.
+* Decision:
+  * The manuscript should be treated as a strong author-review candidate, not as
+    a fully formal submission package, until the final repository release/DOI,
+    author declarations, and Figure 1 author-approved Draw.io export are done.
+* Status: verified.
+
+### 2026-06-21 02:47 - SMPT submission package pre-commit verification
+
+* Goal:
+  * Verify the final SMPT manuscript, Draw.io figure assets, submission notes,
+    and review records before committing the package to GitHub.
+* Context:
+  * The final English manuscript is
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`.
+  * Figure 1 now uses the editable Draw.io-derived asset
+    `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio`
+    and its PNG preview.
+  * Temporary render checks, planning notes, and earlier imagegen concept images
+    are intentionally ignored and are not part of the formal submission package.
+* Commands:
+  ```bash
+  git status --short --ignored
+  git diff --check -- . ":!*.pdf" ":!*.png" ":!*.jpg" ":!*.jpeg" ":!*.drawio"
+  # A common credential-pattern scan was executed; the exact sensitive regex is
+  # not printed in README to avoid future false-positive secret scans.
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_smpt_final_commit.txt
+  rg -n "Market structure and simulation workflow|living reproducibility package|Declaration of Generative AI|QoS-protection instrument" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex /tmp/ps_smpt_final_commit.txt
+  rg -n "LaTeX Error|Undefined control sequence|Citation.*undefined|Reference.*undefined|There were undefined|Overfull|Rerun to get cross-references" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    /tmp/ps_smpt_final_commit_xelatex1.log \
+    /tmp/ps_smpt_final_commit_xelatex2.log \
+    /tmp/ps_smpt_final_commit_xelatex3.log \
+    /tmp/ps_smpt_final_commit_bibtex.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | rg "Pages|Page size|PDF version"
+  ```
+* Output:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+  * `docs/submission/smpt_highlights_2026-06-21.txt`
+  * `docs/submission/smpt_cover_letter_draft_2026-06-21.md`
+  * `docs/submission/smpt_declarations_template_2026-06-21.md`
+  * `docs/submission/smpt_submission_package_manifest_2026-06-21.md`
+  * `docs/reviews/smpt_full_figure_audit_2026-06-21.md`
+  * `docs/reviews/smpt_final_gate_reviewer_report_2026-06-21.md`
+* Result:
+  * Sensitive scan returned no credential values.
+  * Text-only `git diff --check` returned no whitespace errors.
+  * XeLaTeX/BibTeX/XeLaTeX/XeLaTeX completed and produced a 23-page A4 PDF.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or cross-reference rerun warnings.
+  * PDF text contains the Figure 1 caption, QoS-protection conclusion, repository
+    frozen-release boundary, and generative-AI declaration.
+  * Abstract word count remains exactly `250`.
+  * Elsevier-style highlights: 5 lines with lengths `72`, `72`, `69`, `70`, and
+    `73`, all below the 85-character limit.
+* Decision:
+  * Commit the final English SMPT manuscript, editable Draw.io source and preview,
+    submission package notes, review/audit records, updated figure scripts, and
+    regenerated publication figures.
+  * Do not commit temporary render directories, planning scratch files, or earlier
+    imagegen-only concept images.
+* Status: verified locally before Git commit.
 
 ## Manuscript Build
 

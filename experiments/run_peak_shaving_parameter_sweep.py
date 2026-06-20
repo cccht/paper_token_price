@@ -16,6 +16,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from experiments.plot_style import configure_times_new_roman
 from experiments.peak_shaving_submission_tools import build_parameter_scenarios
 from pricing_sim.peak_shaving_config import PeakShavingConfig
 from pricing_sim.peak_shaving_equilibrium import FirmParams, intermediary_best_response
@@ -27,6 +28,14 @@ FIG = ROOT / "figures" / "peak_shaving_submission"
 CAP = np.array([300.0, 120.0])
 QOS_SHAPE = "sigmoid"
 CASE_LABELS = {"uniform": "Uniform", "dynamic_coarse": "Dynamic coarse", "dynamic_fine": "Dynamic fine"}
+configure_times_new_roman()
+
+
+def scenario_label(name: str) -> str:
+    return (name.replace("capacity_scale_", "capacity\n")
+                .replace("alpha_scale_", "alpha\n")
+                .replace("switch_cost_scale_", "switch cost\n")
+                .replace("qos_threshold_", "QoS threshold\n"))
 
 
 def load_json(name: str) -> dict[str, Any]:
@@ -101,7 +110,7 @@ def write_outputs(rows: list[dict[str, Any]]) -> None:
 def plot_sweep(rows: list[dict[str, Any]]) -> None:
     FIG.mkdir(parents=True, exist_ok=True)
     scenarios = [r["scenario"] for r in rows if r["case"] == "uniform"]
-    fig, axes = plt.subplots(2, 1, figsize=(8.0, 6.2), sharex=True)
+    fig, axes = plt.subplots(2, 1, figsize=(9.2, 6.4), sharex=True)
     x = np.arange(len(scenarios))
     width = 0.36
     for offset, case, color in [(-width / 2, "dynamic_coarse", "#E69F00"), (width / 2, "dynamic_fine", "#009E73")]:
@@ -112,11 +121,13 @@ def plot_sweep(rows: list[dict[str, Any]]) -> None:
     axes[1].axhline(0.0, color="#666666", lw=1)
     axes[0].set_ylabel("Minimum QoS gain")
     axes[1].set_ylabel("Peak-utilization reduction")
-    axes[1].set_xticks(x, scenarios, rotation=35, ha="right")
+    axes[1].set_xticks(x, [scenario_label(s) for s in scenarios], rotation=0, ha="center", fontsize=8)
     for ax in axes:
         ax.grid(axis="y", alpha=0.25)
-        ax.legend(frameon=False, fontsize=8)
-    fig.tight_layout()
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, frameon=False, ncol=2, loc="upper center",
+               bbox_to_anchor=(0.5, 1.02), fontsize=8)
+    fig.tight_layout(rect=[0, 0, 1, 0.94])
     fig.savefig(FIG / "parameter_sweep_qos.pdf")
     plt.close(fig)
 

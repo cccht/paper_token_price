@@ -1,0 +1,6 @@
+Simulates time-of-use pricing for fixed-capacity LLM inference services.
+Links user choice, API routing, capacity, and QoS feedback in one model.
+Mixed finite-grid check reaches max regret 0.203 on a 225-point grid.
+Dynamic prices improve congested QoS but do not robustly raise profit.
+Verification and stress tests define the simulation credibility boundary.
+

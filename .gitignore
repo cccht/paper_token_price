@@ -36,11 +36,16 @@ artifacts/*
 *.xdv
 
 # Temporary files
+tmp/
+plan/
 *.tmp
 *.temp
 *.bak
 *.swp
 *~
+
+# Draft AI-generated concept images; final artwork uses editable Draw.io source
+figures/peak_shaving_diagnostics/market_schematic_imagegen_*.png
 
 # OS/editor metadata
 .DS_Store

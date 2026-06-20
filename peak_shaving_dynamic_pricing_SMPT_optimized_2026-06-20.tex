@@ -1,0 +1,480 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[numbers]{natbib}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{url}
+\graphicspath{{figures/}{figures/peak_shaving_diagnostics/}{figures/peak_shaving_submission/}{./}}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\captionsetup{font=small}
+\setlength{\emergencystretch}{3em}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{assumption}{Assumption}
+\newtheorem{definition}{Definition}
+\newcommand{\qos}{q}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\D}{D}
+\newcommand{\w}{\boldsymbol{w}}
+\newcommand{\p}{\boldsymbol{p}}
+\newcommand{\g}{\boldsymbol{g}}
+
+\title{\textbf{A Simulation-Based Study of Time-of-Use Pricing for Fixed-Capacity Inference Services:\\
+Provider Competition, QoS Protection, and the Profit Boundary}}
+\author{Anonymous Author}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language model (LLM) inference services operate under short-run fixed graphics processing unit (GPU) capacity, whereas request arrivals vary substantially across the day. Peak overload can degrade quality of service (QoS), while off-peak capacity remains costly even when idle. This paper develops an auditable simulation model to examine whether time-of-use pricing can shift time-flexible inference demand away from congested periods and protect QoS without capacity expansion. The model includes two heterogeneous inference providers, one application programming interface (API) intermediary, time-rigid and time-flexible users, direct-provider API options, and an outside option. Provider prices are represented by a low-dimensional time-shape family, and provider competition is approximated through fictitious play with finite-grid regret diagnostics. Under uniform pricing in the congested setting, peak utilization reaches $0.782$ and minimum QoS falls to $0.756$. Dynamic coarse-grid and fine-grid snapshots reduce peak utilization to $0.706$ and $0.666$, respectively, and raise minimum QoS to $0.968$ and $0.990$. Because the fine-grid pure snapshot remains high-regret, a double-oracle mixed-strategy diagnostic is added on the full 225-point grid; the resulting $5\times5$ support profile has maximum regret $0.203$, expected peak utilization $0.703$, and minimum QoS $0.970$. Across nine fixed-policy perturbation scenarios, dynamic pricing preserves positive QoS gains and lower peak utilization. Profit is not robust: the coarse snapshot gives $+9.3\%$, the fine snapshot gives $-1.9\%$, and the low-regret mixed profile gives about $-2.8\%$. Time-of-use pricing is therefore interpreted as a QoS-protection mechanism under fixed capacity, rather than as a reliable profit-improvement mechanism.
+\end{abstract}
+
+\noindent\textbf{Keywords:} inference-service simulation; time-of-use pricing; peak shaving; fixed capacity; API intermediary; QoS protection; finite-grid regret
+
+\section{Introduction}
+\label{sec:intro}
+
+Large language model (LLM) inference has shifted from offline batch processing to continuously operating online services. Interactive chat, code generation, agentic workflows, scheduled evaluation, and periodic batch jobs exhibit different intraday arrival patterns. As a result, graphics processing unit (GPU) inference clusters experience pronounced peak--valley load variation that cannot be eliminated easily by short-run capacity expansion \cite{crankshaw2017clipper,gujarati2020clockwork,yu2022orca,kwon2023pagedattention,agrawal2024sarathiserve}. When utilization approaches a local capacity threshold, time to first token (TTFT), queueing delay, and completion rates may deteriorate rapidly. Quality-of-service (QoS) degradation then reduces the volume of requests that can be completed and billed, while also lowering user satisfaction.
+
+This study focuses on a fixed-capacity operating regime. GPU procurement and deployment require lead time and involve sunk costs, and idle off-peak capacity still incurs holding costs. In such a regime, an operational alternative to immediate expansion is to use prices as a demand-shaping instrument: peak-period prices are raised, off-peak prices are lowered, and time-flexible demand is encouraged to move toward periods with spare capacity. The motivation is related to real-time electricity pricing and demand response \cite{schweppe1988spot,borenstein2005long,albadi2008summary,faruqui2010household,siano2014demand}; however, the engineering mechanism is different. Inference-service quality is governed by local GPU utilization, latency, and completion rates, rather than by generation constraints or power-flow equations.
+
+Inference-service markets also differ from the single-platform monopoly commonly used in simplified pricing models. The same open-source model family, such as GLM, can be deployed by multiple providers. When user-visible model capability is approximately homogeneous, competition is driven primarily by price, available capacity, and realized QoS. Provider capacity is also heterogeneous. A smaller provider may enter congestion earlier when an intermediary routes traffic to it. These observations motivate a simulation model with two providers that offer nearly homogeneous inference service but have different fixed capacities, one API intermediary that routes traffic between them, and users who may either purchase through the intermediary, connect directly to a provider API, or exit the market.
+
+The paper is positioned at the intersection of three research streams. First, systems research on online inference serving has studied low-latency serving, batching, memory management, model parallelism, and prefill/decode separation \cite{crankshaw2017clipper,gujarati2020clockwork,romero2021infaas,yu2022orca,li2023alpaserve,sheng2023flexgen,kwon2023pagedattention,agrawal2024sarathiserve,patel2024splitwise,zhong2024distserve,agrawal2024vidur}. These studies explain why QoS deteriorates as utilization increases, but they typically do not place prices, user exit, and cross-provider competition within a common market-level simulation model. Second, congestion pricing and revenue management have long examined how prices allocate scarce capacity under time-varying demand \cite{vickrey1969congestion,arnott1990bottleneck,gallego1994dynamic,elmaghraby2003dynamic,bitran2003overview,talluri2004revenue,phillips2005pricing}, while real-time electricity pricing and demand response provide a classical analogy for peak shaving \cite{schweppe1988spot,borenstein2005long,allcott2011rethinking,siano2014demand}. Third, recent work on artificial intelligence (AI) service markets has begun to analyse inference costs, menu pricing, token-capacity contracts, and Stackelberg-style pricing for GPU services \cite{demirer2025emerging,erdil2025inference,bergemann2025menu,guo2026prillm,yan2026stackelberg,cunningham2026token,liu2026locational}. The present paper has a narrower objective: it provides a reproducible simulation framework that jointly represents QoS congestion, provider heterogeneity, an API intermediary, direct-provider options, and user exit. User choice follows standard discrete-choice and platform-market tools \cite{mcfadden1974conditional,anderson1992discrete,train2009discrete,rochet2003platform}.
+
+The study makes three contributions. First, it formulates a fixed-capacity simulation model of time-of-use inference pricing with two competing heterogeneous providers, one routing intermediary, time-rigid and time-flexible users, and an outside option. The model jointly represents idle-capacity holding costs, QoS degradation under congestion, and time-shifting of user demand. Second, it uses a low-dimensional pricing-shape family and fictitious play to obtain reproducible candidate responses. Naive best-response dynamics cycle in the congested regime, whereas fictitious play produces time-averaged strategies; finite-grid regret is reported to delimit the strength of the equilibrium approximation. Third, it separates the QoS result from the profit result. Coarse-grid, fine-grid, and finite-grid mixed-strategy diagnostics consistently support a bounded QoS-protection claim in the congested setting, but they do not support a robust profit-improvement claim. The paper therefore positions time-of-use pricing as a potential service-quality management tool, rather than as a general revenue-enhancement mechanism.
+
+\section{Simulation Model}
+\label{sec:model}
+
+\subsection{Market structure and sequence of decisions}
+
+A day is divided into $T$ periods, $\T=\{1,\ldots,T\}$, each of length $h$. The simulated market contains the following agents:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Two heterogeneous inference providers} $\M=\{A,B\}$ with fixed capacities $G_A>G_B$. Both deploy the same open-source model and are treated as nearly homogeneous in model capability. Provider $m$ chooses a period-specific wholesale price $w_{m,t}$ for the intermediary and a period-specific direct retail price $p^D_{m,t}$ for users.
+  \item \textbf{One API intermediary} that observes wholesale prices and chooses a period-specific retail price $p_t$ and routing weights $r_{m,t}$, where $\sum_m r_{m,t}=1$.
+  \item \textbf{Two user types} who choose among the intermediary channel, direct access to provider $A$, direct access to provider $B$, and an outside option according to a logit random-utility model.
+\end{itemize}
+The sequence, summarized in Figure~\ref{fig:market_schematic}, is: providers post prices simultaneously in a Nash-pricing stage, the intermediary computes its best response, and user choices and QoS are determined through a congestion fixed point.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{market_schematic_drawio_exact_2026-06-21.png}
+\caption{Market structure. Users may buy through the API intermediary, connect directly to a provider, or exit. The intermediary routes traffic between two providers on the basis of prices and QoS.}
+\label{fig:market_schematic}
+\end{figure}
+
+\subsection{User choice and the outside option}
+
+There are two user types, $\theta\in\{R,E\}$. Type $R$ users are time-rigid, whereas type $E$ users are time-flexible. For channel $k$ and period $t$, deterministic utility is defined as
+\begin{equation}
+  z^\theta_{k,t}=\log b_k+\log a_t
+  -\alpha_\theta\!\left[\text{price}_{k,t}+c_s^\theta(1-\pi^\theta_t)-p_0\right]
+  -\gamma(1-q_{k,t}).
+  \label{eq:utility}
+\end{equation}
+Here $b_k$ denotes channel brand value or convenience, $a_t$ denotes period preference, $\pi^\theta_t$ is the native-period distribution for type $\theta$, and $q_{k,t}$ is channel QoS. Switching cost is represented in price-equivalent units and is therefore scaled by the same price-sensitivity parameter $\alpha_\theta$. The two user types differ only through parameters: time-rigid users have lower price sensitivity, higher switching cost, and a native-period distribution concentrated in peak periods; time-flexible users have higher price sensitivity, lower switching cost, and a more dispersed native-period distribution.
+
+The logit denominator includes a no-purchase outside option with deterministic utility $u_0$. The share of type $\theta$ users choosing channel $k$ in period $t$, and the corresponding exit probability, are
+\begin{equation}
+  s^\theta_{k,t}=\frac{\exp(z^\theta_{k,t})}{\exp(u_0)+\sum_{k',t'}\exp(z^\theta_{k',t'})},
+  \qquad
+  s^\theta_0=\frac{\exp(u_0)}{\exp(u_0)+\sum_{k',t'}\exp(z^\theta_{k',t'})}.
+  \label{eq:share}
+\end{equation}
+The internal shares sum to less than one; the remaining mass $s^\theta_0$ is interpreted as genuine market exit and is not reallocated across the purchasable options. Consequently, a price increase may reduce internal demand rather than merely redistributing it among providers or channels.
+
+\subsection{Demand, load, and QoS}
+
+Demand from type $\theta$ users for channel $k$ consists of an elastic component and a rigid/replay component. Both components are allocated by the channel's own choice share, which prevents the total rigid quantity in a period from scaling with the number of available channels:
+\begin{equation}
+  \D^\theta_{k,t}=\bar F_\theta\,m(\p)\,s^\theta_{k,t}
+  +\bar R^\theta_t\,\sigma[\beta(v_r-\text{price}_{k,t})]s^\theta_{k,t}.
+  \label{eq:demand}
+\end{equation}
+Total demand is the population-weighted sum over the two types, with weights $(\pi_R,\pi_E)$. The model is not a fixed-total-demand model. The outside option allows internal demand to contract, and the elastic market-size term $m(\p)$ allows demand to expand at lower prices. The later discussion of the profit boundary is therefore a mechanism decomposition and numerical diagnosis, not a theorem based on fixed total demand.
+
+Provider $m$'s load in period $t$ equals direct demand plus the intermediary demand routed to that provider:
+\begin{equation}
+  L_{m,t}=\D^D_{m,t}+r_{m,t}\D^I_t,
+  \qquad
+  u_{m,t}=L_{m,t}/G_m,
+  \qquad
+  q_{m,t}=\qos(u_{m,t}).
+  \label{eq:load}
+\end{equation}
+The QoS degradation function $\qos(u)$ begins to decline once utilization exceeds a threshold $\bar u$. Since $G_B<G_A$, the smaller provider reaches the congested region earlier under the same incoming load. The main experiments use a smooth sigmoid-type degradation shape, while threshold, linear, and square-root shapes are retained as robustness checks in the artifact set. For a fixed routing matrix, the QoS fixed point is computed by damped iteration:
+\begin{equation}
+  \tilde q^{(n+1)}_{m,t}
+  =\qos\!\left(\frac{L_{m,t}(q^{(n)})}{G_m}\right),
+  \qquad
+  q^{(n+1)}_{m,t}
+  =(1-\lambda)q^{(n)}_{m,t}+\lambda \tilde q^{(n+1)}_{m,t},
+  \label{eq:qos_fixed_point}
+\end{equation}
+with damping $\lambda=0.35$, stopping tolerance $10^{-9}$, and a 200-iteration limit in the reported implementation.
+
+\subsection{Profit with fixed-capacity holding cost}
+
+Provider $m$'s profit is wholesale revenue plus direct retail revenue, minus fixed capacity holding cost and QoS degradation cost:
+\begin{equation}
+  \Pi_m=h\!\sum_t\! w_{m,t}r_{m,t}\D^I_t q_{m,t}
+  +h\!\sum_t\! p^D_{m,t}\D^D_{m,t}q_{m,t}
+  -h\!\sum_t\! c_g G_m
+  -h\!\sum_t\! c_q(1-q_{m,t})L_{m,t}.
+  \label{eq:firm_profit}
+\end{equation}
+The holding cost $c_gG_m$ is charged on fixed capacity rather than on realized utilization. It gives providers an incentive to fill off-peak capacity by lowering prices in low-load periods. This specification distinguishes the present model from formulations that treat capacity only as a fixed upper bound and ignore the cost of idle resources.
+
+The intermediary's channel QoS and average wholesale cost are
+\begin{equation}
+  q^I_t=\sum_m r_{m,t}q_{m,t},
+  \qquad
+  \bar w_t=\sum_m r_{m,t}w_{m,t}.
+  \label{eq:intermediary_channel}
+\end{equation}
+Its profit is retail revenue minus wholesale cost and QoS degradation cost:
+\begin{equation}
+  \Pi_I
+  =h\sum_t p_t\D^I_t q^I_t
+  -h\sum_t \bar w_t\D^I_t q^I_t
+  -h\sum_t c_q(1-q^I_t)\D^I_t .
+  \label{eq:intermediary_profit}
+\end{equation}
+System profit is
+\begin{equation}
+  \Pi^{\mathrm{sys}}=\Pi_I+\sum_{m\in\M}\Pi_m .
+  \label{eq:system_profit}
+\end{equation}
+
+\section{Solution Method and Simulation Diagnostics}
+\label{sec:solver}
+
+\subsection{Low-dimensional pricing-shape family}
+
+If each provider directly optimized $2T$ continuous prices, comprising period-specific wholesale and direct retail prices, the Nash game would be high-dimensional, non-convex, and difficult to reproduce numerically. The provider prices are therefore restricted to a low-dimensional time-shape family:
+\begin{equation}
+  w_{m,t}=\bar w_m\big(1+\delta_m\widehat{\ell}_t\big),
+  \qquad
+  p^D_{m,t}=\bar p^D_m\big(1+\delta^D_m\widehat{\ell}_t\big).
+  \label{eq:shape}
+\end{equation}
+The vector $\widehat{\ell}_t$ is a zero-mean normalized load shape obtained from the rigid-demand baseline and treated as exogenous. Each provider strategy is represented by four scalars, $(\bar w_m,\delta_m,\bar p^D_m,\delta^D_m)$. A value of $\delta_m=0$ gives uniform pricing, while $\delta_m>0$ raises prices during peak periods. This parameterization sacrifices global optimality in the full continuous price space, but it improves transparency, repeatability, and diagnostic control. Accordingly, all equilibrium language in this paper refers to the pricing-shape family unless explicitly stated otherwise; no claim is made about a global optimum in the unrestricted $2T$-dimensional strategy space.
+
+\subsection{Candidate evaluation and finite-game equilibrium certificate}
+
+Let $s_m=(\bar w_m,\delta_m,\bar p^D_m,\delta^D_m)$ denote provider $m$'s pricing-shape strategy, and let $\mathcal S_m$ be the finite candidate grid used in a given diagnostic. For any candidate pair $(s_A,s_B)$, Eq.~(\ref{eq:shape}) gives wholesale and direct prices. The intermediary then chooses a retail-price shape and a routing sensitivity,
+\[
+  y=(\bar p,\delta_p,\beta_r)\in\mathcal Y ,
+  \qquad
+  p_t=\bar p\big(1+\delta_p\widehat{\ell}_t\big),
+\]
+where $\mathcal Y$ is the intermediary's finite response grid. Conditional on $y$, routing is updated as a logit response to wholesale prices and provider QoS:
+\begin{equation}
+  r_{m,t}
+  =
+  \frac{\exp[-\beta_r w_{m,t}+\omega q_{m,t}]}
+       {\sum_{j\in\M}\exp[-\beta_r w_{j,t}+\omega q_{j,t}]},
+  \qquad \omega=3 .
+  \label{eq:routing_logit}
+\end{equation}
+Because routing depends on QoS and QoS depends on routed load, Eq.~(\ref{eq:routing_logit}) and Eq.~(\ref{eq:qos_fixed_point}) are solved as a joint damped fixed point during intermediary evaluation. The intermediary best response is
+\begin{equation}
+  y^\star(s_A,s_B)\in
+  \arg\max_{y\in\mathcal Y}
+  \Pi_I\big(s_A,s_B,y\big),
+  \label{eq:intermediary_best_response}
+\end{equation}
+and the provider payoffs in the induced finite game are
+\begin{equation}
+  U_m(s_A,s_B)=
+  \Pi_m\big(s_A,s_B,y^\star(s_A,s_B)\big).
+  \label{eq:finite_game_payoff}
+\end{equation}
+
+A pure-strategy Nash equilibrium on the finite grid would require
+\begin{equation}
+  U_m(s_m^\star,s_{-m}^\star)
+  \ge
+  U_m(s_m,s_{-m}^\star)
+  \quad
+  \forall s_m\in\mathcal S_m,\quad m\in\M .
+  \label{eq:pure_nash}
+\end{equation}
+The paper does not derive a closed-form Nash equilibrium because the payoff in Eq.~(\ref{eq:finite_game_payoff}) is generated by a non-linear QoS fixed point, a discrete intermediary response, and finite candidate grids. Instead, it reports exploitability through unilateral-deviation regret. For a pure candidate pair,
+\begin{equation}
+  \rho_m(s_A,s_B)
+  =
+  \max_{s'_m\in\mathcal S_m}U_m(s'_m,s_{-m})
+  -U_m(s_m,s_{-m}),
+  \qquad
+  \rho(s_A,s_B)=\max_m\rho_m(s_A,s_B).
+  \label{eq:pure_regret}
+\end{equation}
+For a mixed profile $\mu=(\mu_A,\mu_B)$ over the finite grids, expected payoff and regret are
+\begin{align}
+  \bar U_m(\mu_A,\mu_B)
+  &=
+  \sum_{i,j}\mu_A(i)\mu_B(j)\,U_m(s_A^i,s_B^j), \label{eq:mixed_payoff}\\
+  \rho_A(\mu)
+  &=
+  \max_i\sum_j\mu_B(j)U_A(s_A^i,s_B^j)
+  -\bar U_A(\mu_A,\mu_B), \nonumber\\
+  \rho_B(\mu)
+  &=
+  \max_j\sum_i\mu_A(i)U_B(s_A^i,s_B^j)
+  -\bar U_B(\mu_A,\mu_B). \label{eq:mixed_regret}
+\end{align}
+A zero-regret profile would be a mixed Nash equilibrium of the finite candidate game. The reported value $0.203$ is therefore a finite-grid exploitability certificate, not a proof of equilibrium in the unrestricted continuous strategy space.
+
+\subsection{Fictitious play and finite-grid regret}
+
+Provider best responses are computed by grid search over the four pricing-shape parameters. Grid search is robust to non-smooth QoS responses, has a predictable computational budget, and facilitates independent replication. The intermediary response is also obtained by grid search. Each candidate evaluation embeds a joint fixed point over routing and QoS, which is solved by damped iteration. A deeper nested continuous optimizer is not used because it substantially increases computational cost in the congested regime.
+
+Naive best-response iteration, in which providers alternately best-respond to the opponent's current strategy, produces cyclic behaviour in the congested regime. Strategies repeatedly switch between two configurations, generating a limit cycle. We therefore use fictitious play: each provider best-responds to the opponent's running average strategy rather than only to the most recent strategy. The resulting object is not an unrestricted pure-strategy Nash equilibrium. It is a time-averaged fictitious-play strategy within the pricing-shape family. It is treated as an acceptable equilibrium approximation only when the maximum profitable unilateral deviation, or regret, is sufficiently low. Parameter drift is not used as the primary convergence criterion, because it can give a false impression of convergence on a coarse grid.
+
+For the fine grid, an additional double-oracle diagnostic is used. The procedure starts from a small candidate set, repeatedly adds best deviations against the current mixed profile on the complete 225-point fine grid, solves an empirical mixed profile on the restricted support by fictitious play, and finally scans the full grid to compute regret.
+
+\begin{remark}[Solver verification and evidence boundary]
+In the uncongested regime, QoS is identically one, the fixed point converges in one step, and grid search is deterministic; the cross-seed relative standard deviation of system profit is $4.31\times10^{-4}$. The congested regime requires a separate diagnostic boundary. On the coarse grid, fictitious-play regret decreases monotonically from $133.6$ to $63.7$ and eventually to $4.98$, reaching regret $<5$ after 22 rounds. In the fine-grid pure snapshot, regret reaches a local minimum of approximately $14$ around round 10 and then increases, drifting to approximately $22$ after 40 rounds. The added double-oracle mixed diagnostic obtains a $5\times5$ support profile on the complete 225-point fine grid, with final maximum regret $0.203$. Thus, the QoS improvement is supported as a low-exploitability result for a finite-grid mixed/averaged strategy. It is not a theorem for the unrestricted continuous strategy space.
+\end{remark}
+
+\section{Experimental Design and Validation Anchors}
+\label{sec:setup}
+
+The simulated day has $T=8$ periods and $h=3$ hours per period. Baseline capacity is $G_A=1500$ and $G_B=600$. The congested setting tightens capacity to $G_A=300$ and $G_B=120$ to activate QoS degradation. Baseline population weights are $(\pi_R,\pi_E)=(0.6,0.4)$; the congested setting uses $(0.4,0.6)$ to increase peak pressure. All economic parameters are synthetic calibrations. Their numerical values are used to support mechanism analysis and are not interpreted as production forecasts.
+
+The main reported indicators are computed from the fixed-point state as follows:
+\begin{align}
+  u^{\mathrm{peak}}
+  &=\max_{m,t}u_{m,t}, &
+  q^{\min}
+  &=\min_{m,t}q_{m,t}, \label{eq:reported_metrics}\\
+  V^{\mathrm{served}}
+  &=h\sum_{k,t}\D_{k,t}q_{k,t}, &
+  \bar p^{\mathrm{paid}}
+  &=
+  \frac{\sum_{k,t}\text{price}_{k,t}\D_{k,t}q_{k,t}}
+       {\sum_{k,t}\D_{k,t}q_{k,t}}, \nonumber\\
+  \Delta \Pi^{\mathrm{sys}}
+  &=
+  \frac{\Pi^{\mathrm{sys}}_{\mathrm{policy}}-\Pi^{\mathrm{sys}}_{\mathrm{uniform}}}
+       {\Pi^{\mathrm{sys}}_{\mathrm{uniform}}}\times100\%, &
+  e_\theta&=s^\theta_0 . \nonumber
+\end{align}
+The demand-centroid shift used in the uncongested diagnostic is
+\begin{equation}
+  \Delta C_\theta
+  =
+  \frac{\sum_{k,t}t\,\D^\theta_{k,t}}{\sum_{k,t}\D^\theta_{k,t}}
+  -
+  \frac{\sum_{k,t}t\,\D^{\theta,\mathrm{uniform}}_{k,t}}
+       {\sum_{k,t}\D^{\theta,\mathrm{uniform}}_{k,t}} .
+  \label{eq:centroid_shift}
+\end{equation}
+Thus, the values in the result tables are direct transformations of the simulated fixed-point demand, utilization, QoS, and profit arrays rather than separately fitted statistics.
+
+Public API prices are used only as scale references. The verified public prices are: Z.AI GLM-4.7 at \$0.6 per million input tokens and \$2.2 per million output tokens; DeepSeek-chat at \$0.27 cache-miss input and \$1.10 output; and OpenAI GPT-4o at \$2.50 input and \$10.00 output \cite{zaiPricing2026,deepseekPricing2026,openaiGpt4oPricing2026}. These values show that the normalized prices used in the simulation are close to the order of magnitude of real API prices, but they are not used to estimate demand elasticity. Complete parameter values are provided in the supplementary material.
+
+Two controlled vLLM single-GPU overload measurements are reused to anchor the QoS degradation shape. The backend is vLLM 0.22.0, the hardware is an NVIDIA GeForce RTX 4090, and the models are Qwen2.5-0.5B-Instruct and Qwen2.5-3B-Instruct. Each concurrency level is repeated five times. The QoS observation is defined as the service-level agreement (SLA) attainment rate for TTFT not exceeding 0.5 seconds. Figure~\ref{fig:vllm_qos_anchor} shows that both measurement profiles maintain an SLA attainment rate of one when normalized concurrency is no greater than one, and begin to decline after the healthy-concurrency point. For the 0.5B model, SLA attainment rates are $0.635$ and $0.500$ at normalized concurrency levels $1.71$ and $2.29$, respectively. For the 3B model, the rate is $0.667$ at normalized concurrency $1.71$. Fitting the threshold-type function $q(u)=\exp[-\kappa(u-\bar u)^2_+]$ gives $(\bar u,\kappa,\mathrm{RMSE})=(1.000,0.517,0.068)$ for the 0.5B profile and $(1.058,0.942,6.3\times10^{-10})$ for the 3B profile. These measurements provide a validation-style shape anchor for the QoS proxy; they do not replace real request traces, user elasticity estimates, or production SLA calibration.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{vllm_qos_anchor.pdf}
+\caption{Controlled vLLM single-GPU overload measurements used as QoS degradation anchors. The x-axis is concurrency normalized by the largest healthy concurrency level, and the y-axis is the SLA attainment rate for a 0.5-second TTFT threshold. Points are means over five repeated measurements; lines are fitted threshold-type QoS functions.}
+\label{fig:vllm_qos_anchor}
+\end{figure}
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Uncongested regime: demand shifts but profit effects remain limited}
+
+With baseline capacity, the market is not congested: peak utilization under uniform pricing is only $0.213$, and QoS remains equal to one. Table~\ref{tab:uncongested} compares uniform pricing with time-of-use dynamic pricing.
+
+\begin{table}[H]
+\centering
+\caption{Uncongested regime: uniform pricing versus dynamic pricing under deterministic grid search}
+\label{tab:uncongested}
+\begin{tabular}{lcc}
+\toprule
+Metric & Uniform pricing & Dynamic pricing \\
+\midrule
+System profit & 1193.3 & 1139.4 \\
+Peak utilization & 0.213 & 0.261 \\
+Elastic-demand centroid shift & \multicolumn{2}{c}{$+0.177$} \\
+Rigid-demand centroid shift & \multicolumn{2}{c}{$+0.077$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The demand-shifting pattern is stable. Under dynamic pricing, the centroid of time-flexible demand shifts by $+0.177$ periods, whereas the centroid of time-rigid demand shifts by $+0.077$ periods. The shift of time-flexible demand is therefore approximately $2.3$ times as large as that of time-rigid demand, which is consistent with the intended mechanism. However, because QoS is already one in the uncongested regime, there is little scope for quality improvement. The profit effect is neutral to mildly negative: across the elastic-population scan, the gains are $0\%$, $-0.32\%$, $-4.51\%$, $-3.76\%$, and $-3.00\%$. This result indicates that the QoS-protection role of time-of-use pricing becomes meaningful only when the market enters a congested regime.
+
+\subsection{Congested regime: QoS evidence strengthens, whereas profit remains unstable}
+
+After capacity is tightened, uniform pricing pushes the market into congestion. Table~\ref{tab:congested} reports four objects: the uniform-pricing baseline, the dynamic coarse-grid time-averaged strategy, the dynamic fine-grid pure snapshot, and the finite-grid mixed-strategy diagnostic. Table~\ref{tab:evidence_boundary} then states how each object is used in the paper's claim structure. This comparison separates conclusions that depend on solver resolution from those that remain valid under the lower-exploitability finite-grid mixed profile.
+
+\begin{table}[H]
+\centering
+\caption{Congested regime: uniform pricing versus dynamic pricing under time-averaged, snapshot, and mixed-strategy diagnostics}
+\label{tab:congested}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Metric & Uniform pricing & Dynamic coarse grid & Dynamic fine snapshot & Mixed diagnostic \\
+\midrule
+Peak utilization & 0.782 & 0.706 & 0.666 & 0.703 \\
+Minimum QoS & 0.756 & 0.968 & 0.990 & 0.970 \\
+System profit & 1783 & 1949 & 1749 & 1733 \\
+Profit change & --- & $+9.3\%$ & $-1.9\%$ & $-2.8\%$ \\
+Maximum regret & --- & 4.98 & 22.30 & 0.203 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Evidence boundary for the congested regime}
+\label{tab:evidence_boundary}
+\small
+\begin{tabular}{p{0.25\textwidth}p{0.30\textwidth}p{0.35\textwidth}}
+\toprule
+Object & Solver status & Claim supported in this paper \\
+\midrule
+Uniform-pricing baseline & Fictitious play reaches the criterion within 10 rounds & Used as the congested baseline. \\
+Dynamic coarse grid & Regret is $4.98$ after 22 rounds, but the coarse grid may hide finer deviations & Used as a low-resolution diagnostic; not used alone to support a quantitative profit conclusion. \\
+Dynamic fine-grid snapshot & Maximum regret is approximately $22.3$ after 40 rounds, above the $<5$ criterion & Used only as a resolution stress test and directional comparison; not interpreted as a pure-strategy equilibrium. \\
+Finite-grid mixed diagnostic & Full 225-point fine-grid scan gives maximum regret $0.203$ & Supports the QoS result for the finite-grid mixed/averaged profile; not extrapolated to the continuous strategy space. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{qos_utilization_profiles.pdf}
+\caption{Period-level utilization and QoS profiles in the congested regime. The dynamic strategies lower peak utilization and raise the minimum provider QoS in both coarse-grid and fine-grid snapshots. The dashed line in the utilization panel marks the utilization threshold at which QoS degradation begins.}
+\label{fig:qos_profiles}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{profit_components_and_regret.pdf}
+\caption{Profit distribution and single-snapshot convergence boundary. The coarse grid reaches regret below 5, whereas the fine-grid pure snapshot remains at regret $22.3$ after 40 rounds. Consequently, the fine-grid pure snapshot is not used as a robust equilibrium conclusion for profit or strategy intensity.}
+\label{fig:profit_regret}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.76\textwidth]{mixed_oracle_regret.pdf}
+\caption{Double-oracle finite-grid mixed-strategy diagnostic. Each round adds the best deviation against the current mixed profile on the complete 225-point fine grid. The fifth round obtains a $5\times5$ support profile, and full-grid maximum regret falls to $0.203$.}
+\label{fig:mixed_oracle}
+\end{figure}
+
+Figures~\ref{fig:qos_profiles}, \ref{fig:profit_regret}, and \ref{fig:mixed_oracle} visualize the same evidence from the period, profit-component, and regret perspectives. The QoS-improvement direction holds for both snapshots and the mixed profile. Uniform pricing lowers the minimum QoS to $0.756$ and raises peak utilization to $0.782$. The dynamic pricing snapshots reduce peak utilization to the $0.66$--$0.71$ range and raise minimum QoS to the $0.97$--$0.99$ range. The finite-grid mixed diagnostic has expected peak utilization $0.703$ and minimum QoS $0.970$. The QoS result is therefore not driven solely by the high-regret fine-grid pure snapshot; it is also supported by a low-regret finite-grid mixed/averaged profile.
+
+No robust positive profit effect is observed. System profit increases by $+9.3\%$ in the coarse-grid snapshot, decreases by $-1.9\%$ in the fine-grid snapshot, and decreases by approximately $-2.8\%$ in the low-regret mixed profile. The paper therefore does not report profit improvement as a positive finding. The more defensible interpretation is that, within the current solution budget and pricing-shape family, time-of-use pricing has QoS-protection value but does not provide evidence of a reliable positive profit gain.
+
+The provider-heterogeneity hypothesis is also not stable. A natural conjecture is that the smaller-capacity provider would rely more heavily on dynamic pricing, implying $\delta_B>\delta_A$. The coarse grid gives $\delta_A=0.383$ and $\delta_B=0.023$, whereas the fine grid gives $\delta_A=0.059$ and $\delta_B=0.278$. The direction reverses with grid resolution. Accordingly, the paper does not retain a claim about which provider prices more dynamically. The asymmetry in demand shifting is similarly clear in the uncongested regime but weak under the congested solution objects: in the fine-grid case, the centroids of elastic and rigid demand are $4.23$ and $4.31$, respectively, leaving little separation.
+
+\subsection{Local parameter stress tests}
+
+To examine whether the QoS direction depends on a single synthetic calibration, four groups of local perturbations are evaluated around the congested baseline: capacity scale, price sensitivity, switching cost, and the QoS threshold. At each perturbation point, the reported uniform, dynamic coarse-grid, and dynamic fine-grid policy snapshots are evaluated without re-solving the game. The exercise is therefore a fixed-policy stress test, not a cross-parameter equilibrium statement.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{parameter_sweep_qos.pdf}
+\caption{Parameter stress tests. Across nine perturbation scenarios, the dynamic coarse-grid and dynamic fine-grid snapshots maintain positive minimum-QoS gains and lower peak utilization relative to uniform pricing.}
+\label{fig:parameter_sweep}
+\end{figure}
+
+Figure~\ref{fig:parameter_sweep} shows that both dynamic snapshots preserve positive QoS gains and lower peak utilization across all nine perturbation scenarios. The smallest minimum-QoS gain is $0.126$ for the coarse-grid snapshot and $0.129$ for the fine-grid snapshot. Profit remains unsuitable for a strong positive conclusion: the coarse-grid snapshot is profitable in all nine scenarios, whereas the fine-grid snapshot is profitable in only one. This scan strengthens the generality of the QoS direction while again showing that profit improvement is not robust.
+
+\section{Discussion: QoS Improvement and the Profit Boundary}
+\label{sec:discussion}
+
+The central finding in the congested regime is that QoS improves substantially, rising from $0.756$ to approximately $0.97$ or higher, whereas profit does not show a stable positive response. Because the sign of the profit effect changes across the coarse-grid snapshot, the fine-grid snapshot, and the low-regret mixed profile, profit is not treated as a positive result. Instead, it is used as a diagnostic for explaining why QoS improvement does not necessarily translate into provider profit.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{mechanism_diagnostics.pdf}
+\caption{Mechanism diagnostics. Dynamic pricing raises QoS-adjusted served volume and lowers exit probabilities, but the average paid price falls at the same time. The improvement is therefore closer to improved coverage and user experience than to a stable profit increase.}
+\label{fig:mechanism}
+\end{figure}
+
+\subsection{Surplus reallocation rather than additional supply}
+
+Fixed capacity is the central constraint in this simulation. Time-of-use pricing cannot add physical GPU supply; it can only change the distribution of demand across periods and channels. The diagnostics in Figure~\ref{fig:mechanism} are consistent with this mechanism. Under the uniform congested baseline, QoS-adjusted served volume is $2610$. Under the dynamic coarse-grid and fine-grid snapshots, it increases to $2865$ and $3043$, respectively. At the same time, the exit probability of time-rigid users falls from $0.158$ to $0.145/0.119$, and the exit probability of time-flexible users falls from $0.087$ to $0.075/0.044$. These values show that dynamic pricing recovers part of the service loss caused by congestion. The mixed-strategy diagnostic further indicates that this QoS direction is not dependent on a single high-regret fine-grid point.
+
+The recovered service volume, however, is not converted into robust profit. The main reason is that price and quantity move in opposite directions: the average paid price declines from $0.761$ to $0.735/0.625$. For providers, the positive forces include higher peak-period margins, improved utilization of idle off-peak capacity, and increased effective billed volume as QoS recovers. Negative forces operate at the same time. Peak-period price increases can shift price-sensitive demand to a rival, a direct option, or the outside option. Off-peak discounts reduce per-request margins. Flexible users displaced from the peak may also become net lost demand. Hence, peak-price gains may be offset by demand loss, and additional off-peak volume may be offset by lower margins.
+
+This pattern should not be read as a theorem under fixed total demand. The model includes an outside option and a price-responsive market-size term, so internal demand changes with both price and QoS. A more accurate interpretation is surplus reallocation. Time-of-use pricing primarily reallocates demand across time and channels, rather than reliably creating new surplus that can be fully captured by providers.
+
+\subsection{Why recovered QoS losses do not reliably become profit}
+
+A return of QoS from $0.756$ to above $0.97$ means that fewer requests are lost to congestion-related service degradation. Intuitively, this recovery might be expected to increase profit. Two mechanisms weaken that conversion. First, peak shaving itself requires some peak demand to move, switch channels, or exit. To reduce utilization from approximately $0.78$ to the $0.66$--$0.71$ range, part of the high-peak demand must be displaced. The effective billed volume recovered through better QoS can therefore be offset by lower prices and demand reallocation. Second, competition and the outside option restrict price increases. Because two heterogeneous providers compete and users can buy directly or exit, no provider can fully appropriate the value of QoS improvement. Some of the surplus is more likely to appear as better user experience, higher completion, or lower prices under competition, rather than as a stable increase in provider profit.
+
+\subsection{Operational and regulatory implications}
+
+Dynamic pricing and surge pricing are often interpreted as revenue instruments during congestion. The present simulation results support a more cautious interpretation. In an inference-service market with fixed capacity, provider competition, and user exit, time-of-use pricing is better understood as a QoS-protection instrument; within the current model and solution budget, it does not provide robust evidence of profit improvement. For regulators, evaluation of time-of-use pricing should therefore consider not only whether prices rise during peak periods, but also whether congestion and failed service are reduced. For operators, the stronger operational justification is service-level management, not reliable revenue growth.
+
+\section{Limitations}
+\label{sec:limitations}
+
+Several limitations should be made explicit. All economic parameters, including price sensitivity, switching cost, capacity cost, the elastic-user population share, and outside-option utility, are synthetic calibrations. Real request traces are not used for calibration. Consequently, the reported percentage changes are intended to indicate mechanism direction rather than production forecasts. Public API prices provide only an order-of-magnitude price reference, and controlled vLLM single-GPU measurements provide only a QoS-shape reference. Neither replaces real arrival processes, long-context workloads, multi-model or multi-GPU measurements, production completion curves, or user price-elasticity estimates.
+
+The solution evidence is also bounded. Provider strategies are restricted to a low-dimensional pricing-shape family; the paper does not claim a global optimum in the continuous strategy space. The fine-grid pure snapshot remains high-regret and cannot be interpreted as a pure-strategy equilibrium. The double-oracle diagnostic reduces regret to $0.203$ on the finite 225-point grid, but it remains a mixed/averaged strategy diagnostic over a finite candidate set, not a global equilibrium result in the continuous strategy space. The parameter stress tests have the same boundary: they evaluate already reported policy snapshots under perturbed parameters rather than re-solving the game at each parameter point. The QoS-improvement direction is therefore retained with greater confidence than any conclusion about profit, provider-specific dynamic intensity, or continuous-space equilibrium properties.
+
+The scope is further limited by market structure and backend measurement. The paper studies two providers and one intermediary. Interactions among more providers, multiple intermediaries, long-term capacity contracts, and model routing are outside the current model. QoS degradation is represented by a synthetic sigmoid curve whose shape is anchored by controlled measurements; real backend completion and latency curves would need to be recalibrated using controlled production-like measurements or operational traces. Finally, the absence of a robust positive profit gain depends on the present fixed-capacity, competitive, and demand assumptions. The conclusion could change if total demand were more price-responsive or if capacity were adjustable in the short run.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper studied whether time-of-use dynamic pricing can improve the QoS of inference services under fixed GPU capacity. A market-level simulation model was developed with two heterogeneous competing providers, one routing intermediary, two user types, and an outside option. Provider pricing was restricted to a low-dimensional time-shape family, and provider competition was approximated through fictitious play. This approach mitigated the limit-cycle behaviour observed under naive best responses in the congested regime and made the simulation process reproducible and diagnostically transparent.
+
+Across coarse-grid and fine-grid snapshots, a finite-grid mixed-strategy diagnostic, and local parameter stress tests, the results support a bounded but consistent QoS conclusion. Under congestion, time-of-use pricing reduces peak load and raises minimum QoS from $0.756$ to approximately $0.97$ or above. The double-oracle diagnostic reduces maximum regret to $0.203$ on the complete 225-point fine grid, and QoS gains remain positive under the tested parameter perturbations. Profit results are not robust: the sign of the profit effect changes across solver objects and grid resolutions. The paper therefore does not claim that time-of-use pricing reliably increases profit. Instead, the results suggest a surplus-reallocation mechanism: under fixed capacity, competition, and user exit, price changes can recover congestion losses and reduce exit, but the associated benefits may be offset by demand outflow, thinner margins, and surplus transfer. For operators and regulators, time-of-use pricing is better viewed as a service-quality management instrument than as a reliable revenue-growth tool. Future work should incorporate real trace calibration, verify low exploitability over larger or continuous strategy spaces, and extend the model to additional providers and intermediaries.
+
+\section*{Code and Artifact Availability}
+
+The peak-shaving simulation modules are \path{pricing_sim/peak_shaving_config.py},
+\path{pricing_sim/peak_shaving_market.py}, and
+\path{pricing_sim/peak_shaving_equilibrium.py}. The main experiment entry points are:
+\begin{itemize}[leftmargin=2em]
+  \item \path{experiments/run_peak_shaving_experiments.py}: uncongested main experiment;
+  \item \path{experiments/run_peak_shaving_congested_fp.py}: congested fictitious play;
+  \item \path{experiments/run_fp_dynamic_converge.py}: regret convergence and checkpoint continuation;
+  \item \path{experiments/run_peak_shaving_robustness.py}: QoS shape, outside-option, and cross-seed checks;
+  \item \path{experiments/run_peak_shaving_mixed_oracle.py}: finite-grid mixed-strategy diagnostic;
+  \item \path{experiments/run_peak_shaving_parameter_sweep.py}: local parameter stress tests;
+  \item \path{experiments/build_peak_shaving_measurement_anchor.py}: controlled vLLM QoS-shape anchor.
+\end{itemize}
+Mechanism diagnostics and figures are rebuilt from existing strategy artifacts by
+\path{experiments/build_peak_shaving_diagnostics.py}. Machine-readable artifacts are stored under
+\path{artifacts/peak_shaving/}, with subdirectories \path{20260618/}, \path{20260619/}, and
+\path{20260619_submission/}. Figures are stored under \path{figures/}, with subdirectories
+\path{peak_shaving_diagnostics/} and \path{peak_shaving_submission/}. Parameter values, grid definitions, artifact mappings, and reproduction commands are provided in the supplementary file
+\path{peak_shaving_dynamic_pricing_supplement_2026-06-19.tex}.
+
+\small
+\bibliographystyle{unsrtnat}
+\bibliography{verified_refs}
+
+\end{document}
+
+% Polishing notes (not compiled):
+% - Rewritten into formal academic English for Simulation Modelling Practice and Theory.
+% - Terminology standardized: simulation model, modelling, verification, validation anchor, QoS, API, GPU, LLM, TTFT, SLA.
+% - Abstract compressed to approximately 242 words and keywords reduced to seven journal-appropriate terms.
+% - Section titles and transitions refined to emphasize simulation-modelling contribution, validation anchors, finite-grid diagnostics, and bounded evidence.
+% - Grammar, style, tense, voice, paragraph flow, captions, and table labels polished without changing formulas, numerical results, citations, or bibliography commands.

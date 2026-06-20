@@ -12,8 +12,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+
+from experiments.plot_style import configure_times_new_roman
 from experiments.peak_shaving_smpt_tools import (
     FIG,
     OUT,
@@ -30,6 +33,8 @@ from experiments.peak_shaving_smpt_tools import (
 from pricing_sim.peak_shaving_config import PeakShavingConfig
 from pricing_sim.peak_shaving_equilibrium import FirmParams, intermediary_best_response
 from pricing_sim.peak_shaving_market import firm_profit
+
+configure_times_new_roman()
 
 def serialise(value: Any) -> Any:
     if isinstance(value, np.ndarray):
@@ -216,17 +221,25 @@ def run_residuals() -> list[dict[str, Any]]:
 
 def plot_baselines(rows: list[dict[str, Any]]) -> None:
     comparable = [r for r in rows if "system_profit" in r]
-    labels = [r["case"].replace("_", "\n") for r in comparable]
+    label_map = {
+        "optimal_static_qos_routing": "Static\nQoS routing",
+        "offpeak_discount_only": "Off-peak\ndiscount",
+        "peak_surcharge_only": "Peak\nsurcharge",
+        "dynamic_coarse": "Dynamic\ncoarse",
+        "dynamic_fine": "Dynamic\nfine",
+        "dynamic_coarse_equal_routing": "Equal-routing\ndynamic",
+    }
+    labels = [label_map.get(r["case"], r["case"].replace("_", "\n")) for r in comparable]
     x = np.arange(len(labels))
-    fig, axes = plt.subplots(1, 3, figsize=(9.0, 3.0))
+    fig, axes = plt.subplots(1, 3, figsize=(9.6, 3.4))
     metrics = [("minimum_qos", "Minimum QoS"), ("peak_utilization", "Peak utilization"), ("system_profit", "System profit")]
     colors = ["#2A9D8F", "#E9C46A", "#264653"]
     for ax, (key, title), color in zip(axes, metrics, colors):
         ax.bar(x, [r[key] for r in comparable], color=color)
         ax.set_title(title)
-        ax.set_xticks(x, labels, rotation=35, ha="right", fontsize=7)
+        ax.set_xticks(x, labels, rotation=0, ha="center", fontsize=7)
         ax.grid(axis="y", alpha=0.2)
-    fig.tight_layout()
+    fig.tight_layout(pad=1.1)
     fig.savefig(FIG / "smpt_baseline_comparison.pdf")
     plt.close(fig)
 
@@ -239,16 +252,18 @@ def plot_phase(rows: list[dict[str, Any]]) -> None:
         ("profit_gain_pct", "Profit gain (%)", "smpt_phase_profit_gain.pdf"),
     ]:
         matrix = np.array([[next(r[key] for r in rows if r["capacity_scale"] == c and r["alpha_scale"] == a) for a in alphas] for c in caps])
-        fig, ax = plt.subplots(figsize=(4.8, 3.6))
+        fig, ax = plt.subplots(figsize=(4.9, 3.8))
         im = ax.imshow(matrix, cmap="RdYlGn", aspect="auto", origin="lower")
         ax.set_xticks(range(len(alphas)), [f"{a:.2g}" for a in alphas])
         ax.set_yticks(range(len(caps)), [f"{c:.2g}" for c in caps])
         ax.set_xlabel("Price-sensitivity scale")
         ax.set_ylabel("Capacity scale")
         ax.set_title(title)
+        midpoint = (float(np.nanmin(matrix)) + float(np.nanmax(matrix))) / 2.0
         for i in range(len(caps)):
             for j in range(len(alphas)):
-                ax.text(j, i, f"{matrix[i, j]:.2f}", ha="center", va="center", fontsize=7)
+                color = "white" if matrix[i, j] < midpoint else "black"
+                ax.text(j, i, f"{matrix[i, j]:.2f}", ha="center", va="center", fontsize=6.8, color=color)
         fig.colorbar(im, ax=ax, shrink=0.8)
         fig.tight_layout()
         fig.savefig(FIG / filename)
