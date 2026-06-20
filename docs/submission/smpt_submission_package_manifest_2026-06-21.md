@@ -42,6 +42,7 @@ Current manuscript: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
 | Elsevier upload checklist | `docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md` | Ready |
 | Author information form | `docs/submission/smpt_author_information_form_2026-06-21.md` | Needs author input |
 | Figure file inventory | `docs/submission/smpt_figure_file_inventory_2026-06-21.md` | Ready |
+| Submission portal fields | `docs/submission/smpt_submission_portal_fields_2026-06-21.md` | Ready, except author-specific fields |
 
 ## Current Manuscript Statistics
 
@@ -77,6 +78,7 @@ Current manuscript: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
 - `docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md`
 - `docs/submission/smpt_author_information_form_2026-06-21.md`
 - `docs/submission/smpt_figure_file_inventory_2026-06-21.md`
+- `docs/submission/smpt_submission_portal_fields_2026-06-21.md`
 
 ## Items Still Requiring Author Input
 

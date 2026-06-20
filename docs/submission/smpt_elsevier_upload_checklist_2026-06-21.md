@@ -16,6 +16,7 @@ Submission-candidate release:
 | Highlights | `docs/submission/smpt_highlights_2026-06-21.txt` | Ready |
 | Cover letter draft | `docs/submission/smpt_cover_letter_draft_2026-06-21.md` | Needs author metadata |
 | Declarations template | `docs/submission/smpt_declarations_template_2026-06-21.md` | Needs author metadata |
+| Submission portal fields | `docs/submission/smpt_submission_portal_fields_2026-06-21.md` | Ready, except author-specific fields |
 | Package manifest | `docs/submission/smpt_submission_package_manifest_2026-06-21.md` | Ready |
 | Figure file inventory | `docs/submission/smpt_figure_file_inventory_2026-06-21.md` | Ready |
 
@@ -43,7 +44,9 @@ Submission-candidate release:
 6. Upload figure files using the mapping in
    `smpt_figure_file_inventory_2026-06-21.md`.
 7. Add the GitHub release URL as the data/code availability link.
-8. Add an archival DOI only if the release has been mirrored to Zenodo, OSF, or
+8. Use `smpt_submission_portal_fields_2026-06-21.md` for title, abstract,
+   keywords, highlights, data availability, and AI declaration fields.
+9. Add an archival DOI only if the release has been mirrored to Zenodo, OSF, or
    another persistent archive.
 
 ## Must Be Filled By The Author Before Submission

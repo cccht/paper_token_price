@@ -3919,6 +3919,51 @@ PY'
     asset, not as a tracked repository file.
 * Status: verified and release asset published.
 
+### 2026-06-21 03:29 - Submission portal copy fields
+
+* Goal:
+  * Add a copy-ready file for Elsevier submission-system fields so the author
+    does not need to extract title, abstract, keywords, highlights, data
+    availability, and AI declaration from the TeX/PDF manually.
+* Action:
+  * Added `docs/submission/smpt_submission_portal_fields_2026-06-21.md`.
+  * Updated `docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md`.
+  * Updated `docs/submission/smpt_submission_package_manifest_2026-06-21.md`.
+  * Rebuilt `tmp/smpt_elsevier_upload_bundle_2026-06-21.zip` with the portal
+    fields file included.
+  * Uploaded the portal fields file, updated checklist, updated manifest, and
+    rebuilt zip to the GitHub release.
+* Verification:
+  ```bash
+  python3 - <<'PY'
+  # Verified portal-field abstract word count, keyword count, and highlight
+  # lengths.
+  PY
+  zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21
+  python3 - <<'PY'
+  # Verified required zip entries, including submission portal fields.
+  PY
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --clobber \
+    docs/submission/smpt_submission_portal_fields_2026-06-21.md \
+    docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md \
+    docs/submission/smpt_submission_package_manifest_2026-06-21.md \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --json tagName,url,targetCommitish,assets
+  ```
+* Result:
+  * Portal-field abstract count is 250 words under the local regex check.
+  * Portal-field keywords: 7.
+  * Portal-field highlights: 5, with lengths `72`, `72`, `69`, `70`, and `73`.
+  * Rebuilt zip contains 31 entries and passes `unzip -t`.
+  * Release now contains 22 assets and includes
+    `smpt_submission_portal_fields_2026-06-21.md`.
+* Status: verified and release assets refreshed.
+
 ## Manuscript Build
 
 
