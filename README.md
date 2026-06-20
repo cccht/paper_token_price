@@ -3678,7 +3678,42 @@ PY'
   * Log scan found no LaTeX errors, undefined references/citations, overfull
     boxes, or cross-reference rerun warnings.
   * PDF remains 23 A4 pages.
-* Status: verified.
+* Follow-up publication commands:
+  ```bash
+  git commit -m "Reference SMPT release package"
+  GIT_TERMINAL_PROMPT=0 git push origin main
+  GH_PROMPT_DISABLED=1 gh release upload smpt-final-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex \
+    docs/submission/smpt_cover_letter_draft_2026-06-21.md \
+    docs/submission/smpt_declarations_template_2026-06-21.md
+  GH_PROMPT_DISABLED=1 gh release view smpt-final-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --json tagName,name,isDraft,isPrerelease,url,targetCommitish,assets
+  ```
+* Follow-up publication result:
+  * Git commit pushed: `8f3caee` (`Reference SMPT release package`).
+  * Release URL remains:
+    `https://github.com/cccht/paper_token_price/releases/tag/smpt-final-2026-06-21`.
+  * Release assets now include 8 files:
+    `market_schematic_drawio_exact_2026-06-21.drawio`,
+    `market_schematic_drawio_exact_2026-06-21.png`,
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`,
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`,
+    `smpt_cover_letter_draft_2026-06-21.md`,
+    `smpt_declarations_template_2026-06-21.md`,
+    `smpt_highlights_2026-06-21.txt`, and
+    `smpt_submission_package_manifest_2026-06-21.md`.
+  * The local `gh` version supports release creation, upload, list, download,
+    and view, but not `gh release edit`; therefore release notes were not edited
+    after the attachment refresh.
+  * The release tag target remains the creation commit `2eda4c2`, while the
+    release assets were refreshed after repository commit `8f3caee`. The assets,
+    not the auto-generated source archive, should be used as the submission
+    candidate package unless a new archival DOI/release is created later.
+* Status: verified and published.
 
 ## Manuscript Build
 
