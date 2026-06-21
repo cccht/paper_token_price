@@ -489,7 +489,7 @@ Finite-grid mixed diagnostic & Full 225-point fine-grid scan gives maximum regre
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.88\textwidth]{profit_components_and_regret.pdf}
-\caption{Profit distribution and single-snapshot convergence boundary. The coarse grid reaches regret below 5, whereas the fine-grid pure snapshot remains at regret $22.3$ after 40 rounds. The fine-grid pure snapshot is therefore used only as a resolution stress test, not as a robust equilibrium conclusion for profit or strategy intensity.}
+\caption{Profit components and pure-strategy regret boundary. The left panel decomposes profit by market participant, and the right panel reports stored best-response regret. The coarse snapshot reaches regret $<5$, whereas the fine-grid pure snapshot remains at $22.3$ and is used only as a resolution stress test.}
 \label{fig:profit_regret}
 \end{figure}
 
@@ -603,7 +603,7 @@ The central finding in the congested regime is that QoS improves substantially, 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{mechanism_diagnostics.pdf}
-\caption{Mechanism diagnostics. Dynamic pricing raises QoS-adjusted served volume and lowers exit probabilities, but the average paid price falls at the same time. The improvement is closer to better coverage and user experience than to a stable profit increase.}
+\caption{Mechanism diagnostics in the congested regime. The panels report average paid price, no-purchase probability, QoS-adjusted served volume, and population-weighted inclusive value. Dynamic pricing improves served-volume and no-purchase outcomes while lowering average paid price, consistent with surplus reallocation rather than a stable provider-profit gain.}
 \label{fig:mechanism}
 \end{figure}
 

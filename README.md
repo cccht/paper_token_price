@@ -3980,6 +3980,89 @@ PY'
     scientific claims or experimental evidence.
 * Status: documented.
 
+### 2026-06-21 14:17 - Figure 4 and Figure 8 caption correction
+
+* Goal:
+  * Correct the captions of Figure 4 and Figure 8 in the final SMPT manuscript
+    after a manual caption-quality concern was raised.
+* Context:
+  * Figure 4 previously used the phrase `Profit distribution`, although the
+    figure actually reports profit components and a pure-strategy regret
+    boundary.
+  * Figure 8 previously described the mechanism direction but did not explicitly
+    name all four diagnostic panels.
+* Action:
+  * Updated `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`.
+  * Reworded Figure 4 as profit components plus pure-strategy regret boundary.
+  * Reworded Figure 8 to name average paid price, no-purchase probability,
+    QoS-adjusted served volume, and population-weighted inclusive value.
+* Command:
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf | grep -E "Pages|Page size"
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_final_text_caption_fix_v2.txt
+  grep -En "Figure 4|Figure 8|Profit components and pure-strategy regret boundary|Mechanism diagnostics in the congested regime|Profit distribution|single-snapshot convergence boundary|better coverage and user experience" /tmp/ps_final_text_caption_fix_v2.txt
+  grep -En 'LaTeX Error|Undefined control sequence|Citation .* undefined|Reference .* undefined|There were undefined|Overfull \\hbox|Overfull \\vbox|Rerun to get cross-references' peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log || true
+  pdftoppm -f 13 -l 13 -png -r 180 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/caption_visual_check/final_page
+  pdftoppm -f 17 -l 17 -png -r 180 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/caption_visual_check/final_page
+  ```
+* Output:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+  * `tmp/caption_visual_check/final_page-13.png`
+  * `tmp/caption_visual_check/final_page-17.png`
+* Result:
+  * Final PDF remains 23 A4 pages.
+  * PDF text contains the corrected Figure 4 and Figure 8 captions.
+  * Old phrases `Profit distribution`, `single-snapshot convergence boundary`,
+    and `better coverage and user experience` are absent from the PDF text.
+  * Log scan found no LaTeX errors, undefined references/citations, overfull
+    boxes, or unresolved cross-reference rerun warning.
+  * Rendered-page inspection confirms that Figure 4 and Figure 8 captions are
+    visually close to the figures and do not overlap plots or body text.
+* Next:
+  * Refresh the GitHub release manuscript PDF/TEX and upload bundle.
+* Status: verified locally.
+
+### 2026-06-21 14:19 - Release assets refreshed after caption correction
+
+* Goal:
+  * Ensure the GitHub release and upload bundle contain the corrected Figure 4
+    and Figure 8 captions.
+* Action:
+  * Copied the rebuilt final PDF/TEX into the Elsevier upload bundle.
+  * Rebuilt `tmp/smpt_elsevier_upload_bundle_2026-06-21.zip`.
+  * Re-uploaded the final PDF, final TEX, and upload bundle zip to the GitHub
+    release with `--clobber`.
+* Command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21 && cd ..
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 \
+    --repo cccht/paper_token_price \
+    --json tagName,url,targetCommitish,assets
+  ```
+* Result:
+  * `unzip -t` reports no errors.
+  * Release still contains 22 assets.
+  * Refreshed release assets:
+    * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
+    * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+    * `smpt_elsevier_upload_bundle_2026-06-21.zip`
+  * Release URL:
+    `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`
+* Status: verified and release assets refreshed.
+
 ## Manuscript Build
 
 
