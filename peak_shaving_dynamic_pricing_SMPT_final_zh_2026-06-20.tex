@@ -465,7 +465,7 @@ $c_g,u_0$ & 0.015, 0.0 & 固定容量持有成本和外部选项效用。 \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.88\textwidth]{profit_components_and_regret.pdf}
-\caption{利润分布与单一快照收敛边界。粗网格达到低于 5 的 regret，而细网格纯策略快照在 40 轮后仍有 regret $22.3$。因此，细网格纯策略快照不用于形成关于利润或策略强度的稳健均衡结论。}
+\caption{利润组成与纯策略 regret 边界。左图按市场参与者（服务商 A、服务商 B 和中间商）分解利润，右图报告已保存候选的最佳响应 regret。粗网格快照达到 regret $<5$，而细网格纯策略快照仍为 $22.3$，因此后者仅作为分辨率压力测试。}
 \label{fig:profit_regret}
 \end{figure}
 
@@ -579,7 +579,7 @@ QoS 阈值 $0.78$ & $+0.241$ & $+0.066$ & $+11.0\%$ \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{mechanism_diagnostics.pdf}
-\caption{机制诊断。动态定价提高 QoS 调整后的服务量并降低退出概率，但平均支付价格同时下降。因此，该改善更接近覆盖率和用户体验改善，而不是稳定利润增长。}
+\caption{拥塞状态下的机制诊断。面板 (a)--(d) 分别报告平均支付价格、无购买概率、QoS 调整后的服务量和人口加权 inclusive value。动态定价改善服务量和无购买结果，同时降低平均支付价格；这一模式与剩余重分配解释一致，而不是稳定的服务商利润增益。}
 \label{fig:mechanism}
 \end{figure}
 

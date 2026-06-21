@@ -4165,6 +4165,88 @@ PY'
     `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`
 * Status: verified and release assets refreshed.
 
+### 2026-06-21 15:09 - Synchronize English and Chinese final TeX manuscripts
+
+* Goal:
+  * Update the English and Chinese final SMPT TeX manuscripts after the Figure 4
+    legend repair and Figure 8 panel-label repair.
+* Context:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` already uses the
+    updated figure sources, but its Figure 8 caption should explicitly align
+    with the `(a)`--`(d)` panel labels.
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex` still contains
+    older Figure 4 and Figure 8 captions.
+* Planned action:
+  * Update only figure captions and directly related explanatory wording in the
+    final English and Chinese TeX files.
+  * Do not change experiments, data artifacts, equations, tables, or numerical
+    claims.
+  * Recompile both PDFs and inspect the affected figure pages.
+* Command:
+  ```bash
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/ps_final_en_sync.txt
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/ps_final_zh_sync.txt
+  pdftoppm -r 180 -f 13 -l 13 -png peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/page_checks/en_fig4
+  pdftoppm -r 180 -f 17 -l 17 -png peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/page_checks/en_fig8
+  pdftoppm -r 180 -f 11 -l 11 -png peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf tmp/page_checks/zh_fig4
+  pdftoppm -r 180 -f 15 -l 15 -png peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf tmp/page_checks/zh_fig8
+  ```
+* Output:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` (23 pages).
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf` (21 pages).
+  * Page-check renders:
+    `tmp/page_checks/en_fig4-13.png`,
+    `tmp/page_checks/en_fig8-17.png`,
+    `tmp/page_checks/zh_fig4-11.png`,
+    `tmp/page_checks/zh_fig8-15.png`.
+* Result:
+  * English Figure 4 caption now names Provider A, Provider B, and the
+    intermediary, matching the visible legend.
+  * English Figure 8 caption now maps panels `(a)`--`(d)` to the four displayed
+    diagnostics.
+  * Chinese Figure 4 and Figure 8 captions were synchronized with the same
+    evidence interpretation.
+  * PDF text checks found the new captions and no stale Figure 4/Figure 8 caption
+    phrases.
+  * LaTeX log checks found no LaTeX errors, undefined references/citations,
+    overfull boxes, or final cross-reference rerun warnings. The Chinese build
+    still reports the known non-fatal `fontspec` warnings for Fandol fonts.
+  * A first log-scan shell command failed because `printf` interpreted a leading
+    `--` as an option; the command was corrected and rerun successfully. This was
+    a verification-script issue, not a manuscript build issue.
+* Decision:
+  * No experiment, data artifact, equation, table, or numerical claim was
+    changed.
+  * Refresh the English submission bundle and GitHub release assets because the
+    final English PDF/TEX changed.
+* Release refresh:
+  * Command:
+    ```bash
+    cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+    cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+    (cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21)
+    unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+    gh release upload smpt-submission-candidate-2026-06-21 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21.zip --clobber
+    ```
+  * Output:
+    * `tmp/smpt_elsevier_upload_bundle_2026-06-21.zip` rebuilt and `unzip -t`
+      reported no compressed-data errors.
+    * GitHub release assets refreshed at
+      `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`.
+    * Updated remote asset sizes:
+      `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 551982 bytes,
+      `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` = 64717 bytes,
+      `smpt_elsevier_upload_bundle_2026-06-21.zip` = 968674 bytes.
+* Status: verified.
+
 ## Manuscript Build
 
 
