@@ -4823,6 +4823,123 @@ PY'
   * `smpt_elsevier_upload_bundle_2026-06-21.zip` = 926987 bytes.
 * Status: verified.
 
+### 2026-06-21 22:39 - Shared palette alignment for Figure 4, Figure 6, and Figure 8
+
+* Goal:
+  * Fix the remaining palette inconsistency across Figure 4, Figure 6, and
+    Figure 8.
+  * Use the same reference-image-derived family for policy and participant
+    encodings in the three figures.
+* Context:
+  * Figure 6 and Figure 8 already use the reference-image palette introduced in
+    the previous round.
+  * Figure 4 still used the earlier NPG navy/cyan/coral/green combination in
+    its profit-component and regret panels, which made the figure visually
+    inconsistent with Figure 6 and Figure 8.
+* Planned palette:
+  * Policy snapshots: uniform = `#89C6CF`, dynamic coarse = `#F08080`,
+    dynamic fine = `#73BDAB`.
+  * Figure 4 profit participants: Provider A = `#89C6CF`, Provider B =
+    `#73BDAB`, intermediary = `#F08080`.
+  * User types in Figure 8: rigid = `#577386`, elastic = `#F08080`.
+  * Reference/threshold lines: `#577386`.
+* Boundary:
+  * Only figure-generation scripts and generated figure/PDF assets will change.
+  * No simulation data, equations, captions, manuscript wording, or claims will
+    be changed.
+* Action:
+  * Added shared reference-palette constants in
+    `experiments/build_peak_shaving_diagnostics.py`.
+  * Updated Figure 4 profit-participant colors and pure-strategy regret colors
+    to match the Figure 6/Figure 8 color family.
+  * Updated Figure 8 to use the same shared policy and user-type color
+    constants.
+  * Replaced Figure 6 hard-coded colors with the same shared policy palette in
+    `experiments/run_peak_shaving_parameter_sweep.py`.
+* Figure regeneration command:
+  ```bash
+  uv run python -m py_compile experiments/build_peak_shaving_diagnostics.py experiments/run_peak_shaving_parameter_sweep.py
+  uv run python - <<'PY'
+  import json
+  from experiments.build_peak_shaving_diagnostics import FIG, build_records, plot_mechanism, plot_profit_regret, validate
+  from experiments.run_peak_shaving_parameter_sweep import FIG as SWEEP_FIG, plot_sweep
+
+  bundle = build_records()
+  warnings = validate(bundle)
+  plot_profit_regret(bundle)
+  plot_mechanism(bundle)
+  rows = json.loads((SWEEP_FIG.parent.parent / "artifacts" / "peak_shaving" / "20260619_submission" / "peak_shaving_parameter_sweep.json").read_text(encoding="utf-8"))
+  plot_sweep(rows)
+  print({
+      "validation_warnings": warnings,
+      "figures": [
+          str(FIG / "profit_components_and_regret.pdf"),
+          str(SWEEP_FIG / "parameter_sweep_qos.pdf"),
+          str(FIG / "mechanism_diagnostics.pdf"),
+      ],
+  })
+  PY
+  ```
+* Figure regeneration result:
+  * `py_compile` succeeded.
+  * Figure regeneration succeeded with `validation_warnings: []`.
+  * Updated figure assets:
+    `figures/peak_shaving_diagnostics/profit_components_and_regret.pdf`,
+    `figures/peak_shaving_submission/parameter_sweep_qos.pdf`, and
+    `figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf`.
+* Manuscript rebuild command:
+  ```bash
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log || true
+  ```
+* Manuscript rebuild result:
+  * English PDF rebuilt successfully: 23 pages, 530440 bytes.
+  * Chinese PDF rebuilt successfully: 21 pages, 911487 bytes.
+  * Hard log scan found no `LaTeX Error`, undefined control sequence,
+    undefined reference/citation, or `Overfull` entries.
+* Visual check command:
+  ```bash
+  mkdir -p /tmp/peak_shaving_fig468_palette_20260621/figures /tmp/peak_shaving_fig468_palette_20260621/pages
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_diagnostics/profit_components_and_regret.pdf /tmp/peak_shaving_fig468_palette_20260621/figures/fig04_profit_regret
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_submission/parameter_sweep_qos.pdf /tmp/peak_shaving_fig468_palette_20260621/figures/fig06_parameter
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf /tmp/peak_shaving_fig468_palette_20260621/figures/fig08_mechanism
+  pdftoppm -png -r 180 -f 13 -l 17 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/peak_shaving_fig468_palette_20260621/pages/en
+  pdftoppm -png -r 180 -f 11 -l 15 peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/peak_shaving_fig468_palette_20260621/pages/zh
+  ```
+* Visual check result:
+  * Figure 4, Figure 6, and Figure 8 now use the same reference-image-derived
+    sky-blue/coral/teal family.
+  * English page checks: Figure 4 on page 13, Figure 6 on page 15, Figure 8 on
+    page 17.
+  * Chinese page checks: Figure 4 on page 11, Figure 6 on page 13, Figure 8 on
+    page 15.
+  * Legends remain visible and do not overlap bars, panel labels, captions, or
+    body text.
+* Release refresh command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp figures/peak_shaving_diagnostics/profit_components_and_regret.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_submission/parameter_sweep_qos.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  (cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21)
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    figures/peak_shaving_diagnostics/profit_components_and_regret.pdf \
+    figures/peak_shaving_submission/parameter_sweep_qos.pdf \
+    figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  ```
+* Release verification:
+  * `profit_components_and_regret.pdf` = 26207 bytes.
+  * `parameter_sweep_qos.pdf` = 27104 bytes.
+  * `mechanism_diagnostics.pdf` = 43361 bytes.
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 530440 bytes.
+  * `smpt_elsevier_upload_bundle_2026-06-21.zip` = 926957 bytes.
+* Status: verified.
+
 ## Manuscript Build
 
 

@@ -41,8 +41,18 @@ NPG_GREEN = "#00A087"
 NPG_CORAL = "#E64B35"
 NPG_GRAY = "#4D4D4D"
 COLORS = {"uniform": NPG_NAVY, "dynamic_coarse": NPG_CORAL, "dynamic_fine": NPG_GREEN}
-FIGURE8_COLORS = {"uniform": "#89C6CF", "dynamic_coarse": "#F08080", "dynamic_fine": "#73BDAB"}
-FIGURE8_USER_COLORS = {"rigid": "#577386", "elastic": "#F08080"}
+REFERENCE_SLATE = "#577386"
+REFERENCE_POLICY_COLORS = {
+    "uniform": "#89C6CF",
+    "dynamic_coarse": "#F08080",
+    "dynamic_fine": "#73BDAB",
+}
+REFERENCE_PARTICIPANT_COLORS = {
+    "firm_A_profit": "#89C6CF",
+    "firm_B_profit": "#73BDAB",
+    "intermediary_profit": "#F08080",
+}
+REFERENCE_USER_COLORS = {"rigid": REFERENCE_SLATE, "elastic": "#F08080"}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -314,13 +324,14 @@ def plot_mechanism(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     x = np.arange(len(names))
     fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.65))
-    strategy_handles = [Patch(facecolor=FIGURE8_COLORS[n], edgecolor="none", label=CASE_LABELS[n]) for n in names]
+    strategy_handles = [Patch(facecolor=REFERENCE_POLICY_COLORS[n], edgecolor="none", label=CASE_LABELS[n]) for n in names]
     for ax, metric, title, panel_label in [
         (axes[0, 0], "average_paid_price", "Average paid price", "(a)"),
         (axes[1, 0], "served_volume", "QoS-adjusted served volume", "(c)"),
         (axes[1, 1], "weighted_inclusive_value", "Population-weighted inclusive value", "(d)"),
     ]:
-        ax.bar(x, [bundle["cases"][n]["summary"][metric] for n in names], color=[FIGURE8_COLORS[n] for n in names])
+        ax.bar(x, [bundle["cases"][n]["summary"][metric] for n in names],
+               color=[REFERENCE_POLICY_COLORS[n] for n in names])
         ax.set_title(title, fontsize=10, fontweight="bold", loc="left", pad=8)
         ax.text(0.5, -0.34, panel_label, transform=ax.transAxes, ha="center",
                 va="top", fontsize=9, fontweight="bold", clip_on=False)
@@ -329,8 +340,8 @@ def plot_mechanism(bundle: dict[str, Any]) -> None:
                   borderaxespad=0.25, handlelength=1.2, labelspacing=0.25)
     rigid = [bundle["cases"][n]["exit_probability"]["rigid"] for n in names]
     elastic = [bundle["cases"][n]["exit_probability"]["elastic"] for n in names]
-    axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color=FIGURE8_USER_COLORS["rigid"])
-    axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color=FIGURE8_USER_COLORS["elastic"])
+    axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color=REFERENCE_USER_COLORS["rigid"])
+    axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color=REFERENCE_USER_COLORS["elastic"])
     axes[0, 1].set_title("No-purchase probability", fontsize=10, fontweight="bold", loc="left", pad=8)
     axes[0, 1].text(0.5, -0.34, "(b)", transform=axes[0, 1].transAxes, ha="center",
                     va="top", fontsize=9, fontweight="bold", clip_on=False)
@@ -349,8 +360,9 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.9))
     bottom = np.zeros(len(names))
-    parts = [("firm_A_profit", NPG_NAVY, "Provider A"), ("firm_B_profit", NPG_CYAN, "Provider B"),
-             ("intermediary_profit", NPG_CORAL, "Intermediary")]
+    parts = [("firm_A_profit", REFERENCE_PARTICIPANT_COLORS["firm_A_profit"], "Provider A"),
+             ("firm_B_profit", REFERENCE_PARTICIPANT_COLORS["firm_B_profit"], "Provider B"),
+             ("intermediary_profit", REFERENCE_PARTICIPANT_COLORS["intermediary_profit"], "Intermediary")]
     handles = []
     legend_labels = []
     for key, color, label in parts:
@@ -366,15 +378,15 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
                    labelspacing=0.25, borderaxespad=0.25)
     meta = bundle["metadata"]
     axes[1].bar([0, 1], [meta["dynamic_coarse_maxregret"], meta["dynamic_fine_maxregret"]],
-                color=[COLORS["dynamic_coarse"], COLORS["dynamic_fine"]])
-    axes[1].axhline(5.0, color=NPG_GRAY, lw=1, ls="--", label="target < 5")
+                color=[REFERENCE_POLICY_COLORS["dynamic_coarse"], REFERENCE_POLICY_COLORS["dynamic_fine"]])
+    axes[1].axhline(5.0, color=REFERENCE_SLATE, lw=1, ls="--", label="target < 5")
     axes[1].set_xticks([0, 1], ["Coarse\nround 22", "Fine\nround 40"])
     axes[1].set_title("Final stored max regret", fontsize=10)
     axes[1].set_xlim(-0.55, 1.55)
     regret_handles = [
-        Patch(facecolor=COLORS["dynamic_coarse"], edgecolor="none", label="Dynamic coarse"),
-        Patch(facecolor=COLORS["dynamic_fine"], edgecolor="none", label="Dynamic fine"),
-        Line2D([0], [0], color=NPG_GRAY, lw=1, ls="--", label="target < 5"),
+        Patch(facecolor=REFERENCE_POLICY_COLORS["dynamic_coarse"], edgecolor="none", label="Dynamic coarse"),
+        Patch(facecolor=REFERENCE_POLICY_COLORS["dynamic_fine"], edgecolor="none", label="Dynamic fine"),
+        Line2D([0], [0], color=REFERENCE_SLATE, lw=1, ls="--", label="target < 5"),
     ]
     axes[1].legend(handles=regret_handles, frameon=False, fontsize=7.5, loc="upper left",
                    borderaxespad=0.35, handlelength=1.4, labelspacing=0.3)

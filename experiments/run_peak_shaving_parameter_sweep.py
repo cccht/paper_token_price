@@ -28,6 +28,11 @@ FIG = ROOT / "figures" / "peak_shaving_submission"
 CAP = np.array([300.0, 120.0])
 QOS_SHAPE = "sigmoid"
 CASE_LABELS = {"uniform": "Uniform", "dynamic_coarse": "Dynamic coarse", "dynamic_fine": "Dynamic fine"}
+REFERENCE_POLICY_COLORS = {
+    "uniform": "#89C6CF",
+    "dynamic_coarse": "#F08080",
+    "dynamic_fine": "#73BDAB",
+}
 configure_times_new_roman()
 
 
@@ -113,10 +118,12 @@ def plot_sweep(rows: list[dict[str, Any]]) -> None:
     fig, axes = plt.subplots(2, 1, figsize=(9.2, 6.4), sharex=True)
     x = np.arange(len(scenarios))
     width = 0.36
-    for offset, case, color in [(-width / 2, "dynamic_coarse", "#F08080"), (width / 2, "dynamic_fine", "#73BDAB")]:
+    for offset, case in [(-width / 2, "dynamic_coarse"), (width / 2, "dynamic_fine")]:
         subset = [r for r in rows if r["case"] == case]
-        axes[0].bar(x + offset, [r["qos_gain_vs_uniform"] for r in subset], width, label=CASE_LABELS[case], color=color)
-        axes[1].bar(x + offset, [r["peak_util_reduction_vs_uniform"] for r in subset], width, label=CASE_LABELS[case], color=color)
+        axes[0].bar(x + offset, [r["qos_gain_vs_uniform"] for r in subset], width,
+                    label=CASE_LABELS[case], color=REFERENCE_POLICY_COLORS[case])
+        axes[1].bar(x + offset, [r["peak_util_reduction_vs_uniform"] for r in subset], width,
+                    label=CASE_LABELS[case], color=REFERENCE_POLICY_COLORS[case])
     axes[0].axhline(0.0, color="#666666", lw=1)
     axes[1].axhline(0.0, color="#666666", lw=1)
     axes[0].set_ylabel("Minimum QoS gain")
