@@ -4940,6 +4940,180 @@ PY'
   * `smpt_elsevier_upload_bundle_2026-06-21.zip` = 926957 bytes.
 * Status: verified.
 
+### 2026-06-21 23:06 - Nature/NMI pastel palette trial for Figure 4, Figure 6, and Figure 8
+
+* Goal:
+  * Try the `nature-figure` skill palette on Figure 4, Figure 6, and Figure 8
+    after the author requested a different color scheme.
+  * Keep the three figures internally consistent while preserving all numerical
+    values, axes, labels, captions, and manuscript claims.
+* Figure contract:
+  * Core conclusion: the same QoS-improvement and profit-boundary evidence
+    should read as one coherent figure family.
+  * Evidence chain: Figure 4 reports profit components and pure-strategy regret,
+    Figure 6 reports local stress-test QoS/peak-utilization robustness, and
+    Figure 8 reports mechanism diagnostics.
+  * Archetype: quantitative grid / grouped-bar figure family.
+  * Backend: Python/Matplotlib, because the current figure-generation scripts
+    are Python scripts.
+  * Export contract: keep vector PDF outputs for LaTeX; retain the existing
+    Times New Roman figure typography required by earlier manuscript edits.
+* Nature/NMI palette mapping:
+  * `baseline_dark`: `#484878`
+  * `baseline_mid`: `#7884B4`
+  * `baseline_soft`: `#B4C0E4`
+  * `ours_base`: `#E4CCD8`
+  * `ours_large`: `#F0C0CC`
+  * `neutral_dark`: `#606060`
+* Planned palette:
+  * Policy snapshots: uniform = `#7884B4`, dynamic coarse = `#E4CCD8`,
+    dynamic fine = `#F0C0CC`.
+  * Figure 4 profit participants: Provider A = `#B4C0E4`, Provider B =
+    `#7884B4`, intermediary = `#E4CCD8`.
+  * Figure 8 user types: rigid = `#484878`, elastic = `#F0C0CC`.
+  * Reference/threshold lines: `#606060`.
+* Boundary:
+  * Only palette constants, regenerated figure assets, rebuilt PDFs, and release
+    assets will change.
+  * No experiment outputs, formulas, tables, captions, TeX prose, or research
+    claims will be changed.
+* Action:
+  * Replaced the prior reference-image colors in
+    `experiments/build_peak_shaving_diagnostics.py` with the Nature/NMI pastel
+    mapping above.
+  * Replaced the Figure 6 policy colors in
+    `experiments/run_peak_shaving_parameter_sweep.py` with the same policy
+    mapping.
+  * Kept the existing Times New Roman figure typography and PDF export path to
+    preserve compatibility with the current LaTeX manuscript.
+* Figure regeneration command:
+  ```bash
+  uv run python -m py_compile experiments/build_peak_shaving_diagnostics.py experiments/run_peak_shaving_parameter_sweep.py
+  uv run python - <<'PY'
+  import json
+  from experiments.build_peak_shaving_diagnostics import FIG, build_records, plot_mechanism, plot_profit_regret, validate
+  from experiments.run_peak_shaving_parameter_sweep import FIG as SWEEP_FIG, plot_sweep
+
+  bundle = build_records()
+  warnings = validate(bundle)
+  plot_profit_regret(bundle)
+  plot_mechanism(bundle)
+  rows = json.loads((SWEEP_FIG.parent.parent / "artifacts" / "peak_shaving" / "20260619_submission" / "peak_shaving_parameter_sweep.json").read_text(encoding="utf-8"))
+  plot_sweep(rows)
+  print({
+      "validation_warnings": warnings,
+      "figures": [
+          str(FIG / "profit_components_and_regret.pdf"),
+          str(SWEEP_FIG / "parameter_sweep_qos.pdf"),
+          str(FIG / "mechanism_diagnostics.pdf"),
+      ],
+  })
+  PY
+  ```
+* Figure regeneration result:
+  * `py_compile` succeeded.
+  * Figure regeneration succeeded with `validation_warnings: []`.
+  * Updated figure assets:
+    `figures/peak_shaving_diagnostics/profit_components_and_regret.pdf`,
+    `figures/peak_shaving_submission/parameter_sweep_qos.pdf`, and
+    `figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf`.
+* Manuscript rebuild command:
+  ```bash
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log || true
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  ```
+* Manuscript rebuild result:
+  * English PDF rebuilt successfully: 23 pages,
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` =
+    530403 bytes.
+  * Chinese PDF rebuilt successfully: 21 pages,
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf` =
+    911458 bytes.
+  * The log scan reported no `LaTeX Error`, undefined reference/citation,
+    undefined control sequence, or `Overfull` matches for the two rebuilt
+    manuscripts.
+* Visual preview command:
+  ```bash
+  mkdir -p /tmp/peak_shaving_nature_palette_20260621/figures /tmp/peak_shaving_nature_palette_20260621/pages
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_diagnostics/profit_components_and_regret.pdf /tmp/peak_shaving_nature_palette_20260621/figures/fig04_profit_regret
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_submission/parameter_sweep_qos.pdf /tmp/peak_shaving_nature_palette_20260621/figures/fig06_parameter
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf /tmp/peak_shaving_nature_palette_20260621/figures/fig08_mechanism
+  pdftoppm -png -r 180 -f 13 -l 17 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/peak_shaving_nature_palette_20260621/pages/en
+  pdftoppm -png -r 180 -f 11 -l 15 peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/peak_shaving_nature_palette_20260621/pages/zh
+  ```
+* Visual preview result:
+  * Figure 4, Figure 6, and Figure 8 standalone previews were generated under
+    `/tmp/peak_shaving_nature_palette_20260621/figures`.
+  * English manuscript pages checked: Figure 4 on page 13, Figure 6 on page 15,
+    and Figure 8 on page 17.
+  * Chinese manuscript pages checked: Figure 4 on page 11, Figure 6 on page 13,
+    and Figure 8 on page 15.
+  * The Nature/NMI pastel scheme is readable and internally consistent across
+    Figure 4, Figure 6, and Figure 8. It is visually softer than the prior
+    reference-image palette; Figure 6 has lower color contrast, but the legend,
+    bars, and axis labels remain legible in both manuscripts.
+* Release refresh command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp figures/peak_shaving_diagnostics/profit_components_and_regret.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_submission/parameter_sweep_qos.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cd tmp
+  zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21
+  unzip -t smpt_elsevier_upload_bundle_2026-06-21.zip
+  cd ..
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    figures/peak_shaving_diagnostics/profit_components_and_regret.pdf \
+    figures/peak_shaving_submission/parameter_sweep_qos.pdf \
+    figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --json assets
+  ```
+* Release refresh result:
+  * The zip integrity check passed.
+  * Refreshed release assets:
+    * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 530403 bytes.
+    * `profit_components_and_regret.pdf` = 26202 bytes.
+    * `parameter_sweep_qos.pdf` = 27089 bytes.
+    * `mechanism_diagnostics.pdf` = 43349 bytes.
+    * `smpt_elsevier_upload_bundle_2026-06-21.zip` = 926898 bytes.
+* Final verification command:
+  ```bash
+  uv run python -m py_compile experiments/build_peak_shaving_diagnostics.py experiments/run_peak_shaving_parameter_sweep.py
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  if rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log; then
+    exit 2
+  fi
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  stat -c "%n %s" \
+    figures/peak_shaving_diagnostics/profit_components_and_regret.pdf \
+    figures/peak_shaving_submission/parameter_sweep_qos.pdf \
+    figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --json assets
+  ```
+* Final verification result:
+  * `py_compile`, both `latexmk` commands, and the zip integrity test succeeded.
+  * The final log scan produced no hard-error, undefined-reference/citation, or
+    overfull-box matches.
+  * Local and remote release sizes match for the English PDF, Figure 4,
+    Figure 6, Figure 8, and the upload bundle.
+* Status: verified and release assets refreshed.
+
 ## Manuscript Build
 
 

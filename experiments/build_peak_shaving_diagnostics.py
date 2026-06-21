@@ -41,18 +41,18 @@ NPG_GREEN = "#00A087"
 NPG_CORAL = "#E64B35"
 NPG_GRAY = "#4D4D4D"
 COLORS = {"uniform": NPG_NAVY, "dynamic_coarse": NPG_CORAL, "dynamic_fine": NPG_GREEN}
-REFERENCE_SLATE = "#577386"
 REFERENCE_POLICY_COLORS = {
-    "uniform": "#89C6CF",
-    "dynamic_coarse": "#F08080",
-    "dynamic_fine": "#73BDAB",
+    "uniform": "#7884B4",
+    "dynamic_coarse": "#E4CCD8",
+    "dynamic_fine": "#F0C0CC",
 }
 REFERENCE_PARTICIPANT_COLORS = {
-    "firm_A_profit": "#89C6CF",
-    "firm_B_profit": "#73BDAB",
-    "intermediary_profit": "#F08080",
+    "firm_A_profit": "#B4C0E4",
+    "firm_B_profit": "#7884B4",
+    "intermediary_profit": "#E4CCD8",
 }
-REFERENCE_USER_COLORS = {"rigid": REFERENCE_SLATE, "elastic": "#F08080"}
+REFERENCE_USER_COLORS = {"rigid": "#484878", "elastic": "#F0C0CC"}
+REFERENCE_LINE_COLOR = "#606060"
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -379,14 +379,14 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
     meta = bundle["metadata"]
     axes[1].bar([0, 1], [meta["dynamic_coarse_maxregret"], meta["dynamic_fine_maxregret"]],
                 color=[REFERENCE_POLICY_COLORS["dynamic_coarse"], REFERENCE_POLICY_COLORS["dynamic_fine"]])
-    axes[1].axhline(5.0, color=REFERENCE_SLATE, lw=1, ls="--", label="target < 5")
+    axes[1].axhline(5.0, color=REFERENCE_LINE_COLOR, lw=1, ls="--", label="target < 5")
     axes[1].set_xticks([0, 1], ["Coarse\nround 22", "Fine\nround 40"])
     axes[1].set_title("Final stored max regret", fontsize=10)
     axes[1].set_xlim(-0.55, 1.55)
     regret_handles = [
         Patch(facecolor=REFERENCE_POLICY_COLORS["dynamic_coarse"], edgecolor="none", label="Dynamic coarse"),
         Patch(facecolor=REFERENCE_POLICY_COLORS["dynamic_fine"], edgecolor="none", label="Dynamic fine"),
-        Line2D([0], [0], color=REFERENCE_SLATE, lw=1, ls="--", label="target < 5"),
+        Line2D([0], [0], color=REFERENCE_LINE_COLOR, lw=1, ls="--", label="target < 5"),
     ]
     axes[1].legend(handles=regret_handles, frameon=False, fontsize=7.5, loc="upper left",
                    borderaxespad=0.35, handlelength=1.4, labelspacing=0.3)

@@ -29,9 +29,9 @@ CAP = np.array([300.0, 120.0])
 QOS_SHAPE = "sigmoid"
 CASE_LABELS = {"uniform": "Uniform", "dynamic_coarse": "Dynamic coarse", "dynamic_fine": "Dynamic fine"}
 REFERENCE_POLICY_COLORS = {
-    "uniform": "#89C6CF",
-    "dynamic_coarse": "#F08080",
-    "dynamic_fine": "#73BDAB",
+    "uniform": "#7884B4",
+    "dynamic_coarse": "#E4CCD8",
+    "dynamic_fine": "#F0C0CC",
 }
 configure_times_new_roman()
 
