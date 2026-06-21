@@ -5114,6 +5114,169 @@ PY'
     Figure 6, Figure 8, and the upload bundle.
 * Status: verified and release assets refreshed.
 
+### 2026-06-21 23:18 - Figure 1 redraw and Figure 2/3 Nature palette alignment
+
+* Goal:
+  * Redraw Figure 1 as an editable draw.io market-structure schematic.
+  * Align Figure 2 and Figure 3 colors with the Nature/NMI pastel palette used
+    for Figure 4, Figure 6, and Figure 8.
+* Context:
+  * Figure 1 is cited as `market_schematic_drawio_exact_2026-06-21.png` in both
+    the English and Chinese SMPT manuscripts.
+  * Figure 2 is `vllm_qos_anchor.pdf`.
+  * Figure 3 is `qos_utilization_profiles.pdf`.
+* Figure contract:
+  * Figure 1 should explain the model sequence: providers post prices, the
+    intermediary routes by price and QoS, users choose direct/intermediary/exit
+    options, and congestion updates QoS.
+  * Figure 2 should anchor the QoS degradation shape without changing measured
+    data or fitted values.
+  * Figure 3 should keep the policy colors consistent with the current Nature
+    palette family.
+* Boundary:
+  * Only figure source/style files, regenerated figure assets, rebuilt PDFs,
+    README records, release assets, and a Git commit will change.
+  * No experiment data, formulas, numerical claims, captions, or theoretical
+    statements will be changed.
+* Tool check:
+  ```bash
+  command -v drawio || command -v draw.io || true
+  ```
+* Tool check result:
+  * WSL did not find a `drawio` or `draw.io` CLI.
+  * Windows-side quick path checks also did not locate `draw.io.exe`.
+  * Decision: create a standards-compliant `.drawio` source file for Figure 1
+    and use an available local preview/export path if the draw.io CLI remains
+    unavailable.
+* Figure regeneration command:
+  ```bash
+  uv run python -m py_compile \
+    experiments/build_market_schematic_drawio.py \
+    experiments/build_peak_shaving_measurement_anchor.py \
+    experiments/build_peak_shaving_diagnostics.py
+  uv run python experiments/build_market_schematic_drawio.py
+  uv run python experiments/build_peak_shaving_measurement_anchor.py
+  uv run python - <<'PY'
+  from experiments.build_peak_shaving_diagnostics import FIG, build_records, plot_qos_utilization, validate
+  bundle = build_records()
+  warnings = validate(bundle)
+  plot_qos_utilization(bundle)
+  print({"validation_warnings": warnings, "figure": str(FIG / "qos_utilization_profiles.pdf")})
+  PY
+  python3 /mnt/d/ccchtLinkData/UserProfile/.codex/skills/drawio-skill/scripts/validate.py \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio
+  ```
+* Figure regeneration result:
+  * `py_compile` succeeded for all three scripts.
+  * Figure 1 draw.io source and PNG preview were regenerated:
+    `market_schematic_drawio_exact_2026-06-21.drawio` and
+    `market_schematic_drawio_exact_2026-06-21.png`.
+  * Figure 2 was regenerated as `vllm_qos_anchor.pdf` and
+    `vllm_qos_anchor.png`.
+  * Figure 3 was regenerated as `qos_utilization_profiles.pdf` with
+    `validation_warnings: []`.
+  * The draw.io structural validator reported `0 error(s)` and expected overlap
+    warnings from intentionally layered background containers and child nodes.
+  * The measurement-anchor JSON timestamp changed during script execution and
+    was restored because this task only changes figure styling, not data
+    artifacts.
+* Manuscript rebuild command:
+  ```bash
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  if rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log; then
+    exit 2
+  fi
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  ```
+* Manuscript rebuild result:
+  * English PDF rebuilt successfully: 23 pages,
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` =
+    524224 bytes.
+  * Chinese PDF rebuilt successfully: 21 pages,
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf` =
+    905290 bytes.
+  * The log scan produced no hard-error, undefined-reference/citation, or
+    overfull-box matches.
+* Visual preview command:
+  ```bash
+  pdftoppm -png -r 180 -f 3 -l 14 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/fig123_pages/en
+  pdftoppm -png -r 180 -f 3 -l 14 peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/fig123_pages/zh
+  ```
+* Visual preview result:
+  * English manuscript checked: Figure 1 on page 4, Figure 2 on page 10, and
+    Figure 3 on page 12.
+  * Chinese manuscript checked: Figure 1 on page 3, Figure 2 on page 9, and
+    Figure 3 across pages 10--11 due normal float placement.
+  * Figure 1 has no node-note overlap after moving the diagnostic-feedback
+    label downward.
+  * Figure 2 and Figure 3 now use the same Nature/NMI pastel family as Figures
+    4, 6, and 8. The colors are softer than the previous NPG palette but remain
+    legible in the compiled manuscripts.
+* Release refresh command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_submission/vllm_qos_anchor.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cd tmp
+  zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21
+  unzip -t smpt_elsevier_upload_bundle_2026-06-21.zip
+  cd ..
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png \
+    figures/peak_shaving_submission/vllm_qos_anchor.pdf \
+    figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  ```
+* Release refresh result:
+  * The zip integrity test passed.
+  * Refreshed release assets:
+    * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 524224 bytes.
+    * `market_schematic_drawio_exact_2026-06-21.drawio` = 16444 bytes.
+    * `market_schematic_drawio_exact_2026-06-21.png` = 147664 bytes.
+    * `vllm_qos_anchor.pdf` = 27319 bytes.
+    * `qos_utilization_profiles.pdf` = 27795 bytes.
+    * `smpt_elsevier_upload_bundle_2026-06-21.zip` = 911654 bytes.
+* Final verification command:
+  ```bash
+  uv run python -m py_compile \
+    experiments/build_market_schematic_drawio.py \
+    experiments/build_peak_shaving_measurement_anchor.py \
+    experiments/build_peak_shaving_diagnostics.py
+  python3 /mnt/d/ccchtLinkData/UserProfile/.codex/skills/drawio-skill/scripts/validate.py \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  if rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log; then
+    exit 2
+  fi
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  git diff --check
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --json assets
+  ```
+* Final verification result:
+  * `py_compile`, both `latexmk` commands, the zip integrity test, and
+    `git diff --check` succeeded.
+  * The draw.io validator reported `0 error(s)`; overlap warnings are expected
+    from the intentionally layered schematic containers.
+  * The final log scan produced no hard-error, undefined-reference/citation, or
+    overfull-box matches.
+  * Local and remote release sizes match for the English PDF, Figure 1 draw.io
+    source/PNG, Figure 2, Figure 3, and the upload bundle.
+* Status: verified and release assets refreshed.
+
 ## Manuscript Build
 
 

@@ -157,7 +157,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fields: tuple[str, ...] | 
 def plot_anchor(profiles: list[dict[str, Any]], points: list[dict[str, Any]], output: Path) -> None:
     configure_times_new_roman()
     mpl.rcParams.update({"axes.grid": True, "grid.alpha": 0.18})
-    colors = {"vllm-0.5b": "#3C5488", "vllm-3b": "#E64B35"}
+    colors = {"vllm-0.5b": "#7884B4", "vllm-3b": "#F0C0CC"}
     fig, ax = plt.subplots(figsize=(6.8, 3.2))
     for profile in profiles:
         name = str(profile["profile"])
@@ -167,11 +167,13 @@ def plot_anchor(profiles: list[dict[str, Any]], points: list[dict[str, Any]], ou
         y = np.array([row["observed_qos"] for row in rows], dtype=float)
         err = np.array([row["observed_qos_ci95"] for row in rows], dtype=float)
         color = colors.get(name, "#333333")
-        ax.errorbar(x, y, yerr=err, fmt="o", color=color, capsize=2.5, label=f"{profile['model']} measured")
+        ax.errorbar(x, y, yerr=err, fmt="o", color=color, capsize=2.5,
+                    markeredgecolor="#606060", markeredgewidth=0.6,
+                    elinewidth=0.8, label=f"{profile['model']} measured")
         grid = np.linspace(min(x), max(x), 160)
         fitted = qos_factor(grid, threshold=float(profile["qos_threshold"]), strength=float(profile["qos_strength"]))
         ax.plot(grid, fitted, color=color, linewidth=1.8, alpha=0.85, label=f"{profile['model']} fit")
-    ax.axvline(1.0, color="#4D4D4D", linestyle="--", linewidth=1.0, alpha=0.7,
+    ax.axvline(1.0, color="#606060", linestyle="--", linewidth=1.0, alpha=0.7,
                label="healthy boundary")
     ax.set_xlabel("Normalized concurrency")
     ax.set_ylabel("TTFT SLA rate")

@@ -35,17 +35,12 @@ FIG = ROOT / "figures" / "peak_shaving_diagnostics"
 CAP = np.array([300.0, 120.0])
 QOS_SHAPE = "sigmoid"
 CASE_LABELS = {"uniform": "Uniform", "dynamic_coarse": "Dynamic coarse", "dynamic_fine": "Dynamic fine"}
-NPG_NAVY = "#3C5488"
-NPG_CYAN = "#4DBBD5"
-NPG_GREEN = "#00A087"
-NPG_CORAL = "#E64B35"
-NPG_GRAY = "#4D4D4D"
-COLORS = {"uniform": NPG_NAVY, "dynamic_coarse": NPG_CORAL, "dynamic_fine": NPG_GREEN}
 REFERENCE_POLICY_COLORS = {
     "uniform": "#7884B4",
     "dynamic_coarse": "#E4CCD8",
     "dynamic_fine": "#F0C0CC",
 }
+COLORS = REFERENCE_POLICY_COLORS
 REFERENCE_PARTICIPANT_COLORS = {
     "firm_A_profit": "#B4C0E4",
     "firm_B_profit": "#7884B4",
@@ -305,7 +300,7 @@ def plot_qos_utilization(bundle: dict[str, Any]) -> None:
     for name, rec in bundle["cases"].items():
         axes[0].plot(t, rec["utilization"].max(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
         axes[1].plot(t, rec["qos_firm"].min(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
-    axes[0].axhline(0.82, color=NPG_GRAY, lw=1, ls="--", label="QoS threshold")
+    axes[0].axhline(0.82, color=REFERENCE_LINE_COLOR, lw=1, ls="--", label="QoS threshold")
     axes[0].set_ylabel("Peak firm utilization"); axes[1].set_ylabel("Minimum firm QoS")
     axes[1].set_xlabel("Period")
     for ax in axes:
