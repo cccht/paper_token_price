@@ -303,31 +303,32 @@ def plot_qos_utilization(bundle: dict[str, Any]) -> None:
 def plot_mechanism(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     x = np.arange(len(names))
-    fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.2))
+    fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.35))
     for ax, metric, title in [
-        (axes[0, 0], "average_paid_price", "Average paid price"),
-        (axes[1, 0], "served_volume", "QoS-adjusted served volume"),
-        (axes[1, 1], "weighted_inclusive_value", "Population-weighted inclusive value"),
+        (axes[0, 0], "average_paid_price", "(a) Average paid price"),
+        (axes[1, 0], "served_volume", "(c) QoS-adjusted served volume"),
+        (axes[1, 1], "weighted_inclusive_value", "(d) Population-weighted inclusive value"),
     ]:
         ax.bar(x, [bundle["cases"][n]["summary"][metric] for n in names], color=[COLORS[n] for n in names])
-        ax.set_title(title, fontsize=10)
+        ax.set_title(title, fontsize=10, fontweight="bold", loc="left", pad=8)
     rigid = [bundle["cases"][n]["exit_probability"]["rigid"] for n in names]
     elastic = [bundle["cases"][n]["exit_probability"]["elastic"] for n in names]
     axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color="#72B7B2")
     axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color="#E45756")
-    axes[0, 1].set_title("No-purchase probability", fontsize=10)
+    axes[0, 1].set_title("(b) No-purchase probability", fontsize=10, fontweight="bold", loc="left", pad=8)
     axes[0, 1].legend(frameon=False, fontsize=8, loc="upper right")
     for ax in axes.ravel():
         ax.set_xticks(x, [CASE_LABELS[n] for n in names], rotation=18, ha="right")
         ax.grid(axis="y", alpha=0.25)
-    fig.tight_layout(pad=1.1)
+        ax.margins(y=0.12)
+    fig.tight_layout(pad=1.2, h_pad=2.2, w_pad=1.8)
     fig.savefig(FIG / "mechanism_diagnostics.pdf")
     plt.close(fig)
 
 
 def plot_profit_regret(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
-    fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.65))
+    fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.9))
     bottom = np.zeros(len(names))
     parts = [("firm_A_profit", "#4C78A8", "Provider A"), ("firm_B_profit", "#72B7B2", "Provider B"),
              ("intermediary_profit", "#F58518", "Intermediary")]
@@ -341,8 +342,9 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
         bottom += vals
     axes[0].set_title("Profit by market participant", fontsize=10)
     axes[0].set_xlim(-0.6, len(names) - 0.05)
-    axes[0].legend(handles, legend_labels, frameon=False, fontsize=8, loc="upper right",
-                   ncol=1, handlelength=1.4, borderaxespad=0.4)
+    fig.legend(handles, legend_labels, frameon=False, fontsize=8, loc="upper left",
+               bbox_to_anchor=(0.10, 0.985), ncol=3, handlelength=1.4,
+               columnspacing=1.1, borderaxespad=0.0)
     meta = bundle["metadata"]
     axes[1].bar([0, 1], [meta["dynamic_coarse_maxregret"], meta["dynamic_fine_maxregret"]],
                 color=[COLORS["dynamic_coarse"], COLORS["dynamic_fine"]])
@@ -354,7 +356,7 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
     axes[0].set_xticks(np.arange(len(names)), [CASE_LABELS[n] for n in names], rotation=18, ha="right")
     for ax in axes:
         ax.grid(axis="y", alpha=0.25)
-    fig.tight_layout(pad=1.0)
+    fig.tight_layout(pad=1.0, rect=[0, 0, 1, 0.91])
     fig.savefig(FIG / "profit_components_and_regret.pdf")
     plt.close(fig)
 
