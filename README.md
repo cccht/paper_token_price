@@ -4689,6 +4689,140 @@ PY'
   * Refreshed asset sizes include: final English PDF = 530512 bytes, Figure 1 PNG = 151458 bytes, Figure 8 PDF = 43327 bytes, upload bundle = 927126 bytes.
 * Status: verified.
 
+### 2026-06-21 22:18 - Reference-image palette for Figure 6 and Figure 8
+
+* Goal:
+  * Fix the color mismatch in Figure 6 and Figure 8 by extracting the visual
+    palette from the provided AgentThink-style reference image.
+  * Preserve the existing data, axes, captions, and Figure 8 panel-label layout.
+* Source image:
+  * `C:/Users/cccht/AppData/Local/Temp/codex-clipboard-6c89779f-4bcb-4d84-bbbf-f41b9bc0351b.png`
+* Extraction command:
+  ```bash
+  uv run python - <<'PY'
+  from pathlib import Path
+  from PIL import Image
+  from collections import Counter
+  import colorsys
+
+  path = Path("/mnt/c/Users/cccht/AppData/Local/Temp/codex-clipboard-6c89779f-4bcb-4d84-bbbf-f41b9bc0351b.png")
+  img = Image.open(path).convert("RGB")
+  small = img.resize((max(1, img.width//2), max(1, img.height//2)))
+  quant = small.quantize(colors=96, method=Image.Quantize.MEDIANCUT).convert("RGB")
+  counts = Counter(quant.getdata())
+  for rgb, count in counts.most_common():
+      r, g, b = [v / 255 for v in rgb]
+      h, s, v = colorsys.rgb_to_hsv(r, g, b)
+      if s >= 0.23 and 0.35 <= v <= 1.0 and count >= 60:
+          print(f"#{rgb[0]:02X}{rgb[1]:02X}{rgb[2]:02X}\tcount={count}\th={h:.3f}\ts={s:.2f}\tv={v:.2f}")
+  PY
+  ```
+* Extracted reusable palette:
+  * Coral red: `#F08080`
+  * Bright coral: `#F77870`
+  * Peach orange: `#EEA667`
+  * Soft pink: `#F5B7BF`
+  * Mint green: `#8EEB95`
+  * Pale green: `#C7E6AD`
+  * Aqua: `#A9E9E4`
+  * Teal: `#73BDAB`
+  * Sky blue: `#89C6CF`
+  * Slate blue: `#577386`
+  * Warm gray: `#A8A1A2`
+* Figure palette decision:
+  * Figure 6 grouped bars: dynamic coarse = `#F08080`, dynamic fine = `#73BDAB`.
+  * Figure 8 strategy bars: uniform = `#89C6CF`, dynamic coarse = `#F08080`,
+    dynamic fine = `#73BDAB`.
+  * Figure 8 user-type bars: rigid = `#577386`, elastic = `#F08080`.
+* Boundary:
+  * Only Figure 6 and Figure 8 colors will be changed.
+  * No model outputs, numerical claims, TeX captions, or experiment artifacts
+    will be recalculated.
+* Code changes:
+  * `experiments/run_peak_shaving_parameter_sweep.py` now uses reference-derived
+    coral/teal bars for Figure 6.
+  * `experiments/build_peak_shaving_diagnostics.py` now uses reference-derived
+    sky-blue/coral/teal strategy bars and slate/coral user-type bars for Figure 8.
+* Verification commands:
+  ```bash
+  uv run python -m py_compile experiments/build_peak_shaving_diagnostics.py experiments/run_peak_shaving_parameter_sweep.py
+  uv run python - <<'PY'
+  import json
+  from experiments.build_peak_shaving_diagnostics import FIG, build_records, plot_mechanism, validate
+  from experiments.run_peak_shaving_parameter_sweep import FIG as SWEEP_FIG, plot_sweep
+
+  bundle = build_records()
+  warnings = validate(bundle)
+  plot_mechanism(bundle)
+  rows = json.loads((SWEEP_FIG.parent.parent / "artifacts" / "peak_shaving" / "20260619_submission" / "peak_shaving_parameter_sweep.json").read_text(encoding="utf-8"))
+  plot_sweep(rows)
+  print({
+      "validation_warnings": warnings,
+      "figures": [str(SWEEP_FIG / "parameter_sweep_qos.pdf"), str(FIG / "mechanism_diagnostics.pdf")],
+  })
+  PY
+  mkdir -p /tmp/peak_shaving_ref_palette_review_20260621
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_submission/parameter_sweep_qos.pdf /tmp/peak_shaving_ref_palette_review_20260621/fig06_parameter
+  pdftoppm -png -singlefile -r 220 figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf /tmp/peak_shaving_ref_palette_review_20260621/fig08_mechanism
+  ```
+* Output:
+  * `figures/peak_shaving_submission/parameter_sweep_qos.pdf`
+  * `figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf`
+  * `/tmp/peak_shaving_ref_palette_review_20260621/fig06_parameter.png`
+  * `/tmp/peak_shaving_ref_palette_review_20260621/fig08_mechanism.png`
+* Result:
+  * `py_compile` succeeded.
+  * Figure regeneration succeeded with `validation_warnings: []`.
+  * Visual spot check confirms Figure 6 uses the reference-derived coral/teal
+    pair and Figure 8 uses the reference-derived sky-blue/coral/teal plus
+    slate/coral pair; panel labels remain below the subfigures.
+* Manuscript rebuild commands:
+  ```bash
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log || true
+  ```
+* Manuscript rebuild result:
+  * English PDF rebuilt successfully: 23 pages, 530446 bytes.
+  * Chinese PDF rebuilt successfully: 21 pages, 911497 bytes.
+  * Hard log scan found no `LaTeX Error`, undefined control sequence,
+    undefined reference/citation, or `Overfull` entries.
+  * Existing `Underfull` and Fandol `fontspec` warnings remain unchanged and
+    are not caused by this color update.
+  * A first combined PowerShell-to-WSL verification command failed because the
+    bash here-document delimiter was misparsed by the Windows shell wrapper;
+    the same checks were rerun as direct staged WSL commands.
+* PDF page spot-check command:
+  ```bash
+  mkdir -p /tmp/peak_shaving_ref_palette_review_20260621/final_pdf_pages
+  pdftoppm -png -r 180 -f 15 -l 17 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/peak_shaving_ref_palette_review_20260621/final_pdf_pages/en
+  pdftoppm -png -r 180 -f 13 -l 15 peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/peak_shaving_ref_palette_review_20260621/final_pdf_pages/zh
+  ```
+* PDF page spot-check result:
+  * English Figure 6 appears on page 15; English Figure 8 appears on page 17.
+  * Chinese Figure 6 appears on page 13; Chinese Figure 8 appears on page 15.
+  * The embedded manuscript pages show the updated reference-image palette, with
+    legends visible and no panel-label overlap.
+* Upload-bundle refresh command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp figures/peak_shaving_submission/parameter_sweep_qos.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  (cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21 && unzip -t smpt_elsevier_upload_bundle_2026-06-21.zip)
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    figures/peak_shaving_submission/parameter_sweep_qos.pdf \
+    figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  ```
+* Release verification:
+  * `mechanism_diagnostics.pdf` = 43361 bytes.
+  * `parameter_sweep_qos.pdf` = 27104 bytes.
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 530446 bytes.
+  * `smpt_elsevier_upload_bundle_2026-06-21.zip` = 926987 bytes.
+* Status: verified.
+
 ## Manuscript Build
 
 
