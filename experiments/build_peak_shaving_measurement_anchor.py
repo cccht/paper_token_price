@@ -157,7 +157,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fields: tuple[str, ...] | 
 def plot_anchor(profiles: list[dict[str, Any]], points: list[dict[str, Any]], output: Path) -> None:
     configure_times_new_roman()
     mpl.rcParams.update({"axes.grid": True, "grid.alpha": 0.18})
-    colors = {"vllm-0.5b": "#1F4E79", "vllm-3b": "#E6A400"}
+    colors = {"vllm-0.5b": "#3C5488", "vllm-3b": "#E64B35"}
     fig, ax = plt.subplots(figsize=(6.8, 3.2))
     for profile in profiles:
         name = str(profile["profile"])

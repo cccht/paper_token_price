@@ -155,8 +155,8 @@ def plot_trace(result: dict[str, Any]) -> None:
     xs = [r["oracle_round"] for r in result["trace"]]
     ys = [r["full_max_regret"] for r in result["trace"]]
     fig, ax = plt.subplots(figsize=(6.4, 3.6))
-    ax.plot(xs, ys, marker="o", color="#1F4E79", label="Full-grid max regret")
-    ax.axhline(5.0, color="#E6A400", ls="--", lw=1, label="target < 5")
+    ax.plot(xs, ys, marker="o", color="#3C5488", label="Full-grid max regret")
+    ax.axhline(5.0, color="#E64B35", ls="--", lw=1, label="target < 5")
     ax.set_xlabel("Double-oracle round")
     ax.set_ylabel("Full-grid max regret")
     ax.grid(alpha=0.25)

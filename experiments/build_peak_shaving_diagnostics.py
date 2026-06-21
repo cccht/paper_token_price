@@ -35,7 +35,12 @@ FIG = ROOT / "figures" / "peak_shaving_diagnostics"
 CAP = np.array([300.0, 120.0])
 QOS_SHAPE = "sigmoid"
 CASE_LABELS = {"uniform": "Uniform", "dynamic_coarse": "Dynamic coarse", "dynamic_fine": "Dynamic fine"}
-COLORS = {"uniform": "#1F4E79", "dynamic_coarse": "#E6A400", "dynamic_fine": "#5B9BD5"}
+NPG_NAVY = "#3C5488"
+NPG_CYAN = "#4DBBD5"
+NPG_GREEN = "#00A087"
+NPG_CORAL = "#E64B35"
+NPG_GRAY = "#4D4D4D"
+COLORS = {"uniform": NPG_NAVY, "dynamic_coarse": NPG_CORAL, "dynamic_fine": NPG_GREEN}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -288,7 +293,7 @@ def plot_qos_utilization(bundle: dict[str, Any]) -> None:
     for name, rec in bundle["cases"].items():
         axes[0].plot(t, rec["utilization"].max(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
         axes[1].plot(t, rec["qos_firm"].min(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
-    axes[0].axhline(0.82, color="#4D4D4D", lw=1, ls="--", label="QoS threshold")
+    axes[0].axhline(0.82, color=NPG_GRAY, lw=1, ls="--", label="QoS threshold")
     axes[0].set_ylabel("Peak firm utilization"); axes[1].set_ylabel("Minimum firm QoS")
     axes[1].set_xlabel("Period")
     for ax in axes:
@@ -306,29 +311,34 @@ def plot_qos_utilization(bundle: dict[str, Any]) -> None:
 def plot_mechanism(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     x = np.arange(len(names))
-    fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.35))
+    fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.65))
     strategy_handles = [Patch(facecolor=COLORS[n], edgecolor="none", label=CASE_LABELS[n]) for n in names]
-    for ax, metric, title in [
-        (axes[0, 0], "average_paid_price", "(a) Average paid price"),
-        (axes[1, 0], "served_volume", "(c) QoS-adjusted served volume"),
-        (axes[1, 1], "weighted_inclusive_value", "(d) Population-weighted inclusive value"),
+    for ax, metric, title, panel_label in [
+        (axes[0, 0], "average_paid_price", "Average paid price", "(a)"),
+        (axes[1, 0], "served_volume", "QoS-adjusted served volume", "(c)"),
+        (axes[1, 1], "weighted_inclusive_value", "Population-weighted inclusive value", "(d)"),
     ]:
         ax.bar(x, [bundle["cases"][n]["summary"][metric] for n in names], color=[COLORS[n] for n in names])
         ax.set_title(title, fontsize=10, fontweight="bold", loc="left", pad=8)
+        ax.text(0.5, -0.34, panel_label, transform=ax.transAxes, ha="center",
+                va="top", fontsize=9, fontweight="bold", clip_on=False)
         loc = "upper right" if ax is axes[0, 0] else "upper left"
         ax.legend(handles=strategy_handles, frameon=False, fontsize=7, loc=loc,
                   borderaxespad=0.25, handlelength=1.2, labelspacing=0.25)
     rigid = [bundle["cases"][n]["exit_probability"]["rigid"] for n in names]
     elastic = [bundle["cases"][n]["exit_probability"]["elastic"] for n in names]
-    axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color="#1F4E79")
-    axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color="#E6A400")
-    axes[0, 1].set_title("(b) No-purchase probability", fontsize=10, fontweight="bold", loc="left", pad=8)
+    axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color=NPG_NAVY)
+    axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color=NPG_CORAL)
+    axes[0, 1].set_title("No-purchase probability", fontsize=10, fontweight="bold", loc="left", pad=8)
+    axes[0, 1].text(0.5, -0.34, "(b)", transform=axes[0, 1].transAxes, ha="center",
+                    va="top", fontsize=9, fontweight="bold", clip_on=False)
     axes[0, 1].legend(frameon=False, fontsize=8, loc="upper right")
     for ax in axes.ravel():
         ax.set_xticks(x, [CASE_LABELS[n] for n in names], rotation=18, ha="right")
         ax.grid(axis="y", alpha=0.25)
         ax.margins(y=0.22)
-    fig.tight_layout(pad=1.2, h_pad=2.2, w_pad=1.8)
+    fig.tight_layout(pad=1.2, h_pad=3.2, w_pad=1.8)
+    fig.subplots_adjust(bottom=0.12)
     fig.savefig(FIG / "mechanism_diagnostics.pdf")
     plt.close(fig)
 
@@ -337,8 +347,8 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.9))
     bottom = np.zeros(len(names))
-    parts = [("firm_A_profit", "#1F4E79", "Provider A"), ("firm_B_profit", "#5B9BD5", "Provider B"),
-             ("intermediary_profit", "#E6A400", "Intermediary")]
+    parts = [("firm_A_profit", NPG_NAVY, "Provider A"), ("firm_B_profit", NPG_CYAN, "Provider B"),
+             ("intermediary_profit", NPG_CORAL, "Intermediary")]
     handles = []
     legend_labels = []
     for key, color, label in parts:
@@ -355,14 +365,14 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
     meta = bundle["metadata"]
     axes[1].bar([0, 1], [meta["dynamic_coarse_maxregret"], meta["dynamic_fine_maxregret"]],
                 color=[COLORS["dynamic_coarse"], COLORS["dynamic_fine"]])
-    axes[1].axhline(5.0, color="#4D4D4D", lw=1, ls="--", label="target < 5")
+    axes[1].axhline(5.0, color=NPG_GRAY, lw=1, ls="--", label="target < 5")
     axes[1].set_xticks([0, 1], ["Coarse\nround 22", "Fine\nround 40"])
     axes[1].set_title("Final stored max regret", fontsize=10)
     axes[1].set_xlim(-0.55, 1.55)
     regret_handles = [
         Patch(facecolor=COLORS["dynamic_coarse"], edgecolor="none", label="Dynamic coarse"),
         Patch(facecolor=COLORS["dynamic_fine"], edgecolor="none", label="Dynamic fine"),
-        Line2D([0], [0], color="#4D4D4D", lw=1, ls="--", label="target < 5"),
+        Line2D([0], [0], color=NPG_GRAY, lw=1, ls="--", label="target < 5"),
     ]
     axes[1].legend(handles=regret_handles, frameon=False, fontsize=7.5, loc="upper left",
                    borderaxespad=0.35, handlelength=1.4, labelspacing=0.3)

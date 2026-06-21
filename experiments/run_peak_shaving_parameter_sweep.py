@@ -113,7 +113,7 @@ def plot_sweep(rows: list[dict[str, Any]]) -> None:
     fig, axes = plt.subplots(2, 1, figsize=(9.2, 6.4), sharex=True)
     x = np.arange(len(scenarios))
     width = 0.36
-    for offset, case, color in [(-width / 2, "dynamic_coarse", "#E6A400"), (width / 2, "dynamic_fine", "#5B9BD5")]:
+    for offset, case, color in [(-width / 2, "dynamic_coarse", "#E64B35"), (width / 2, "dynamic_fine", "#00A087")]:
         subset = [r for r in rows if r["case"] == case]
         axes[0].bar(x + offset, [r["qos_gain_vs_uniform"] for r in subset], width, label=CASE_LABELS[case], color=color)
         axes[1].bar(x + offset, [r["peak_util_reduction_vs_uniform"] for r in subset], width, label=CASE_LABELS[case], color=color)

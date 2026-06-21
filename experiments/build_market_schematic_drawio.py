@@ -131,9 +131,9 @@ def small_box(draw: ImageDraw.ImageDraw, box: Box, size: int = 22,
 
 
 def draw_market_layer(draw: ImageDraw.ImageDraw) -> None:
-    users = Box(65, 120, 385, 360, "", "#FFF3C4", "#C98F00")
-    inter = Box(590, 120, 620, 360, "", "#EAF3FF", "#1F4E79")
-    providers = Box(1350, 120, 385, 360, "", "#DDEEFF", "#2E75B6")
+    users = Box(65, 120, 385, 360, "", "#E9F5F1", "#00A087")
+    inter = Box(590, 120, 620, 360, "", "#EAF2FA", "#3C5488")
+    providers = Box(1350, 120, 385, 360, "", "#FDEDEA", "#E64B35")
     for box in (users, inter, providers):
         rounded_box(draw, box, radius=26, width=3, shadow=True)
     label_text(draw, (258, 158), "Users", 34, bold=True)
@@ -143,33 +143,33 @@ def draw_market_layer(draw: ImageDraw.ImageDraw) -> None:
     label_text(draw, (1542, 158), "Inference Providers", 34, bold=True)
     label_text(draw, (1542, 196), "post prices under\nfixed GPU capacity", 22)
 
-    small_box(draw, Box(95, 240, 325, 68, "Time-rigid users R\npeak-native demand", "#FFFDF5", "#E1A72D"), 21)
-    small_box(draw, Box(95, 330, 325, 68, "Time-flexible users E\nshiftable demand", "#FFFDF5", "#E1A72D"), 21)
+    small_box(draw, Box(95, 240, 325, 68, "Time-rigid users R\npeak-native demand", "#F5FBF8", "#00A087"), 21)
+    small_box(draw, Box(95, 330, 325, 68, "Time-flexible users E\nshiftable demand", "#F5FBF8", "#00A087"), 21)
     small_box(draw, Box(95, 420, 325, 42, "Outside option: no purchase", "#F7F7F7", "#777777"), 20)
 
-    small_box(draw, Box(630, 260, 160, 82, "Retail\nprice pₜ", "#FFFFFF", "#5B9BD5"), 22)
-    small_box(draw, Box(815, 260, 170, 82, "Routing\nrₘ,ₜ", "#FFFFFF", "#5B9BD5"), 22)
-    small_box(draw, Box(1010, 260, 160, 82, "Channel\nQoS qᴵₜ", "#FFFFFF", "#5B9BD5"), 22)
+    small_box(draw, Box(630, 260, 160, 82, "Retail\nprice pₜ", "#FFFFFF", "#4DBBD5"), 22)
+    small_box(draw, Box(815, 260, 170, 82, "Routing\nrₘ,ₜ", "#FFFFFF", "#4DBBD5"), 22)
+    small_box(draw, Box(1010, 260, 160, 82, "Channel\nQoS qᴵₜ", "#FFFFFF", "#4DBBD5"), 22)
     label_text(draw, (900, 408), "Intermediary best response: prices, routing, and QoS signals", 24, bold=True)
 
-    small_box(draw, Box(1380, 240, 325, 64, "Provider A\nlarge capacity G_A", "#F7FBFF", "#2E75B6"), 21)
-    small_box(draw, Box(1380, 324, 325, 64, "Provider B\nsmaller capacity G_B", "#F7FBFF", "#2E75B6"), 21)
-    small_box(draw, Box(1380, 408, 325, 44, "QoS qₘ,ₜ = qos(Lₘ,ₜ/Gₘ)", "#F7FBFF", "#2E75B6"), 20)
+    small_box(draw, Box(1380, 240, 325, 64, "Provider A\nlarge capacity G_A", "#FFF7F5", "#E64B35"), 21)
+    small_box(draw, Box(1380, 324, 325, 64, "Provider B\nsmaller capacity G_B", "#FFF7F5", "#E64B35"), 21)
+    small_box(draw, Box(1380, 408, 325, 44, "QoS qₘ,ₜ = qos(Lₘ,ₜ/Gₘ)", "#FFF7F5", "#E64B35"), 20)
 
-    arrow(draw, (450, 278), (590, 278), "#1F4E79")
+    arrow(draw, (450, 278), (590, 278), "#00A087")
     label_text(draw, (520, 248), "preferences\nand demand", 18, wrap=14)
-    arrow(draw, (590, 358), (450, 358), "#1769C2")
+    arrow(draw, (590, 358), (450, 358), "#3C5488")
     label_text(draw, (520, 388), "price and\nQoS signal", 18, wrap=14)
-    arrow(draw, (1210, 278), (1350, 278), "#E6A400")
+    arrow(draw, (1210, 278), (1350, 278), "#E64B35")
     label_text(draw, (1280, 248), "routed\nload", 18)
-    arrow(draw, (1350, 358), (1210, 358), "#1769C2")
+    arrow(draw, (1350, 358), (1210, 358), "#3C5488")
     label_text(draw, (1280, 388), "prices and\nQoS feedback", 18, wrap=14)
-    poly_arrow(draw, [(420, 475), (500, 520), (1320, 520), (1385, 480)], "#1769C2", dashed=True)
+    poly_arrow(draw, [(420, 475), (500, 520), (1320, 520), (1385, 480)], "#3C5488", dashed=True)
     label_text(draw, (705, 505), "direct API access bypasses the intermediary", 19)
 
 
 def draw_simulation_layer(draw: ImageDraw.ImageDraw) -> None:
-    rounded_box(draw, Box(95, 570, 1610, 160, "", "#EEF6FF", "#5B9BD5"), radius=24, width=3)
+    rounded_box(draw, Box(95, 570, 1610, 160, "", "#EAF7F5", "#4DBBD5"), radius=24, width=3)
     label_text(draw, (900, 600), "Simulation fixed point", 30, bold=True)
     steps = [
         ("Prices\npₜ, wₘ,ₜ, pᴰₘ,ₜ", 145),
@@ -180,14 +180,14 @@ def draw_simulation_layer(draw: ImageDraw.ImageDraw) -> None:
         ("Regret inputs\nbest responses", 1410),
     ]
     for label, x in steps:
-        small_box(draw, Box(x, 640, 205, 58, label, "#FFFFFF", "#5B9BD5"), 18, wrap=22)
+        small_box(draw, Box(x, 640, 205, 58, label, "#FFFFFF", "#4DBBD5"), 18, wrap=22)
     for x in [350, 600, 860, 1120, 1375]:
-        arrow(draw, (x, 669), (x + 35, 669), "#1F4E79", width=4)
-    arrow(draw, (900, 480), (900, 570), "#0B3C5D", width=6)
+        arrow(draw, (x, 669), (x + 35, 669), "#3C5488", width=4)
+    arrow(draw, (900, 480), (900, 570), "#8491B4", width=6)
 
 
 def draw_diagnostic_layer(draw: ImageDraw.ImageDraw) -> None:
-    rounded_box(draw, Box(190, 790, 1420, 118, "", "#FFF4D1", "#E6A400"), radius=24, width=3)
+    rounded_box(draw, Box(190, 790, 1420, 118, "", "#F3F2F8", "#8491B4"), radius=24, width=3)
     label_text(draw, (900, 820), "Finite-grid equilibrium diagnostic", 28, bold=True)
     steps = [
         ("Provider candidate grids\n64 coarse / 225 fine", 245, 250),
@@ -196,20 +196,20 @@ def draw_diagnostic_layer(draw: ImageDraw.ImageDraw) -> None:
         ("Mixed oracle\n5×5 support; regret 0.203", 1070, 285),
     ]
     for label, x, width in steps:
-        small_box(draw, Box(x, 852, width, 42, label, "#FFFFFF", "#E6A400"), 17, wrap=25)
+        small_box(draw, Box(x, 852, width, 42, label, "#FFFFFF", "#8491B4"), 17, wrap=25)
     for x in [495, 750, 1010]:
-        arrow(draw, (x, 873), (x + 42, 873), "#0B3C5D", width=4)
-    poly_arrow(draw, [(1495, 852), (1660, 852), (1660, 452)], "#0B3C5D", width=4, dashed=True)
-    label_text(draw, (1585, 695), "diagnostic\nfeedback", 17, color="#0B3C5D")
+        arrow(draw, (x, 873), (x + 42, 873), "#8491B4", width=4)
+    poly_arrow(draw, [(1495, 852), (1660, 852), (1660, 452)], "#8491B4", width=4, dashed=True)
+    label_text(draw, (1585, 695), "diagnostic\nfeedback", 17, color="#666C8F")
 
 
 def draw_legend(draw: ImageDraw.ImageDraw) -> None:
     rounded_box(draw, Box(120, 940, 1560, 54, "", "#FFFFFF", "#AEB6BF"), radius=16, width=2)
     items = [
-        ("#1F4E79", "user demand / QoS status", False),
-        ("#1769C2", "price, signal, or direct access", True),
-        ("#E6A400", "routed load", False),
-        ("#0B3C5D", "fixed-point / regret iteration", True),
+        ("#00A087", "user demand / QoS status", False),
+        ("#3C5488", "price, signal, or direct access", True),
+        ("#E64B35", "routed load", False),
+        ("#8491B4", "fixed-point / regret iteration", True),
         ("#6D6D6D", "outside option", False),
     ]
     xs = [180, 500, 850, 1120, 1410]
@@ -302,43 +302,43 @@ def build_drawio() -> None:
     dx = Drawio()
     dx.add_text(520, 30, 760, 60, "Inference-service market and simulation workflow", 30, True)
     for box in [
-        Box(65, 120, 385, 360, "Users\nchoose brokered, direct,\nor outside option", "#FFF3C4", "#C98F00"),
-        Box(590, 120, 620, 360, "API Intermediary\nsets retail price pₜ and routing rₘ,ₜ", "#EAF3FF", "#1F4E79"),
-        Box(1350, 120, 385, 360, "Inference Providers\npost prices under\nfixed GPU capacity", "#DDEEFF", "#2E75B6"),
-        Box(95, 570, 1610, 160, "Simulation fixed point", "#EEF6FF", "#5B9BD5"),
-        Box(190, 790, 1420, 118, "Finite-grid equilibrium diagnostic", "#FFF4D1", "#E6A400"),
+        Box(65, 120, 385, 360, "Users\nchoose brokered, direct,\nor outside option", "#E9F5F1", "#00A087"),
+        Box(590, 120, 620, 360, "API Intermediary\nsets retail price pₜ and routing rₘ,ₜ", "#EAF2FA", "#3C5488"),
+        Box(1350, 120, 385, 360, "Inference Providers\npost prices under\nfixed GPU capacity", "#FDEDEA", "#E64B35"),
+        Box(95, 570, 1610, 160, "Simulation fixed point", "#EAF7F5", "#4DBBD5"),
+        Box(190, 790, 1420, 118, "Finite-grid equilibrium diagnostic", "#F3F2F8", "#8491B4"),
     ]:
         dx.add_rect(box, 24, True)
     for box in [
-        Box(95, 240, 325, 68, "Time-rigid users R\npeak-native demand", "#FFFDF5", "#E1A72D"),
-        Box(95, 330, 325, 68, "Time-flexible users E\nshiftable demand", "#FFFDF5", "#E1A72D"),
+        Box(95, 240, 325, 68, "Time-rigid users R\npeak-native demand", "#F5FBF8", "#00A087"),
+        Box(95, 330, 325, 68, "Time-flexible users E\nshiftable demand", "#F5FBF8", "#00A087"),
         Box(95, 420, 325, 42, "Outside option: no purchase", "#F7F7F7", "#777777"),
-        Box(630, 260, 160, 82, "Retail\nprice pₜ", "#FFFFFF", "#5B9BD5"),
-        Box(815, 260, 170, 82, "Routing\nrₘ,ₜ", "#FFFFFF", "#5B9BD5"),
-        Box(1010, 260, 160, 82, "Channel\nQoS qᴵₜ", "#FFFFFF", "#5B9BD5"),
-        Box(1380, 240, 325, 64, "Provider A\nlarge capacity G_A", "#F7FBFF", "#2E75B6"),
-        Box(1380, 324, 325, 64, "Provider B\nsmaller capacity G_B", "#F7FBFF", "#2E75B6"),
-        Box(1380, 408, 325, 44, "QoS qₘ,ₜ = qos(Lₘ,ₜ/Gₘ)", "#F7FBFF", "#2E75B6"),
-        Box(145, 640, 205, 58, "Prices\npₜ, wₘ,ₜ, pᴰₘ,ₜ", "#FFFFFF", "#5B9BD5"),
-        Box(385, 640, 205, 58, "Choice shares\nsᶿₖ,ₜ and sᶿ₀", "#FFFFFF", "#5B9BD5"),
-        Box(635, 640, 205, 58, "Demand and routing\nDᶿₖ,ₜ, rₘ,ₜ", "#FFFFFF", "#5B9BD5"),
-        Box(895, 640, 205, 58, "Load and utilization\nLₘ,ₜ, uₘ,ₜ", "#FFFFFF", "#5B9BD5"),
-        Box(1155, 640, 205, 58, "QoS and profit\nqₘ,ₜ, Π", "#FFFFFF", "#5B9BD5"),
-        Box(1410, 640, 205, 58, "Regret inputs\nbest responses", "#FFFFFF", "#5B9BD5"),
-        Box(245, 852, 250, 42, "Provider candidate grids\n64 coarse / 225 fine", "#FFFFFF", "#E6A400"),
-        Box(540, 852, 210, 42, "Intermediary response\ngrid Y", "#FFFFFF", "#E6A400"),
-        Box(790, 852, 220, 42, "Regret scan\nρ = max deviation", "#FFFFFF", "#E6A400"),
-        Box(1070, 852, 285, 42, "Mixed oracle\n5×5 support; regret 0.203", "#FFFFFF", "#E6A400"),
+        Box(630, 260, 160, 82, "Retail\nprice pₜ", "#FFFFFF", "#4DBBD5"),
+        Box(815, 260, 170, 82, "Routing\nrₘ,ₜ", "#FFFFFF", "#4DBBD5"),
+        Box(1010, 260, 160, 82, "Channel\nQoS qᴵₜ", "#FFFFFF", "#4DBBD5"),
+        Box(1380, 240, 325, 64, "Provider A\nlarge capacity G_A", "#FFF7F5", "#E64B35"),
+        Box(1380, 324, 325, 64, "Provider B\nsmaller capacity G_B", "#FFF7F5", "#E64B35"),
+        Box(1380, 408, 325, 44, "QoS qₘ,ₜ = qos(Lₘ,ₜ/Gₘ)", "#FFF7F5", "#E64B35"),
+        Box(145, 640, 205, 58, "Prices\npₜ, wₘ,ₜ, pᴰₘ,ₜ", "#FFFFFF", "#4DBBD5"),
+        Box(385, 640, 205, 58, "Choice shares\nsᶿₖ,ₜ and sᶿ₀", "#FFFFFF", "#4DBBD5"),
+        Box(635, 640, 205, 58, "Demand and routing\nDᶿₖ,ₜ, rₘ,ₜ", "#FFFFFF", "#4DBBD5"),
+        Box(895, 640, 205, 58, "Load and utilization\nLₘ,ₜ, uₘ,ₜ", "#FFFFFF", "#4DBBD5"),
+        Box(1155, 640, 205, 58, "QoS and profit\nqₘ,ₜ, Π", "#FFFFFF", "#4DBBD5"),
+        Box(1410, 640, 205, 58, "Regret inputs\nbest responses", "#FFFFFF", "#4DBBD5"),
+        Box(245, 852, 250, 42, "Provider candidate grids\n64 coarse / 225 fine", "#FFFFFF", "#8491B4"),
+        Box(540, 852, 210, 42, "Intermediary response\ngrid Y", "#FFFFFF", "#8491B4"),
+        Box(790, 852, 220, 42, "Regret scan\nρ = max deviation", "#FFFFFF", "#8491B4"),
+        Box(1070, 852, 285, 42, "Mixed oracle\n5×5 support; regret 0.203", "#FFFFFF", "#8491B4"),
     ]:
         dx.add_rect(box, 17, False)
     for a, b, color, dashed in [
-        ((450, 278), (590, 278), "#1F4E79", False),
-        ((590, 358), (450, 358), "#1769C2", False),
-        ((1210, 278), (1350, 278), "#E6A400", False),
-        ((1350, 358), (1210, 358), "#1769C2", False),
-        ((420, 475), (1385, 480), "#1769C2", True),
-        ((900, 480), (900, 570), "#0B3C5D", False),
-        ((1495, 852), (1660, 452), "#0B3C5D", True),
+        ((450, 278), (590, 278), "#00A087", False),
+        ((590, 358), (450, 358), "#3C5488", False),
+        ((1210, 278), (1350, 278), "#E64B35", False),
+        ((1350, 358), (1210, 358), "#3C5488", False),
+        ((420, 475), (1385, 480), "#3C5488", True),
+        ((900, 480), (900, 570), "#8491B4", False),
+        ((1495, 852), (1660, 452), "#8491B4", True),
     ]:
         dx.add_edge(a, b, color, dashed=dashed, width=4)
     dx.write(OUT_DRAWIO)

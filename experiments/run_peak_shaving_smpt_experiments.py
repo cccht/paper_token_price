@@ -233,7 +233,7 @@ def plot_baselines(rows: list[dict[str, Any]]) -> None:
     x = np.arange(len(labels))
     fig, axes = plt.subplots(1, 3, figsize=(9.6, 3.4))
     metrics = [("minimum_qos", "Minimum QoS"), ("peak_utilization", "Peak utilization"), ("system_profit", "System profit")]
-    colors = ["#1F4E79", "#E6A400", "#5B9BD5"]
+    colors = ["#3C5488", "#00A087", "#E64B35"]
     for ax, (key, title), color in zip(axes, metrics, colors):
         ax.bar(x, [r[key] for r in comparable], color=color)
         ax.set_title(title)
@@ -253,7 +253,7 @@ def plot_phase(rows: list[dict[str, Any]]) -> None:
     ]:
         matrix = np.array([[next(r[key] for r in rows if r["capacity_scale"] == c and r["alpha_scale"] == a) for a in alphas] for c in caps])
         fig, ax = plt.subplots(figsize=(4.9, 3.8))
-        im = ax.imshow(matrix, cmap="cividis", aspect="auto", origin="lower")
+        im = ax.imshow(matrix, cmap="viridis", aspect="auto", origin="lower")
         ax.set_xticks(range(len(alphas)), [f"{a:.2g}" for a in alphas])
         ax.set_yticks(range(len(caps)), [f"{c:.2g}" for c in caps])
         ax.set_xlabel("Price-sensitivity scale")
