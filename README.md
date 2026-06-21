@@ -4247,6 +4247,119 @@ PY'
       `smpt_elsevier_upload_bundle_2026-06-21.zip` = 968674 bytes.
 * Status: verified.
 
+### 2026-06-21 15:52 - Figure 1/4/8 visual legend revision
+
+* Goal:
+  * Improve Figure 1 visual quality and make Figure 4/Figure 8 color meanings
+    explicit in every relevant panel.
+* Context:
+  * The final English and Chinese SMPT manuscripts currently include
+    `market_schematic_drawio_exact_2026-06-21.png` as Figure 1.
+  * Figure 4 uses `profit_components_and_regret.pdf`; its left profit panel has
+    a participant legend, but the right regret panel also needs color annotation.
+  * Figure 8 uses `mechanism_diagnostics.pdf`; panel (b) has a user-type legend,
+    while panels (a), (c), and (d) also need strategy color annotation.
+* Planned action:
+  * Update `experiments/build_market_schematic_drawio.py` to generate a cleaner,
+    more publication-style market-structure diagram while preserving the same
+    model content: users, outside option, API intermediary, providers, routing,
+    direct access, QoS feedback, fixed point, and equilibrium diagnostic.
+  * Update `experiments/build_peak_shaving_diagnostics.py` so Figure 4 and
+    Figure 8 include non-overlapping legends/color annotations for all panels.
+  * Regenerate figures, recompile English and Chinese PDFs, render affected
+    pages, and refresh the English release bundle if verification passes.
+* Boundary:
+  * Do not change numerical data, experiment artifacts, equations, tables, or
+    manuscript claims.
+* Command:
+  ```bash
+  uv run python -m py_compile experiments/build_market_schematic_drawio.py experiments/build_peak_shaving_diagnostics.py
+  uv run python experiments/build_market_schematic_drawio.py
+  uv run python experiments/build_peak_shaving_diagnostics.py
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  bibtex peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  ```
+* Output:
+  * Updated Figure 1:
+    `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png`
+    and editable source
+    `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio`.
+  * Updated Figure 4:
+    `figures/peak_shaving_diagnostics/profit_components_and_regret.pdf`.
+  * Updated Figure 8:
+    `figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf`.
+  * Recompiled PDFs:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` and
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`.
+* Result:
+  * Figure 1 was redesigned as a cleaner market-and-simulation workflow diagram
+    while preserving the paper's model content.
+  * Figure 4 now annotates colors in both the profit-component panel and the
+    regret panel.
+  * Figure 8 now includes visible color legends for all panels: strategy colors
+    in panels (a), (c), and (d), and user-type colors in panel (b).
+  * `pdffonts` confirms Figure 4/Figure 8 still embed Times New Roman.
+  * PDF text checks found Figure 1, Figure 4, and Figure 8 captions in both the
+    English and Chinese PDFs.
+  * LaTeX log checks found no LaTeX errors, undefined references/citations,
+    overfull boxes, or final cross-reference rerun warnings. The Chinese build
+    still reports the known non-fatal Fandol `fontspec` warnings.
+  * Rendered page checks:
+    `tmp/figure_revision_checks/page_en_fig1-04.png`,
+    `tmp/figure_revision_checks/page_en_fig4-13.png`,
+    `tmp/figure_revision_checks/page_en_fig8-17.png`,
+    `tmp/figure_revision_checks/page_zh_fig1-03.png`,
+    `tmp/figure_revision_checks/page_zh_fig4-11.png`, and
+    `tmp/figure_revision_checks/page_zh_fig8-15.png`.
+  * Draw.io XML parses successfully. The draw.io structural validator reports
+    only expected container-overlap warnings because the top-level section boxes
+    contain internal cards; it reports 0 errors.
+  * Unrelated regenerated files `market_schematic.pdf` and
+    `qos_utilization_profiles.pdf` were restored to avoid non-target diffs.
+* Decision:
+  * Keep the manuscript text unchanged because the figure captions already
+    describe the visual encodings sufficiently.
+  * Refresh the English release bundle with the updated Figure 1, Figure 4,
+    Figure 8, final English PDF, and editable Figure 1 source.
+* Release refresh:
+  * Command:
+    ```bash
+    cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+    cp figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+    cp figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+    cp figures/peak_shaving_diagnostics/profit_components_and_regret.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+    cp figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+    (cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21)
+    unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+    gh release upload smpt-submission-candidate-2026-06-21 \
+      peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+      figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio \
+      figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png \
+      figures/peak_shaving_diagnostics/profit_components_and_regret.pdf \
+      figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf \
+      tmp/smpt_elsevier_upload_bundle_2026-06-21.zip \
+      --clobber
+    ```
+  * Output:
+    * `tmp/smpt_elsevier_upload_bundle_2026-06-21.zip` rebuilt and `unzip -t`
+      reported no compressed-data errors.
+    * Release URL:
+      `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`.
+    * Refreshed remote asset sizes:
+      `market_schematic_drawio_exact_2026-06-21.drawio` = 13028 bytes,
+      `market_schematic_drawio_exact_2026-06-21.png` = 151658 bytes,
+      `profit_components_and_regret.pdf` = 26516 bytes,
+      `mechanism_diagnostics.pdf` = 43820 bytes,
+      `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 530530 bytes,
+      `smpt_elsevier_upload_bundle_2026-06-21.zip` = 927117 bytes.
+* Status: verified and release assets refreshed.
+
 ## Manuscript Build
 
 

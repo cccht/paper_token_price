@@ -8,6 +8,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Rectangle
+from matplotlib.patches import Patch
+from matplotlib.lines import Line2D
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -304,6 +306,7 @@ def plot_mechanism(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     x = np.arange(len(names))
     fig, axes = plt.subplots(2, 2, figsize=(8.2, 6.35))
+    strategy_handles = [Patch(facecolor=COLORS[n], edgecolor="none", label=CASE_LABELS[n]) for n in names]
     for ax, metric, title in [
         (axes[0, 0], "average_paid_price", "(a) Average paid price"),
         (axes[1, 0], "served_volume", "(c) QoS-adjusted served volume"),
@@ -311,6 +314,9 @@ def plot_mechanism(bundle: dict[str, Any]) -> None:
     ]:
         ax.bar(x, [bundle["cases"][n]["summary"][metric] for n in names], color=[COLORS[n] for n in names])
         ax.set_title(title, fontsize=10, fontweight="bold", loc="left", pad=8)
+        loc = "upper right" if ax is axes[0, 0] else "upper left"
+        ax.legend(handles=strategy_handles, frameon=False, fontsize=7, loc=loc,
+                  borderaxespad=0.25, handlelength=1.2, labelspacing=0.25)
     rigid = [bundle["cases"][n]["exit_probability"]["rigid"] for n in names]
     elastic = [bundle["cases"][n]["exit_probability"]["elastic"] for n in names]
     axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color="#72B7B2")
@@ -320,7 +326,7 @@ def plot_mechanism(bundle: dict[str, Any]) -> None:
     for ax in axes.ravel():
         ax.set_xticks(x, [CASE_LABELS[n] for n in names], rotation=18, ha="right")
         ax.grid(axis="y", alpha=0.25)
-        ax.margins(y=0.12)
+        ax.margins(y=0.22)
     fig.tight_layout(pad=1.2, h_pad=2.2, w_pad=1.8)
     fig.savefig(FIG / "mechanism_diagnostics.pdf")
     plt.close(fig)
@@ -352,7 +358,13 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
     axes[1].set_xticks([0, 1], ["Coarse\nround 22", "Fine\nround 40"])
     axes[1].set_title("Final stored max regret", fontsize=10)
     axes[1].set_xlim(-0.55, 1.55)
-    axes[1].legend(frameon=False, fontsize=8, loc="upper left", borderaxespad=0.4)
+    regret_handles = [
+        Patch(facecolor=COLORS["dynamic_coarse"], edgecolor="none", label="Dynamic coarse"),
+        Patch(facecolor=COLORS["dynamic_fine"], edgecolor="none", label="Dynamic fine"),
+        Line2D([0], [0], color="#666666", lw=1, ls="--", label="target < 5"),
+    ]
+    axes[1].legend(handles=regret_handles, frameon=False, fontsize=7.5, loc="upper left",
+                   borderaxespad=0.35, handlelength=1.4, labelspacing=0.3)
     axes[0].set_xticks(np.arange(len(names)), [CASE_LABELS[n] for n in names], rotation=18, ha="right")
     for ax in axes:
         ax.grid(axis="y", alpha=0.25)
