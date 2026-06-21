@@ -35,7 +35,7 @@ FIG = ROOT / "figures" / "peak_shaving_diagnostics"
 CAP = np.array([300.0, 120.0])
 QOS_SHAPE = "sigmoid"
 CASE_LABELS = {"uniform": "Uniform", "dynamic_coarse": "Dynamic coarse", "dynamic_fine": "Dynamic fine"}
-COLORS = {"uniform": "#4C78A8", "dynamic_coarse": "#F58518", "dynamic_fine": "#54A24B"}
+COLORS = {"uniform": "#1F4E79", "dynamic_coarse": "#E6A400", "dynamic_fine": "#5B9BD5"}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -288,16 +288,17 @@ def plot_qos_utilization(bundle: dict[str, Any]) -> None:
     for name, rec in bundle["cases"].items():
         axes[0].plot(t, rec["utilization"].max(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
         axes[1].plot(t, rec["qos_firm"].min(axis=0), marker="o", label=CASE_LABELS[name], color=COLORS[name])
-    axes[0].axhline(0.82, color="#666666", lw=1, ls="--", label="QoS threshold")
+    axes[0].axhline(0.82, color="#4D4D4D", lw=1, ls="--", label="QoS threshold")
     axes[0].set_ylabel("Peak firm utilization"); axes[1].set_ylabel("Minimum firm QoS")
     axes[1].set_xlabel("Period")
     for ax in axes:
         ax.grid(alpha=0.25)
+        ax.margins(y=0.14)
     handles, labels = axes[0].get_legend_handles_labels()
     axes[0].legend(handles, labels, frameon=False, ncol=4, loc="lower center",
-                   bbox_to_anchor=(0.5, 1.015), fontsize=8,
-                   borderaxespad=0.0, handlelength=1.6, columnspacing=1.0)
-    fig.tight_layout(rect=[0, 0, 1, 0.975])
+                   bbox_to_anchor=(0.5, 1.0), fontsize=7.6,
+                   borderaxespad=0.0, handlelength=1.5, columnspacing=0.9)
+    fig.tight_layout(rect=[0, 0, 1, 0.985])
     fig.savefig(FIG / "qos_utilization_profiles.pdf")
     plt.close(fig)
 
@@ -319,8 +320,8 @@ def plot_mechanism(bundle: dict[str, Any]) -> None:
                   borderaxespad=0.25, handlelength=1.2, labelspacing=0.25)
     rigid = [bundle["cases"][n]["exit_probability"]["rigid"] for n in names]
     elastic = [bundle["cases"][n]["exit_probability"]["elastic"] for n in names]
-    axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color="#72B7B2")
-    axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color="#E45756")
+    axes[0, 1].bar(x - 0.18, rigid, 0.36, label="Rigid", color="#1F4E79")
+    axes[0, 1].bar(x + 0.18, elastic, 0.36, label="Elastic", color="#E6A400")
     axes[0, 1].set_title("(b) No-purchase probability", fontsize=10, fontweight="bold", loc="left", pad=8)
     axes[0, 1].legend(frameon=False, fontsize=8, loc="upper right")
     for ax in axes.ravel():
@@ -336,8 +337,8 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
     names = list(bundle["cases"])
     fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.9))
     bottom = np.zeros(len(names))
-    parts = [("firm_A_profit", "#4C78A8", "Provider A"), ("firm_B_profit", "#72B7B2", "Provider B"),
-             ("intermediary_profit", "#F58518", "Intermediary")]
+    parts = [("firm_A_profit", "#1F4E79", "Provider A"), ("firm_B_profit", "#5B9BD5", "Provider B"),
+             ("intermediary_profit", "#E6A400", "Intermediary")]
     handles = []
     legend_labels = []
     for key, color, label in parts:
@@ -348,27 +349,28 @@ def plot_profit_regret(bundle: dict[str, Any]) -> None:
         bottom += vals
     axes[0].set_title("Profit by market participant", fontsize=10)
     axes[0].set_xlim(-0.6, len(names) - 0.05)
-    fig.legend(handles, legend_labels, frameon=False, fontsize=8, loc="upper left",
-               bbox_to_anchor=(0.10, 0.985), ncol=3, handlelength=1.4,
-               columnspacing=1.1, borderaxespad=0.0)
+    axes[0].legend(handles, legend_labels, frameon=False, fontsize=7.5,
+                   loc="upper left", ncol=1, handlelength=1.3,
+                   labelspacing=0.25, borderaxespad=0.25)
     meta = bundle["metadata"]
     axes[1].bar([0, 1], [meta["dynamic_coarse_maxregret"], meta["dynamic_fine_maxregret"]],
                 color=[COLORS["dynamic_coarse"], COLORS["dynamic_fine"]])
-    axes[1].axhline(5.0, color="#666666", lw=1, ls="--", label="target < 5")
+    axes[1].axhline(5.0, color="#4D4D4D", lw=1, ls="--", label="target < 5")
     axes[1].set_xticks([0, 1], ["Coarse\nround 22", "Fine\nround 40"])
     axes[1].set_title("Final stored max regret", fontsize=10)
     axes[1].set_xlim(-0.55, 1.55)
     regret_handles = [
         Patch(facecolor=COLORS["dynamic_coarse"], edgecolor="none", label="Dynamic coarse"),
         Patch(facecolor=COLORS["dynamic_fine"], edgecolor="none", label="Dynamic fine"),
-        Line2D([0], [0], color="#666666", lw=1, ls="--", label="target < 5"),
+        Line2D([0], [0], color="#4D4D4D", lw=1, ls="--", label="target < 5"),
     ]
     axes[1].legend(handles=regret_handles, frameon=False, fontsize=7.5, loc="upper left",
                    borderaxespad=0.35, handlelength=1.4, labelspacing=0.3)
     axes[0].set_xticks(np.arange(len(names)), [CASE_LABELS[n] for n in names], rotation=18, ha="right")
     for ax in axes:
         ax.grid(axis="y", alpha=0.25)
-    fig.tight_layout(pad=1.0, rect=[0, 0, 1, 0.91])
+        ax.margins(y=0.16)
+    fig.tight_layout(pad=1.0)
     fig.savefig(FIG / "profit_components_and_regret.pdf")
     plt.close(fig)
 

@@ -4360,6 +4360,185 @@ PY'
       `smpt_elsevier_upload_bundle_2026-06-21.zip` = 927117 bytes.
 * Status: verified and release assets refreshed.
 
+### 2026-06-21 21:08 - Blue/yellow figure palette and in-figure annotation spacing
+
+* Goal:
+  * Review all figures used by the final English and Chinese SMPT manuscripts.
+  * Prefer a blue/yellow visual palette across figures.
+  * Move in-figure legends, node notes, and annotation labels closer to the
+    plotted content where they were placed too far above the axes or figure
+    body.
+* Correction:
+  * The requested "figure caption" spacing refers to in-figure annotations,
+    legends, and node remarks, not LaTeX `\caption` spacing.
+  * Do not change `\captionsetup` or TeX figure-caption spacing.
+* Figure scope:
+  * `market_schematic_drawio_exact_2026-06-21.png`
+  * `vllm_qos_anchor.pdf`
+  * `qos_utilization_profiles.pdf`
+  * `profit_components_and_regret.pdf`
+  * `mixed_oracle_regret.pdf`
+  * `parameter_sweep_qos.pdf`
+  * `smpt_phase_qos_gain.pdf`
+  * `smpt_phase_profit_gain.pdf`
+  * `mechanism_diagnostics.pdf`
+* Planned action:
+  * Update only figure-generation scripts and generated figure assets.
+  * Recompile English and Chinese final PDFs.
+  * Render all figure pages and check for distant legends, overlaps, and color
+    inconsistency.
+* Boundary:
+  * No experiment data, numerical claims, equations, tables, or manuscript
+    prose changes.
+* Commands:
+  ```bash
+  uv run python -m py_compile experiments/build_market_schematic_drawio.py experiments/build_peak_shaving_diagnostics.py experiments/build_peak_shaving_measurement_anchor.py experiments/run_peak_shaving_mixed_oracle.py experiments/run_peak_shaving_parameter_sweep.py experiments/run_peak_shaving_smpt_experiments.py
+  ```
+  ```bash
+  uv run python experiments/build_market_schematic_drawio.py
+  ```
+  ```bash
+  uv run python - <<'PY'
+  from experiments.build_peak_shaving_diagnostics import (
+      FIG,
+      build_records,
+      plot_mechanism,
+      plot_profit_regret,
+      plot_qos_utilization,
+      validate,
+  )
+
+  bundle = build_records()
+  warnings = validate(bundle)
+  plot_qos_utilization(bundle)
+  plot_profit_regret(bundle)
+  plot_mechanism(bundle)
+  print({
+      "validation_warnings": warnings,
+      "figures": [
+          str(FIG / "qos_utilization_profiles.pdf"),
+          str(FIG / "profit_components_and_regret.pdf"),
+          str(FIG / "mechanism_diagnostics.pdf"),
+      ],
+  })
+  PY
+  ```
+  ```bash
+  uv run python - <<'PY'
+  import csv
+  import json
+
+  from experiments.build_peak_shaving_measurement_anchor import PROJECT_ROOT, plot_anchor
+  from experiments.run_peak_shaving_mixed_oracle import plot_trace
+  from experiments.run_peak_shaving_parameter_sweep import plot_sweep
+  from experiments.run_peak_shaving_smpt_experiments import plot_phase
+
+  root = PROJECT_ROOT
+  submission = root / "artifacts" / "peak_shaving" / "20260619_submission"
+  smpt = root / "artifacts" / "peak_shaving" / "20260619_smpt"
+  fig_submission = root / "figures" / "peak_shaving_submission"
+
+  summary = json.loads((submission / "vllm_qos_anchor_summary.json").read_text(encoding="utf-8"))
+  with (submission / "vllm_qos_anchor_points.csv").open(newline="", encoding="utf-8-sig") as handle:
+      points = list(csv.DictReader(handle))
+  plot_anchor(summary["profiles"], points, fig_submission / "vllm_qos_anchor.pdf")
+
+  oracle = json.loads((submission / "peak_shaving_mixed_oracle.json").read_text(encoding="utf-8"))
+  plot_trace(oracle)
+
+  sweep = json.loads((submission / "peak_shaving_parameter_sweep.json").read_text(encoding="utf-8"))
+  plot_sweep(sweep)
+
+  with (smpt / "smpt_phase_grid.csv").open(newline="", encoding="utf-8") as handle:
+      phase_rows = list(csv.DictReader(handle))
+  for row in phase_rows:
+      for key in ("capacity_scale", "alpha_scale", "qos_gain", "peak_reduction", "profit_gain_pct"):
+          row[key] = float(row[key])
+  plot_phase(phase_rows)
+  print({
+      "figures": [
+          str(fig_submission / "vllm_qos_anchor.pdf"),
+          str(fig_submission / "mixed_oracle_regret.pdf"),
+          str(fig_submission / "parameter_sweep_qos.pdf"),
+          str(fig_submission / "smpt_phase_qos_gain.pdf"),
+          str(fig_submission / "smpt_phase_profit_gain.pdf"),
+      ]
+  })
+  PY
+  ```
+* Result:
+  * Script syntax check passed.
+  * Figure 1 Draw.io source and PNG were regenerated.
+  * Diagnostic reconstruction reported `validation_warnings: []`.
+  * Figures regenerated from existing JSON/CSV artifacts, without rerunning
+    the core equilibrium searches.
+* Follow-up adjustment:
+  * The first regenerated Figure 3 placed the in-figure legend inside the top
+    panel and overlapped the QoS-threshold dashed line.
+  * The legend was moved to the upper axis boundary with near-zero visual gap,
+    so it stays close to the plot without covering the threshold or line series.
+* Final validation commands:
+  ```bash
+  uv run python -m py_compile experiments/build_peak_shaving_diagnostics.py
+  ```
+  ```bash
+  uv run python - <<'PY'
+  from experiments.build_peak_shaving_diagnostics import build_records, plot_qos_utilization, validate
+  bundle = build_records()
+  warnings = validate(bundle)
+  plot_qos_utilization(bundle)
+  print({"validation_warnings": warnings, "figure": "figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf"})
+  PY
+  ```
+  ```bash
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  ```
+  ```bash
+  rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log || true
+  ```
+* Final result:
+  * English PDF compiled successfully: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`, 23 pages.
+  * Chinese PDF compiled successfully: `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`, 21 pages after layout reflow.
+  * Error scan reported no LaTeX errors, undefined references/citations, or overfull boxes.
+  * Visual page checks were performed on English figure pages 3, 4, 10, 12, 13, 15, 16, 17 and Chinese figure pages 2, 3, 8, 9, 10, 11, 13, 14, 15, 17.
+  * In-figure legends and node annotations are now close to the corresponding plot/diagram content; no overlap with plotted lines, node text, or manuscript body text was observed.
+* Release refresh commands:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/profit_components_and_regret.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_submission/vllm_qos_anchor.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_submission/mixed_oracle_regret.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_submission/parameter_sweep_qos.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_smpt/smpt_phase_qos_gain.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp figures/peak_shaving_smpt/smpt_phase_profit_gain.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  (cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21)
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.drawio \
+    figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png \
+    figures/peak_shaving_diagnostics/qos_utilization_profiles.pdf \
+    figures/peak_shaving_diagnostics/profit_components_and_regret.pdf \
+    figures/peak_shaving_diagnostics/mechanism_diagnostics.pdf \
+    figures/peak_shaving_submission/vllm_qos_anchor.pdf \
+    figures/peak_shaving_submission/mixed_oracle_regret.pdf \
+    figures/peak_shaving_submission/parameter_sweep_qos.pdf \
+    figures/peak_shaving_smpt/smpt_phase_qos_gain.pdf \
+    figures/peak_shaving_smpt/smpt_phase_profit_gain.pdf \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  ```
+* Release result:
+  * `unzip -t` reported no errors.
+  * Release assets refreshed at `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`.
+  * Refreshed asset sizes include: final English PDF = 531192 bytes, upload bundle = 928551 bytes, Figure 1 PNG = 151803 bytes, Figure 3 PDF = 27805 bytes, Figure 4 PDF = 26197 bytes.
+* Status: verified.
+
 ## Manuscript Build
 
 

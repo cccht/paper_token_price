@@ -155,13 +155,14 @@ def plot_trace(result: dict[str, Any]) -> None:
     xs = [r["oracle_round"] for r in result["trace"]]
     ys = [r["full_max_regret"] for r in result["trace"]]
     fig, ax = plt.subplots(figsize=(6.4, 3.6))
-    ax.plot(xs, ys, marker="o", color="#0072B2")
-    ax.axhline(5.0, color="#666666", ls="--", lw=1, label="target < 5")
+    ax.plot(xs, ys, marker="o", color="#1F4E79", label="Full-grid max regret")
+    ax.axhline(5.0, color="#E6A400", ls="--", lw=1, label="target < 5")
     ax.set_xlabel("Double-oracle round")
     ax.set_ylabel("Full-grid max regret")
     ax.grid(alpha=0.25)
-    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.18))
-    fig.tight_layout(rect=[0, 0, 1, 0.92])
+    ax.legend(frameon=False, loc="upper right", fontsize=8,
+              borderaxespad=0.3, handlelength=1.5, labelspacing=0.25)
+    fig.tight_layout()
     fig.savefig(FIG / "mixed_oracle_regret.pdf")
     plt.close(fig)
 

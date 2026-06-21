@@ -113,7 +113,7 @@ def plot_sweep(rows: list[dict[str, Any]]) -> None:
     fig, axes = plt.subplots(2, 1, figsize=(9.2, 6.4), sharex=True)
     x = np.arange(len(scenarios))
     width = 0.36
-    for offset, case, color in [(-width / 2, "dynamic_coarse", "#E69F00"), (width / 2, "dynamic_fine", "#009E73")]:
+    for offset, case, color in [(-width / 2, "dynamic_coarse", "#E6A400"), (width / 2, "dynamic_fine", "#5B9BD5")]:
         subset = [r for r in rows if r["case"] == case]
         axes[0].bar(x + offset, [r["qos_gain_vs_uniform"] for r in subset], width, label=CASE_LABELS[case], color=color)
         axes[1].bar(x + offset, [r["peak_util_reduction_vs_uniform"] for r in subset], width, label=CASE_LABELS[case], color=color)
@@ -125,9 +125,10 @@ def plot_sweep(rows: list[dict[str, Any]]) -> None:
     for ax in axes:
         ax.grid(axis="y", alpha=0.25)
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, frameon=False, ncol=2, loc="upper center",
-               bbox_to_anchor=(0.5, 1.02), fontsize=8)
-    fig.tight_layout(rect=[0, 0, 1, 0.94])
+    axes[0].legend(handles, labels, frameon=False, ncol=2, loc="upper right",
+                   fontsize=8, borderaxespad=0.25, handlelength=1.4,
+                   columnspacing=0.9)
+    fig.tight_layout()
     fig.savefig(FIG / "parameter_sweep_qos.pdf")
     plt.close(fig)
 
