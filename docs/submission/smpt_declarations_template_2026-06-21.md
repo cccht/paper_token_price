@@ -96,6 +96,7 @@ Figure caution:
 
 Elsevier's SMPT guide states that generative AI or AI-assisted tools should not
 be used to create or alter submitted figures/artwork unless that use is part of
-the research method. Figure 1 should therefore be manually reviewed and exported
-from its Draw.io source by the author before submission. Do not submit the
-earlier imagegen drafts as final artwork.
+the research method. The current review draft embeds an IoT-style generated PNG
+as Figure 1 at the author's request. Before formal submission, the author should
+either recreate/export an author-approved non-AI artwork from this visual draft
+or confirm that the journal accepts the generated artwork with disclosure.

@@ -59,10 +59,13 @@ Submission-candidate release:
 - CRediT roles.
 - Acknowledgements, if any.
 - Optional DOI/archive decision.
-- Author-approved export of Figure 1 from the Draw.io source.
+- Author artwork-policy decision for Figure 1: either recreate/export an
+  author-approved non-AI artwork from the IoT draft, or confirm that the journal
+  will accept the generated artwork with disclosure.
 
 ## Final Caution
 
-Do not upload the earlier imagegen concept images as final artwork. Figure 1
-should be reviewed in Draw.io and exported by the author before formal
-submission.
+The current review draft embeds an IoT-style generated PNG as Figure 1. Do not
+upload it as final artwork unless the author has checked the journal policy and
+decided to disclose that workflow. The safer route is to use it as a visual
+guide and recreate/export author-approved artwork before formal submission.

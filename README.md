@@ -5277,6 +5277,180 @@ PY'
     source/PNG, Figure 2, Figure 3, and the upload bundle.
 * Status: verified and release assets refreshed.
 
+### 2026-06-22 13:31 - Figure 1 IoT-style direct image generation
+
+* Goal:
+  * Redraw Figure 1 as a more practice-facing IoT/network-topology style
+    infographic while preserving the manuscript logic: brokered API access,
+    direct provider access, outside option, API intermediary routing, fixed GPU
+    serving capacity, QoS feedback, fixed-point simulation, and finite-grid
+    diagnostics.
+* Context:
+  * The previous Draw.io Figure 1 was technically consistent but looked too
+    schematic. The current request asks for a direct generated image with IoT
+    icons, system logic, and connecting lines so the figure reads more like a
+    practical inference-service application.
+* Action:
+  * Used the built-in image generation path because no callable `codexdraft`
+    tool is exposed in the current Codex tool list.
+  * Generated an IoT-style manuscript Figure 1 draft with edge devices, an API
+    gateway/intermediary, cloud GPU inference providers, routed-load arrows,
+    price/QoS feedback, direct API access, exit/no-purchase path, and lower
+    simulation/diagnostic bands.
+* Command:
+  ```text
+  image_gen built-in tool prompt:
+  "Redraw the provided Figure 1 as a polished IoT/network-topology style
+  scientific infographic while preserving the same technical logic..."
+  ```
+* Input:
+  * Current Figure 1 preview:
+    `figures/peak_shaving_diagnostics/market_schematic_drawio_exact_2026-06-21.png`.
+* Output:
+  * Generated source image under Codex imagegen storage:
+    `C:\Users\cccht\.codex\generated_images\019ede62-cd93-7220-8ab0-3824ce48b294\ig_0e8b76a9e9bef4b8016a38c8428bb08191983d27aaea611766.png`.
+  * Manuscript asset:
+    `figures/peak_shaving_diagnostics/market_schematic_iot_imagegen_2026-06-22.png`.
+* Asset integration command:
+  ```bash
+  cp /mnt/c/Users/cccht/.codex/generated_images/019ede62-cd93-7220-8ab0-3824ce48b294/ig_0e8b76a9e9bef4b8016a38c8428bb08191983d27aaea611766.png \
+    figures/peak_shaving_diagnostics/market_schematic_iot_imagegen_2026-06-22.png
+  chmod 644 figures/peak_shaving_diagnostics/market_schematic_iot_imagegen_2026-06-22.png
+  ```
+* TeX update:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex` now uses
+    `market_schematic_iot_imagegen_2026-06-22.png` for Figure 1.
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex` now uses
+    `market_schematic_iot_imagegen_2026-06-22.png` for Figure 1.
+* Asset check command:
+  ```bash
+  uv run python - <<'PY'
+  from PIL import Image
+  p = "figures/peak_shaving_diagnostics/market_schematic_iot_imagegen_2026-06-22.png"
+  im = Image.open(p)
+  print(p)
+  print(im.size, im.mode)
+  PY
+  ```
+* Asset check result:
+  * `market_schematic_iot_imagegen_2026-06-22.png` = 1662 x 946 px, RGB.
+* Compilation command:
+  ```bash
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  if rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log; then
+    exit 2
+  fi
+  ```
+* Compilation result:
+  * English PDF rebuilt successfully:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 1,662,770 bytes.
+  * Chinese PDF rebuilt successfully:
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf` = 2,043,846 bytes.
+  * The log scan found no LaTeX hard error, undefined reference/citation, or
+    overfull-box match.
+* Visual preview command:
+  ```bash
+  mkdir -p /tmp/fig1_iot_pages
+  pdftoppm -png -r 180 -f 4 -l 4 peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/fig1_iot_pages/en
+  pdftoppm -png -r 180 -f 3 -l 3 peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/fig1_iot_pages/zh
+  ```
+* Visual preview result:
+  * English Figure 1 appears on page 4; Chinese Figure 1 appears on page 3.
+  * The rendered pages show no figure overflow, caption collision, or obvious
+    node overlap.
+  * The new Figure 1 now visibly includes IoT/edge applications, a network
+    gateway, cloud GPU providers, routed-load arrows, price/QoS feedback,
+    direct API access, and exit/no-purchase logic.
+* Submission-note update:
+  * Updated the Figure 1 file inventory, submission package manifest, Elsevier
+    upload checklist, and declarations template to state that the active Figure
+    1 is an author-requested IoT imagegen draft and that formal Elsevier upload
+    needs an explicit artwork-policy decision.
+* Release refresh command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/
+  cp figures/peak_shaving_diagnostics/market_schematic_iot_imagegen_2026-06-22.png tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/
+  cp docs/submission/smpt_figure_file_inventory_2026-06-21.md tmp/smpt_elsevier_upload_bundle_2026-06-21/submission/
+  cp docs/submission/smpt_submission_package_manifest_2026-06-21.md tmp/smpt_elsevier_upload_bundle_2026-06-21/submission/
+  cp docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md tmp/smpt_elsevier_upload_bundle_2026-06-21/submission/
+  cp docs/submission/smpt_declarations_template_2026-06-21.md tmp/smpt_elsevier_upload_bundle_2026-06-21/submission/
+  cd tmp
+  zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21
+  unzip -t smpt_elsevier_upload_bundle_2026-06-21.zip
+  cd ..
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf \
+    figures/peak_shaving_diagnostics/market_schematic_iot_imagegen_2026-06-22.png \
+    tmp/smpt_elsevier_upload_bundle_2026-06-21.zip \
+    docs/submission/smpt_figure_file_inventory_2026-06-21.md \
+    docs/submission/smpt_submission_package_manifest_2026-06-21.md \
+    docs/submission/smpt_elsevier_upload_checklist_2026-06-21.md \
+    docs/submission/smpt_declarations_template_2026-06-21.md
+  ```
+* Release refresh result:
+  * Zip integrity test passed.
+  * Refreshed release assets:
+    * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf` = 1,662,770 bytes.
+    * `market_schematic_iot_imagegen_2026-06-22.png` = 1,369,526 bytes.
+    * `smpt_elsevier_upload_bundle_2026-06-21.zip` = 3,415,218 bytes.
+    * `smpt_figure_file_inventory_2026-06-21.md` = 2,365 bytes.
+    * `smpt_submission_package_manifest_2026-06-21.md` = 6,511 bytes.
+    * `smpt_elsevier_upload_checklist_2026-06-21.md` = 3,338 bytes.
+    * `smpt_declarations_template_2026-06-21.md` = 3,632 bytes.
+* Final verification command:
+  ```bash
+  uv run python - <<'PY'
+  from PIL import Image
+  p = "figures/peak_shaving_diagnostics/market_schematic_iot_imagegen_2026-06-22.png"
+  im = Image.open(p)
+  print(f"{p}\t{im.size[0]}x{im.size[1]}\t{im.mode}")
+  PY
+  rg -n "market_schematic_iot_imagegen_2026-06-22.png" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex \
+    docs/submission/smpt_figure_file_inventory_2026-06-21.md \
+    docs/submission/smpt_submission_package_manifest_2026-06-21.md
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  if rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" \
+    peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log \
+    peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log; then
+    exit 2
+  fi
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  git diff --check
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  GH_PROMPT_DISABLED=1 gh release view smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --json assets
+  ```
+* Final verification result:
+  * `market_schematic_iot_imagegen_2026-06-22.png` is 1662 x 946 px, RGB.
+  * Both active TeX files cite the new Figure 1 PNG.
+  * Both `latexmk` commands succeeded.
+  * The final log scan found no LaTeX hard error, undefined reference/citation,
+    or overfull-box match.
+  * Zip integrity test and `git diff --check` succeeded.
+  * PDF page counts remain 23 pages for English and 21 pages for Chinese.
+  * GitHub release contains the refreshed PDF, upload bundle, Figure 1 PNG, and
+    updated submission markdown assets with matching byte sizes.
+* Result:
+  * Visual check: the generated draft adds IoT/edge devices, a network gateway,
+    cloud/GPU provider blocks, and clearer practical-system routes while
+    retaining the paper's modelling and simulation workflow.
+* Decision:
+  * Use the generated PNG as the active Figure 1 image for the English and
+    Chinese SMPT drafts.
+  * Keep the previous Draw.io files as editable backup assets rather than
+    deleting them.
+* Next:
+  * Commit and push the local manuscript, Figure 1, README, and submission-note
+    updates.
+* Status: verified.
+
 ## Manuscript Build
 
 
