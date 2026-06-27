@@ -5451,6 +5451,128 @@ PY'
     updates.
 * Status: verified.
 
+### 2026-06-27 19:28 - SMPT reviewer-driven manuscript tightening
+
+* Goal:
+  * Respond to the latest internal review of the SMPT manuscript by tightening
+    the academic framing, model transparency, equilibrium-evidence hierarchy,
+    and submission-readiness notes without adding experiments or changing
+    numerical artifacts.
+* Context:
+  * The review concludes that the manuscript is one coherent LaTeX/PDF paper
+    rather than two different papers, but still reads partly like a simulation
+    report plus method-diagnostic note.
+  * The recommended positioning is a bounded, synthetic-calibration mechanism
+    simulation: finite-grid evidence supports QoS protection under fixed GPU
+    serving capacity, while profit improvement is not robust.
+  * Elsevier's current SMPT guide page was checked again on 2026-06-27 through
+    the official Elsevier guide search result. It reiterates that generative AI
+    should not be used to create or alter submitted figures/artwork unless the
+    use is part of the research method; therefore the current IoT imagegen
+    Figure 1 remains an author-review draft, not a safe final artwork file.
+* Action plan:
+  * Compress the contribution statement into three academic contributions:
+    simulation model, finite-grid regret diagnostic, and the QoS/profit
+    separation.
+  * Add a micro-level explanation of the user time-choice and replay-demand
+    structure so the native-period distribution and logit choice are not read
+    as duplicate time modelling.
+  * Give the main QoS degradation function explicitly in the paper and define
+    the interpretation of $q$ in utility, revenue, and congestion penalty terms.
+  * Reframe the congested-result table as baseline, principal mixed diagnostic,
+    and solver diagnostic snapshots rather than four equal equilibrium objects.
+  * Replace ambiguous "SMPT baseline" wording with "service-management
+    baseline" wording.
+  * Strengthen validation and limitations language around synthetic
+    calibration, vLLM measurement details, author metadata, persistent DOI, and
+    AI artwork.
+* Command:
+  ```bash
+  pwd
+  uname -a || true
+  git rev-parse --show-toplevel 2>/dev/null || true
+  git status --short 2>/dev/null || true
+  command -v uv || true
+  uv --version || true
+  sed -n "1,220p" ~/.codex/references/latex-paper.md
+  ```
+* Input:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex`
+  * Reviewer notes supplied in the Codex thread on 2026-06-27.
+* Expected output:
+  * Revised English SMPT TeX/PDF.
+  * Necessary synchronized Chinese TeX/PDF wording edits.
+  * Updated submission notes and README audit trail.
+* Action:
+  * Revised the English title, abstract, introduction contributions, model
+    explanation, QoS function, profit-function interpretation, congested-result
+    evidence hierarchy, vLLM validation notes, limitations, conclusion, artifact
+    availability, and AI-assistance declaration.
+  * Synchronized the same evidence-boundary and terminology changes in the
+    Chinese TeX draft.
+  * Replaced ambiguous "SMPT baseline" wording with "service-management
+    baseline" in both drafts.
+  * Reframed the congested-result table so the low-regret finite-grid mixed
+    diagnostic is the main comparison against the uniform baseline, while coarse
+    and fine pure snapshots are labelled as solver diagnostics.
+* Verification command:
+  ```bash
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/smpt_tighten_en_latexmk_20260627_final.log
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/smpt_tighten_zh_latexmk_20260627_final.log
+  rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/smpt_tighten_en_20260627.txt
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/smpt_tighten_zh_20260627.txt
+  rg -n "Stylized Simulation Study|synthetic-calibrated|Principal mixed diagnostic|Regret / system profit|service-management baseline|author-review draft|QoS-protection" /tmp/smpt_tighten_en_20260627.txt
+  rg -n "风格化仿真研究|合成校准|主混合诊断|regret / 系统利润|服务管理基线|作者审阅草图|非 AI 图稿" /tmp/smpt_tighten_zh_20260627.txt
+  ```
+* Verification output:
+  * English manuscript compiled to a 24-page A4 PDF:
+    `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`.
+  * Chinese manuscript compiled to a 22-page A4 PDF:
+    `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf`.
+  * Log scan found no `LaTeX Error`, undefined control sequence, undefined
+    reference/citation, or `Overfull` warning in the two active logs.
+  * PDF text extraction confirmed the revised title/framing, synthetic
+    calibration wording, principal mixed diagnostic, regret/system-profit row,
+    service-management baseline wording, QoS-protection framing, and AI artwork
+    warning entered the compiled outputs.
+  * English abstract word-count check initially failed twice because of
+    PowerShell quoting and LaTeX-regex escaping in the checker command; the
+    corrected string-split checker returned 210 words, below the 250-word
+    Elsevier guide limit.
+* Release refresh command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  rm -f tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  cd tmp
+  zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21
+  unzip -t smpt_elsevier_upload_bundle_2026-06-21.zip >/tmp/smpt_bundle_unzip_test_20260627.log
+  cd ..
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  ```
+* Release refresh output:
+  * Rebuilt upload bundle:
+    `tmp/smpt_elsevier_upload_bundle_2026-06-21.zip` (3.3 MB).
+  * `unzip -t` reported no compressed-data errors.
+  * GitHub release `smpt-submission-candidate-2026-06-21` was refreshed with
+    the revised English PDF, revised English TeX, and rebuilt upload bundle.
+* Decision:
+  * Keep the current numerical artifacts unchanged.
+  * Treat the manuscript as a bounded, synthetic-calibrated mechanism simulation
+    paper rather than a production forecast or robust profit-improvement paper.
+  * Leave `Anonymous Author` unchanged until the real author metadata is
+    supplied.
+  * Keep the current Figure 1 as an author-review draft only; formal Elsevier
+    submission still needs author-approved non-AI artwork or journal clearance.
+* Next:
+  * Add real author metadata, funding/declaration details, and a persistent
+    artifact DOI before formal submission.
+* Status: verified.
+
 ## Manuscript Build
 
 
