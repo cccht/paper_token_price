@@ -5573,6 +5573,128 @@ PY'
     artifact DOI before formal submission.
 * Status: verified.
 
+### 2026-07-10 01:11 - SMPT five-section manuscript restructuring
+
+* Goal:
+  * Restructure the SMPT manuscript so the numbered body uses only five main
+    sections: introduction, related research review, methodology, experimental
+    results, and conclusion/outlook.
+* Context:
+  * The previous draft was technically complete but still exposed too many
+    internal diagnostic sections as main chapters.
+  * The requested revision should improve readability without changing formulas,
+    numerical values, citations, figures, tables, or experiment artifacts.
+  * The language pass should avoid uncommon sentence structures and unnecessary
+    specialist wording.
+* Action plan:
+  * Keep the abstract, keywords, reproducibility statement, AI statement, and
+    bibliography outside the five counted main sections.
+  * Fold simulation model, solver diagnostics, verification/validation, and
+    experimental design into `Methodology`.
+  * Fold mechanism discussion, limitations, and future work into
+    `Conclusion and Outlook`.
+  * Convert former subsection headings into shorter paragraph-level headings
+    where navigation is still useful.
+  * Apply `nature-polishing` and `humanizer` guidance: preserve evidence
+    boundaries, use direct sentences, reduce inflated wording, and keep terms
+    consistent.
+* Command:
+  ```bash
+  pwd
+  uname -a || true
+  git rev-parse --show-toplevel 2>/dev/null || true
+  git status --short 2>/dev/null || true
+  command -v uv || true
+  uv --version || true
+  command -v python || true
+  python --version || true
+  command -v git || true
+  git --version || true
+  rg -n '^\\(section|subsection|subsubsection)\\*?\\{' peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex
+  ```
+* Input:
+  * `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`
+  * `peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex`
+* Expected output:
+  * Revised English and Chinese TeX/PDF files with five numbered main sections.
+  * No changed numerical claim, formula, table value, figure file, citation, or
+    experiment artifact.
+* Action:
+  * Reorganized the English body into five numbered sections:
+    `Introduction`, `Related Research Review`, `Methodology`,
+    `Experimental Results`, and `Conclusion and Outlook`.
+  * Reorganized the Chinese body into five numbered sections:
+    `引言`、`相关研究综述`、`方法论`、`实验结果`、`总结展望`.
+  * Converted the previous internal diagnostic sections into paragraph-level
+    headings inside methodology, results, and conclusion/outlook.
+  * Generated a new final-style framework figure directly with the built-in
+    imagegen model rather than Draw.io, Python, SVG, or manual drawing.
+  * Replaced Figure 1 in both English and Chinese TeX files with the new
+    framework figure.
+* Imagegen prompt summary:
+  * Use case: academic infographic framework diagram.
+  * Layout: wide 16:9, clean white background, final manuscript style.
+  * Main blocks: `Users`, `Inference market`, `Simulation loop`, and
+    `Diagnostics and findings`.
+  * Required model content: time-rigid/time-flexible users, API intermediary,
+    direct provider access, exit, Provider A with higher capacity, Provider B
+    with lower capacity, fixed GPU capacity, price and traffic arrows,
+    price-shape/user-choice/routing/load-QoS fixed-point loop, finite-grid
+    regret, QoS protection, and profit boundary.
+  * Style constraints: Nature/Elsevier-like blue, teal, muted orange, and grey
+    palette; crisp lines; legible short labels; no equations, no citations, no
+    extra terms, no decorative background.
+* Output:
+  * `figures/framework_imagegen_final_2026-07-10.png`
+  * Image size: 1672 x 941 px, RGB.
+  * The image is referenced by both active SMPT TeX drafts as Figure 1.
+* Decision:
+  * Keep the generated image as the current author-review framework figure for
+    the final-style draft.
+  * Because the figure was created with imagegen, the existing AI-artwork
+    declaration remains necessary before any Elsevier submission.
+* Verification command:
+  ```bash
+  chmod 644 figures/framework_imagegen_final_2026-07-10.png
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex >/tmp/smpt_final_structure_en_20260710.log
+  latexmk -xelatex -interaction=nonstopmode -halt-on-error peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.tex >/tmp/smpt_final_structure_zh_20260710.log
+  rg -n "LaTeX Error|Undefined control sequence|Reference .* undefined|Citation .* undefined|Overfull" peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.log peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.log
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  pdfinfo peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf /tmp/smpt_final_structure_en_20260710.txt
+  pdftotext peak_shaving_dynamic_pricing_SMPT_final_zh_2026-06-20.pdf /tmp/smpt_final_structure_zh_20260710.txt
+  rg -n "Introduction|Related Research Review|Methodology|Experimental Results|Conclusion and Outlook|Framework of the fixed-capacity inference-service simulation" /tmp/smpt_final_structure_en_20260710.txt
+  rg -n "引言|相关研究综述|方法论|实验结果|总结展望|固定容量推理服务仿真框架" /tmp/smpt_final_structure_zh_20260710.txt
+  ```
+* Verification output:
+  * English PDF compiled to 23 A4 pages.
+  * Chinese PDF compiled to 20 A4 pages.
+  * Log scan found no `LaTeX Error`, undefined control sequence, undefined
+    reference/citation, or `Overfull` warning in the two active logs.
+  * PDF text extraction confirmed the five numbered main sections in both
+    languages.
+  * PDF text extraction confirmed the new Figure 1 caption in both languages.
+  * The new PNG is stored as a normal non-executable file:
+    `-rw-r--r--`.
+* Release refresh command:
+  ```bash
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf
+  cp peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex tmp/smpt_elsevier_upload_bundle_2026-06-21/manuscript/peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex
+  cp figures/framework_imagegen_final_2026-07-10.png tmp/smpt_elsevier_upload_bundle_2026-06-21/figures/framework_imagegen_final_2026-07-10.png
+  rm -f tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  cd tmp && zip -qr smpt_elsevier_upload_bundle_2026-06-21.zip smpt_elsevier_upload_bundle_2026-06-21
+  unzip -t tmp/smpt_elsevier_upload_bundle_2026-06-21.zip >/tmp/smpt_bundle_unzip_test_20260710.log
+  GH_PROMPT_DISABLED=1 gh release upload smpt-submission-candidate-2026-06-21 --repo cccht/paper_token_price --clobber peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex figures/framework_imagegen_final_2026-07-10.png tmp/smpt_elsevier_upload_bundle_2026-06-21.zip
+  ```
+* Release refresh output:
+  * Rebuilt upload bundle:
+    `tmp/smpt_elsevier_upload_bundle_2026-06-21.zip` (4.3 MB).
+  * `unzip -t` reported no compressed-data errors.
+  * GitHub release `smpt-submission-candidate-2026-06-21` was refreshed with
+    the revised English PDF, revised English TeX, new framework figure, and
+    rebuilt upload bundle.
+* Status: verified.
+
 ## Manuscript Build
 
 
