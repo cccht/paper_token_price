@@ -156,16 +156,25 @@ class MarketState:
         return np.vstack([self.retail[None, :], self.direct])  # (3,T)
 
 
+def wholesale_settlement_by_firm(
+    state: MarketState,
+    res: dict,
+    config: PeakShavingConfig,
+) -> np.ndarray:
+    """Completed intermediary traffic settled with each provider."""
+    routed = state.routing * res["demand"][0][None, :]
+    completed = routed * res["qos_firm"]
+    return config.period_hours * np.sum(state.wholesale * completed, axis=1)
+
+
 def firm_profit(idx: int, state: MarketState, res: dict, config: PeakShavingConfig) -> float:
     h = config.period_hours
     demand = res["demand"]            # (3,T)
     qos_firm = res["qos_firm"]        # (2,T)
-    intermediary_demand = demand[0]   # (T,)
     direct_demand = demand[1:][idx]   # (T,)
-    routed = state.routing[idx] * intermediary_demand   # (T,)
+    routed = state.routing[idx] * demand[0]   # (T,)
     qos_m = qos_firm[idx]
-    # 批发收入: 路由来的量按批发价结算(乘QoS有效完成)
-    wholesale_rev = float(np.sum(state.wholesale[idx] * routed * qos_m * h))
+    wholesale_rev = float(wholesale_settlement_by_firm(state, res, config)[idx])
     # 直连收入
     direct_rev = float(np.sum(state.direct[idx] * direct_demand * qos_m * h))
     # 闲置成本: 按固定算力计(无论是否用满)
@@ -181,10 +190,8 @@ def intermediary_profit(state: MarketState, res: dict, config: PeakShavingConfig
     demand = res["demand"]
     intermediary_demand = demand[0]      # (T,)
     qos_channel = res["qos_channel"][0]  # 中间商通道QoS (T,)
-    # 中间商按路由从两厂家批发购入, 加权批发成本
-    avg_wholesale = np.sum(state.routing * state.wholesale, axis=0)  # (T,)
     retail_rev = float(np.sum(state.retail * intermediary_demand * qos_channel * h))
-    wholesale_cost = float(np.sum(avg_wholesale * intermediary_demand * qos_channel * h))
+    wholesale_cost = float(np.sum(wholesale_settlement_by_firm(state, res, config)))
     degrade_cost = float(np.sum(config.degrade_cost * (1.0 - qos_channel) * intermediary_demand * h))
     return retail_rev - wholesale_cost - degrade_cost
 

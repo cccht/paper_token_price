@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-12T13:48:29+08:00",
+    "fit_function": "q(u)=exp(-strength*max(u-threshold,0)^2)",
+    "fit_constraint": "threshold >= 1 because all measured points at u <= 1 met the SLA",
+    "qos_definition": "TTFT SLA rate with threshold 0.5 seconds",
+    "measurement_boundary": "Two Qwen2.5 models on one RTX 4090; five repeats per concurrency.",
+    "source_sha256": {
+      "artifacts/peak_shaving/20260619_submission/vllm_qos_anchor_points.csv": "69624f4014a62b17c4cf7be47c2054a4b3b9e12aa3addd0b686abb86a80e9808",
+      "artifacts/peak_shaving/20260619_submission/vllm_qos_anchor_summary.json": "7be141be80edaeaf29c12502717a6068960835015bd6ee8ec54df75833dc448e",
+      "pricing_sim/peak_shaving_market.py": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "experiments/build_final_qos_calibration.py": "d3d94db2c9e1a36dcf4ae4fe56aba16e5ffb6e345c29ce2b182a4cb7d73caf27"
+    }
+  },
+  "pooled_fit": {
+    "threshold": 1.0000000000000002,
+    "strength": 0.5747078848823926,
+    "rmse": 0.056074294670863147,
+    "rmse_by_profile": {
+      "vllm-0.5b": 0.07095321385312688,
+      "vllm-3b": 0.035416020239180286
+    },
+    "optimizer_success": true,
+    "optimizer_message": "`ftol` termination condition is satisfied."
+  },
+  "leave_one_profile_out": {
+    "train_vllm-0.5b_test_vllm-3b": {
+      "threshold": 1.0000000000000002,
+      "strength": 0.5167223628602748,
+      "train_rmse": 0.06833673219095282,
+      "test_rmse": 0.045431584549720426
+    },
+    "train_vllm-3b_test_vllm-0.5b": {
+      "threshold": 1.0013874119951642,
+      "strength": 0.7978078892052022,
+      "train_rmse": 3.740975401143074e-11,
+      "test_rmse": 0.10463624884849661
+    }
+  },
+  "points": [
+    {
+      "profile": "vllm-0.5b",
+      "model": "Qwen2.5-0.5B-Instruct",
+      "normalized_utilization": 0.2857142857142857,
+      "observed_qos": 1.0,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 1.0
+    },
+    {
+      "profile": "vllm-0.5b",
+      "model": "Qwen2.5-0.5B-Instruct",
+      "normalized_utilization": 0.5714285714285714,
+      "observed_qos": 1.0,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 1.0
+    },
+    {
+      "profile": "vllm-0.5b",
+      "model": "Qwen2.5-0.5B-Instruct",
+      "normalized_utilization": 1.0,
+      "observed_qos": 1.0,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 1.0
+    },
+    {
+      "profile": "vllm-0.5b",
+      "model": "Qwen2.5-0.5B-Instruct",
+      "normalized_utilization": 1.7142857142857142,
+      "observed_qos": 0.634765625,
+      "observed_qos_ci95": 0.006954134407067676,
+      "repeats": 5,
+      "pooled_fitted_qos": 0.7458592954139821
+    },
+    {
+      "profile": "vllm-0.5b",
+      "model": "Qwen2.5-0.5B-Instruct",
+      "normalized_utilization": 2.2857142857142856,
+      "observed_qos": 0.5,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 0.38673045786979054
+    },
+    {
+      "profile": "vllm-3b",
+      "model": "Qwen2.5-3B-Instruct",
+      "normalized_utilization": 0.14285714285714285,
+      "observed_qos": 1.0,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 1.0
+    },
+    {
+      "profile": "vllm-3b",
+      "model": "Qwen2.5-3B-Instruct",
+      "normalized_utilization": 0.2857142857142857,
+      "observed_qos": 1.0,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 1.0
+    },
+    {
+      "profile": "vllm-3b",
+      "model": "Qwen2.5-3B-Instruct",
+      "normalized_utilization": 0.5714285714285714,
+      "observed_qos": 1.0,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 1.0
+    },
+    {
+      "profile": "vllm-3b",
+      "model": "Qwen2.5-3B-Instruct",
+      "normalized_utilization": 1.0,
+      "observed_qos": 1.0,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 1.0
+    },
+    {
+      "profile": "vllm-3b",
+      "model": "Qwen2.5-3B-Instruct",
+      "normalized_utilization": 1.7142857142857142,
+      "observed_qos": 0.6666666666666666,
+      "observed_qos_ci95": 0.0,
+      "repeats": 5,
+      "pooled_fitted_qos": 0.7458592954139821
+    }
+  ]
+}

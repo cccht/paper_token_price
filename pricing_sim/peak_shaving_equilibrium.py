@@ -3,12 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from scipy.optimize import minimize
 
 from .peak_shaving_config import PeakShavingConfig
 from .peak_shaving_market import (
-    MarketState, solve_market_fixed_point, firm_profit, intermediary_profit,
-    system_profit, choice_shares_with_exit, inclusive_value,
+    MarketState, firm_profit, intermediary_profit, system_profit,
 )
 
 
@@ -16,6 +14,24 @@ def expand_price(base: float, delta: float, config: PeakShavingConfig,
                  lower: float, upper: float) -> np.ndarray:
     raw = base * (1.0 + delta * config.load_shape_hat)
     return np.clip(raw, lower, upper)
+
+
+def expand_policy_price(base: float, strength: float, config: PeakShavingConfig, *,
+                        lower: float, upper: float, mode: str) -> np.ndarray:
+    """Expand an explicitly named time-of-use price basis."""
+    if strength < 0.0:
+        raise ValueError("policy strength must be nonnegative")
+    shape = config.load_shape_hat
+    adjustments = {
+        "uniform": np.zeros_like(shape),
+        "peak_surcharge": strength * np.maximum(shape, 0.0),
+        "off_peak_discount": strength * np.minimum(shape, 0.0),
+        "symmetric": strength * shape,
+        "reverse_diagnostic": -strength * shape,
+    }
+    if mode not in adjustments:
+        raise ValueError(f"unknown price policy mode {mode}")
+    return np.clip(base * (1.0 + adjustments[mode]), lower, upper)
 
 
 @dataclass(frozen=True)
@@ -50,6 +66,42 @@ def routing_from_beta(wholesale: np.ndarray, qos_firm: np.ndarray, route_beta: f
     return exp_u / np.sum(exp_u, axis=0, keepdims=True)
 
 
+def _joint_targets(prices: np.ndarray, wholesale: np.ndarray, routing: np.ndarray,
+                   qos_firm: np.ndarray, route_beta: float, config: PeakShavingConfig,
+                   qos_shape: str) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    from pricing_sim.peak_shaving_market import channel_demand, _firm_loads, qos_factor
+
+    qos_channel = np.vstack([np.sum(routing * qos_firm, axis=0)[None, :], qos_firm])
+    demand = channel_demand(prices, qos_channel, config)
+    loads = _firm_loads(demand, routing)
+    utilization = loads / np.maximum(config.firm_capacity[:, None], 1e-8)
+    target_qos = qos_factor(utilization, config, qos_shape)
+    target_routing = routing_from_beta(wholesale, qos_firm, route_beta, config)
+    return target_qos, target_routing, demand, loads, utilization
+
+
+def _joint_market_result(prices: np.ndarray, wholesale: np.ndarray, routing: np.ndarray,
+                         qos_firm: np.ndarray, route_beta: float, config: PeakShavingConfig,
+                         qos_shape: str, iterations: int) -> dict:
+    target_qos, target_routing, demand, loads, utilization = _joint_targets(
+        prices, wholesale, routing, qos_firm, route_beta, config, qos_shape
+    )
+    qos_residual = float(np.max(np.abs(target_qos - qos_firm)))
+    routing_residual = float(np.max(np.abs(target_routing - routing)))
+    joint_residual = max(qos_residual, routing_residual)
+    from pricing_sim.peak_shaving_market import FIXED_POINT_TOL
+
+    return {
+        "prices": prices, "routing": routing, "demand": demand, "loads": loads,
+        "utilization": utilization, "qos_firm": qos_firm,
+        "qos_channel": np.vstack([np.sum(routing * qos_firm, axis=0)[None, :], qos_firm]),
+        "converged": joint_residual <= FIXED_POINT_TOL, "iterations": iterations,
+        "joint_converged": joint_residual <= FIXED_POINT_TOL,
+        "joint_iterations": iterations, "joint_residual": joint_residual,
+        "qos_residual": qos_residual, "routing_residual": routing_residual,
+    }
+
+
 def _solve_with_routing(retail: np.ndarray, wholesale: np.ndarray, direct: np.ndarray,
                         route_beta: float, config: PeakShavingConfig, qos_shape: str = "threshold"):
     """Joint fixed point over (QoS, routing). Routing and QoS are coupled, so we
@@ -57,31 +109,28 @@ def _solve_with_routing(retail: np.ndarray, wholesale: np.ndarray, direct: np.nd
     point inside each of N routing sweeps (which compounded badly under congestion,
     where the QoS fixed point itself needs many iterations). One joint loop is both
     correct and far cheaper."""
-    from pricing_sim.peak_shaving_market import (
-        channel_demand, _firm_loads, qos_factor as _qos, FIXED_POINT_MAX_ITER,
-        FIXED_POINT_TOL, QOS_DAMPING)
+    from pricing_sim.peak_shaving_market import FIXED_POINT_MAX_ITER, FIXED_POINT_TOL, QOS_DAMPING
     T = config.num_periods
-    G = config.firm_capacity[:, None]
     qos_firm = np.ones((2, T))
     routing = np.full((2, T), 0.5)
-    converged = False
-    for _ in range(FIXED_POINT_MAX_ITER):
-        qos_channel = np.vstack([np.sum(routing * qos_firm, axis=0)[None, :], qos_firm])
-        prices = np.vstack([retail[None, :], direct])
-        demand = channel_demand(prices, qos_channel, config)
-        loads = _firm_loads(demand, routing)
-        util = loads / np.maximum(G, 1e-8)
-        target_qos = _qos(util, config, qos_shape)
-        new_routing = routing_from_beta(wholesale, target_qos, route_beta, config)
-        resid = max(float(np.max(np.abs(target_qos - qos_firm))),
-                    float(np.max(np.abs(new_routing - routing))))
-        qos_firm = QOS_DAMPING * target_qos + (1.0 - QOS_DAMPING) * qos_firm
-        routing = QOS_DAMPING * new_routing + (1.0 - QOS_DAMPING) * routing
-        if resid <= FIXED_POINT_TOL:
-            converged = True
+    prices = np.vstack([retail[None, :], direct])
+    iterations = 0
+    for iterations in range(1, FIXED_POINT_MAX_ITER + 1):
+        target_qos, target_routing, _, _, _ = _joint_targets(
+            prices, wholesale, routing, qos_firm, route_beta, config, qos_shape
+        )
+        residual = max(
+            float(np.max(np.abs(target_qos - qos_firm))),
+            float(np.max(np.abs(target_routing - routing))),
+        )
+        if residual <= FIXED_POINT_TOL:
             break
+        qos_firm = QOS_DAMPING * target_qos + (1.0 - QOS_DAMPING) * qos_firm
+        routing = QOS_DAMPING * target_routing + (1.0 - QOS_DAMPING) * routing
     state = MarketState(retail=retail, direct=direct, wholesale=wholesale, routing=routing)
-    res = solve_market_fixed_point(state.channel_prices(), routing, config, qos_shape)
+    res = _joint_market_result(
+        prices, wholesale, routing, qos_firm, route_beta, config, qos_shape, iterations
+    )
     return state, res
 
 
@@ -106,10 +155,14 @@ def intermediary_best_response(wholesale: np.ndarray, direct: np.ndarray,
             retail = expand_price(pbar, dp, config, config.price_lower, config.price_upper)
             for beta in beta_grid:
                 state, res = _solve_with_routing(retail, wholesale, direct, beta, config, qos_shape)
+                if not res["joint_converged"]:
+                    continue
                 prof = intermediary_profit(state, res, config)
                 if prof > best_profit:
                     best_profit = prof
                     best = (state, res)
+    if best is None:
+        raise RuntimeError("no intermediary candidate reached the joint routing-QoS tolerance")
     return best
 
 
@@ -127,7 +180,7 @@ def _firm_best_response(idx: int, params: list, config: PeakShavingConfig,
     compatibility); resolution is fixed below."""
     other = 1 - idx
     wb_lo, wb_hi = config.wholesale_lower, config.wholesale_upper
-    pd_lo, pd_hi = config.price_lower, min(config.price_upper, 1.6)
+    pd_hi = min(config.price_upper, 1.6)
 
     # Coarse grids: base prices at 3 levels, dynamic strengths at 3 levels each.
     wbar_grid = np.linspace(wb_lo + 0.02, wb_hi - 0.02, 3)
