@@ -1,0 +1,486 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-12T12:27:18+08:00",
+    "evidence_level": "controlled_prototype",
+    "data_source": "BurstGPT token profile",
+    "git_commit": "0941d97af4afa33a0b150a77bfada33ef779c9ed",
+    "git_dirty": true,
+    "python": "3.12.13",
+    "numpy": "2.4.4",
+    "command": "uv run --no-project --with numpy --with scipy python -m experiments.run_spatiotemporal_mechanism_decomposition --load-source burstgpt",
+    "model_config": {
+      "capacity": [
+        300.0,
+        120.0
+      ],
+      "qos_shape": "sigmoid",
+      "qos_threshold": 0.82,
+      "qos_feedback_weight": 1.0,
+      "period_hours": 3.0,
+      "load_shape_hat": [
+        -0.12006321722451661,
+        -0.8739154010242128,
+        -1.0,
+        -0.04613727694269141,
+        0.4572983930174107,
+        0.8221958548941133,
+        0.38340935911583174,
+        0.3772122881640641
+      ]
+    },
+    "source_sha256": {
+      "pricing_sim/peak_shaving_config.py": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "pricing_sim/peak_shaving_market.py": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "pricing_sim/peak_shaving_equilibrium.py": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "pricing_sim/spatiotemporal_mechanism.py": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "experiments/run_spatiotemporal_mechanism_decomposition.py": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_metadata.json": "723fbfc9f0e81124362459cf19017e934dfc32ea27b6d204d04a0585f1e08499",
+      "experiments/build_burstgpt_load_anchor.py": "a0127085a4fd9d4ab8e9a71b62051cc6444200c00036f62fabcbe8b692140ef9"
+    }
+  },
+  "load_source": "burstgpt",
+  "rows": [
+    {
+      "policy": "uniform",
+      "mechanism": "neither",
+      "temporal_enabled": false,
+      "spatial_enabled": false,
+      "converged": true,
+      "fixed_point_iterations": 48,
+      "fixed_point_residual": 8.51007431190709e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.37976197278412,
+      "aggregate_peak_load": 238.61726655154428,
+      "aggregate_peak_to_average": 1.7353983021930492,
+      "maximum_provider_utilization": 0.8237977059517599,
+      "provider_utilization_imbalance": 0.3579258998273163,
+      "minimum_provider_qos": 0.4715479759069167,
+      "temporal_moved_fraction": 0.0,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": 0.0,
+      "provider_peak_change_vs_neither": 0.0,
+      "minimum_qos_change_vs_neither": 0.0
+    },
+    {
+      "policy": "uniform",
+      "mechanism": "temporal_only",
+      "temporal_enabled": true,
+      "spatial_enabled": false,
+      "converged": true,
+      "fixed_point_iterations": 39,
+      "fixed_point_residual": 6.967191268358874e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.306749048731069,
+      "aggregate_peak_load": 222.29894864571355,
+      "aggregate_peak_to_average": 1.6167196265142805,
+      "maximum_provider_utilization": 0.767460656038773,
+      "provider_utilization_imbalance": 0.33344842296857036,
+      "minimum_provider_qos": 0.8286628778869443,
+      "temporal_moved_fraction": 0.3127009532734121,
+      "total_demand": 1099.9999999999998,
+      "aggregate_peak_change_vs_neither": -16.318317905830725,
+      "provider_peak_change_vs_neither": -0.056337049912986936,
+      "minimum_qos_change_vs_neither": 0.35711490198002754
+    },
+    {
+      "policy": "uniform",
+      "mechanism": "spatial_only",
+      "temporal_enabled": false,
+      "spatial_enabled": true,
+      "converged": true,
+      "fixed_point_iterations": 29,
+      "fixed_point_residual": 7.11907310879667e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.37976197278412,
+      "aggregate_peak_load": 238.61726655154428,
+      "aggregate_peak_to_average": 1.7353983021930492,
+      "maximum_provider_utilization": 0.7967587258491068,
+      "provider_utilization_imbalance": 0.38619015058620354,
+      "minimum_provider_qos": 0.6675751671043152,
+      "temporal_moved_fraction": 0.0,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": 0.0,
+      "provider_peak_change_vs_neither": -0.027038980102653154,
+      "minimum_qos_change_vs_neither": 0.19602719119739848
+    },
+    {
+      "policy": "uniform",
+      "mechanism": "combined",
+      "temporal_enabled": true,
+      "spatial_enabled": true,
+      "converged": true,
+      "fixed_point_iterations": 32,
+      "fixed_point_residual": 6.402036678565537e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.3038394319524595,
+      "aggregate_peak_load": 220.94371353856926,
+      "aggregate_peak_to_average": 1.606863371189595,
+      "maximum_provider_utilization": 0.7789379207955686,
+      "provider_utilization_imbalance": 0.38704256845330126,
+      "minimum_provider_qos": 0.7741443674863395,
+      "temporal_moved_fraction": 0.3126904834064741,
+      "total_demand": 1099.9999999999998,
+      "aggregate_peak_change_vs_neither": -17.67355301297502,
+      "provider_peak_change_vs_neither": -0.04485978515619138,
+      "minimum_qos_change_vs_neither": 0.3025963915794228
+    },
+    {
+      "policy": "symmetric_tou",
+      "mechanism": "neither",
+      "temporal_enabled": false,
+      "spatial_enabled": false,
+      "converged": true,
+      "fixed_point_iterations": 48,
+      "fixed_point_residual": 8.51007431190709e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.37976197278412,
+      "aggregate_peak_load": 238.61726655154428,
+      "aggregate_peak_to_average": 1.7353983021930492,
+      "maximum_provider_utilization": 0.8237977059517599,
+      "provider_utilization_imbalance": 0.3579258998273163,
+      "minimum_provider_qos": 0.4715479759069167,
+      "temporal_moved_fraction": 0.0,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": 0.0,
+      "provider_peak_change_vs_neither": 0.0,
+      "minimum_qos_change_vs_neither": 0.0
+    },
+    {
+      "policy": "symmetric_tou",
+      "mechanism": "temporal_only",
+      "temporal_enabled": true,
+      "spatial_enabled": false,
+      "converged": true,
+      "fixed_point_iterations": 39,
+      "fixed_point_residual": 6.60190679901973e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.196950858257361,
+      "aggregate_peak_load": 195.36450047495464,
+      "aggregate_peak_to_average": 1.420832730726943,
+      "maximum_provider_utilization": 0.6744726802111529,
+      "provider_utilization_imbalance": 0.29304675071243197,
+      "minimum_provider_qos": 0.987455135032574,
+      "temporal_moved_fraction": 0.33131055795029035,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": -43.25276607658964,
+      "provider_peak_change_vs_neither": -0.14932502574060702,
+      "minimum_qos_change_vs_neither": 0.5159071591256572
+    },
+    {
+      "policy": "symmetric_tou",
+      "mechanism": "spatial_only",
+      "temporal_enabled": false,
+      "spatial_enabled": true,
+      "converged": true,
+      "fixed_point_iterations": 29,
+      "fixed_point_residual": 7.061889961690326e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.37976197278412,
+      "aggregate_peak_load": 238.61726655154428,
+      "aggregate_peak_to_average": 1.7353983021930492,
+      "maximum_provider_utilization": 0.7980711613982981,
+      "provider_utilization_imbalance": 0.38889039147216364,
+      "minimum_provider_qos": 0.6587806631749167,
+      "temporal_moved_fraction": 0.0,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": 0.0,
+      "provider_peak_change_vs_neither": -0.025726544553461794,
+      "minimum_qos_change_vs_neither": 0.18723268726799996
+    },
+    {
+      "policy": "symmetric_tou",
+      "mechanism": "combined",
+      "temporal_enabled": true,
+      "spatial_enabled": true,
+      "converged": true,
+      "fixed_point_iterations": 34,
+      "fixed_point_residual": 9.764810071644092e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.195135018576906,
+      "aggregate_peak_load": 194.8829683519188,
+      "aggregate_peak_to_average": 1.4173306789230458,
+      "maximum_provider_utilization": 0.7408775849043031,
+      "provider_utilization_imbalance": 0.3892702864180628,
+      "minimum_provider_qos": 0.9147975390105705,
+      "temporal_moved_fraction": 0.3310924487126136,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": -43.73429819962547,
+      "provider_peak_change_vs_neither": -0.08292012104745683,
+      "minimum_qos_change_vs_neither": 0.44324956310365377
+    },
+    {
+      "policy": "asymmetric_capacity_balance",
+      "mechanism": "neither",
+      "temporal_enabled": false,
+      "spatial_enabled": false,
+      "converged": true,
+      "fixed_point_iterations": 48,
+      "fixed_point_residual": 8.51007431190709e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.37976197278412,
+      "aggregate_peak_load": 238.61726655154428,
+      "aggregate_peak_to_average": 1.7353983021930492,
+      "maximum_provider_utilization": 0.8237977059517599,
+      "provider_utilization_imbalance": 0.3579258998273163,
+      "minimum_provider_qos": 0.4715479759069167,
+      "temporal_moved_fraction": 0.0,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": 0.0,
+      "provider_peak_change_vs_neither": 0.0,
+      "minimum_qos_change_vs_neither": 0.0
+    },
+    {
+      "policy": "asymmetric_capacity_balance",
+      "mechanism": "temporal_only",
+      "temporal_enabled": true,
+      "spatial_enabled": false,
+      "converged": true,
+      "fixed_point_iterations": 39,
+      "fixed_point_residual": 6.942778574270392e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.300973694451496,
+      "aggregate_peak_load": 220.8831894844161,
+      "aggregate_peak_to_average": 1.606423196250299,
+      "maximum_provider_utilization": 0.7625729160771507,
+      "provider_utilization_imbalance": 0.33132478422662404,
+      "minimum_provider_qos": 0.8484907521132301,
+      "temporal_moved_fraction": 0.31365082031720226,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": -17.73407706712817,
+      "provider_peak_change_vs_neither": -0.06122478987460922,
+      "minimum_qos_change_vs_neither": 0.3769427762063134
+    },
+    {
+      "policy": "asymmetric_capacity_balance",
+      "mechanism": "spatial_only",
+      "temporal_enabled": false,
+      "spatial_enabled": true,
+      "converged": true,
+      "fixed_point_iterations": 33,
+      "fixed_point_residual": 9.310453519262296e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.37976197278412,
+      "aggregate_peak_load": 238.61726655154428,
+      "aggregate_peak_to_average": 1.7353983021930492,
+      "maximum_provider_utilization": 0.5923852418961696,
+      "provider_utilization_imbalance": 0.30836074862349394,
+      "minimum_provider_qos": 0.9989186289596774,
+      "temporal_moved_fraction": 0.0,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": 0.0,
+      "provider_peak_change_vs_neither": -0.23141246405559035,
+      "minimum_qos_change_vs_neither": 0.5273706530527607
+    },
+    {
+      "policy": "asymmetric_capacity_balance",
+      "mechanism": "combined",
+      "temporal_enabled": true,
+      "spatial_enabled": true,
+      "converged": true,
+      "fixed_point_iterations": 34,
+      "fixed_point_residual": 7.424179049309032e-10,
+      "rigid_centroid": 5.379761972784119,
+      "elastic_centroid": 5.287110793065954,
+      "aggregate_peak_load": 233.94099333699575,
+      "aggregate_peak_to_average": 1.7013890424508782,
+      "maximum_provider_utilization": 0.6026979451038389,
+      "provider_utilization_imbalance": 0.3108096934910345,
+      "minimum_provider_qos": 0.9985271207445114,
+      "temporal_moved_fraction": 0.3188796890179808,
+      "total_demand": 1100.0,
+      "aggregate_peak_change_vs_neither": -4.67627321454853,
+      "provider_peak_change_vs_neither": -0.22109976084792105,
+      "minimum_qos_change_vs_neither": 0.5269791448375947
+    }
+  ],
+  "demand_spec": {
+    "native_demand": [
+      [
+        49.093638751953605,
+        12.008814372947407,
+        5.806238708383322,
+        52.730333811436026,
+        77.49622798513842,
+        95.44690662061771,
+        73.86134848931597,
+        73.5564912602075
+      ],
+      [
+        73.64045812793042,
+        18.013221559421112,
+        8.709358062574983,
+        79.09550071715404,
+        116.24434197770762,
+        143.17035993092657,
+        110.79202273397395,
+        110.33473689031125
+      ]
+    ],
+    "price_sensitivity": [
+      2.0,
+      5.0
+    ],
+    "flexible_fraction": [
+      0.0,
+      0.8
+    ],
+    "migration_cost": [
+      2.0,
+      0.35
+    ],
+    "max_shift": [
+      0,
+      2
+    ],
+    "channel_brand": [
+      1.05,
+      1.0,
+      1.0
+    ],
+    "qos_weight": 1.0
+  },
+  "fixed_channel_shares": [
+    0.12,
+    0.5,
+    0.38
+  ],
+  "mechanism_definitions": {
+    "neither": {
+      "temporal_enabled": false,
+      "spatial_enabled": false
+    },
+    "temporal_only": {
+      "temporal_enabled": true,
+      "spatial_enabled": false
+    },
+    "spatial_only": {
+      "temporal_enabled": false,
+      "spatial_enabled": true
+    },
+    "combined": {
+      "temporal_enabled": true,
+      "spatial_enabled": true
+    }
+  },
+  "routing": [
+    [
+      0.7142857142857143,
+      0.7142857142857143,
+      0.7142857142857143,
+      0.7142857142857143,
+      0.7142857142857143,
+      0.7142857142857143,
+      0.7142857142857143,
+      0.7142857142857143
+    ],
+    [
+      0.2857142857142857,
+      0.2857142857142857,
+      0.2857142857142857,
+      0.2857142857142857,
+      0.2857142857142857,
+      0.2857142857142857,
+      0.2857142857142857,
+      0.2857142857142857
+    ]
+  ],
+  "policies": {
+    "uniform": [
+      [
+        1.1,
+        1.1,
+        1.1,
+        1.1,
+        1.1,
+        1.1,
+        1.1,
+        1.1
+      ],
+      [
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72
+      ],
+      [
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72,
+        0.72
+      ]
+    ],
+    "symmetric_tou": [
+      [
+        1.0735860922106064,
+        0.9077386117746733,
+        0.8800000000000001,
+        1.089849799072608,
+        1.2006056464638306,
+        1.280883088076705,
+        1.184350059005483,
+        1.1829867033960941
+      ],
+      [
+        0.7027108967196696,
+        0.5941561822525133,
+        0.576,
+        0.7133562321202523,
+        0.7858509685945072,
+        0.8383962031047523,
+        0.7752109477126797,
+        0.7743185694956252
+      ],
+      [
+        0.7027108967196696,
+        0.5941561822525133,
+        0.576,
+        0.7133562321202523,
+        0.7858509685945072,
+        0.8383962031047523,
+        0.7752109477126797,
+        0.7743185694956252
+      ]
+    ],
+    "asymmetric_capacity_balance": [
+      [
+        1.0735860922106064,
+        0.9077386117746733,
+        0.8800000000000001,
+        1.089849799072608,
+        1.2006056464638306,
+        1.280883088076705,
+        1.184350059005483,
+        1.1829867033960941
+      ],
+      [
+        0.7372891032803304,
+        0.8458438177474865,
+        0.864,
+        0.7266437678797476,
+        0.6541490314054929,
+        0.6016037968952477,
+        0.6647890522873202,
+        0.6656814305043748
+      ],
+      [
+        0.7027108967196696,
+        0.5941561822525133,
+        0.576,
+        0.7133562321202523,
+        0.7858509685945072,
+        0.8383962031047523,
+        0.7752109477126797,
+        0.7743185694956252
+      ]
+    ]
+  }
+}

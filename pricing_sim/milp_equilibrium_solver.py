@@ -6,10 +6,10 @@ import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
 from scipy.sparse import lil_matrix
 
-from .bimatrix_solver import _positive_affine_normalize
-from .complementarity_solver import _support_polish
+from .complementarity_solver import _regret, _support_polish
 
 MIP_TIME_LIMIT_SECONDS = 120.0
+MIP_RAW_REGRET_TOLERANCE = 1e-9
 
 
 @dataclass(frozen=True)
@@ -47,6 +47,8 @@ def _equilibrium_constraints(
     layout: _VariableLayout,
 ) -> LinearConstraint:
     rows, cols = payoff_row.shape
+    row_big_m = max(float(np.max(payoff_row) - np.min(payoff_row)), 1.0)
+    col_big_m = max(float(np.max(payoff_col) - np.min(payoff_col)), 1.0)
     count = 2 + 3 * rows + 3 * cols
     matrix = lil_matrix((count, layout.count))
     lower = np.full(count, -np.inf)
@@ -65,8 +67,8 @@ def _equilibrium_constraints(
         index += 1
         matrix[index, layout.row_value] = 1.0
         matrix[index, layout.col_mix] = -payoff_row[row_index]
-        matrix[index, layout.row_active.start + row_index] = 1.0
-        upper[index] = 1.0
+        matrix[index, layout.row_active.start + row_index] = row_big_m
+        upper[index] = row_big_m
         index += 1
         matrix[index, layout.row_mix.start + row_index] = 1.0
         matrix[index, layout.row_active.start + row_index] = -1.0
@@ -79,8 +81,8 @@ def _equilibrium_constraints(
         index += 1
         matrix[index, layout.col_value] = 1.0
         matrix[index, layout.row_mix] = -payoff_col[:, col_index]
-        matrix[index, layout.col_active.start + col_index] = 1.0
-        upper[index] = 1.0
+        matrix[index, layout.col_active.start + col_index] = col_big_m
+        upper[index] = col_big_m
         index += 1
         matrix[index, layout.col_mix.start + col_index] = 1.0
         matrix[index, layout.col_active.start + col_index] = -1.0
@@ -93,16 +95,22 @@ def milp_equilibrium_candidate(
     payoff_row: np.ndarray,
     payoff_col: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray] | None:
-    row = _positive_affine_normalize(payoff_row)
-    col = _positive_affine_normalize(payoff_col)
+    row = np.asarray(payoff_row, dtype=float)
+    col = np.asarray(payoff_col, dtype=float)
     layout = _variable_layout(*row.shape)
     integrality = np.zeros(layout.count)
     integrality[layout.row_active] = 1.0
     integrality[layout.col_active] = 1.0
+    lower = np.zeros(layout.count)
+    upper = np.ones(layout.count)
+    lower[layout.row_value] = float(np.min(row))
+    upper[layout.row_value] = float(np.max(row))
+    lower[layout.col_value] = float(np.min(col))
+    upper[layout.col_value] = float(np.max(col))
     result = milp(
         np.zeros(layout.count),
         integrality=integrality,
-        bounds=Bounds(np.zeros(layout.count), np.ones(layout.count)),
+        bounds=Bounds(lower, upper),
         constraints=_equilibrium_constraints(row, col, layout),
         options={"time_limit": MIP_TIME_LIMIT_SECONDS, "mip_rel_gap": 0.0},
     )
@@ -112,4 +120,9 @@ def milp_equilibrium_candidate(
     col_mix = np.clip(result.x[layout.col_mix], 0.0, None)
     row_mix /= np.sum(row_mix)
     col_mix /= np.sum(col_mix)
-    return _support_polish(row, col, row_mix, col_mix)
+    polished = _support_polish(row, col, row_mix, col_mix)
+    if polished is not None:
+        return polished
+    if _regret(row, col, row_mix, col_mix) <= MIP_RAW_REGRET_TOLERANCE:
+        return row_mix, col_mix
+    return None

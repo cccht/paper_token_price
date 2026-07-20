@@ -1,5 +1,9 @@
 # SCI Readiness Audit for the Peak-Shaving Manuscript
 
+> **Historical review, superseded.** This report evaluates the 225-candidate
+> June draft. Its results and readiness judgment must not be applied to the
+> current 788-candidate conserved-demand manuscript.
+
 Date: 2026-06-19 20:57 CST
 
 Scope: `peak_shaving_dynamic_pricing_2026-06-19.tex`,
@@ -148,4 +152,3 @@ Most important issues to resolve in the English middle draft:
 - The method is ready for deployment without production traces or online tests.
 - The result generalizes to many providers, many intermediaries, long-term
   contracts, or dynamically adjustable capacity.
-

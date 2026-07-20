@@ -1,5 +1,9 @@
 # Cover Letter Draft For Simulation Modelling Practice and Theory
 
+> **Historical draft, do not submit.** The title, outside-option model, 225-point
+> grid, numerical results, and release link below have been superseded. A new
+> cover letter will be generated from the gated final manuscript.
+
 Dear Editor,
 
 Please consider our manuscript, **"A Simulation-Based Study of Time-of-Use

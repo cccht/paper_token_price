@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "library_name": "Inference Pricing IoT Scenes",
+  "base_library": "../paper_icon_library/manifest.json",
+  "base_library_commit": "8dc132da4c85671ba6a5962c87aa2bdafbf158e9",
+  "scene_size": [480, 300],
+  "scenes": [
+    {
+      "id": "time-rigid-user-endpoints",
+      "group": "endpoints",
+      "label_en": "Time-rigid user endpoints",
+      "label_zh": "时间刚性用户终端",
+      "priority": "core",
+      "accent": "#24557A",
+      "components": [
+        {"icon": "interactive-chat", "x": 42, "y": 72, "size": 112, "color": "#24557A"},
+        {"icon": "mobile-client", "x": 190, "y": 91, "size": 88, "color": "#5B9BD5"},
+        {"icon": "service-latency", "x": 330, "y": 81, "size": 102, "color": "#DE6B57"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "dashed"}
+      ],
+      "badges": [{"text": "Rigid", "x": 38, "y": 31, "color": "#24557A"}]
+    },
+    {
+      "id": "time-flexible-workloads",
+      "group": "endpoints",
+      "label_en": "Time-flexible workloads",
+      "label_zh": "时间弹性工作负载",
+      "priority": "core",
+      "accent": "#2A9D8F",
+      "components": [
+        {"icon": "code-generation", "x": 38, "y": 68, "size": 118, "color": "#24557A"},
+        {"icon": "scheduled-evaluation", "x": 192, "y": 82, "size": 98, "color": "#2A9D8F"},
+        {"icon": "batch-job", "x": 338, "y": 91, "size": 88, "color": "#D49A16"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "dashed"}
+      ],
+      "badges": [{"text": "Flexible", "x": 38, "y": 31, "color": "#2A9D8F"}]
+    },
+    {
+      "id": "applied-iot-endpoints",
+      "group": "endpoints",
+      "label_en": "Applied IoT endpoints",
+      "label_zh": "应用型物联网终端",
+      "priority": "optional",
+      "accent": "#2A9D8F",
+      "components": [
+        {"icon": "iot-device-group", "x": 42, "y": 78, "size": 106, "color": "#2A9D8F"},
+        {"icon": "camera-sensor", "x": 188, "y": 78, "size": 106, "color": "#5B9BD5"},
+        {"icon": "agentic-workflow", "x": 338, "y": 78, "size": 106, "color": "#24557A"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "solid"}
+      ],
+      "badges": [{"text": "IoT", "x": 38, "y": 31, "color": "#2A9D8F"}]
+    },
+    {
+      "id": "user-choice-hub",
+      "group": "endpoints",
+      "label_en": "User choice hub",
+      "label_zh": "用户渠道选择枢纽",
+      "priority": "core",
+      "accent": "#24557A",
+      "components": [
+        {"icon": "time-rigid-users", "x": 40, "y": 61, "size": 92, "color": "#24557A"},
+        {"icon": "time-flexible-users", "x": 40, "y": 157, "size": 92, "color": "#2A9D8F"},
+        {"icon": "api-intermediary", "x": 205, "y": 103, "size": 108, "color": "#5B9BD5"},
+        {"icon": "routing-path", "x": 359, "y": 118, "size": 78, "color": "#D49A16"}
+      ],
+      "links": [
+        {"from": 0, "to": 2, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "solid"},
+        {"from": 2, "to": 3, "kind": "solid"}
+      ],
+      "badges": [{"text": "Choice", "x": 38, "y": 31, "color": "#24557A"}]
+    },
+    {
+      "id": "api-gateway",
+      "group": "market_network",
+      "label_en": "API gateway",
+      "label_zh": "API 接入网关",
+      "priority": "optional",
+      "accent": "#5B9BD5",
+      "components": [
+        {"icon": "api-interface", "x": 43, "y": 80, "size": 102, "color": "#24557A"},
+        {"icon": "application-gateway", "x": 189, "y": 72, "size": 116, "color": "#5B9BD5"},
+        {"icon": "router", "x": 338, "y": 81, "size": 102, "color": "#2A9D8F"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "solid"}
+      ],
+      "badges": [{"text": "API", "x": 38, "y": 31, "color": "#5B9BD5"}]
+    },
+    {
+      "id": "intermediary-routing",
+      "group": "market_network",
+      "label_en": "Intermediary routing",
+      "label_zh": "中间商流量路由",
+      "priority": "core",
+      "accent": "#24557A",
+      "components": [
+        {"icon": "api-intermediary", "x": 55, "y": 102, "size": 112, "color": "#24557A"},
+        {"icon": "provider-service", "x": 330, "y": 52, "size": 90, "color": "#2A9D8F"},
+        {"icon": "provider-service", "x": 330, "y": 164, "size": 90, "color": "#D49A16"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid", "color": "#2A9D8F"},
+        {"from": 0, "to": 2, "kind": "solid", "color": "#D49A16"},
+        {"from": 1, "to": 0, "kind": "dashed", "color": "#5B9BD5"}
+      ],
+      "badges": [
+        {"text": "A", "x": 422, "y": 55, "color": "#2A9D8F"},
+        {"text": "B", "x": 422, "y": 201, "color": "#D49A16"}
+      ]
+    },
+    {
+      "id": "provider-a-cluster",
+      "group": "market_network",
+      "label_en": "Provider A GPU cluster",
+      "label_zh": "服务商 A GPU 集群",
+      "priority": "core",
+      "accent": "#2A9D8F",
+      "components": [
+        {"icon": "gpu-server", "x": 55, "y": 91, "size": 86, "color": "#2A9D8F", "panel": false},
+        {"icon": "gpu-server", "x": 143, "y": 73, "size": 100, "color": "#2A9D8F", "panel": false},
+        {"icon": "gpu-server", "x": 247, "y": 91, "size": 86, "color": "#2A9D8F", "panel": false},
+        {"icon": "fixed-capacity", "x": 355, "y": 84, "size": 96, "color": "#24557A"}
+      ],
+      "links": [{"from": 2, "to": 3, "kind": "solid", "color": "#2A9D8F"}],
+      "badges": [{"text": "A | High capacity", "x": 38, "y": 31, "color": "#2A9D8F"}]
+    },
+    {
+      "id": "provider-b-cluster",
+      "group": "market_network",
+      "label_en": "Provider B GPU cluster",
+      "label_zh": "服务商 B GPU 集群",
+      "priority": "core",
+      "accent": "#D49A16",
+      "components": [
+        {"icon": "gpu-server", "x": 94, "y": 88, "size": 104, "color": "#D49A16", "panel": false},
+        {"icon": "fixed-capacity", "x": 255, "y": 84, "size": 100, "color": "#D49A16"},
+        {"icon": "qos-protection", "x": 378, "y": 102, "size": 72, "color": "#DE6B57"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid", "color": "#D49A16"},
+        {"from": 1, "to": 2, "kind": "solid", "color": "#DE6B57"}
+      ],
+      "badges": [{"text": "B | Low capacity", "x": 38, "y": 31, "color": "#D49A16"}]
+    },
+    {
+      "id": "direct-provider-channel",
+      "group": "market_network",
+      "label_en": "Direct-provider channel",
+      "label_zh": "服务商直连渠道",
+      "priority": "core",
+      "accent": "#2A9D8F",
+      "components": [
+        {"icon": "individual-user", "x": 45, "y": 91, "size": 92, "color": "#24557A"},
+        {"icon": "direct-purchase", "x": 192, "y": 82, "size": 105, "color": "#D49A16"},
+        {"icon": "provider-service", "x": 345, "y": 82, "size": 105, "color": "#2A9D8F"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "solid"}
+      ],
+      "badges": [{"text": "Direct", "x": 38, "y": 31, "color": "#2A9D8F"}]
+    },
+    {
+      "id": "outside-option-scene",
+      "group": "market_network",
+      "label_en": "Outside option",
+      "label_zh": "市场退出选项",
+      "priority": "core",
+      "accent": "#DE6B57",
+      "components": [
+        {"icon": "individual-user", "x": 92, "y": 92, "size": 102, "color": "#24557A"},
+        {"icon": "outside-option", "x": 307, "y": 82, "size": 122, "color": "#DE6B57"}
+      ],
+      "links": [{"from": 0, "to": 1, "kind": "solid", "color": "#DE6B57"}],
+      "badges": [{"text": "Exit", "x": 38, "y": 31, "color": "#DE6B57"}]
+    },
+    {
+      "id": "request-stream",
+      "group": "serving_qos",
+      "label_en": "Request stream",
+      "label_zh": "推理请求流",
+      "priority": "optional",
+      "accent": "#5B9BD5",
+      "components": [
+        {"icon": "interactive-chat", "x": 43, "y": 85, "size": 100, "color": "#24557A"},
+        {"icon": "routing-path", "x": 190, "y": 98, "size": 76, "color": "#5B9BD5", "panel": false},
+        {"icon": "gpu-server", "x": 334, "y": 78, "size": 112, "color": "#2A9D8F"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "solid"}
+      ],
+      "badges": [{"text": "Requests", "x": 38, "y": 31, "color": "#5B9BD5"}]
+    },
+    {
+      "id": "gpu-utilization-scene",
+      "group": "serving_qos",
+      "label_en": "GPU utilization",
+      "label_zh": "GPU 利用率状态",
+      "priority": "core",
+      "accent": "#2A9D8F",
+      "components": [
+        {"icon": "gpu-chip", "x": 43, "y": 82, "size": 105, "color": "#24557A"},
+        {"icon": "gpu-server", "x": 188, "y": 80, "size": 108, "color": "#2A9D8F"},
+        {"icon": "gpu-utilization", "x": 340, "y": 78, "size": 112, "color": "#DE6B57"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "solid"}
+      ],
+      "badges": [{"text": "GPU", "x": 38, "y": 31, "color": "#2A9D8F"}]
+    },
+    {
+      "id": "qos-feedback",
+      "group": "serving_qos",
+      "label_en": "QoS feedback",
+      "label_zh": "QoS 状态反馈",
+      "priority": "core",
+      "accent": "#24557A",
+      "components": [
+        {"icon": "gpu-server", "x": 42, "y": 84, "size": 105, "color": "#2A9D8F"},
+        {"icon": "gpu-utilization", "x": 188, "y": 79, "size": 112, "color": "#D49A16"},
+        {"icon": "qos-protection", "x": 343, "y": 84, "size": 105, "color": "#DE6B57"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid", "color": "#2A9D8F"},
+        {"from": 1, "to": 2, "kind": "solid", "color": "#DE6B57"},
+        {"from": 2, "to": 0, "kind": "feedback", "color": "#24557A"}
+      ],
+      "badges": [{"text": "QoS", "x": 38, "y": 31, "color": "#DE6B57"}]
+    },
+    {
+      "id": "congestion-boundary",
+      "group": "serving_qos",
+      "label_en": "Congestion boundary",
+      "label_zh": "拥塞与服务边界",
+      "priority": "core",
+      "accent": "#DE6B57",
+      "components": [
+        {"icon": "gpu-utilization", "x": 43, "y": 82, "size": 105, "color": "#D49A16"},
+        {"icon": "congestion-warning", "x": 190, "y": 85, "size": 100, "color": "#DE6B57"},
+        {"icon": "service-latency", "x": 340, "y": 82, "size": 105, "color": "#24557A"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid", "color": "#DE6B57"},
+        {"from": 1, "to": 2, "kind": "dashed", "color": "#24557A"}
+      ],
+      "badges": [{"text": "Threshold", "x": 38, "y": 31, "color": "#DE6B57"}]
+    },
+    {
+      "id": "price-profile-and-shift",
+      "group": "simulation",
+      "label_en": "Price profile and shift",
+      "label_zh": "分时价格与需求迁移",
+      "priority": "core",
+      "accent": "#D49A16",
+      "components": [
+        {"icon": "time-of-use-price", "x": 43, "y": 84, "size": 102, "color": "#D49A16"},
+        {"icon": "regret-diagnostic", "x": 188, "y": 79, "size": 112, "color": "#24557A"},
+        {"icon": "demand-shift", "x": 342, "y": 86, "size": 98, "color": "#2A9D8F"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid", "color": "#D49A16"},
+        {"from": 1, "to": 2, "kind": "solid", "color": "#2A9D8F"}
+      ],
+      "badges": [{"text": "ToU", "x": 38, "y": 31, "color": "#D49A16"}]
+    },
+    {
+      "id": "routing-fanout",
+      "group": "simulation",
+      "label_en": "Routing fan-out",
+      "label_zh": "双服务商流量分配",
+      "priority": "core",
+      "accent": "#5B9BD5",
+      "components": [
+        {"icon": "router", "x": 45, "y": 101, "size": 92, "color": "#5B9BD5"},
+        {"icon": "network-topology", "x": 180, "y": 102, "size": 90, "color": "#24557A", "panel": false},
+        {"icon": "provider-service", "x": 338, "y": 49, "size": 88, "color": "#2A9D8F"},
+        {"icon": "provider-service", "x": 338, "y": 166, "size": 88, "color": "#D49A16"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid"},
+        {"from": 1, "to": 2, "kind": "solid", "color": "#2A9D8F"},
+        {"from": 1, "to": 3, "kind": "solid", "color": "#D49A16"}
+      ],
+      "badges": [{"text": "Routing", "x": 38, "y": 31, "color": "#5B9BD5"}]
+    },
+    {
+      "id": "fixed-point-loop",
+      "group": "simulation",
+      "label_en": "Routing-QoS fixed point",
+      "label_zh": "路由与 QoS 固定点",
+      "priority": "core",
+      "accent": "#596579",
+      "components": [
+        {"icon": "routing-path", "x": 43, "y": 91, "size": 92, "color": "#5B9BD5"},
+        {"icon": "qos-fixed-point", "x": 187, "y": 77, "size": 118, "color": "#DE6B57"},
+        {"icon": "iterative-solver", "x": 345, "y": 87, "size": 98, "color": "#596579"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid", "color": "#5B9BD5"},
+        {"from": 1, "to": 2, "kind": "solid", "color": "#596579"},
+        {"from": 2, "to": 0, "kind": "feedback", "color": "#24557A"}
+      ],
+      "badges": [{"text": "Iterate", "x": 38, "y": 31, "color": "#596579"}]
+    },
+    {
+      "id": "payoff-and-regret",
+      "group": "simulation",
+      "label_en": "Payoff and regret",
+      "label_zh": "收益与 Regret 诊断",
+      "priority": "core",
+      "accent": "#596579",
+      "components": [
+        {"icon": "provider-profit", "x": 42, "y": 84, "size": 102, "color": "#D49A16"},
+        {"icon": "mixed-strategy", "x": 190, "y": 82, "size": 106, "color": "#5B9BD5"},
+        {"icon": "regret-diagnostic", "x": 340, "y": 80, "size": 110, "color": "#596579"}
+      ],
+      "links": [
+        {"from": 0, "to": 1, "kind": "solid", "color": "#D49A16"},
+        {"from": 1, "to": 2, "kind": "solid", "color": "#596579"}
+      ],
+      "badges": [{"text": "Regret", "x": 38, "y": 31, "color": "#596579"}]
+    }
+  ]
+}

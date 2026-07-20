@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "source_summary_sha256": "ef1ae75f1e92ede09c2403befbea9109a3bbc16e3ee9fa7bdfd912b712d20e28",
+    "source_sha256": {
+      "experiments/build_submission_sensitivity_claims.py": "17c9e1bc86e1c5c0725d2a4fd290041a26831c7e406c61cb0d4278eedcac9f48",
+      "experiments/build_submission_sensitivity_table.py": "c2e9c8bab311e392cbe11a50f280c02280484a4833412d4d8bd278021cde1c96"
+    },
+    "provider_candidate_count": 788,
+    "scope": "baseline and eight local finite-game re-solves"
+  },
+  "claims": {
+    "scenario_count": 9,
+    "aggregate_peak_change_percent": {
+      "minimum": -13.043252706641258,
+      "maximum": -11.80594111486893,
+      "all_improve": true
+    },
+    "maximum_provider_utilization_change_percent": {
+      "minimum": -21.030809176605292,
+      "maximum": -8.463959670572377,
+      "all_improve": true
+    },
+    "minimum_provider_qos_change": {
+      "minimum": 0.029145479746648384,
+      "maximum": 0.14207495560011574,
+      "all_improve": true
+    },
+    "market_profit_change_percent": {
+      "minimum": -39.793962479027115,
+      "maximum": 27.69529558313497,
+      "negative_count": 4,
+      "zero_count": 0,
+      "positive_count": 5,
+      "sign_robust": false
+    },
+    "maximum_full_regret": 6.821210263296962e-13,
+    "maximum_joint_residual": 9.999697736517987e-10
+  },
+  "interpretation_boundary": "Ranges and directions apply only to the declared common finite candidate set and the eight local perturbations; they are not continuous-domain or production guarantees. Independent off-grid and active-profile audits are baseline-only."
+}

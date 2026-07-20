@@ -99,6 +99,23 @@ The repeated controlled scan is stored under:
 artifacts/vllm-study-qwen25-3b/20260531-214710
 ```
 
+The study artifact records the served model and the maximum model length but
+does not embed the complete server command. A contemporaneous execution log at
+`2026-05-31T13:44:51.875Z` preserves the launch command used for this scan:
+
+```bash
+/root/.venvs/tokenrl-vllm/bin/vllm serve Qwen/Qwen2.5-3B-Instruct \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --dtype auto \
+  --max-model-len 2048 \
+  --gpu-memory-utilization 0.75
+```
+
+This session-log record supplements, but is not part of, the immutable study
+artifact. The two benchmark servers therefore used the same data-type,
+maximum-length, and GPU-memory-utilization settings.
+
 At 384 concurrent requests, mean TTFT reaches 0.539 seconds and the 0.5-second
 TTFT SLA rate falls to 66.7 percent. This confirms the congestion pattern on a
 second vLLM model but remains a single-GPU microbenchmark.

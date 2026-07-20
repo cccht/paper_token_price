@@ -1,0 +1,456 @@
+{
+  "schema_version": 1,
+  "library_name": "Inference Pricing Paper Icons",
+  "upstream": {
+    "name": "ByteDance IconPark",
+    "repository": "https://github.com/bytedance/IconPark",
+    "commit": "8dc132da4c85671ba6a5962c87aa2bdafbf158e9",
+    "package": "@icon-park/svg",
+    "package_version": "1.4.2",
+    "license": "Apache-2.0"
+  },
+  "palette": {
+    "market": "#24557A",
+    "workloads": "#2A9D8F",
+    "network": "#5B9BD5",
+    "serving": "#DE6B57",
+    "pricing": "#D49A16",
+    "simulation": "#596579",
+    "text": "#344054",
+    "paper": "#FFFFFF"
+  },
+  "categories": [
+    {
+      "id": "market",
+      "label_en": "Market actors",
+      "label_zh": "市场主体",
+      "color": "#24557A",
+      "icons": [
+        {
+          "id": "time-rigid-users",
+          "label_en": "Time-rigid users",
+          "label_zh": "时间刚性用户",
+          "source": "Peoples/peoples.svg",
+          "priority": "core",
+          "use": "User type with peak-concentrated preference and high migration cost."
+        },
+        {
+          "id": "time-flexible-users",
+          "label_en": "Time-flexible users",
+          "label_zh": "时间弹性用户",
+          "source": "Peoples/every-user.svg",
+          "priority": "core",
+          "use": "User type that can shift demand across periods."
+        },
+        {
+          "id": "provider-service",
+          "label_en": "Inference provider",
+          "label_zh": "推理服务商",
+          "source": "Hardware/server.svg",
+          "priority": "core",
+          "use": "Provider A or Provider B in the market layer."
+        },
+        {
+          "id": "api-intermediary",
+          "label_en": "API intermediary",
+          "label_zh": "API 中间商",
+          "source": "Hardware/cloud-storage.svg",
+          "priority": "core",
+          "use": "Retail pricing and traffic-routing intermediary."
+        },
+        {
+          "id": "outside-option",
+          "label_en": "Outside option",
+          "label_zh": "退出市场",
+          "source": "Arrows/logout.svg",
+          "priority": "core",
+          "use": "No-purchase or market-exit alternative."
+        },
+        {
+          "id": "individual-user",
+          "label_en": "Individual user",
+          "label_zh": "单个用户",
+          "source": "Peoples/user.svg",
+          "priority": "optional",
+          "use": "Optional compact representation for a single requester."
+        },
+        {
+          "id": "provider-operator",
+          "label_en": "Provider operator",
+          "label_zh": "服务商运营方",
+          "source": "Peoples/user-business.svg",
+          "priority": "optional",
+          "use": "Optional human decision-maker for operational diagrams."
+        },
+        {
+          "id": "market-competition",
+          "label_en": "Provider competition",
+          "label_zh": "服务商竞争",
+          "source": "Peoples/user-to-user-transmission.svg",
+          "priority": "optional",
+          "use": "Optional symbol for bilateral pricing competition."
+        }
+      ]
+    },
+    {
+      "id": "workloads",
+      "label_en": "LLM and IoT workloads",
+      "label_zh": "LLM 与物联网工作负载",
+      "color": "#2A9D8F",
+      "icons": [
+        {
+          "id": "interactive-chat",
+          "label_en": "Interactive chat",
+          "label_zh": "交互式对话",
+          "source": "Communicate/comments.svg",
+          "priority": "core",
+          "use": "Latency-sensitive interactive inference workload."
+        },
+        {
+          "id": "code-generation",
+          "label_en": "Code generation",
+          "label_zh": "代码生成",
+          "source": "Hardware/code-laptop.svg",
+          "priority": "core",
+          "use": "Interactive code-generation workload named in the introduction."
+        },
+        {
+          "id": "agentic-workflow",
+          "label_en": "Agentic workflow",
+          "label_zh": "智能体工作流",
+          "source": "Hardware/robot-one.svg",
+          "priority": "core",
+          "use": "Automated multi-step inference workload."
+        },
+        {
+          "id": "scheduled-evaluation",
+          "label_en": "Scheduled evaluation",
+          "label_zh": "定时评测",
+          "source": "Office/schedule.svg",
+          "priority": "core",
+          "use": "Time-flexible scheduled evaluation workload."
+        },
+        {
+          "id": "batch-job",
+          "label_en": "Periodic batch job",
+          "label_zh": "周期批任务",
+          "source": "Office/hourglass.svg",
+          "priority": "core",
+          "use": "Delay-tolerant batch inference workload."
+        },
+        {
+          "id": "mobile-client",
+          "label_en": "Mobile client",
+          "label_zh": "移动终端",
+          "source": "Hardware/phone.svg",
+          "priority": "optional",
+          "use": "Optional IoT or mobile request source."
+        },
+        {
+          "id": "iot-device-group",
+          "label_en": "Connected devices",
+          "label_zh": "互联终端",
+          "source": "Hardware/devices.svg",
+          "priority": "optional",
+          "use": "Optional grouped endpoint symbol for an IoT scene."
+        },
+        {
+          "id": "camera-sensor",
+          "label_en": "Camera sensor",
+          "label_zh": "视觉传感器",
+          "source": "Hardware/monitor-camera.svg",
+          "priority": "optional",
+          "use": "Optional visual-data source for an applied IoT example."
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "label_en": "API and network flow",
+      "label_zh": "API 与网络流",
+      "color": "#5B9BD5",
+      "icons": [
+        {
+          "id": "api-interface",
+          "label_en": "API interface",
+          "label_zh": "API 接口",
+          "source": "Connect/api.svg",
+          "priority": "core",
+          "use": "Public API access point."
+        },
+        {
+          "id": "application-gateway",
+          "label_en": "Application gateway",
+          "label_zh": "应用网关",
+          "source": "Abstract/api-app.svg",
+          "priority": "core",
+          "use": "Gateway between applications and the intermediary."
+        },
+        {
+          "id": "routing-path",
+          "label_en": "Routing path",
+          "label_zh": "路由路径",
+          "source": "Arrows/connection-arrow.svg",
+          "priority": "core",
+          "use": "Intermediary traffic allocation across providers."
+        },
+        {
+          "id": "network-topology",
+          "label_en": "Network topology",
+          "label_zh": "网络拓扑",
+          "source": "Connect/network-tree.svg",
+          "priority": "core",
+          "use": "Hierarchical application, intermediary, and provider links."
+        },
+        {
+          "id": "router",
+          "label_en": "Traffic router",
+          "label_zh": "流量路由器",
+          "source": "Hardware/router-one.svg",
+          "priority": "core",
+          "use": "QoS-aware routing operation."
+        },
+        {
+          "id": "data-switching",
+          "label_en": "Data switching",
+          "label_zh": "数据切换",
+          "source": "Datas/data-switching.svg",
+          "priority": "optional",
+          "use": "Optional symbol for provider switching."
+        },
+        {
+          "id": "network-drive",
+          "label_en": "Network service",
+          "label_zh": "网络服务节点",
+          "source": "Hardware/network-drive.svg",
+          "priority": "optional",
+          "use": "Optional infrastructure node between market and serving layers."
+        },
+        {
+          "id": "linked-services",
+          "label_en": "Linked services",
+          "label_zh": "服务连接",
+          "source": "Connect/connection.svg",
+          "priority": "optional",
+          "use": "Optional generic connection between API services."
+        }
+      ]
+    },
+    {
+      "id": "serving",
+      "label_en": "GPU serving and QoS",
+      "label_zh": "GPU 服务与 QoS",
+      "color": "#DE6B57",
+      "icons": [
+        {
+          "id": "gpu-chip",
+          "label_en": "GPU serving chip",
+          "label_zh": "GPU 推理芯片",
+          "source": "Hardware/chip.svg",
+          "priority": "core",
+          "use": "GPU serving resource in the physical layer."
+        },
+        {
+          "id": "gpu-server",
+          "label_en": "GPU server",
+          "label_zh": "GPU 服务器",
+          "source": "Hardware/data-server.svg",
+          "priority": "core",
+          "use": "Server or cluster capacity unit."
+        },
+        {
+          "id": "fixed-capacity",
+          "label_en": "Fixed capacity",
+          "label_zh": "固定容量",
+          "source": "Hardware/dashboard-two.svg",
+          "priority": "core",
+          "use": "Short-run fixed GPU serving capacity."
+        },
+        {
+          "id": "gpu-utilization",
+          "label_en": "GPU utilization",
+          "label_zh": "GPU 利用率",
+          "source": "Time/speed.svg",
+          "priority": "core",
+          "use": "Period-level utilization reported by the simulation."
+        },
+        {
+          "id": "qos-protection",
+          "label_en": "QoS protection",
+          "label_zh": "QoS 保护",
+          "source": "Safe/protect.svg",
+          "priority": "core",
+          "use": "Service-quality protection under congestion."
+        },
+        {
+          "id": "compute-processor",
+          "label_en": "Compute processor",
+          "label_zh": "计算处理器",
+          "source": "Hardware/cpu.svg",
+          "priority": "optional",
+          "use": "Optional generic compute symbol when GPU detail is unnecessary."
+        },
+        {
+          "id": "service-latency",
+          "label_en": "Service latency",
+          "label_zh": "服务延迟",
+          "source": "Hardware/timer.svg",
+          "priority": "optional",
+          "use": "Optional latency or time-to-first-token indicator."
+        },
+        {
+          "id": "congestion-warning",
+          "label_en": "Congestion warning",
+          "label_zh": "拥塞预警",
+          "source": "Safe/caution.svg",
+          "priority": "optional",
+          "use": "Optional marker for the QoS degradation threshold."
+        }
+      ]
+    },
+    {
+      "id": "pricing",
+      "label_en": "Pricing and market game",
+      "label_zh": "定价与市场博弈",
+      "color": "#D49A16",
+      "icons": [
+        {
+          "id": "time-of-use-price",
+          "label_en": "Time-of-use price",
+          "label_zh": "分时价格",
+          "source": "Base/tag.svg",
+          "priority": "core",
+          "use": "Peak and off-peak price profile."
+        },
+        {
+          "id": "wholesale-exchange",
+          "label_en": "Wholesale exchange",
+          "label_zh": "批发价格交换",
+          "source": "Money/exchange-two.svg",
+          "priority": "core",
+          "use": "Provider wholesale prices offered to the intermediary."
+        },
+        {
+          "id": "direct-purchase",
+          "label_en": "Direct purchase",
+          "label_zh": "服务商直购",
+          "source": "Money/buy.svg",
+          "priority": "core",
+          "use": "User purchase through a direct-provider channel."
+        },
+        {
+          "id": "demand-shift",
+          "label_en": "Demand shifting",
+          "label_zh": "需求迁移",
+          "source": "Arrows/cycle-movement.svg",
+          "priority": "core",
+          "use": "Movement of time-flexible demand across periods."
+        },
+        {
+          "id": "provider-profit",
+          "label_en": "Provider profit",
+          "label_zh": "服务商利润",
+          "source": "Money/income.svg",
+          "priority": "core",
+          "use": "Provider or total-system profit outcome."
+        },
+        {
+          "id": "intermediary-margin",
+          "label_en": "Intermediary margin",
+          "label_zh": "中间商利润",
+          "source": "Money/wallet.svg",
+          "priority": "optional",
+          "use": "Optional intermediary-profit decomposition."
+        },
+        {
+          "id": "user-surplus",
+          "label_en": "User surplus",
+          "label_zh": "用户剩余",
+          "source": "Money/finance.svg",
+          "priority": "optional",
+          "use": "Optional welfare or inclusive-value interpretation."
+        },
+        {
+          "id": "transaction-flow",
+          "label_en": "Transaction flow",
+          "label_zh": "交易流",
+          "source": "Money/transaction.svg",
+          "priority": "optional",
+          "use": "Optional payment flow between market participants."
+        }
+      ]
+    },
+    {
+      "id": "simulation",
+      "label_en": "Simulation and verification",
+      "label_zh": "仿真与验证",
+      "color": "#596579",
+      "icons": [
+        {
+          "id": "finite-strategy-grid",
+          "label_en": "Finite strategy grid",
+          "label_zh": "有限策略网格",
+          "source": "Edit/grid-nine.svg",
+          "priority": "core",
+          "use": "Finite candidate pricing-shape grid."
+        },
+        {
+          "id": "qos-fixed-point",
+          "label_en": "QoS fixed point",
+          "label_zh": "QoS 固定点",
+          "source": "Others/target.svg",
+          "priority": "core",
+          "use": "Joint routing and QoS fixed-point calculation."
+        },
+        {
+          "id": "iterative-solver",
+          "label_en": "Iterative solver",
+          "label_zh": "迭代求解",
+          "source": "Abstract/cycle-arrow.svg",
+          "priority": "core",
+          "use": "Damped iteration and fictitious-play update loop."
+        },
+        {
+          "id": "mixed-strategy",
+          "label_en": "Mixed strategy",
+          "label_zh": "混合策略",
+          "source": "Charts/bubble-chart.svg",
+          "priority": "core",
+          "use": "Finite-grid mixed-strategy support profile."
+        },
+        {
+          "id": "regret-diagnostic",
+          "label_en": "Regret diagnostic",
+          "label_zh": "Regret 诊断",
+          "source": "Charts/chart-line.svg",
+          "priority": "core",
+          "use": "Unilateral-deviation regret and solver convergence."
+        },
+        {
+          "id": "sensitivity-scan",
+          "label_en": "Sensitivity scan",
+          "label_zh": "参数敏感性扫描",
+          "source": "Charts/radar-chart.svg",
+          "priority": "optional",
+          "use": "Optional parameter stress-test or phase-grid marker."
+        },
+        {
+          "id": "verification-check",
+          "label_en": "Verification check",
+          "label_zh": "模型校核",
+          "source": "Office/inspection.svg",
+          "priority": "optional",
+          "use": "Optional solver residual and consistency verification."
+        },
+        {
+          "id": "artifact-data",
+          "label_en": "Artifact data",
+          "label_zh": "实验工件数据",
+          "source": "Datas/database-success.svg",
+          "priority": "optional",
+          "use": "Optional reproducibility package and saved result artifact."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,450 @@
+{
+  "metadata": {
+    "equilibrium_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_provider768.json",
+    "candidate_count": 140,
+    "evaluated_pairs": 1375,
+    "wall_time_seconds": 273.67883640306536
+  },
+  "slope_values": [
+    0.6,
+    0.8,
+    1.0,
+    1.2,
+    1.5,
+    2.0,
+    3.0
+  ],
+  "players": {
+    "firm_A": {
+      "equilibrium_payoff": 850.0322487445366,
+      "best_payoff": 863.5043665425798,
+      "best_vector": [
+        0.25,
+        1.5,
+        0.6,
+        0.4
+      ],
+      "guard_regret": 13.4721177980432,
+      "relative_guard_regret": 0.015848949046275568,
+      "evaluated_candidates": 140,
+      "top_candidates": [
+        {
+          "vector": [
+            0.25,
+            1.5,
+            0.6,
+            0.4
+          ],
+          "payoff": 863.5043665425798,
+          "maximum_joint_residual": 8.184531385957428e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.5,
+            0.6,
+            0.2
+          ],
+          "payoff": 859.5445467935641,
+          "maximum_joint_residual": 9.857089589004886e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.2,
+            0.6,
+            0.2
+          ],
+          "payoff": 859.3871172437855,
+          "maximum_joint_residual": 8.500677939338175e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.2,
+            0.6,
+            0.4
+          ],
+          "payoff": 857.5173984135105,
+          "maximum_joint_residual": 9.554070867778819e-10
+        },
+        {
+          "vector": [
+            0.25,
+            2.0,
+            0.6,
+            0.6
+          ],
+          "payoff": 855.9449316969501,
+          "maximum_joint_residual": 9.835411374226055e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.5,
+            0.6,
+            0.6
+          ],
+          "payoff": 855.5463752975562,
+          "maximum_joint_residual": 9.313461668547518e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.0,
+            0.6,
+            0.2
+          ],
+          "payoff": 855.4151301423078,
+          "maximum_joint_residual": 8.27421575699816e-10
+        },
+        {
+          "vector": [
+            0.25,
+            2.0,
+            0.6,
+            0.4
+          ],
+          "payoff": 855.0243217986635,
+          "maximum_joint_residual": 9.402878475839316e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.5,
+            0.45,
+            1.2
+          ],
+          "payoff": 854.1162560914764,
+          "maximum_joint_residual": 8.485583902206884e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.0,
+            0.6,
+            0.4
+          ],
+          "payoff": 851.6781676387808,
+          "maximum_joint_residual": 9.752388341333074e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.4,
+            0.6,
+            0.0
+          ],
+          "payoff": 850.0322487445366,
+          "maximum_joint_residual": 9.106975173978071e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.6,
+            0.6,
+            0.2
+          ],
+          "payoff": 850.0322487445366,
+          "maximum_joint_residual": 9.983703863625237e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.8,
+            0.6,
+            0.2
+          ],
+          "payoff": 850.0322487445366,
+          "maximum_joint_residual": 9.853916571600507e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.0,
+            0.45,
+            0.6
+          ],
+          "payoff": 850.0322487445364,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.2,
+            0.45,
+            0.6
+          ],
+          "payoff": 850.0322487445364,
+          "maximum_joint_residual": 8.252709626788146e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.4,
+            0.6,
+            0.2
+          ],
+          "payoff": 849.9472500607693,
+          "maximum_joint_residual": 9.754473895284832e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.2,
+            0.45,
+            1.2
+          ],
+          "payoff": 849.840253157172,
+          "maximum_joint_residual": 9.701102143822027e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.2,
+            0.45,
+            0.8
+          ],
+          "payoff": 849.1790725915356,
+          "maximum_joint_residual": 9.642424636524538e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.0,
+            0.45,
+            0.4
+          ],
+          "payoff": 848.7817046407251,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            1.2,
+            0.6,
+            0.6
+          ],
+          "payoff": 847.8769724803145,
+          "maximum_joint_residual": 9.936989009418085e-10
+        }
+      ]
+    },
+    "firm_B": {
+      "equilibrium_payoff": 747.2456564853894,
+      "best_payoff": 747.2456564853896,
+      "best_vector": [
+        0.25,
+        0.8,
+        0.6,
+        0.2
+      ],
+      "guard_regret": 2.2737367544323206e-13,
+      "relative_guard_regret": 3.0428236480177893e-16,
+      "evaluated_candidates": 140,
+      "top_candidates": [
+        {
+          "vector": [
+            0.25,
+            0.8,
+            0.6,
+            0.2
+          ],
+          "payoff": 747.2456564853896,
+          "maximum_joint_residual": 8.086432634613061e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.0,
+            0.6,
+            0.4
+          ],
+          "payoff": 747.2456564853895,
+          "maximum_joint_residual": 9.983703863625237e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.2,
+            0.6,
+            0.4
+          ],
+          "payoff": 747.2456564853895,
+          "maximum_joint_residual": 9.106975173978071e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.4,
+            0.6,
+            0.2
+          ],
+          "payoff": 747.2456564853895,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.6,
+            0.6,
+            0.2
+          ],
+          "payoff": 747.2456564853894,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.4,
+            0.6,
+            0.4
+          ],
+          "payoff": 746.1537352662826,
+          "maximum_joint_residual": 9.832052949576564e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.6,
+            0.6,
+            0.4
+          ],
+          "payoff": 744.5176107280083,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.8,
+            0.45,
+            0.8
+          ],
+          "payoff": 743.8476626221222,
+          "maximum_joint_residual": 8.425720676719095e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.2,
+            0.45,
+            1.0
+          ],
+          "payoff": 742.6699823632957,
+          "maximum_joint_residual": 9.174617177087896e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.0,
+            0.45,
+            1.0
+          ],
+          "payoff": 741.6581084613239,
+          "maximum_joint_residual": 9.639008480277766e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.8,
+            0.6,
+            0.4
+          ],
+          "payoff": 741.2907128837422,
+          "maximum_joint_residual": 9.678683965397283e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.2,
+            0.45,
+            0.8
+          ],
+          "payoff": 741.037653419946,
+          "maximum_joint_residual": 8.095984993516936e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.0,
+            0.45,
+            0.8
+          ],
+          "payoff": 739.1830463431249,
+          "maximum_joint_residual": 7.982680072515791e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.0,
+            0.45,
+            1.2
+          ],
+          "payoff": 738.7432610394842,
+          "maximum_joint_residual": 8.711809051931141e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.2,
+            0.45,
+            1.2
+          ],
+          "payoff": 738.1312392128401,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.0,
+            0.6,
+            0.6
+          ],
+          "payoff": 737.9444206966575,
+          "maximum_joint_residual": 9.933844857812346e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.8,
+            0.45,
+            0.6
+          ],
+          "payoff": 737.7909499690845,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.2,
+            0.6,
+            0.6
+          ],
+          "payoff": 736.0993780380471,
+          "maximum_joint_residual": 9.65908131256299e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.6,
+            0.45,
+            0.6
+          ],
+          "payoff": 734.0777015755648,
+          "maximum_joint_residual": 8.051889155424874e-10
+        },
+        {
+          "vector": [
+            0.25,
+            0.4,
+            0.6,
+            0.6
+          ],
+          "payoff": 732.3308996094961,
+          "maximum_joint_residual": 8.423081676589561e-10
+        }
+      ]
+    }
+  },
+  "maximum_joint_residual": 9.983703863625237e-10
+}

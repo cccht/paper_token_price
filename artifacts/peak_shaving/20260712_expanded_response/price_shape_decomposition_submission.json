@@ -1,0 +1,148 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-20T13:17:07+08:00",
+    "equilibrium_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json",
+    "equilibrium_sha256": "70a3b64050c2b0621bbcf0c5a418c43ba554f61b3ee10c2ca4d48fbf26bed226",
+    "evidence_level": "fixed-profile price-shape decomposition",
+    "source_sha256": {
+      "experiments/run_submission_price_shape_decomposition.py": "d5411f672834b2eb2cc819729dd36151e006dabd1a09f9ff6ae2f85d0c289b2a",
+      "pricing_sim/peak_shaving_equilibrium.py": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "pricing_sim/peak_shaving_market.py": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "pricing_sim/spatiotemporal_game.py": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "pricing_sim/spatiotemporal_mechanism.py": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02"
+    },
+    "command": "uv run --no-project --with numpy --with scipy python -m experiments.run_submission_price_shape_decomposition"
+  },
+  "control": "For every active dynamic provider pair, each realised wholesale, direct, and intermediary retail schedule is replaced by its own period mean. Route beta and equilibrium pair weights are held fixed before the market fixed point is re-solved.",
+  "interpretation_boundary": "This fixed-profile accounting decomposition is not a provider or intermediary re-equilibrium.",
+  "uniform_flattening_check": {
+    "maximum_absolute_error": 0.0,
+    "errors": {
+      "aggregate_peak_load": 0.0,
+      "maximum_provider_utilization": 0.0,
+      "minimum_provider_qos": 0.0,
+      "system_profit": 0.0
+    },
+    "aggregate_peak_load": 225.04346795512376,
+    "maximum_provider_utilization": 1.371498827407358,
+    "minimum_provider_qos": 0.9011838129195092,
+    "system_profit": 1880.9350620021348,
+    "firm_A_profit": 844.7484906864385,
+    "firm_B_profit": 715.7036714747467,
+    "intermediary_profit": 320.4828998409508,
+    "profile_count": 100,
+    "probability_mass": 1.0,
+    "all_converged": true,
+    "maximum_joint_residual": 9.973898373871748e-10
+  },
+  "mean_flattened_dynamic_profiles": {
+    "aggregate_peak_load": 225.433927321294,
+    "maximum_provider_utilization": 1.3540140753654404,
+    "minimum_provider_qos": 0.9177987649016662,
+    "system_profit": 1815.4332252105303,
+    "firm_A_profit": 803.8613937277013,
+    "firm_B_profit": 688.2827382642321,
+    "intermediary_profit": 323.28909321859646,
+    "profile_count": 676,
+    "probability_mass": 1.000000000000001,
+    "all_converged": true,
+    "maximum_joint_residual": 9.9884045479115e-10
+  },
+  "components": [
+    {
+      "metric": "aggregate_peak_load",
+      "uniform_equilibrium": 225.04346795512376,
+      "flattened_dynamic_profiles": 225.433927321294,
+      "dynamic_equilibrium": 196.90283746651224,
+      "overall_change": -28.14063048861152,
+      "shape_change": -28.531089854781754,
+      "level_and_mix_remainder": 0.3904593661702336,
+      "identity_error": 0.0
+    },
+    {
+      "metric": "maximum_provider_utilization",
+      "uniform_equilibrium": 1.371498827407358,
+      "flattened_dynamic_profiles": 1.3540140753654404,
+      "dynamic_equilibrium": 1.2227760579868934,
+      "overall_change": -0.1487227694204647,
+      "shape_change": -0.131238017378547,
+      "level_and_mix_remainder": -0.017484752041917684,
+      "identity_error": 0.0
+    },
+    {
+      "metric": "minimum_provider_qos",
+      "uniform_equilibrium": 0.9011838129195092,
+      "flattened_dynamic_profiles": 0.9177987649016662,
+      "dynamic_equilibrium": 0.9585889871764829,
+      "overall_change": 0.05740517425697367,
+      "shape_change": 0.040790222274816657,
+      "level_and_mix_remainder": 0.01661495198215701,
+      "identity_error": 0.0
+    },
+    {
+      "metric": "system_profit",
+      "uniform_equilibrium": 1880.9350620021348,
+      "flattened_dynamic_profiles": 1815.4332252105303,
+      "dynamic_equilibrium": 1922.9347405683043,
+      "overall_change": 41.99967856616945,
+      "shape_change": 107.501515357774,
+      "level_and_mix_remainder": -65.50183679160455,
+      "identity_error": 0.0
+    }
+  ],
+  "coefficient_base_flattened_dynamic_profiles": {
+    "aggregate_peak_load": 224.58491235211474,
+    "maximum_provider_utilization": 1.4511945867975378,
+    "minimum_provider_qos": 0.8863639285299006,
+    "system_profit": 1725.0063130436401,
+    "firm_A_profit": 729.1872054068928,
+    "firm_B_profit": 675.8051434803738,
+    "intermediary_profit": 320.0139641563702,
+    "profile_count": 676,
+    "probability_mass": 1.000000000000001,
+    "all_converged": true,
+    "maximum_joint_residual": 9.984850724009675e-10
+  },
+  "coefficient_base_components": [
+    {
+      "metric": "aggregate_peak_load",
+      "uniform_equilibrium": 225.04346795512376,
+      "flattened_dynamic_profiles": 224.58491235211474,
+      "dynamic_equilibrium": 196.90283746651224,
+      "overall_change": -28.14063048861152,
+      "shape_change": -27.682074885602503,
+      "level_and_mix_remainder": -0.45855560300901743,
+      "identity_error": 0.0
+    },
+    {
+      "metric": "maximum_provider_utilization",
+      "uniform_equilibrium": 1.371498827407358,
+      "flattened_dynamic_profiles": 1.4511945867975378,
+      "dynamic_equilibrium": 1.2227760579868934,
+      "overall_change": -0.1487227694204647,
+      "shape_change": -0.2284185288106444,
+      "level_and_mix_remainder": 0.0796957593901797,
+      "identity_error": 0.0
+    },
+    {
+      "metric": "minimum_provider_qos",
+      "uniform_equilibrium": 0.9011838129195092,
+      "flattened_dynamic_profiles": 0.8863639285299006,
+      "dynamic_equilibrium": 0.9585889871764829,
+      "overall_change": 0.05740517425697367,
+      "shape_change": 0.07222505864658224,
+      "level_and_mix_remainder": -0.014819884389608573,
+      "identity_error": 0.0
+    },
+    {
+      "metric": "system_profit",
+      "uniform_equilibrium": 1880.9350620021348,
+      "flattened_dynamic_profiles": 1725.0063130436401,
+      "dynamic_equilibrium": 1922.9347405683043,
+      "overall_change": 41.99967856616945,
+      "shape_change": 197.92842752466413,
+      "level_and_mix_remainder": -155.92874895849468,
+      "identity_error": 0.0
+    }
+  ]
+}

@@ -10,22 +10,21 @@ for _thread_variable in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THR
     os.environ[_thread_variable] = "1"
 
 from experiments.run_final_spatiotemporal_equilibrium import (  # noqa: E402
-    DEFAULT_PAIR_CACHE_DIR,
     ROOT,
     run_equilibria,
 )
-from experiments.peak_shaving_submission_tools import (  # noqa: E402
-    FOURTH_AUDIT_CENTRES,
-    adaptive_audit_provider_candidate_grid,
+from experiments.submission_candidate_design import (  # noqa: E402
+    augmented_submission_provider_candidate_grid,
+    candidate_design_metadata,
 )
 
 OUT = ROOT / "artifacts" / "peak_shaving" / "20260712_expanded_response"
 OUTPUT_PATH = OUT / "spatiotemporal_equilibrium_submission.json"
-SEED_PATHS = (
-    OUTPUT_PATH,
-    OUT / "spatiotemporal_equilibrium_provider2380.json",
-    OUT / "spatiotemporal_equilibrium_provider1370.json",
+ARCHIVED_BASELINE_PATH = (
+    OUT / "pre_uniform_expansion" / "spatiotemporal_equilibrium_submission.json"
 )
+SEED_PATHS = (ARCHIVED_BASELINE_PATH,)
+PAIR_CACHE_DIR = Path.home() / ".cache" / "peak_shaving_uniform_expansion_baseline"
 MAX_ORACLE_ROUNDS = 100
 PARALLEL_WORKERS = 16
 
@@ -62,20 +61,24 @@ def main() -> None:
     if initial_vectors is None:
         raise FileNotFoundError("an audited equilibrium seed is required")
     reference_vectors = initial_vectors[0] + initial_vectors[1]
-    candidate_grid = adaptive_audit_provider_candidate_grid(reference_vectors)
+    candidate_grid = augmented_submission_provider_candidate_grid(reference_vectors)
     result = run_equilibria(
         candidate_grid=candidate_grid,
         max_oracle_rounds=MAX_ORACLE_ROUNDS,
         initial_dynamic_vectors=initial_vectors,
-        pair_cache_dir=DEFAULT_PAIR_CACHE_DIR,
+        pair_cache_dir=PAIR_CACHE_DIR,
         parallel_workers=PARALLEL_WORKERS,
     )
     runner = Path(__file__).resolve()
+    design_source = ROOT / "experiments/submission_candidate_design.py"
     result["metadata"]["command"] = (
         "uv run --no-project --with numpy --with scipy --with nashpy "
         "python -m experiments.run_submission_spatiotemporal_equilibrium"
     )
     result["metadata"]["source_sha256"][str(runner.relative_to(ROOT))] = _sha256(runner)
+    result["metadata"]["source_sha256"][
+        str(design_source.relative_to(ROOT))
+    ] = _sha256(design_source)
     result["metadata"]["continuation_seed"] = (
         None if seed_path is None else {
             "path": str(seed_path.relative_to(ROOT)),
@@ -83,10 +86,8 @@ def main() -> None:
         }
     )
     result["metadata"]["candidate_design"] = {
-        "method": "fourth_round_audit_adaptive",
-        "audited_deviation_centres": [list(item) for item in FOURTH_AUDIT_CENTRES],
+        **candidate_design_metadata(reference_vectors),
         "reference_support_count": len(reference_vectors),
-        "candidate_count": len(candidate_grid),
     }
     OUT.mkdir(parents=True, exist_ok=True)
     temporary = OUTPUT_PATH.with_suffix(OUTPUT_PATH.suffix + ".tmp")

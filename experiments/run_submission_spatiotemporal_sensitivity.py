@@ -20,7 +20,7 @@ from experiments.run_final_spatiotemporal_equilibrium import (  # noqa: E402
 
 OUT = ROOT / "artifacts" / "peak_shaving" / "20260712_expanded_response"
 BASELINE_PATH = OUT / "spatiotemporal_equilibrium_submission.json"
-CACHE_ROOT = Path("/tmp/peak_shaving_submission_sensitivity")
+CACHE_ROOT = Path.home() / ".cache" / "peak_shaving_submission_sensitivity"
 SUMMARY_PATH = OUT / "spatiotemporal_sensitivity_submission.json"
 SCENARIOS = {
     "capacity_low": {"group": "capacity_scale", "value": 0.85, "capacity_scale": 0.85},

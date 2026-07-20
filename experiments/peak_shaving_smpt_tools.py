@@ -88,7 +88,8 @@ def record_from_state(case: str, state: MarketState, res: dict[str, Any], cfg: P
     served = demand * qos
     exit_rigid = choice_shares_with_exit(prices, qos, cfg, "rigid")[1]
     exit_elastic = choice_shares_with_exit(prices, qos, cfg, "elastic")[1]
-    avg_price = float(np.sum(prices * demand) / max(np.sum(demand), 1e-12))
+    completed = demand * qos
+    avg_price = float(np.sum(prices * completed) / max(np.sum(completed), 1e-12))
     weighted_iv = (
         cfg.pop_rigid * inclusive_value(prices, qos, cfg, "rigid")
         + cfg.pop_elastic * inclusive_value(prices, qos, cfg, "elastic")
@@ -109,6 +110,10 @@ def record_from_state(case: str, state: MarketState, res: dict[str, Any], cfg: P
         "weighted_inclusive_value": weighted_iv,
         "fixed_point_converged": bool(res["converged"]),
         "fixed_point_iterations": int(res["iterations"]),
+        "joint_fixed_point_converged": bool(res.get("joint_converged", False)),
+        "joint_fixed_point_residual": res.get("joint_residual"),
+        "joint_qos_residual": res.get("qos_residual"),
+        "joint_routing_residual": res.get("routing_residual"),
     }
 
 

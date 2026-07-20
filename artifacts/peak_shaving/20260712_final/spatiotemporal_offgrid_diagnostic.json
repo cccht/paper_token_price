@@ -1,0 +1,270 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-12T14:34:45+08:00",
+    "samples_per_player": 512,
+    "seed": 20260712,
+    "equilibrium_sha256": "c26d18ccc37f1d3f8fdd10e10c05fe175eebdab3741308fbafeb76ddd98753e3",
+    "command": "uv run --no-project --with numpy --with scipy python -m experiments.run_spatiotemporal_offgrid_diagnostic",
+    "source_sha256": {
+      "artifacts/peak_shaving/20260712_final/spatiotemporal_equilibrium.json": "c26d18ccc37f1d3f8fdd10e10c05fe175eebdab3741308fbafeb76ddd98753e3",
+      "pricing_sim/spatiotemporal_game.py": "a9ca70e3c92086774799175af5d1f4ae34e4d7e8c3e0af8ebc3066b221a5bfab",
+      "experiments/run_final_spatiotemporal_equilibrium.py": "c3fdc6a683697d08a37f9cb59a28432fa74bbbafdb813cda012995cbb238a280",
+      "experiments/run_spatiotemporal_offgrid_diagnostic.py": "6bcb70a3cb7c73acd44e17fbebf60992d0b6f5c78983f614e2a428cf0d9094ac"
+    }
+  },
+  "search_domain": {
+    "wbar": [
+      0.27,
+      0.88
+    ],
+    "wholesale_slope": [
+      -0.4,
+      0.4
+    ],
+    "direct_base": [
+      0.6,
+      1.6
+    ],
+    "direct_slope": [
+      -0.4,
+      0.4
+    ]
+  },
+  "players": {
+    "firm_A": {
+      "equilibrium_payoff": 1039.182881541466,
+      "best_payoff": 1039.182881541466,
+      "best_vector": [
+        0.575,
+        0.20000000000000007,
+        0.6,
+        0.20000000000000007
+      ],
+      "offgrid_regret": 0.0,
+      "relative_offgrid_regret": 0.0,
+      "evaluated_candidates": 513,
+      "all_joint_converged": true,
+      "maximum_joint_residual": 9.998967209767784e-10,
+      "top_candidates": [
+        {
+          "vector": [
+            0.575,
+            0.20000000000000007,
+            0.6,
+            0.20000000000000007
+          ],
+          "payoff": 1039.182881541466,
+          "maximum_joint_residual": 6.627055570973539e-10
+        },
+        {
+          "vector": [
+            0.5992638569690154,
+            0.1419016129139269,
+            0.6215993852219162,
+            0.08363658116337741
+          ],
+          "payoff": 1035.6821025546597,
+          "maximum_joint_residual": 9.56102974569717e-10
+        },
+        {
+          "vector": [
+            0.6491405310823409,
+            0.32320739289351097,
+            0.6330226662096339,
+            0.05236445886469443
+          ],
+          "payoff": 1026.4351976277114,
+          "maximum_joint_residual": 8.410654395163419e-10
+        },
+        {
+          "vector": [
+            0.6734781853614988,
+            -0.020030893607509814,
+            0.612780221643856,
+            0.00804502455701811
+          ],
+          "payoff": 1025.852583331978,
+          "maximum_joint_residual": 7.359091391823114e-10
+        },
+        {
+          "vector": [
+            0.5615676583924327,
+            0.0690263786745069,
+            0.600841862669025,
+            0.2394032657793529
+          ],
+          "payoff": 1025.7673147822081,
+          "maximum_joint_residual": 6.505179173110776e-10
+        },
+        {
+          "vector": [
+            0.6699028191660732,
+            0.3374853202753426,
+            0.6413762595198906,
+            0.05043671377067643
+          ],
+          "payoff": 1023.440176467404,
+          "maximum_joint_residual": 8.80070294417834e-10
+        },
+        {
+          "vector": [
+            0.6202157597146457,
+            0.05458335907414036,
+            0.6811013874092648,
+            -0.001134582129485806
+          ],
+          "payoff": 1019.2193591398816,
+          "maximum_joint_residual": 8.545922303149212e-10
+        },
+        {
+          "vector": [
+            0.5706534002321494,
+            0.15920743613953425,
+            0.6652838409475973,
+            0.021424759555042527
+          ],
+          "payoff": 1016.3289522430593,
+          "maximum_joint_residual": 7.718516936705555e-10
+        },
+        {
+          "vector": [
+            0.8286710162066688,
+            -0.07316508104614894,
+            0.6363532198742957,
+            0.06988076590327674
+          ],
+          "payoff": 1015.7963962627894,
+          "maximum_joint_residual": 9.865015471177685e-10
+        },
+        {
+          "vector": [
+            0.47419170846339276,
+            -0.023903688504540666,
+            0.6040590172553599,
+            0.2094191913385115
+          ],
+          "payoff": 1015.0015961634472,
+          "maximum_joint_residual": 9.862158867335324e-10
+        }
+      ]
+    },
+    "firm_B": {
+      "equilibrium_payoff": 958.7230423450874,
+      "best_payoff": 958.7230423450874,
+      "best_vector": [
+        0.575,
+        0.4,
+        0.6,
+        0.4
+      ],
+      "offgrid_regret": 0.0,
+      "relative_offgrid_regret": 0.0,
+      "evaluated_candidates": 513,
+      "all_joint_converged": true,
+      "maximum_joint_residual": 9.999902017554518e-10,
+      "top_candidates": [
+        {
+          "vector": [
+            0.575,
+            0.4,
+            0.6,
+            0.4
+          ],
+          "payoff": 958.7230423450874,
+          "maximum_joint_residual": 6.627055570973539e-10
+        },
+        {
+          "vector": [
+            0.7764064545749338,
+            -0.2837381270511671,
+            0.6020034190055619,
+            0.3746928533154794
+          ],
+          "payoff": 952.8966396048191,
+          "maximum_joint_residual": 8.750784541433632e-10
+        },
+        {
+          "vector": [
+            0.7248706832603904,
+            -0.0030514659573172564,
+            0.6234151930949716,
+            0.3795843481531306
+          ],
+          "payoff": 951.8047126449928,
+          "maximum_joint_residual": 9.310814341745299e-10
+        },
+        {
+          "vector": [
+            0.5117930755977338,
+            0.34044244153177816,
+            0.6435517014123946,
+            0.2638914242917798
+          ],
+          "payoff": 947.2152505258184,
+          "maximum_joint_residual": 7.03979041727365e-10
+        },
+        {
+          "vector": [
+            0.5707037100129753,
+            0.3455897858823894,
+            0.6546451765548632,
+            0.34581325754987835
+          ],
+          "payoff": 945.6151023257349,
+          "maximum_joint_residual": 7.728835904607934e-10
+        },
+        {
+          "vector": [
+            0.6873328188345755,
+            0.39654375475635384,
+            0.6692595680323119,
+            0.1939878764398284
+          ],
+          "payoff": 945.458642036923,
+          "maximum_joint_residual": 9.989740146210124e-10
+        },
+        {
+          "vector": [
+            0.6147235445635526,
+            0.23971206843177184,
+            0.6834875122629145,
+            0.2697014072569849
+          ],
+          "payoff": 938.1971179707166,
+          "maximum_joint_residual": 7.537058754891746e-10
+        },
+        {
+          "vector": [
+            0.7213038892677041,
+            0.09479321043513822,
+            0.6763154526182102,
+            0.08731382491823442
+          ],
+          "payoff": 933.7378798941943,
+          "maximum_joint_residual": 7.009131608448627e-10
+        },
+        {
+          "vector": [
+            0.5417459732966621,
+            -0.04186931320406917,
+            0.6849816824159267,
+            0.2336419907606998
+          ],
+          "payoff": 933.1164115026771,
+          "maximum_joint_residual": 9.286286184462256e-10
+        },
+        {
+          "vector": [
+            0.7004566786486127,
+            0.09559673966129562,
+            0.6366643357562126,
+            0.1034247425268674
+          ],
+          "payoff": 932.9810155282245,
+          "maximum_joint_residual": 9.784059118445043e-10
+        }
+      ]
+    }
+  },
+  "interpretation_boundary": "A finite random search inside the strategy-box convex hull; not a proof of continuous-space Nash equilibrium."
+}

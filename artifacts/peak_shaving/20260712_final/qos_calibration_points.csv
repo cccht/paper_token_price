@@ -1,0 +1,11 @@
+profile,model,normalized_utilization,observed_qos,observed_qos_ci95,repeats,pooled_fitted_qos
+vllm-0.5b,Qwen2.5-0.5B-Instruct,0.2857142857142857,1.0,0.0,5,1.0
+vllm-0.5b,Qwen2.5-0.5B-Instruct,0.5714285714285714,1.0,0.0,5,1.0
+vllm-0.5b,Qwen2.5-0.5B-Instruct,1.0,1.0,0.0,5,1.0
+vllm-0.5b,Qwen2.5-0.5B-Instruct,1.7142857142857142,0.634765625,0.006954134407067676,5,0.7458592954139821
+vllm-0.5b,Qwen2.5-0.5B-Instruct,2.2857142857142856,0.5,0.0,5,0.38673045786979054
+vllm-3b,Qwen2.5-3B-Instruct,0.14285714285714285,1.0,0.0,5,1.0
+vllm-3b,Qwen2.5-3B-Instruct,0.2857142857142857,1.0,0.0,5,1.0
+vllm-3b,Qwen2.5-3B-Instruct,0.5714285714285714,1.0,0.0,5,1.0
+vllm-3b,Qwen2.5-3B-Instruct,1.0,1.0,0.0,5,1.0
+vllm-3b,Qwen2.5-3B-Instruct,1.7142857142857142,0.6666666666666666,0.0,5,0.7458592954139821

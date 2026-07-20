@@ -1,0 +1,280 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-17T05:16:26+08:00",
+    "equilibrium_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json",
+    "equilibrium_sha256": "d37174453530ad67754da2303bc1e85374053efd53cec90d9824e65f5a3aae2f",
+    "quantiles": [
+      0.05,
+      0.5,
+      0.95
+    ],
+    "source_sha256": {
+      "experiments/build_submission_mixed_distribution.py": "546c32c766b09faf04ce1f3f9b809dc0ecdbe76f34352d82860bf4eaf5f1d955",
+      "experiments/run_submission_intermediary_audit.py": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "pricing_sim/spatiotemporal_game.py": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "pricing_sim/spatiotemporal_mechanism.py": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "pricing_sim/peak_shaving_market.py": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "pricing_sim/peak_shaving_equilibrium.py": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f"
+    },
+    "command": "uv run --no-project --with numpy python -m experiments.build_submission_mixed_distribution"
+  },
+  "uniform": {
+    "active_profile_count": 1,
+    "probability_mass": 1.0,
+    "all_joint_converged": true,
+    "maximum_joint_residual": 7.977200011666241e-10,
+    "maximum_expected_metric_reconstruction_error": 0.0,
+    "metrics": {
+      "firm_A_profit": {
+        "mean": 944.2488117915002,
+        "p05": 944.2488117915002,
+        "p50": 944.2488117915002,
+        "p95": 944.2488117915002,
+        "minimum": 944.2488117915002,
+        "maximum": 944.2488117915002
+      },
+      "firm_B_profit": {
+        "mean": 875.1931272228048,
+        "p05": 875.1931272228048,
+        "p50": 875.1931272228048,
+        "p95": 875.1931272228048,
+        "minimum": 875.1931272228048,
+        "maximum": 875.1931272228048
+      },
+      "intermediary_profit": {
+        "mean": 159.04879493137688,
+        "p05": 159.04879493137688,
+        "p50": 159.04879493137688,
+        "p95": 159.04879493137688,
+        "minimum": 159.04879493137688,
+        "maximum": 159.04879493137688
+      },
+      "system_profit": {
+        "mean": 1978.490733945682,
+        "p05": 1978.490733945682,
+        "p50": 1978.490733945682,
+        "p95": 1978.490733945682,
+        "minimum": 1978.490733945682,
+        "maximum": 1978.490733945682
+      },
+      "aggregate_peak_load": {
+        "mean": 224.56887629495142,
+        "p05": 224.56887629495142,
+        "p50": 224.56887629495142,
+        "p95": 224.56887629495142,
+        "minimum": 224.56887629495142,
+        "maximum": 224.56887629495142
+      },
+      "aggregate_peak_to_average": {
+        "mean": 1.6332281912360103,
+        "p05": 1.6332281912360103,
+        "p50": 1.6332281912360103,
+        "p95": 1.6332281912360103,
+        "minimum": 1.6332281912360103,
+        "maximum": 1.6332281912360103
+      },
+      "maximum_provider_utilization": {
+        "mean": 1.4504804430618476,
+        "p05": 1.4504804430618476,
+        "p50": 1.4504804430618476,
+        "p95": 1.4504804430618476,
+        "minimum": 1.4504804430618476,
+        "maximum": 1.4504804430618476
+      },
+      "provider_utilization_imbalance": {
+        "mean": 0.783067751981301,
+        "p05": 0.783067751981301,
+        "p50": 0.783067751981301,
+        "p95": 0.783067751981301,
+        "minimum": 0.783067751981301,
+        "maximum": 0.783067751981301
+      },
+      "minimum_provider_qos": {
+        "mean": 0.8899170860996857,
+        "p05": 0.8899170860996857,
+        "p50": 0.8899170860996857,
+        "p95": 0.8899170860996857,
+        "minimum": 0.8899170860996857,
+        "maximum": 0.8899170860996857
+      },
+      "temporal_moved_fraction": {
+        "mean": 0.3127759435398392,
+        "p05": 0.3127759435398392,
+        "p50": 0.3127759435398392,
+        "p95": 0.3127759435398392,
+        "minimum": 0.3127759435398392,
+        "maximum": 0.3127759435398392
+      },
+      "total_demand": {
+        "mean": 1100.0,
+        "p05": 1100.0,
+        "p50": 1100.0,
+        "p95": 1100.0,
+        "minimum": 1100.0,
+        "maximum": 1100.0
+      },
+      "retail_base": {
+        "mean": 0.9485099530204083,
+        "p05": 0.9485099530204083,
+        "p50": 0.9485099530204083,
+        "p95": 0.9485099530204083,
+        "minimum": 0.9485099530204083,
+        "maximum": 0.9485099530204083
+      },
+      "retail_slope": {
+        "mean": 0.0,
+        "p05": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0
+      },
+      "route_beta": {
+        "mean": 0.0,
+        "p05": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0
+      },
+      "intermediary_weighted_route_to_A": {
+        "mean": 0.5300629978562567,
+        "p05": 0.5300629978562567,
+        "p50": 0.5300629978562567,
+        "p95": 0.5300629978562567,
+        "minimum": 0.5300629978562567,
+        "maximum": 0.5300629978562567
+      }
+    }
+  },
+  "dynamic": {
+    "active_profile_count": 676,
+    "probability_mass": 1.0,
+    "all_joint_converged": true,
+    "maximum_joint_residual": 9.999697736517987e-10,
+    "maximum_expected_metric_reconstruction_error": 6.821210263296962e-13,
+    "metrics": {
+      "firm_A_profit": {
+        "mean": 835.6659202430744,
+        "p05": 798.4570772185932,
+        "p50": 832.3429923915633,
+        "p95": 886.4327003521813,
+        "minimum": 785.1441212584185,
+        "maximum": 916.3958999739175
+      },
+      "firm_B_profit": {
+        "mean": 741.8591762292447,
+        "p05": 625.6055149057795,
+        "p50": 759.2639423197745,
+        "p95": 820.3583488111559,
+        "minimum": 581.5354667620111,
+        "maximum": 834.3058553219574
+      },
+      "intermediary_profit": {
+        "mean": 345.4096440959862,
+        "p05": 292.16948314522097,
+        "p50": 351.0670809174094,
+        "p95": 378.66776440216324,
+        "minimum": 271.8208695553636,
+        "maximum": 385.0885505773948
+      },
+      "system_profit": {
+        "mean": 1922.9347405683056,
+        "p05": 1849.373479344924,
+        "p50": 1934.6808906006836,
+        "p95": 1979.3535867565174,
+        "minimum": 1805.7893821473485,
+        "maximum": 1986.526653467629
+      },
+      "aggregate_peak_load": {
+        "mean": 196.90283746651238,
+        "p05": 194.63935358039916,
+        "p50": 195.16178087231742,
+        "p95": 202.7285579713576,
+        "minimum": 193.73293722827574,
+        "maximum": 208.8612698896282
+      },
+      "aggregate_peak_to_average": {
+        "mean": 1.43202063612009,
+        "p05": 1.4155589351301756,
+        "p50": 1.4193584063441267,
+        "p95": 1.4743895125189643,
+        "minimum": 1.4089668162056417,
+        "maximum": 1.5189910537427502
+      },
+      "maximum_provider_utilization": {
+        "mean": 1.2227760579868936,
+        "p05": 0.9325898955002242,
+        "p50": 1.2887075318917103,
+        "p95": 1.3903590976342122,
+        "minimum": 0.8504411551920438,
+        "maximum": 1.4438493095189455
+      },
+      "provider_utilization_imbalance": {
+        "mean": 0.7106851706580966,
+        "p05": 0.5446289337072917,
+        "p50": 0.7261509212824444,
+        "p95": 0.8820727520997309,
+        "minimum": 0.19296877931781126,
+        "maximum": 0.9506282869056745
+      },
+      "minimum_provider_qos": {
+        "mean": 0.958588987176483,
+        "p05": 0.9161509665119681,
+        "p50": 0.9532261747686319,
+        "p95": 0.9999999999714204,
+        "minimum": 0.8929553287290841,
+        "maximum": 0.9999999999798963
+      },
+      "temporal_moved_fraction": {
+        "mean": 0.3265527768031819,
+        "p05": 0.32194282719356765,
+        "p50": 0.32747727196162985,
+        "p95": 0.3303474526225342,
+        "minimum": 0.32105309680292654,
+        "maximum": 0.33091793677618253
+      },
+      "total_demand": {
+        "mean": 1100.0,
+        "p05": 1100.0,
+        "p50": 1100.0,
+        "p95": 1100.0000000000002,
+        "minimum": 1100.0,
+        "maximum": 1100.0000000000002
+      },
+      "retail_base": {
+        "mean": 0.6577621372675307,
+        "p05": 0.6230146014734658,
+        "p50": 0.6593958752865187,
+        "p95": 0.6979479643430538,
+        "minimum": 0.6166472027630935,
+        "maximum": 0.7172591594284886
+      },
+      "retail_slope": {
+        "mean": 0.18847238142657746,
+        "p05": 0.0896314488021354,
+        "p50": 0.2088248630514726,
+        "p95": 0.26763151469012453,
+        "minimum": 0.06934372573451955,
+        "maximum": 0.29203526431498106
+      },
+      "route_beta": {
+        "mean": 432.702612558258,
+        "p05": 0.0,
+        "p50": 2.872092076305954,
+        "p95": 1360.8481859569342,
+        "minimum": 0.0,
+        "maximum": 999999.9899999888
+      },
+      "intermediary_weighted_route_to_A": {
+        "mean": 0.5712382492263495,
+        "p05": 0.4019553741487316,
+        "p50": 0.5061838977836978,
+        "p95": 0.8607544211611605,
+        "minimum": 0.3871831267616032,
+        "maximum": 0.9999999974168624
+      }
+    }
+  },
+  "interpretation_boundary": "Quantiles describe outcomes across independently mixed provider strategies; they are not sampling uncertainty or confidence intervals."
+}

@@ -1,0 +1,199 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-16T06:15:28+08:00",
+    "final_equilibrium_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json",
+    "final_equilibrium_sha256": "d37174453530ad67754da2303bc1e85374053efd53cec90d9824e65f5a3aae2f",
+    "continuation_seed_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission_pre_fourth_grid.json",
+    "continuation_seed_sha256": "b00a61ad53110b324578326e2d816db73a6c6aafda54cf27ba58f318047f18e0",
+    "active_probability_tolerance": 1e-10,
+    "source_sha256": {
+      "experiments/build_submission_candidate_manifest.py": "2314a24c306fb0ee575d37d6cfb47f637936010361159ab652bbebe510557651",
+      "experiments/peak_shaving_submission_tools.py": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a"
+    },
+    "command": "uv run --no-project --with-requirements requirements.txt python -m experiments.build_submission_candidate_manifest"
+  },
+  "components": [
+    {
+      "name": "uniform",
+      "description": "Twelve zero-slope price rules",
+      "raw_count": 12,
+      "within_component_unique_count": 12,
+      "added_unique_count": 12,
+      "cumulative_unique_count": 12
+    },
+    {
+      "name": "mid_slope",
+      "description": "Mid-slope local lattice",
+      "raw_count": 378,
+      "within_component_unique_count": 378,
+      "added_unique_count": 378,
+      "cumulative_unique_count": 390
+    },
+    {
+      "name": "wholesale_base_guard",
+      "description": "Two wholesale-base guard layers",
+      "raw_count": 120,
+      "within_component_unique_count": 120,
+      "added_unique_count": 120,
+      "cumulative_unique_count": 510
+    },
+    {
+      "name": "low_slope",
+      "description": "Low-slope local lattice",
+      "raw_count": 64,
+      "within_component_unique_count": 64,
+      "added_unique_count": 64,
+      "cumulative_unique_count": 574
+    },
+    {
+      "name": "high_slope",
+      "description": "High-slope local lattice",
+      "raw_count": 27,
+      "within_component_unique_count": 27,
+      "added_unique_count": 27,
+      "cumulative_unique_count": 601
+    },
+    {
+      "name": "boundary_guards",
+      "description": "Wholesale and direct high-slope guards",
+      "raw_count": 108,
+      "within_component_unique_count": 100,
+      "added_unique_count": 100,
+      "cumulative_unique_count": 701
+    },
+    {
+      "name": "audited_local",
+      "description": "Two fourth-audit local lattices",
+      "raw_count": 81,
+      "within_component_unique_count": 81,
+      "added_unique_count": 69,
+      "cumulative_unique_count": 770
+    },
+    {
+      "name": "continuation",
+      "description": "Positive-probability vectors from the preceding solve",
+      "raw_count": 52,
+      "within_component_unique_count": 48,
+      "added_unique_count": 18,
+      "cumulative_unique_count": 788
+    }
+  ],
+  "continuation_only_vectors": [
+    [
+      0.25,
+      0.0,
+      0.538125,
+      0.6
+    ],
+    [
+      0.25,
+      0.05,
+      0.5175,
+      0.2
+    ],
+    [
+      0.25,
+      0.05,
+      0.55875,
+      0.4
+    ],
+    [
+      0.25,
+      0.15,
+      0.5175,
+      0.2
+    ],
+    [
+      0.25,
+      0.15,
+      0.55875,
+      0.4
+    ],
+    [
+      0.25,
+      0.2,
+      0.538125,
+      0.5
+    ],
+    [
+      0.25,
+      0.9,
+      0.55875,
+      0.3
+    ],
+    [
+      0.25,
+      1.0,
+      0.55875,
+      0.3
+    ],
+    [
+      0.25,
+      1.1,
+      0.55875,
+      0.3
+    ],
+    [
+      0.25,
+      1.2,
+      0.55875,
+      0.3
+    ],
+    [
+      0.258125,
+      0.3,
+      0.538125,
+      0.2
+    ],
+    [
+      0.258125,
+      1.3,
+      0.538125,
+      0.3
+    ],
+    [
+      0.26625,
+      0.0,
+      0.538125,
+      0.5
+    ],
+    [
+      0.26625,
+      1.4,
+      0.538125,
+      0.2
+    ],
+    [
+      0.2825,
+      0.9,
+      0.55875,
+      0.4
+    ],
+    [
+      0.29875,
+      0.8,
+      0.55875,
+      0.4
+    ],
+    [
+      0.29875,
+      0.9,
+      0.55875,
+      0.4
+    ],
+    [
+      0.315,
+      0.8,
+      0.579375,
+      0.4
+    ]
+  ],
+  "verification": {
+    "reference_support_entry_count": 52,
+    "reference_unique_count": 48,
+    "component_union_count": 788,
+    "reconstructed_candidate_count": 788,
+    "final_candidate_count": 788,
+    "exact_elementwise_match": true
+  }
+}

@@ -1,0 +1,5 @@
+Conserved OD flows separate temporal shifting from provider substitution.
+The finite game uses 788 rules and a bounded three-parameter intermediary response.
+Time-varying prices reduce expected peak by 12.32% and improve minimum QoS.
+Intraday price shape accounts for 59% of the modeled QoS increase.
+Aggregate market-side profit falls by 2.81% in the main calibration.

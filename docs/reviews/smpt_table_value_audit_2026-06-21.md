@@ -1,5 +1,9 @@
 # SMPT 表格数值审计（2026-06-21）
 
+> **历史表格审计，已被替代。** 下列 74 项检查对应 2026-06-20 旧稿及
+> 225 候选工件，不是当前投稿表格。当前数值只从
+> `artifacts/peak_shaving/20260712_expanded_response/` 及其证据门禁读取。
+
 - Total checks: 74
 - Issues: 0
 

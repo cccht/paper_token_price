@@ -50,5 +50,6 @@ figures/peak_shaving_diagnostics/market_schematic_imagegen_*.png
 # OS/editor metadata
 .DS_Store
 Thumbs.db
+NUL
 .vscode/
 .idea/

@@ -1,5 +1,9 @@
 # SMPT Submission Readiness and Revision Plan
 
+> **Historical readiness plan, superseded.** The 225-point evidence and June
+> manuscript named below are no longer the submission basis. Use the current
+> adaptation checklist and 2026-07-14 evidence map instead.
+
 Target journal: *Simulation Modelling Practice and Theory* (SMPT)
 
 Date: 2026-06-19

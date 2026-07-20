@@ -1,0 +1,3123 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-20T07:11:51+08:00",
+    "baseline_sha256": "70a3b64050c2b0621bbcf0c5a418c43ba554f61b3ee10c2ca4d48fbf26bed226",
+    "samples_per_player": 1024,
+    "seed": 20260718,
+    "scenario_count": 9,
+    "parallel_workers": 32,
+    "source_sha256": {
+      "experiments/run_submission_uniform_offgrid_audit.py": "0cf7fdf0339129c5ed63c826d125f57f01b0440d6ee268e4b6ca67b276f39438",
+      "experiments/uniform_offgrid_diagnostic_tools.py": "43e5cd683540d31b7b79ba9494f34e85c9b8f4592f11e64c0c4f1acfbf5a64b9"
+    },
+    "command": "uv run --no-project --with numpy --with scipy --with nashpy python -m experiments.run_submission_uniform_offgrid_audit"
+  },
+  "search_domain": {
+    "wholesale_base": [
+      0.25,
+      0.9
+    ],
+    "direct_base": [
+      0.45,
+      2.1
+    ],
+    "wholesale_slope": [
+      0.0,
+      0.0
+    ],
+    "direct_slope": [
+      0.0,
+      0.0
+    ]
+  },
+  "scenarios": [
+    {
+      "scenario": "baseline",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json",
+      "equilibrium_sha256": "70a3b64050c2b0621bbcf0c5a418c43ba554f61b3ee10c2ca4d48fbf26bed226",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 844.7484906864385,
+          "best_payoff": 868.5580175691525,
+          "best_vector": [
+            0.29841367409050706,
+            0.0,
+            0.560895377095064,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 23.809526882714067,
+          "relative_offgrid_regret": 0.028185344093798335,
+          "evaluated_candidates": 1331,
+          "evaluated_pairs": 13310,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 10,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 10.898638732387099,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999744365885022e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 868.5580175691525,
+              "maximum_joint_residual": 9.729949623782375e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4979.408652867103
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 868.4785393481164,
+              "maximum_joint_residual": 9.367985276398372e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4906.634446916792
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 868.3398873017173,
+              "maximum_joint_residual": 9.72153746392479e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4941.701834957154
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.576364127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 868.1241588109389,
+              "maximum_joint_residual": 9.80834080621662e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5628.071869017402
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.581520377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 867.8240508330055,
+              "maximum_joint_residual": 9.670061418276532e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6974.973150211827
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 867.4446858088628,
+              "maximum_joint_residual": 9.700659164835201e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5307.765608248035
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.586676627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 867.4381951476252,
+              "maximum_joint_residual": 9.697113112494549e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8583.07833588962
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 867.393265874612,
+              "maximum_joint_residual": 9.388282373734569e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5785.822695032552
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 867.2294057343499,
+              "maximum_joint_residual": 9.725849015040922e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6023.63906137244
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.591832877095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 866.9623933663702,
+              "maximum_joint_residual": 9.702366687847075e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6014.891092158334
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 715.7036714747467,
+          "best_payoff": 730.7311003231694,
+          "best_vector": [
+            0.256709618120226,
+            0.0,
+            0.6757858888670996,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 15.027428848422687,
+          "relative_offgrid_regret": 0.020996718959758645,
+          "evaluated_candidates": 1331,
+          "evaluated_pairs": 13310,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 10,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 3.8677030965536687,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.998899486163282e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 730.7311003231694,
+              "maximum_joint_residual": 9.508827614190807e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 19.5415475531352
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 730.5201508450089,
+              "maximum_joint_residual": 9.319736093971187e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 20.54203146464298
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 730.2288462011413,
+              "maximum_joint_residual": 9.94314741653568e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 21.5492010156027
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 729.8572643763432,
+              "maximum_joint_residual": 9.784890675490487e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 22.561647078958956
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6964108888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 729.4073645592539,
+              "maximum_joint_residual": 9.92120274823094e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 23.582175255125094
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 729.3714263641876,
+              "maximum_joint_residual": 9.599389061420993e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 19.377876089409245
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 729.1601546112826,
+              "maximum_joint_residual": 9.689363200671153e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 20.328437078855973
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.7015671388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 728.8815614972433,
+              "maximum_joint_residual": 9.766788489073974e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 24.60946235412032
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 728.8677124678941,
+              "maximum_joint_residual": 9.744166584724212e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 21.28409445262666
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 728.4950430898466,
+              "maximum_joint_residual": 9.975844594833916e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 22.247069507509945
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "capacity_low",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_capacity_low_submission.json",
+      "equilibrium_sha256": "42ba10d78be4ff65e04c4a3996dca21fc62c6bf61c49484bc240e8c57ac5cf5b",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 1100.6011538747302,
+          "best_payoff": 1115.3347228878827,
+          "best_vector": [
+            0.36623578318757904,
+            0.0,
+            0.6407462343212262,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 14.733569013152419,
+          "relative_offgrid_regret": 0.013386837694365515,
+          "evaluated_candidates": 1339,
+          "evaluated_pairs": 24102,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 18,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 14.709485906957298,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999999717180685e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.36623578318757904,
+                0.0,
+                0.6407462343212262,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.3347228878827,
+              "maximum_joint_residual": 9.220027519241114e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 3866.3044718452206
+            },
+            {
+              "vector": [
+                0.36623578318757904,
+                0.0,
+                0.6355899843212263,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.3223643097701,
+              "maximum_joint_residual": 8.867597767192592e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 1712.37814775007
+            },
+            {
+              "vector": [
+                0.36826703318757903,
+                0.0,
+                0.6459024843212262,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.3222285861193,
+              "maximum_joint_residual": 9.562000635732204e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 2521.2940840223478
+            },
+            {
+              "vector": [
+                0.36826703318757903,
+                0.0,
+                0.6407462343212262,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.266872015349,
+              "maximum_joint_residual": 9.15744813312358e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 2388.324555856828
+            },
+            {
+              "vector": [
+                0.36826703318757903,
+                0.0,
+                0.6510587343212262,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.2511046121817,
+              "maximum_joint_residual": 9.781651044704631e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 2681.3809680595473
+            },
+            {
+              "vector": [
+                0.36826703318757903,
+                0.0,
+                0.6355899843212263,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.0833786826274,
+              "maximum_joint_residual": 8.807059526105832e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 2274.21662381533
+            },
+            {
+              "vector": [
+                0.36623578318757904,
+                0.0,
+                0.6459024843212262,
+                0.0
+              ],
+              "source": "latin_hypercube",
+              "payoff": 1115.0596894493794,
+              "maximum_joint_residual": 9.607732387451051e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4632.438506067901
+            },
+            {
+              "vector": [
+                0.36623578318757904,
+                0.0,
+                0.6459024843212262,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.0596894493794,
+              "maximum_joint_residual": 9.607732387451051e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4632.438506067901
+            },
+            {
+              "vector": [
+                0.36826703318757903,
+                0.0,
+                0.6562149843212262,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.0592011888693,
+              "maximum_joint_residual": 9.815100954213563e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 2886.3431507732876
+            },
+            {
+              "vector": [
+                0.36623578318757904,
+                0.0,
+                0.6304337343212262,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1115.0428774327759,
+              "maximum_joint_residual": 8.650943295052116e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 1409.0802024326417
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 786.7068757058307,
+          "best_payoff": 802.8756604604527,
+          "best_vector": [
+            0.34732894651840496,
+            0.0,
+            0.7663590527637099,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 16.168784754621925,
+          "relative_offgrid_regret": 0.020552489439113326,
+          "evaluated_candidates": 1339,
+          "evaluated_pairs": 24102,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 18,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 2.725114485102722,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.9995856039925e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7663590527637099,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.8756604604527,
+              "maximum_joint_residual": 9.920039234501132e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.158177738479616
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7612028027637099,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.8284585012391,
+              "maximum_joint_residual": 9.888304064453735e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.043784216531253
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7715153027637098,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.8146281468078,
+              "maximum_joint_residual": 9.63995772096382e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.274671889265292
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7560465527637098,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.6704894657803,
+              "maximum_joint_residual": 9.950194002072976e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4.931283871719083
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7766715527637098,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.6466691972802,
+              "maximum_joint_residual": 9.952072499430642e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.3934768809065
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7818278027637098,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.4137587704238,
+              "maximum_joint_residual": 9.99845040094982e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.514676622154427
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7508903027637098,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.3997557166646,
+              "maximum_joint_residual": 9.944161605268675e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4.82057659775239
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7869840527637099,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.1085377974726,
+              "maximum_joint_residual": 9.838819758911654e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.638460045675226
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7457340527637099,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 802.0144248482522,
+              "maximum_joint_residual": 9.950215651421956e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4.711476940009416
+            },
+            {
+              "vector": [
+                0.34732894651840496,
+                0.0,
+                0.7921403027637098,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 801.7088026698879,
+              "maximum_joint_residual": 9.862609617883322e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.765103982368436
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "capacity_high",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_capacity_high_submission.json",
+      "equilibrium_sha256": "7124aa36ae11e6bd1eb9525e8fe70c59671abd1dcce8e11634985b0d9429a301",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 766.7574070225157,
+          "best_payoff": 778.2568444914265,
+          "best_vector": [
+            0.2682775088505197,
+            0.0,
+            0.5423447374481116,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 11.499437468910742,
+          "relative_offgrid_regret": 0.014997491205941571,
+          "evaluated_candidates": 1324,
+          "evaluated_pairs": 3972,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 3,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 4.0413489184912805,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999699401852524e-10,
+          "maximum_route_beta": 587755.6017849641,
+          "top_candidates": [
+            {
+              "vector": [
+                0.2682775088505197,
+                0.0,
+                0.5423447374481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 778.2568444914265,
+              "maximum_joint_residual": 8.682235486112688e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11696.946110800347
+            },
+            {
+              "vector": [
+                0.2682775088505197,
+                0.0,
+                0.5475009874481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 778.0625102444492,
+              "maximum_joint_residual": 8.518455940631497e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 13907.849016185633
+            },
+            {
+              "vector": [
+                0.2682775088505197,
+                0.0,
+                0.5526572374481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 777.7574050142517,
+              "maximum_joint_residual": 8.170799592477351e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 16724.976636928666
+            },
+            {
+              "vector": [
+                0.2682775088505197,
+                0.0,
+                0.5578134874481117,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 777.3434772445206,
+              "maximum_joint_residual": 8.051889155424874e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 12364.757402359115
+            },
+            {
+              "vector": [
+                0.2662462588505197,
+                0.0,
+                0.5423447374481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 776.8402562609018,
+              "maximum_joint_residual": 8.683521124375204e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5997.645125745138
+            },
+            {
+              "vector": [
+                0.2682775088505197,
+                0.0,
+                0.5629697374481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 776.8247295433416,
+              "maximum_joint_residual": 8.051889155424874e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 17121.655323091363
+            },
+            {
+              "vector": [
+                0.2662462588505197,
+                0.0,
+                0.5475009874481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 776.6386280992751,
+              "maximum_joint_residual": 8.506809145991667e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6668.025678929807
+            },
+            {
+              "vector": [
+                0.2662462588505197,
+                0.0,
+                0.5526572374481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 776.3263936533572,
+              "maximum_joint_residual": 8.146328056568564e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5436.691796354565
+            },
+            {
+              "vector": [
+                0.2682775088505197,
+                0.0,
+                0.5681259874481116,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 776.207621109601,
+              "maximum_joint_residual": 8.051889155424874e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 12521.411901966867
+            },
+            {
+              "vector": [
+                0.2662462588505197,
+                0.0,
+                0.5578134874481117,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 775.905402384951,
+              "maximum_joint_residual": 8.051889155424874e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4828.136824734586
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 749.9564075447435,
+          "best_payoff": 755.4453208475834,
+          "best_vector": [
+            0.25609375,
+            0.0,
+            0.61546875,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 5.488913302839933,
+          "relative_offgrid_regret": 0.007318976473325827,
+          "evaluated_candidates": 1324,
+          "evaluated_pairs": 3972,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "active_support": 3,
+            "latin_hypercube": 1024,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 2.9063352051558695,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.989739174764978e-10,
+          "maximum_route_beta": 146873.31410008715,
+          "top_candidates": [
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.61546875,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.4453208475834,
+              "maximum_joint_residual": 8.600934964242413e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.276267856404104
+            },
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.620625,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.4244703917318,
+              "maximum_joint_residual": 9.371109443989667e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.925059337922166
+            },
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.6103125,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.3638091078517,
+              "maximum_joint_residual": 7.455350781171433e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4.6292691432280915
+            },
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.62578125,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.303622922409,
+              "maximum_joint_residual": 9.817914259357963e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6.575349474284182
+            },
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.60515625,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.1775395842238,
+              "maximum_joint_residual": 9.62585011698991e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 3.9838680776592983
+            },
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.6309374999999999,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.0877025714565,
+              "maximum_joint_residual": 9.682787349696298e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 7.228004752960668
+            },
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.6,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 754.8838483298264,
+              "maximum_joint_residual": 8.757108371781896e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 3.3396095979689964
+            },
+            {
+              "vector": [
+                0.2540625,
+                0.0,
+                0.61546875,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 754.8251344312708,
+              "maximum_joint_residual": 9.017246949127866e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5.7625345178627185
+            },
+            {
+              "vector": [
+                0.2540625,
+                0.0,
+                0.620625,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 754.8010316539587,
+              "maximum_joint_residual": 9.96461912983193e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6.3760219328731464
+            },
+            {
+              "vector": [
+                0.25609375,
+                0.0,
+                0.63609375,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 754.7777917208331,
+              "maximum_joint_residual": 9.221406971349211e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 7.882974031811897
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "price_sensitivity_low",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_price_sensitivity_low_submission.json",
+      "equilibrium_sha256": "b9852e673b2cb0c31f389313addac41e53c9fc09cb6758356e08c1dfd42879d6",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 1021.245607309163,
+          "best_payoff": 1048.8128845889025,
+          "best_vector": [
+            0.31697525311063274,
+            0.0,
+            0.6531284127033101,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 27.56727727973953,
+          "relative_offgrid_regret": 0.026993778071051275,
+          "evaluated_candidates": 1341,
+          "evaluated_pairs": 26820,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 20,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 10.536975503201234,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.99992644246106e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.31697525311063274,
+                0.0,
+                0.6531284127033101,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1048.8128845889025,
+              "maximum_joint_residual": 9.5770091856906e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 37185.281154550874
+            },
+            {
+              "vector": [
+                0.31697525311063274,
+                0.0,
+                0.6479721627033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1048.1928204884618,
+              "maximum_joint_residual": 8.918833449556018e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 42128.04215031937
+            },
+            {
+              "vector": [
+                0.31494400311063275,
+                0.0,
+                0.6789096627033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1048.1043232929135,
+              "maximum_joint_residual": 9.648346566137889e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5629.847345225563
+            },
+            {
+              "vector": [
+                0.31494400311063275,
+                0.0,
+                0.6737534127033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1048.0702091566027,
+              "maximum_joint_residual": 9.54277989961838e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6431.870678795392
+            },
+            {
+              "vector": [
+                0.31494400311063275,
+                0.0,
+                0.6840659127033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1048.046758407317,
+              "maximum_joint_residual": 9.57431356418681e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6512.619245731385
+            },
+            {
+              "vector": [
+                0.31494400311063275,
+                0.0,
+                0.6685971627033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1047.9427174939576,
+              "maximum_joint_residual": 9.259419897489352e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6077.204436473344
+            },
+            {
+              "vector": [
+                0.31494400311063275,
+                0.0,
+                0.6634409127033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1047.7210592674849,
+              "maximum_joint_residual": 9.563558833747265e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 7191.71335048983
+            },
+            {
+              "vector": [
+                0.31697525311063274,
+                0.0,
+                0.6428159127033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1047.4705445057202,
+              "maximum_joint_residual": 9.102143483374903e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 25596.80555590827
+            },
+            {
+              "vector": [
+                0.31494400311063275,
+                0.0,
+                0.6582846627033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1047.4033707979413,
+              "maximum_joint_residual": 9.72872671312075e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6019.990855873914
+            },
+            {
+              "vector": [
+                0.31697525311063274,
+                0.0,
+                0.6789096627033102,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 1047.1427904432112,
+              "maximum_joint_residual": 9.654582133755696e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4759.843209384623
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 833.8218493017074,
+          "best_payoff": 849.0678254171848,
+          "best_vector": [
+            0.2651251631777162,
+            0.0,
+            0.827398273789022,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 15.245976115477447,
+          "relative_offgrid_regret": 0.01828445264206658,
+          "evaluated_candidates": 1341,
+          "evaluated_pairs": 26820,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 20,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 2.37716947412639,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999683303618667e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.2651251631777162,
+                0.0,
+                0.827398273789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 849.0678254171848,
+              "maximum_joint_residual": 9.80324488253359e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.685301812434084
+            },
+            {
+              "vector": [
+                0.2651251631777162,
+                0.0,
+                0.832554523789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 848.359897327953,
+              "maximum_joint_residual": 9.641512033198296e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.35478162898098
+            },
+            {
+              "vector": [
+                0.26309391317771624,
+                0.0,
+                0.827398273789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 847.6384260168788,
+              "maximum_joint_residual": 9.840065429145284e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.968135392409753
+            },
+            {
+              "vector": [
+                0.2651251631777162,
+                0.0,
+                0.8377107737890219,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 847.5858185832235,
+              "maximum_joint_residual": 9.851987003983709e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 12.02403297033556
+            },
+            {
+              "vector": [
+                0.26309391317771624,
+                0.0,
+                0.832554523789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 846.928869102824,
+              "maximum_joint_residual": 9.865034344969104e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.59519531105694
+            },
+            {
+              "vector": [
+                0.2651251631777162,
+                0.0,
+                0.842867023789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 846.7472820094458,
+              "maximum_joint_residual": 9.732047945298916e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 12.691189345402375
+            },
+            {
+              "vector": [
+                0.26106266317771626,
+                0.0,
+                0.827398273789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 846.186465932311,
+              "maximum_joint_residual": 9.878716733524584e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.188920264663508
+            },
+            {
+              "vector": [
+                0.26309391317771624,
+                0.0,
+                0.8377107737890219,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 846.1531955825031,
+              "maximum_joint_residual": 9.849872029121798e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 12.220294857922072
+            },
+            {
+              "vector": [
+                0.2651251631777162,
+                0.0,
+                0.848023273789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 845.8464061995771,
+              "maximum_joint_residual": 9.94705984247446e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 13.360335911046718
+            },
+            {
+              "vector": [
+                0.26106266317771626,
+                0.0,
+                0.832554523789022,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 845.4782845114461,
+              "maximum_joint_residual": 9.76732750235243e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.79987541496472
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "price_sensitivity_high",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_price_sensitivity_high_submission.json",
+      "equilibrium_sha256": "ff73e94eaebace997531c03f4304ce79f3aee860a089f2708bb1267b9f8e46a7",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 790.7336077331382,
+          "best_payoff": 806.3016260723862,
+          "best_vector": [
+            0.30545779536576806,
+            0.0,
+            0.5441862440633429,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 15.568018339247942,
+          "relative_offgrid_regret": 0.019688069644438252,
+          "evaluated_candidates": 1326,
+          "evaluated_pairs": 6630,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 5,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 9.711984304310931,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999950867367602e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.30545779536576806,
+                0.0,
+                0.5441862440633429,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 806.3016260723862,
+              "maximum_joint_residual": 9.601700545758263e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6962.322623437541
+            },
+            {
+              "vector": [
+                0.30545779536576806,
+                0.0,
+                0.539029994063343,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 805.8440674495109,
+              "maximum_joint_residual": 9.76706604483013e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8202.549200954685
+            },
+            {
+              "vector": [
+                0.30748904536576804,
+                0.0,
+                0.5441862440633429,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 805.7633893137748,
+              "maximum_joint_residual": 9.529352862358564e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 27176.306996861145
+            },
+            {
+              "vector": [
+                0.3034265453657681,
+                0.0,
+                0.539029994063343,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 805.7187495999294,
+              "maximum_joint_residual": 9.749885343524056e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 3914.896244299928
+            },
+            {
+              "vector": [
+                0.30545779536576806,
+                0.0,
+                0.533873744063343,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 804.9853602380814,
+              "maximum_joint_residual": 9.656038191252492e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8865.18926694827
+            },
+            {
+              "vector": [
+                0.30748904536576804,
+                0.0,
+                0.539029994063343,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 804.9228347904515,
+              "maximum_joint_residual": 9.782635812527474e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 26220.18308714512
+            },
+            {
+              "vector": [
+                0.3034265453657681,
+                0.0,
+                0.533873744063343,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 804.8956143942632,
+              "maximum_joint_residual": 9.663240208013235e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 3661.0925708415775
+            },
+            {
+              "vector": [
+                0.3034265453657681,
+                0.0,
+                0.5441862440633429,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 804.806006865855,
+              "maximum_joint_residual": 9.694001157356524e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4311.366426931296
+            },
+            {
+              "vector": [
+                0.3013952953657681,
+                0.0,
+                0.533873744063343,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 804.7965292961808,
+              "maximum_joint_residual": 9.668926770345365e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 2970.6765535105455
+            },
+            {
+              "vector": [
+                0.3013952953657681,
+                0.0,
+                0.539029994063343,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 804.2242733999303,
+              "maximum_joint_residual": 9.731094263720763e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 2516.5511731023457
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 681.9924820815595,
+          "best_payoff": 696.9737915236293,
+          "best_vector": [
+            0.2935183843570793,
+            0.0,
+            0.5824906934914242,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 14.9813094420698,
+          "relative_offgrid_regret": 0.021966971536613193,
+          "evaluated_candidates": 1326,
+          "evaluated_pairs": 6630,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 5,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 3.213390918699133,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.995419492092594e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.5824906934914242,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 696.9737915236293,
+              "maximum_joint_residual": 8.88777273999608e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 580.9234359213463
+            },
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.5876469434914242,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 696.946105700786,
+              "maximum_joint_residual": 9.336282302818688e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 547.8691711227009
+            },
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.5773344434914243,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 696.8461970533369,
+              "maximum_joint_residual": 9.925413824163343e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 559.9822674738019
+            },
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.5928031934914243,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 696.7699490506587,
+              "maximum_joint_residual": 9.625200636520503e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 650.3332093740852
+            },
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.5721781934914243,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 696.5763419233356,
+              "maximum_joint_residual": 9.445491055970479e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 176274.24957448206
+            },
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.5979594434914243,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 696.4485816971362,
+              "maximum_joint_residual": 9.735823258694154e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 573.0575877307463
+            },
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.5670219434914243,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 696.1143366938337,
+              "maximum_joint_residual": 8.051889155424874e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8069.072020693553
+            },
+            {
+              "vector": [
+                0.2935183843570793,
+                0.0,
+                0.6031156934914242,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 695.9862392919429,
+              "maximum_joint_residual": 9.653051136204738e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 560.8896476487554
+            },
+            {
+              "vector": [
+                0.2914871343570793,
+                0.0,
+                0.5824906934914242,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 695.9789677290004,
+              "maximum_joint_residual": 8.830574049767392e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 718.3893401522929
+            },
+            {
+              "vector": [
+                0.2914871343570793,
+                0.0,
+                0.5876469434914242,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 695.9496936695153,
+              "maximum_joint_residual": 9.293529834586423e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 560.1839971973909
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "migration_cost_low",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_migration_cost_low_submission.json",
+      "equilibrium_sha256": "c186d72b729031f874d23c96fc3b5a00f976b88572240e32f5f519d9307dd2a8",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 841.833838339289,
+          "best_payoff": 866.0066387471098,
+          "best_vector": [
+            0.29841367409050706,
+            0.0,
+            0.560895377095064,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 24.172800407820887,
+          "relative_offgrid_regret": 0.028714455640684748,
+          "evaluated_candidates": 1330,
+          "evaluated_pairs": 11970,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 9,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 12.059710592035799,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.99980376281684e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 866.0066387471098,
+              "maximum_joint_residual": 9.735822703582642e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4994.824374776761
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 865.9383478397148,
+              "maximum_joint_residual": 9.37995792149593e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4956.404752392079
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 865.8035392537142,
+              "maximum_joint_residual": 9.49075817935352e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5013.3204459394465
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.576364127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 865.5913635532639,
+              "maximum_joint_residual": 9.686761948124456e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5150.440130315465
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.581520377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 865.29403792255,
+              "maximum_joint_residual": 9.6320218467838e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5375.712463148596
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.586676627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 864.9089397497833,
+              "maximum_joint_residual": 9.603881023778627e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5740.393827231329
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 864.8998705592651,
+              "maximum_joint_residual": 9.710734438783675e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5756.910297013922
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 864.8422771052709,
+              "maximum_joint_residual": 9.337841055945262e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5707.849147043281
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 864.6726816840913,
+              "maximum_joint_residual": 9.501671671685585e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6057.13074755943
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.591832877095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 864.4348643266602,
+              "maximum_joint_residual": 9.476552875753441e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6435.416501030385
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 720.2273388929592,
+          "best_payoff": 735.1509749759489,
+          "best_vector": [
+            0.256709618120226,
+            0.0,
+            0.6757858888670996,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 14.923636082989674,
+          "relative_offgrid_regret": 0.020720729798910948,
+          "evaluated_candidates": 1330,
+          "evaluated_pairs": 11970,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 9,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 3.9517208879101418,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999716610309406e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 735.1509749759489,
+              "maximum_joint_residual": 9.588718152819808e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.080617496314163
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 734.8702743423753,
+              "maximum_joint_residual": 9.563119185429514e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.385658124078427
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 734.501312972945,
+              "maximum_joint_residual": 9.79660297328877e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.696484214708379
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 734.0481843269131,
+              "maximum_joint_residual": 9.037806614209387e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.013082990911053
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 733.7271108512252,
+              "maximum_joint_residual": 9.677606493951885e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.144071893063508
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6964108888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 733.51129666127,
+              "maximum_joint_residual": 9.963859737283087e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.336699331701515
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 733.445033047848,
+              "maximum_joint_residual": 9.75871272679285e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.445971618086684
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 733.0763723200068,
+              "maximum_joint_residual": 9.990693827788277e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.753350152422357
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.7015671388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 732.8938205277742,
+              "maximum_joint_residual": 9.62917745539471e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.66681328110893
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 732.6227858338843,
+              "maximum_joint_residual": 9.213936280616508e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 11.067619913574562
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "migration_cost_high",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_migration_cost_high_submission.json",
+      "equilibrium_sha256": "b79656ec996e727bbe8242c39c9b7152a4246884b3255c2e933a7749b5247200",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 847.5587387286084,
+          "best_payoff": 871.0301749812766,
+          "best_vector": [
+            0.29841367409050706,
+            0.0,
+            0.560895377095064,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 23.471436252668127,
+          "relative_offgrid_regret": 0.027692990680358937,
+          "evaluated_candidates": 1331,
+          "evaluated_pairs": 13310,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 10,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 9.783042219997355,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999909234004178e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 871.0301749812766,
+              "maximum_joint_residual": 9.741958351128233e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4958.797722821142
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 870.9481456805631,
+              "maximum_joint_residual": 9.624735453073185e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4870.8047679774345
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 870.8061556841669,
+              "maximum_joint_residual": 9.9059893621245e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4887.884641727633
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.576364127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 870.5887589775734,
+              "maximum_joint_residual": 9.912710652315582e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4977.14627749847
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.581520377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 870.2872255140767,
+              "maximum_joint_residual": 9.834638659000916e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5132.843414475394
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 869.9133315182023,
+              "maximum_joint_residual": 9.702554315538237e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5409.62168293068
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.586676627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 869.8997479035646,
+              "maximum_joint_residual": 9.777662013377153e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6736.791380474706
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 869.8677511414639,
+              "maximum_joint_residual": 9.640681586375877e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5428.724560533026
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 869.709298826329,
+              "maximum_joint_residual": 9.905227749129608e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5475.679313284587
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.576364127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 869.4400270682032,
+              "maximum_joint_residual": 9.930034572391833e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5638.733072135091
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 714.7583984505452,
+          "best_payoff": 729.440904119141,
+          "best_vector": [
+            0.256709618120226,
+            0.0,
+            0.6757858888670996,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 14.682505668595809,
+          "relative_offgrid_regret": 0.020541914163477584,
+          "evaluated_candidates": 1331,
+          "evaluated_pairs": 13310,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 10,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 3.463387197964039,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999892025547297e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 729.440904119141,
+              "maximum_joint_residual": 9.844071113818131e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 18.971903471828217
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 729.2229411366542,
+              "maximum_joint_residual": 9.123938271571319e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 19.963315020151843
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 728.9219381117846,
+              "maximum_joint_residual": 9.93167603713374e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 20.960283518461708
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 728.5404924864893,
+              "maximum_joint_residual": 9.6544561234424e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 21.96327337210473
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6964108888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 728.0815155260241,
+              "maximum_joint_residual": 9.918618149029612e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 22.972410993130516
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 728.0784212195838,
+              "maximum_joint_residual": 9.641668574644768e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 18.823488649598705
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 727.8592972955207,
+              "maximum_joint_residual": 9.272300705021053e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 19.763805496129528
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 727.5571679551658,
+              "maximum_joint_residual": 9.979931325787561e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 20.710261538207284
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.7015671388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 727.5454734756579,
+              "maximum_joint_residual": 9.860843253051144e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 23.989039384970567
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 727.1751158021704,
+              "maximum_joint_residual": 9.732907535475732e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 21.662998264898324
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "qos_threshold_low",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_qos_threshold_low_submission.json",
+      "equilibrium_sha256": "4fc3ebbc7a1bef2ef977dcee70dbd404e52696b2b1e772aed6c054f84d5df437",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 878.9806381550646,
+          "best_payoff": 902.2981893340079,
+          "best_vector": [
+            0.29841367409050706,
+            0.0,
+            0.5712078770950639,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 23.31755117894329,
+          "relative_offgrid_regret": 0.026527946312771618,
+          "evaluated_candidates": 1331,
+          "evaluated_pairs": 13310,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 10,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 11.851443936484884,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999864269971681e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 902.2981893340079,
+              "maximum_joint_residual": 9.128871547581241e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 13540.630431750797
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 902.2464468192876,
+              "maximum_joint_residual": 9.759449914881202e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 15407.87608495771
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.576364127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 902.2317881810396,
+              "maximum_joint_residual": 9.632441511087109e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 16228.95655808856
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 902.073815735293,
+              "maximum_joint_residual": 9.884329466025576e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14210.291407164592
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.581520377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 902.0497819734185,
+              "maximum_joint_residual": 9.87524728657263e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 15535.184120877246
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.586676627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 901.7552840502534,
+              "maximum_joint_residual": 9.785796617478582e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 22416.68365124712
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.591832877095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 901.3508697539091,
+              "maximum_joint_residual": 9.985685611724193e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 17214.414404137304
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.596989127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 900.8197165335258,
+              "maximum_joint_residual": 8.165548237570874e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 17056.49416365218
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 900.6544692655391,
+              "maximum_joint_residual": 9.207952178513779e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 15818.601577830173
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 900.6135909139297,
+              "maximum_joint_residual": 9.703360892565627e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 9619.866896248408
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 711.8424049949691,
+          "best_payoff": 722.9330134076254,
+          "best_vector": [
+            0.25,
+            0.0,
+            0.6837500000000001,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 11.090608412656252,
+          "relative_offgrid_regret": 0.015580145738486362,
+          "evaluated_candidates": 1331,
+          "evaluated_pairs": 13310,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "active_support": 10,
+            "latin_hypercube": 1024,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 8.198385940305911,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.99971994097848e-10,
+          "maximum_route_beta": 271240.65913065866,
+          "top_candidates": [
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.6837500000000001,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.9330134076254,
+              "maximum_joint_residual": 9.226772679227224e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 14.308582957362338
+            },
+            {
+              "vector": [
+                0.25,
+                0.0,
+                0.68890625,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 722.8747590125606,
+              "maximum_joint_residual": 9.284209512294694e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 15.065943984779837
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "qos_threshold_high",
+      "equilibrium_artifact": "artifacts/peak_shaving/20260712_expanded_response/sensitivity_qos_threshold_high_submission.json",
+      "equilibrium_sha256": "abc8956c89c7bf8792b3af9ee307366b7f9dfe74bab316f8f1967e89655d92b7",
+      "players": {
+        "firm_A": {
+          "equilibrium_payoff": 823.1665458226754,
+          "best_payoff": 846.6215660745736,
+          "best_vector": [
+            0.29841367409050706,
+            0.0,
+            0.560895377095064,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 23.45502025189819,
+          "relative_offgrid_regret": 0.028493650976130432,
+          "evaluated_candidates": 1327,
+          "evaluated_pairs": 7962,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 6,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 6.220112731440281,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.999788774806007e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 846.6215660745736,
+              "maximum_joint_residual": 8.407370355456578e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 16834.709433870466
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 846.499818725814,
+              "maximum_joint_residual": 8.907417026193798e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 13456.266333383766
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 846.2694001415305,
+              "maximum_joint_residual": 9.225794572742529e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10638.212420397713
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.576364127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 845.2192433035534,
+              "maximum_joint_residual": 9.952115798128602e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4479.765661962972
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.560895377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 845.1271588831268,
+              "maximum_joint_residual": 8.422190722612299e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5582.798685723817
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.566051627095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 844.9966618835259,
+              "maximum_joint_residual": 8.923640715252645e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5488.803843386747
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.5712078770950639,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 844.758988177196,
+              "maximum_joint_residual": 9.228116049087021e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5485.453704064944
+            },
+            {
+              "vector": [
+                0.29841367409050706,
+                0.0,
+                0.581520377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 844.552314316206,
+              "maximum_joint_residual": 9.139906609334503e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 4202.866879327726
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.576364127095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 844.416104094024,
+              "maximum_joint_residual": 9.290513913740028e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 5730.943014358006
+            },
+            {
+              "vector": [
+                0.2963824240905071,
+                0.0,
+                0.581520377095064,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 843.9700017164174,
+              "maximum_joint_residual": 9.112304799607784e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 6137.295925668536
+            }
+          ]
+        },
+        "firm_B": {
+          "equilibrium_payoff": 744.3501489302643,
+          "best_payoff": 757.3247108417295,
+          "best_vector": [
+            0.256709618120226,
+            0.0,
+            0.6757858888670996,
+            0.0
+          ],
+          "best_source": "local_refinement",
+          "offgrid_regret": 12.97456191146523,
+          "relative_offgrid_regret": 0.017430723873853585,
+          "evaluated_candidates": 1327,
+          "evaluated_pairs": 7962,
+          "candidate_sources": {
+            "local_refinement": 289,
+            "latin_hypercube": 1024,
+            "active_support": 6,
+            "boundary_guard": 8
+          },
+          "maximum_active_support_payoff_error": 2.53796393571281,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 2,
+          "maximum_joint_residual": 9.994984839778454e-10,
+          "maximum_route_beta": 999999.9899999888,
+          "top_candidates": [
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 757.3247108417295,
+              "maximum_joint_residual": 9.537617362553874e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8.054628058326367
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 756.9575348612183,
+              "maximum_joint_residual": 9.968414982353124e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8.607824081874883
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 756.4988427383572,
+              "maximum_joint_residual": 9.809815182393322e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 9.16403752587218
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.9502959919641,
+              "maximum_joint_residual": 9.664995470615168e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 9.721987995625465
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6757858888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.9034188071244,
+              "maximum_joint_residual": 9.913030396546674e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8.237881215134363
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6809421388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.5362901860974,
+              "maximum_joint_residual": 9.377122411891037e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 8.768385830947748
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.6964108888670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.3166103022465,
+              "maximum_joint_residual": 9.629673725086718e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.282414366599367
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6860983888670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 755.0775272012395,
+              "maximum_joint_residual": 9.648930543448841e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 9.301081767765071
+            },
+            {
+              "vector": [
+                0.256709618120226,
+                0.0,
+                0.7015671388670995,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 754.6017049490266,
+              "maximum_joint_residual": 9.864261629743964e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 10.845550411265737
+            },
+            {
+              "vector": [
+                0.25467836812022604,
+                0.0,
+                0.6912546388670996,
+                0.0
+              ],
+              "source": "local_refinement",
+              "payoff": 754.5286833978955,
+              "maximum_joint_residual": 9.682794566145958e-10,
+              "all_joint_converged": true,
+              "minimum_successful_local_runs": 3,
+              "maximum_route_beta": 9.836214139446465
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "interpretation_boundary": "Each uniform game is checked with an independent bounded two-dimensional sample and local refinement; this is not a continuous-space Nash proof."
+}

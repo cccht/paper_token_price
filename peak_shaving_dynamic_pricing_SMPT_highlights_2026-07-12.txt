@@ -1,0 +1,5 @@
+Conserved OD flows separate time shifting from provider switching.
+The joint fixed point links routing, congestion, demand, and service quality.
+Dynamic pricing cuts peak load by 13.03% and raises minimum QoS to 0.976.
+All nine re-solved cases retain the peak and QoS directions.
+Profit changes sign across scenarios and is not claimed as a stable benefit.

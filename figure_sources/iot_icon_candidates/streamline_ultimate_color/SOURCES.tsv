@@ -1,0 +1,49 @@
+category	label	local_file	upstream_path	paper_role
+iot_endpoints	Laptop	svg/iot_endpoints/laptop.svg	ultimate/colors/computers-devices-electronics/laptop.svg	Interactive request source
+iot_endpoints	Desktop workstation	svg/iot_endpoints/desktop_workstation.svg	ultimate/colors/computers-devices-electronics/desktop-computer-pc.svg	Desktop API client
+iot_endpoints	Mobile client	svg/iot_endpoints/mobile_client.svg	ultimate/colors/phones-mobile-devices/phone-circle.svg	Mobile request source
+iot_endpoints	Tablet client	svg/iot_endpoints/tablet_client.svg	ultimate/colors/computers-devices-electronics/tablet.svg	Portable request source
+iot_endpoints	Network camera	svg/iot_endpoints/network_camera.svg	ultimate/colors/images-photography/camera-display.svg	Video or vision workload
+iot_endpoints	Webcam	svg/iot_endpoints/webcam.svg	ultimate/colors/computers-devices-electronics/webcam-2.svg	Real-time sensing endpoint
+iot_endpoints	Smart watch	svg/iot_endpoints/smart_watch.svg	ultimate/colors/computers-devices-electronics/smart-watch-square-wifi.svg	Wearable IoT endpoint
+iot_endpoints	Smart home endpoint	svg/iot_endpoints/smart_home_endpoint.svg	ultimate/colors/computers-devices-electronics/house-signal.svg	Connected-building workload
+market_actors	User population	svg/market_actors/user_population.svg	ultimate/colors/users/multiple-users-1.svg	Aggregate user demand
+market_actors	Direct user	svg/market_actors/direct_user.svg	ultimate/colors/users/single-neutral-monitor.svg	Direct provider access
+market_actors	Networked user	svg/market_actors/networked_user.svg	ultimate/colors/business-products/user-network.svg	User connected through the market network
+market_actors	Service operator	svg/market_actors/service_operator.svg	ultimate/colors/work-office-companies/network-user.svg	Operator or API intermediary
+market_actors	Provider organization	svg/market_actors/provider_organization.svg	ultimate/colors/work-office-companies/building-2.svg	Inference provider
+market_actors	Contract relationship	svg/market_actors/contract_relationship.svg	ultimate/colors/business-products/business-deal-handshake-1.svg	Commercial relationship
+market_actors	Customer interface	svg/market_actors/customer_interface.svg	ultimate/colors/wayfinding/information-desk-customer.svg	Intermediary-facing customer channel
+market_actors	Market exit	svg/market_actors/market_exit.svg	ultimate/colors/users/single-neutral-actions-remove.svg	Outside option or market exit
+api_routing	Wireless router	svg/api_routing/wireless_router.svg	ultimate/colors/internet-networks-servers/router-signal.svg	IoT ingress routing
+api_routing	Server sharing	svg/api_routing/server_sharing.svg	ultimate/colors/internet-networks-servers/server-share.svg	Intermediary traffic allocation
+api_routing	Provider exchange	svg/api_routing/provider_exchange.svg	ultimate/colors/internet-networks-servers/server-server-exchange.svg	Traffic exchange between providers
+api_routing	Cloud data transfer	svg/api_routing/cloud_data_transfer.svg	ultimate/colors/internet-networks-servers/cloud-data-transfer.svg	Cloud request and response flow
+api_routing	Bidirectional transfer	svg/api_routing/bidirectional_transfer.svg	ultimate/colors/internet-networks-servers/data-transfer-circle.svg	Two-way API traffic
+api_routing	Network users	svg/api_routing/network_users.svg	ultimate/colors/internet-networks-servers/network-users.svg	Shared network access
+api_routing	API network layer	svg/api_routing/api_network_layer.svg	ultimate/colors/programing-apps-websites/programming-apps-websites/network.svg	Logical API routing layer
+api_routing	Flow split	svg/api_routing/flow_split.svg	ultimate/colors/arrows-diagrams/diagram-split-horizontal.svg	Intermediary split across providers
+gpu_capacity_qos	Compute chip	svg/gpu_capacity_qos/compute_chip.svg	ultimate/colors/computers-devices-electronics/computer-chip-core.svg	GPU serving capacity
+gpu_capacity_qos	Accelerator board	svg/gpu_capacity_qos/accelerator_board.svg	ultimate/colors/computers-devices-electronics/microchip-board.svg	Inference hardware
+gpu_capacity_qos	High-capacity provider	svg/gpu_capacity_qos/high_capacity_provider.svg	ultimate/colors/internet-networks-servers/server-star-1.svg	Differentiated provider capacity
+gpu_capacity_qos	Utilization gauge	svg/gpu_capacity_qos/utilization_gauge.svg	ultimate/colors/interface-essential/gauge-dashboard.svg	Capacity utilization
+gpu_capacity_qos	SLA passed	svg/gpu_capacity_qos/sla_passed.svg	ultimate/colors/programing-apps-websites/programming-apps-websites/shield-check-1.svg	QoS or SLA compliance
+gpu_capacity_qos	Congestion warning	svg/gpu_capacity_qos/congestion_warning.svg	ultimate/colors/internet-networks-servers/network-warning.svg	Congestion or QoS degradation
+gpu_capacity_qos	Performance improvement	svg/gpu_capacity_qos/performance_improvement.svg	ultimate/colors/business-products/performance-increase.svg	QoS improvement
+gpu_capacity_qos	QoS target	svg/gpu_capacity_qos/qos_target.svg	ultimate/colors/business-products/target-center-monitor.svg	QoS threshold or objective
+pricing_time	Dynamic price	svg/pricing_time/dynamic_price.svg	ultimate/colors/business-products/cash-payment-coin-dollar.svg	Time-varying price
+pricing_time	Provider revenue	svg/pricing_time/provider_revenue.svg	ultimate/colors/money-payments-finance/money-bag-dollar.svg	Provider revenue or profit
+pricing_time	API bill	svg/pricing_time/api_bill.svg	ultimate/colors/money-payments-finance/cash-payment-bill.svg	User payment
+pricing_time	Token flow	svg/pricing_time/token_flow.svg	ultimate/colors/money-payments-finance/accounting-coins.svg	Monetary flow
+pricing_time	Time period	svg/pricing_time/time_period.svg	ultimate/colors/interface-essential/time-clock-circle.svg	Time-of-use period
+pricing_time	Time slots	svg/pricing_time/time_slots.svg	ultimate/colors/interface-essential/calendar-date.svg	Discrete simulation slots
+pricing_time	Runtime	svg/pricing_time/runtime.svg	ultimate/colors/interface-essential/stopwatch.svg	Runtime or latency
+pricing_time	Time shifting	svg/pricing_time/time_shifting.svg	ultimate/colors/interface-essential/time-clock-hand-1.svg	Flexible demand migration
+simulation_evidence	Time-series results	svg/simulation_evidence/time_series_results.svg	ultimate/colors/business-products/analytics-board-graph-line.svg	Utilization or QoS trajectory
+simulation_evidence	Market-share results	svg/simulation_evidence/market_share_results.svg	ultimate/colors/business-products/analytics-pie-2.svg	Allocation or share result
+simulation_evidence	Optimization result	svg/simulation_evidence/optimization_result.svg	ultimate/colors/business-products/optimization-graph.svg	Solver output
+simulation_evidence	Simulation data	svg/simulation_evidence/simulation_data.svg	ultimate/colors/programing-apps-websites/programming-apps-websites/database-1.svg	Simulation inputs and artifacts
+simulation_evidence	Model hierarchy	svg/simulation_evidence/model_hierarchy.svg	ultimate/colors/programing-apps-websites/programming-apps-websites/database-hierarchy.svg	Layered model structure
+simulation_evidence	Iterative solver	svg/simulation_evidence/iterative_solver.svg	ultimate/colors/interface-essential/synchronize-arrows-three.svg	Best-response or fixed-point iteration
+simulation_evidence	Parameter setting	svg/simulation_evidence/parameter_setting.svg	ultimate/colors/interface-essential/settings-slider-desktop-horizontal.svg	Simulation parameters
+simulation_evidence	Experiment validation	svg/simulation_evidence/experiment_validation.svg	ultimate/colors/science/lab-tube-experiment.svg	Verification and validation experiment

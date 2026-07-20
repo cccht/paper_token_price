@@ -1,0 +1,5 @@
+Conserved OD flows separate temporal shifting from provider substitution.
+The finite game uses 1,576 rules and a bounded three-parameter intermediary.
+Time-varying prices reduce expected peak by 12.50% and improve minimum QoS.
+Temporal movement and provider substitution are measured separately.
+Baseline market-side profit rises by 2.23% under synthetic calibration.

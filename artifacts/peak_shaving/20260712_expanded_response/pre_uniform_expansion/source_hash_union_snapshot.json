@@ -1,0 +1,1555 @@
+{
+  "generated_at": "2026-07-17T05:28:40+08:00",
+  "entry_count": 221,
+  "unique_source_count": 33,
+  "all_recorded_hashes_match_current": true,
+  "entries": [
+    {
+      "artifact": "candidate_manifest_submission.json",
+      "source_path": "experiments/build_submission_candidate_manifest.py",
+      "recorded_sha256": "2314a24c306fb0ee575d37d6cfb47f637936010361159ab652bbebe510557651",
+      "current_sha256": "2314a24c306fb0ee575d37d6cfb47f637936010361159ab652bbebe510557651",
+      "matches_current": true
+    },
+    {
+      "artifact": "candidate_manifest_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "equilibrium_branch_audit_submission.json",
+      "source_path": "experiments/run_submission_equilibrium_branch_audit.py",
+      "recorded_sha256": "8a8fba7df044e8c582045b55d5f008cf3a607ff1054a4e281cd7b8924093cb2b",
+      "current_sha256": "8a8fba7df044e8c582045b55d5f008cf3a607ff1054a4e281cd7b8924093cb2b",
+      "matches_current": true
+    },
+    {
+      "artifact": "fixed_point_multistart_audit_submission.json",
+      "source_path": "experiments/run_submission_fixed_point_audit.py",
+      "recorded_sha256": "be89f3e4416c38b9faae5cf2794450dfdcdcc83d7c054f714ebc71f48ece6300",
+      "current_sha256": "be89f3e4416c38b9faae5cf2794450dfdcdcc83d7c054f714ebc71f48ece6300",
+      "matches_current": true
+    },
+    {
+      "artifact": "fixed_point_multistart_audit_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "fixed_point_multistart_audit_submission.json",
+      "source_path": "experiments/run_submission_intermediary_audit.py",
+      "recorded_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "current_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "matches_current": true
+    },
+    {
+      "artifact": "fixed_point_multistart_audit_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "fixed_point_multistart_audit_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "fixed_point_multistart_audit_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "intermediary_globality_audit_submission.json",
+      "source_path": "experiments/run_submission_intermediary_audit.py",
+      "recorded_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "current_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "matches_current": true
+    },
+    {
+      "artifact": "intermediary_globality_audit_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "intermediary_globality_audit_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "intermediary_globality_audit_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "intermediary_globality_audit_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "intermediary_globality_audit_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "experiments/run_submission_mechanism_decomposition.py",
+      "recorded_sha256": "0595959113bc91705c9ec11e7adc364866b2d2ebd9dab9fb8f97661147abbf0a",
+      "current_sha256": "0595959113bc91705c9ec11e7adc364866b2d2ebd9dab9fb8f97661147abbf0a",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "experiments/run_submission_intermediary_audit.py",
+      "recorded_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "current_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "mechanism_decomposition_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "mixed_outcome_distribution_submission.json",
+      "source_path": "experiments/build_submission_mixed_distribution.py",
+      "recorded_sha256": "546c32c766b09faf04ce1f3f9b809dc0ecdbe76f34352d82860bf4eaf5f1d955",
+      "current_sha256": "546c32c766b09faf04ce1f3f9b809dc0ecdbe76f34352d82860bf4eaf5f1d955",
+      "matches_current": true
+    },
+    {
+      "artifact": "mixed_outcome_distribution_submission.json",
+      "source_path": "experiments/run_submission_intermediary_audit.py",
+      "recorded_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "current_sha256": "c01011db28716fe0e4882e314683bf91369ab29892f6ecc74a367f6a6513573d",
+      "matches_current": true
+    },
+    {
+      "artifact": "mixed_outcome_distribution_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "mixed_outcome_distribution_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "mixed_outcome_distribution_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "mixed_outcome_distribution_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "price_shape_decomposition_submission.json",
+      "source_path": "experiments/run_submission_price_shape_decomposition.py",
+      "recorded_sha256": "d5411f672834b2eb2cc819729dd36151e006dabd1a09f9ff6ae2f85d0c289b2a",
+      "current_sha256": "d5411f672834b2eb2cc819729dd36151e006dabd1a09f9ff6ae2f85d0c289b2a",
+      "matches_current": true
+    },
+    {
+      "artifact": "price_shape_decomposition_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "price_shape_decomposition_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "price_shape_decomposition_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "price_shape_decomposition_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_high_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_capacity_low_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_claims_submission.json",
+      "source_path": "experiments/build_submission_sensitivity_claims.py",
+      "recorded_sha256": "17c9e1bc86e1c5c0725d2a4fd290041a26831c7e406c61cb0d4278eedcac9f48",
+      "current_sha256": "17c9e1bc86e1c5c0725d2a4fd290041a26831c7e406c61cb0d4278eedcac9f48",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_claims_submission.json",
+      "source_path": "experiments/build_submission_sensitivity_table.py",
+      "recorded_sha256": "c2e9c8bab311e392cbe11a50f280c02280484a4833412d4d8bd278021cde1c96",
+      "current_sha256": "c2e9c8bab311e392cbe11a50f280c02280484a4833412d4d8bd278021cde1c96",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_high_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_migration_cost_low_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_high_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_price_sensitivity_low_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_high_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "sensitivity_qos_threshold_low_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/peak_shaving_config.py",
+      "recorded_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "current_sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/peak_shaving_equilibrium.py",
+      "recorded_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "current_sha256": "f929b4f89b07c955cb83ee3103d3f1d1a4967b313b70eb671fce84236dc22f9f",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/peak_shaving_market.py",
+      "recorded_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "current_sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_mechanism.py",
+      "recorded_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "current_sha256": "a8b362bdce37b682e89aa47e8020330296ab294411eb8f8a05ba0e3802b13d02",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/spatiotemporal_game.py",
+      "recorded_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "current_sha256": "c9e200a18c94c58dd1a24ae426eb535bb33ceebea20b16c948c0bbe1fa074295",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/finite_game.py",
+      "recorded_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "current_sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/bimatrix_solver.py",
+      "recorded_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "current_sha256": "90312a7fe9188adb6ab8a810ad05eafa75a81ca43342561c66c34e9bea1b3214",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/complementarity_solver.py",
+      "recorded_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "current_sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "pricing_sim/milp_equilibrium_solver.py",
+      "recorded_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "current_sha256": "db224d7a87a9b4b04dff63a8ae5579e2a6774b1d440a08631e8461c89780587f",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/equilibrium_cache.py",
+      "recorded_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "current_sha256": "3c09094e7f02af6794160ece66407d87d3587cd57057550e963ddedafbebffe1",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/equilibrium_run_support.py",
+      "recorded_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "current_sha256": "35e023d078e955f5bff18c1f255d88b022426899c31bb0885ff9aafeb068b351",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/final_equilibrium_tools.py",
+      "recorded_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "current_sha256": "b4db8cfde1395da6ec62cddc4ba7fddd98c3272597d1c44a50aff1ac679f32f5",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/peak_shaving_submission_tools.py",
+      "recorded_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "current_sha256": "5a53ae060b57a4c87657237b203cbde121f1ccde279f1893d53498713d23340a",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/run_spatiotemporal_mechanism_decomposition.py",
+      "recorded_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "current_sha256": "41772a0324a2cb46f848b0ade10951b07ce15c7d98f0da1743ed2fe6a37ddda0",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/final_reproducibility.py",
+      "recorded_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "current_sha256": "805a6e67b2ba49e76ecbb2832ffa0b2a5cb96151a19d8d132add8f20904b3137",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/run_final_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "current_sha256": "cc103f14d9853cef2108ad24cfaf2e68300750a541e62fa4ab4dce6a7a891247",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "recorded_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "current_sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "recorded_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "current_sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_equilibrium_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_equilibrium.py",
+      "recorded_sha256": "54741505f3284f5df6638c724a04dd5f2c2b6298861cc7eb6f34ac959362754d",
+      "current_sha256": "54741505f3284f5df6638c724a04dd5f2c2b6298861cc7eb6f34ac959362754d",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_offgrid_diagnostic_submission.json",
+      "source_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json",
+      "recorded_sha256": "d37174453530ad67754da2303bc1e85374053efd53cec90d9824e65f5a3aae2f",
+      "current_sha256": "d37174453530ad67754da2303bc1e85374053efd53cec90d9824e65f5a3aae2f",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_offgrid_diagnostic_submission.json",
+      "source_path": "pricing_sim/intermediary_response.py",
+      "recorded_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "current_sha256": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_offgrid_diagnostic_submission.json",
+      "source_path": "experiments/offgrid_diagnostic_tools.py",
+      "recorded_sha256": "8e7fcf3c31b73aef2eb3678d07da47f52f6f765a966fcb932f1a4a3af5f8b040",
+      "current_sha256": "8e7fcf3c31b73aef2eb3678d07da47f52f6f765a966fcb932f1a4a3af5f8b040",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_offgrid_diagnostic_submission.json",
+      "source_path": "experiments/run_spatiotemporal_offgrid_diagnostic.py",
+      "recorded_sha256": "0e3e8e29fb68473b9fe7063c12aefac73cf1d568431336927e9b2550deb47fce",
+      "current_sha256": "0e3e8e29fb68473b9fe7063c12aefac73cf1d568431336927e9b2550deb47fce",
+      "matches_current": true
+    },
+    {
+      "artifact": "spatiotemporal_sensitivity_submission.json",
+      "source_path": "experiments/run_submission_spatiotemporal_sensitivity.py",
+      "recorded_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "current_sha256": "199af66c39047feb506a6cdbb2a69139cfd3daa0b3582bab1fc7afaf9999c867",
+      "matches_current": true
+    }
+  ]
+}

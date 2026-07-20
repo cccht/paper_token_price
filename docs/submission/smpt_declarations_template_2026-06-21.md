@@ -1,5 +1,9 @@
 # SMPT Declarations Template
 
+> **Historical manuscript-specific template.** The declaration wording remains
+> a useful author-input guide, but the title and release link below are stale.
+> Do not submit this file without replacing them from the gated final package.
+
 Use this file to fill the submission system and the final manuscript metadata.
 Do not submit placeholder text.
 

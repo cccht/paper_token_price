@@ -1,5 +1,12 @@
 # SMPT Final-Gate Reviewer Report
 
+> **Historical review, superseded.** This report assesses the 2026-06-20
+> manuscript and predates both the 788-candidate evidence and the current SMPT
+> artwork-policy audit. Its statement that no figure-level blocker remained is
+> no longer valid. Use `smpt_submission_evidence_map_2026-07-14.md`,
+> `smpt_final_three_reviewer_audit_2026-07-14.md`, and
+> `../submission/smpt_author_actions_2026-07-16.md` for the current gate.
+
 Date: 2026-06-21  
 Manuscript assessed: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`  
 Assessment mode: internal reviewer-style pre-submission gate  

@@ -92,8 +92,8 @@ The sequence, summarized in Figure~\ref{fig:market_schematic}, is: providers pos
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{framework_imagegen_final_2026-07-10.png}
-\caption{Framework of the fixed-capacity inference-service simulation. Users choose between the API intermediary, direct provider access, and market exit. The intermediary routes traffic to two capacity-heterogeneous providers according to price and QoS. The simulation loop evaluates price shapes, user choice, routing, utilization, and the QoS fixed point, while the diagnostic layer reports finite-grid regret, QoS protection, and the profit boundary.}
+\includegraphics[width=\textwidth]{peak_shaving_framework_2026-07-11.pdf}
+\caption{Framework of the fixed-capacity inference-service simulation and finite-grid diagnostic workflow. Panel (a) shows time-rigid and time-flexible users choosing among the API intermediary, direct provider access, and the outside option. The intermediary selects its retail price and routes demand to two capacity-heterogeneous providers; provider load determines utilization and QoS. Panel (b) evaluates provider price-shape candidates through the intermediary response, channel--period choice, the joint routing--QoS fixed point, the provider payoff matrix, fictitious play, and the double-oracle check. Solid arrows denote requests or routed traffic; dashed arrows denote price and QoS signals. The reported outputs are finite-grid regret, QoS protection, and the profit boundary; the diagram does not imply a continuous-space Nash proof. Icons are from \href{https://streamlinehq.com}{Streamline Ultimate Color} and are used under \href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}.}
 \label{fig:market_schematic}
 \end{figure}
 
@@ -672,11 +672,13 @@ Mechanism diagnostics and figures are rebuilt from existing strategy artifacts b
 \path{peak_shaving_diagnostics/}, \path{peak_shaving_submission/}, and \path{peak_shaving_smpt/}. Parameter values, grid definitions, artifact mappings, and reproduction commands are provided in the supplementary file
 \path{peak_shaving_dynamic_pricing_sci_en_supplement_2026-06-19.tex}.
 
+The editable source for Figure~\ref{fig:market_schematic} is \path{figure_sources/peak_shaving_framework_2026-07-11.drawio}, and its deterministic builder is \path{figure_sources/build_peak_shaving_framework_drawio.py}. The manuscript uses the PDF 1.3 compatibility export; lossless PNG and SVG exports are retained with the source. The locally pinned Streamline icon files, source mapping, attribution text, and CC BY 4.0 licence are stored under \path{figure_sources/iot_icon_candidates/streamline_ultimate_color/}.
+
 A public project repository containing the current manuscript, code, figure scripts, and generated artifacts is available at \url{https://github.com/cccht/paper_token_price}. A versioned GitHub release for this submission candidate is available at \url{https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21}. If a persistent archival identifier is required, this release should be mirrored to an archival service such as Zenodo or OSF before formal submission. Until such a digital object identifier is created, the GitHub release should be treated as a versioned reproducibility package rather than a persistent data identifier.
 
 \paragraph{Declaration of generative AI and AI-assisted technologies.}
 
-During manuscript preparation, AI-assisted tools were used for language polishing, consistency checks, internal reviewer-style checks, and an author-review draft of Figure~\ref{fig:market_schematic}. The authors remain responsible for the simulation model, experimental artifacts, numerical results, interpretation, and final text. Because Elsevier's artwork policy does not permit generative AI to create or alter submitted figures unless such use is part of the research method, the current Figure~\ref{fig:market_schematic} artwork must be replaced by an author-approved non-AI artwork or cleared with the journal before formal submission.
+During manuscript preparation, AI-assisted tools were used for language polishing, consistency checks, internal reviewer-style checks, and layout and consistency checks for the editable vector diagram. No generative image model was used to create or alter the vector artwork in Figure~\ref{fig:market_schematic}. The figure was constructed from the model equations and simulation workflow using licensed Streamline icons and was reviewed by the authors. The authors remain responsible for the simulation model, experimental artifacts, numerical results, interpretation, text, and figures.
 
 \small
 \bibliographystyle{unsrtnat}

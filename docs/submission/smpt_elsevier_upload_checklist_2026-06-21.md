@@ -1,5 +1,11 @@
 # SMPT Elsevier Upload Checklist
 
+> **Historical upload checklist, superseded.** The files and counts below refer
+> to the 2026-06-20 draft, including a Figure 1 that is no longer used. Do not
+> upload this package. The current formal Figure 1 is editable Draw.io artwork,
+> and the new CAS checklist will be generated after the final numerical gates
+> pass.
+
 Target journal: *Simulation Modelling Practice and Theory*  
 Publisher: Elsevier  
 Prepared: 2026-06-21  

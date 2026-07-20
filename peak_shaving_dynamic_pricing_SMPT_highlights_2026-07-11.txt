@@ -1,0 +1,5 @@
+- A market simulation links provider pricing, routing, user choice, and QoS.
+- Time-of-use pricing raises minimum QoS from 0.756 to about 0.970.
+- A 225-point mixed diagnostic reduces maximum regret to 0.203.
+- Profit effects change sign across solver objects and perturbations.
+- Results support QoS protection, not reliable profit improvement.

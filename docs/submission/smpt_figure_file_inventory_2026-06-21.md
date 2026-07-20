@@ -1,5 +1,10 @@
 # SMPT Figure File Inventory
 
+> **Historical inventory, do not upload.** It lists the superseded eight-figure
+> manuscript and an image-generated Figure 1. The current paper uses six formal
+> figures and editable Draw.io artwork for Figure 1; a new inventory will be
+> generated after the final sensitivity figure passes its gates.
+
 Manuscript: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`  
 Release:
 `https://github.com/cccht/paper_token_price/releases/tag/smpt-submission-candidate-2026-06-21`

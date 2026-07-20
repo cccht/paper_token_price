@@ -1,5 +1,10 @@
 # SMPT Submission Portal Fields
 
+> **Historical portal text, do not paste into Editorial Manager.** The title,
+> abstract, keywords, highlights, 225-point results, outside-option statement,
+> and release link below have all been superseded. Current portal fields will be
+> generated only from the gated final manuscript.
+
 Target journal: *Simulation Modelling Practice and Theory*  
 Prepared: 2026-06-21  
 Release:

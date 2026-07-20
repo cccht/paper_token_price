@@ -1,0 +1,312 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-17T05:27:52+08:00",
+    "equilibrium_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json",
+    "equilibrium_sha256": "d37174453530ad67754da2303bc1e85374053efd53cec90d9824e65f5a3aae2f",
+    "thresholds": {
+      "provider_candidate_count": 788,
+      "uniform_candidate_count": 12,
+      "offgrid_samples_per_player": 1024,
+      "maximum_relative_offgrid_regret": 0.005,
+      "maximum_joint_residual": 1e-08,
+      "maximum_support_payoff_error": 1e-06,
+      "minimum_successful_local_runs": 1,
+      "minimum_successful_branch_starts": 64,
+      "maximum_full_candidate_regret": 1e-07,
+      "maximum_total_demand_error": 1e-08,
+      "minimum_active_profile_coverage": 0.999999999,
+      "maximum_fixed_point_span": 1e-07,
+      "maximum_relative_intermediary_gain": 0.001,
+      "maximum_distribution_reconstruction_error": 1e-08,
+      "maximum_decomposition_identity_error": 1e-08,
+      "uniform_active_profile_count": 1,
+      "dynamic_active_profile_count": 676
+    },
+    "gate_script_sha256": "eeea32ab6315d306ed9cee233cbcdec3e19ab518ad780185cbfffddb09fd8cbb"
+  },
+  "passed": true,
+  "checks": {
+    "equilibrium": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 7.977200011666241e-10
+        },
+        "dynamic": {
+          "full_max_regret": 1.1368683772161603e-13,
+          "maximum_joint_residual": 9.999697736517987e-10
+        }
+      }
+    },
+    "input_anchors": {
+      "passed": true,
+      "burstgpt": {
+        "period_count": 8,
+        "day_count": 59
+      },
+      "qos": {
+        "provenance": {
+          "passed": true,
+          "source_count": 4
+        },
+        "point_count": 10
+      },
+      "load_metadata_sha256": "723fbfc9f0e81124362459cf19017e934dfc32ea27b6d204d04a0585f1e08499"
+    },
+    "offgrid": {
+      "passed": true,
+      "players": {
+        "firm_A": {
+          "relative_offgrid_regret": 0.004002458302552877,
+          "maximum_joint_residual": 9.999697736517987e-10,
+          "maximum_active_support_payoff_error": 4.547473508864641e-13,
+          "minimum_successful_local_runs": 2
+        },
+        "firm_B": {
+          "relative_offgrid_regret": 0.004733110489296572,
+          "maximum_joint_residual": 9.999767680568539e-10,
+          "maximum_active_support_payoff_error": 4.547473508864641e-13,
+          "minimum_successful_local_runs": 2
+        }
+      }
+    },
+    "equilibrium_branch": {
+      "passed": true,
+      "successful_starts": 65,
+      "branch_count": 1,
+      "full_candidate_regret": 1.1368683772161603e-13
+    },
+    "candidate_manifest": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 2
+      },
+      "candidate_count": 788
+    },
+    "fixed_point_audit": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 6
+      }
+    },
+    "intermediary_audit": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 6
+      }
+    },
+    "mechanism_audit": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 8
+      },
+      "row_count": 8
+    },
+    "price_shape_audit": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 5
+      },
+      "row_count": 4
+    },
+    "distribution_audit": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 6
+      }
+    },
+    "capacity_low": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 7.003229107738207e-10
+        },
+        "dynamic": {
+          "full_max_regret": 1.1368683772161603e-13,
+          "maximum_joint_residual": 9.97263160940065e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 225
+      }
+    },
+    "capacity_high": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 6.06680705672602e-10
+        },
+        "dynamic": {
+          "full_max_regret": 2.2737367544323206e-13,
+          "maximum_joint_residual": 9.954404522893867e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 100
+      }
+    },
+    "price_sensitivity_low": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 9.447039261978318e-10
+        },
+        "dynamic": {
+          "full_max_regret": 2.2737367544323206e-13,
+          "maximum_joint_residual": 9.919181032103097e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 441
+      }
+    },
+    "price_sensitivity_high": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 6.493166004872819e-10
+        },
+        "dynamic": {
+          "full_max_regret": 2.2737367544323206e-13,
+          "maximum_joint_residual": 9.99648919197682e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 256
+      }
+    },
+    "migration_cost_low": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 6.636240446056263e-10
+        },
+        "dynamic": {
+          "full_max_regret": 2.2737367544323206e-13,
+          "maximum_joint_residual": 9.992799365754479e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 676
+      }
+    },
+    "migration_cost_high": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 7.678075952810559e-10
+        },
+        "dynamic": {
+          "full_max_regret": 2.2737367544323206e-13,
+          "maximum_joint_residual": 9.99739624418794e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 676
+      }
+    },
+    "qos_threshold_low": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 5.069711317418069e-10
+        },
+        "dynamic": {
+          "full_max_regret": 3.410605131648481e-13,
+          "maximum_joint_residual": 9.978555204348538e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 576
+      }
+    },
+    "qos_threshold_high": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 20
+      },
+      "games": {
+        "uniform": {
+          "full_max_regret": 0.0,
+          "maximum_joint_residual": 9.380806131886743e-10
+        },
+        "dynamic": {
+          "full_max_regret": 6.821210263296962e-13,
+          "maximum_joint_residual": 9.984025828302379e-10
+        }
+      },
+      "active_profile_counts": {
+        "uniform": 1,
+        "dynamic": 576
+      }
+    },
+    "sensitivity_summary": {
+      "passed": true,
+      "provenance": {
+        "passed": true,
+        "source_count": 1
+      },
+      "row_count": 9
+    },
+    "sensitivity_claims": {
+      "passed": true,
+      "scenario_count": 9,
+      "provider_candidate_count": 788
+    }
+  },
+  "failures": []
+}

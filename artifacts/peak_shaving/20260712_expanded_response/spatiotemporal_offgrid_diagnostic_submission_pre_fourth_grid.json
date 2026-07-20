@@ -1,0 +1,382 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-14T11:33:05+08:00",
+    "samples_per_player": 512,
+    "seed": 20260712,
+    "parallel_workers": 16,
+    "environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    },
+    "provider_candidate_count": 719,
+    "intermediary_response_method": "continuous_multistart",
+    "equilibrium_sha256": "b00a61ad53110b324578326e2d816db73a6c6aafda54cf27ba58f318047f18e0",
+    "command": "uv run --no-project --with numpy --with scipy python -m experiments.run_spatiotemporal_offgrid_diagnostic",
+    "source_sha256": {
+      "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json": "b00a61ad53110b324578326e2d816db73a6c6aafda54cf27ba58f318047f18e0",
+      "pricing_sim/intermediary_response.py": "3e77f3aab3fb9b9772a2ff2c3c9fdc5ddd94b66b60fbd16be29a9beca5944603",
+      "experiments/offgrid_diagnostic_tools.py": "8e7fcf3c31b73aef2eb3678d07da47f52f6f765a966fcb932f1a4a3af5f8b040",
+      "experiments/run_spatiotemporal_offgrid_diagnostic.py": "d360d485d54b80d9e6507c348d4415b7b56d54f62ecd97a2249a342dd485d5c0"
+    }
+  },
+  "search_domain": {
+    "wholesale_base": [
+      0.25,
+      0.9
+    ],
+    "wholesale_slope": [
+      -4.0,
+      4.0
+    ],
+    "direct_base": [
+      0.45,
+      2.1
+    ],
+    "direct_slope": [
+      -4.0,
+      4.0
+    ]
+  },
+  "players": {
+    "firm_A": {
+      "equilibrium_payoff": 836.8918216596167,
+      "best_payoff": 840.9654803960613,
+      "best_vector": [
+        0.25,
+        0.25,
+        0.5278125,
+        0.19999999999999998
+      ],
+      "best_source": "pairwise_refinement",
+      "offgrid_regret": 4.0736587364445995,
+      "relative_offgrid_regret": 0.004867604905453899,
+      "evaluated_candidates": 1208,
+      "evaluated_pairs": 31408,
+      "candidate_sources": {
+        "pairwise_refinement": 177,
+        "local_guard": 335,
+        "active_support": 26,
+        "axis_guard": 158,
+        "latin_hypercube": 512
+      },
+      "maximum_active_support_payoff_error": 4.547473508864641e-13,
+      "all_joint_converged": true,
+      "minimum_successful_local_runs": 2,
+      "maximum_joint_residual": 9.999796546367179e-10,
+      "maximum_route_beta": 999999.9899999888,
+      "top_candidates": [
+        {
+          "vector": [
+            0.25,
+            0.25,
+            0.5278125,
+            0.19999999999999998
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 840.9654803960613,
+          "maximum_joint_residual": 9.58541801487911e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 3829.865773992828
+        },
+        {
+          "vector": [
+            0.25,
+            0.25,
+            0.5071875,
+            0.3
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 840.39112639358,
+          "maximum_joint_residual": 9.216754026653007e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 999999.9899999888
+        },
+        {
+          "vector": [
+            0.25,
+            0.25,
+            0.5484375,
+            0.09999999999999998
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 840.1714280648612,
+          "maximum_joint_residual": 9.140190826428807e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 4214.694639967919
+        },
+        {
+          "vector": [
+            0.25,
+            0.35,
+            0.5278125,
+            0.19999999999999998
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 840.0974332819758,
+          "maximum_joint_residual": 9.108276355362932e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 3701.828771459783
+        },
+        {
+          "vector": [
+            0.25,
+            0.35,
+            0.5071875,
+            0.3
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 839.7214090955684,
+          "maximum_joint_residual": 9.733657768684623e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 3767.960645861199
+        },
+        {
+          "vector": [
+            0.25,
+            0.25,
+            0.5484375,
+            0.19999999999999998
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 839.6180472056633,
+          "maximum_joint_residual": 9.52605105908333e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 3235.5334149434007
+        },
+        {
+          "vector": [
+            0.25,
+            0.25,
+            0.5071875,
+            0.19999999999999998
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 839.5255653693727,
+          "maximum_joint_residual": 9.435295322823833e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 3326.485228462745
+        },
+        {
+          "vector": [
+            0.25,
+            0.35,
+            0.5278125,
+            0.3
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 839.4655706529959,
+          "maximum_joint_residual": 9.9449426471665e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 3830.033865875318
+        },
+        {
+          "vector": [
+            0.25,
+            0.25,
+            0.4865625,
+            0.4
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 839.2182115969099,
+          "maximum_joint_residual": 9.582994398016353e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 3398.006975281967
+        },
+        {
+          "vector": [
+            0.25,
+            0.25,
+            0.5278125,
+            0.3
+          ],
+          "source": "local_guard",
+          "payoff": 839.1583024949073,
+          "maximum_joint_residual": 9.922760946246e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 4637.43718414048
+        }
+      ]
+    },
+    "firm_B": {
+      "equilibrium_payoff": 741.1485694662163,
+      "best_payoff": 743.1091022663995,
+      "best_vector": [
+        0.25,
+        1.05,
+        0.5278125,
+        0.4
+      ],
+      "best_source": "pairwise_refinement",
+      "offgrid_regret": 1.9605328001832731,
+      "relative_offgrid_regret": 0.002645262881091805,
+      "evaluated_candidates": 1197,
+      "evaluated_pairs": 31122,
+      "candidate_sources": {
+        "pairwise_refinement": 174,
+        "local_guard": 328,
+        "axis_guard": 157,
+        "active_support": 26,
+        "latin_hypercube": 512
+      },
+      "maximum_active_support_payoff_error": 5.684341886080801e-13,
+      "all_joint_converged": true,
+      "minimum_successful_local_runs": 2,
+      "maximum_joint_residual": 9.999697736517987e-10,
+      "maximum_route_beta": 999999.9899999888,
+      "top_candidates": [
+        {
+          "vector": [
+            0.25,
+            1.05,
+            0.5278125,
+            0.4
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 743.1091022663995,
+          "maximum_joint_residual": 9.367032705043243e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 2242.7509937093287
+        },
+        {
+          "vector": [
+            0.25,
+            1.05,
+            0.5278125,
+            0.5
+          ],
+          "source": "local_guard",
+          "payoff": 743.1078321892043,
+          "maximum_joint_residual": 8.27503898737092e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 2696.4089568159484
+        },
+        {
+          "vector": [
+            0.258125,
+            0.9500000000000001,
+            0.5278125,
+            0.5
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 743.0042656010444,
+          "maximum_joint_residual": 8.271417439864592e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 999999.9899999888
+        },
+        {
+          "vector": [
+            0.25,
+            1.05,
+            0.5071875,
+            0.5
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 742.8765201862398,
+          "maximum_joint_residual": 9.351531216061915e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 2190.719385772711
+        },
+        {
+          "vector": [
+            0.25,
+            1.05,
+            0.5484375,
+            0.4
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 742.8520876841598,
+          "maximum_joint_residual": 8.719008848245835e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 2311.3476290137114
+        },
+        {
+          "vector": [
+            0.25,
+            0.9,
+            0.5278125,
+            0.5
+          ],
+          "source": "local_guard",
+          "payoff": 742.5510130779197,
+          "maximum_joint_residual": 8.177840071788012e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 30870.517427845338
+        },
+        {
+          "vector": [
+            0.25,
+            1.1,
+            0.5278125,
+            0.5
+          ],
+          "source": "local_guard",
+          "payoff": 742.4436723118606,
+          "maximum_joint_residual": 8.297790787814563e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 1323.684023299635
+        },
+        {
+          "vector": [
+            0.25,
+            1.05,
+            0.5071875,
+            0.6
+          ],
+          "source": "pairwise_refinement",
+          "payoff": 742.3043569682679,
+          "maximum_joint_residual": 8.358630454452509e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 999999.9899999888
+        },
+        {
+          "vector": [
+            0.25,
+            1.0,
+            0.5278125,
+            0.5
+          ],
+          "source": "local_guard",
+          "payoff": 742.142720653285,
+          "maximum_joint_residual": 8.247457161658645e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 4765.84454156183
+        },
+        {
+          "vector": [
+            0.25,
+            1.2000000000000002,
+            0.5175,
+            0.5
+          ],
+          "source": "local_guard",
+          "payoff": 742.1238958001355,
+          "maximum_joint_residual": 8.151805896972064e-10,
+          "all_joint_converged": true,
+          "minimum_successful_local_runs": 3,
+          "maximum_route_beta": 1680.3105660030033
+        }
+      ]
+    }
+  },
+  "interpretation_boundary": "Deterministic bounded global and local sampling against the opponent mixed support; not a proof of a continuous-space Nash equilibrium."
+}

@@ -1,0 +1,57 @@
+source	category	name	slug	primary_asset	secondary_asset
+fluentui-emoji	endpoints	Desktop computer	desktop_computer	assets/Desktop computer/3D/desktop_computer_3d.png	assets/Desktop computer/Color/desktop_computer_color.svg
+fluentui-emoji	endpoints	Laptop	laptop	assets/Laptop/3D/laptop_3d.png	assets/Laptop/Color/laptop_color.svg
+fluentui-emoji	endpoints	Mobile phone	mobile_phone	assets/Mobile phone/3D/mobile_phone_3d.png	assets/Mobile phone/Color/mobile_phone_color.svg
+fluentui-emoji	endpoints	Robot	robot	assets/Robot/3D/robot_3d.png	assets/Robot/Color/robot_color.svg
+fluentui-emoji	endpoints	Camera	camera	assets/Camera/3D/camera_3d.png	assets/Camera/Color/camera_color.svg
+fluentui-emoji	endpoints	Video camera	video_camera	assets/Video camera/3D/video_camera_3d.png	assets/Video camera/Color/video_camera_color.svg
+fluentui-emoji	time_workload	Alarm clock	alarm_clock	assets/Alarm clock/3D/alarm_clock_3d.png	assets/Alarm clock/Color/alarm_clock_color.svg
+fluentui-emoji	time_workload	Calendar	calendar	assets/Calendar/3D/calendar_3d.png	assets/Calendar/Color/calendar_color.svg
+fluentui-emoji	time_workload	Hourglass done	hourglass_done	assets/Hourglass done/3D/hourglass_done_3d.png	assets/Hourglass done/Color/hourglass_done_color.svg
+fluentui-emoji	time_workload	Stopwatch	stopwatch	assets/Stopwatch/3D/stopwatch_3d.png	assets/Stopwatch/Color/stopwatch_color.svg
+fluentui-emoji	time_workload	Clipboard	clipboard	assets/Clipboard/3D/clipboard_3d.png	assets/Clipboard/Color/clipboard_color.svg
+fluentui-emoji	time_workload	Package	package	assets/Package/3D/package_3d.png	assets/Package/Color/package_color.svg
+fluentui-emoji	network_cloud	Cloud	cloud	assets/Cloud/3D/cloud_3d.png	assets/Cloud/Color/cloud_color.svg
+fluentui-emoji	network_cloud	Satellite antenna	satellite_antenna	assets/Satellite antenna/3D/satellite_antenna_3d.png	assets/Satellite antenna/Color/satellite_antenna_color.svg
+fluentui-emoji	network_cloud	Antenna bars	antenna_bars	assets/Antenna bars/3D/antenna_bars_3d.png	assets/Antenna bars/Color/antenna_bars_color.svg
+fluentui-emoji	network_cloud	Globe with meridians	globe_with_meridians	assets/Globe with meridians/3D/globe_with_meridians_3d.png	assets/Globe with meridians/Color/globe_with_meridians_color.svg
+fluentui-emoji	network_cloud	Electric plug	electric_plug	assets/Electric plug/3D/electric_plug_3d.png	assets/Electric plug/Color/electric_plug_color.svg
+fluentui-emoji	network_cloud	Battery	battery	assets/Battery/3D/battery_3d.png	assets/Battery/Color/battery_color.svg
+fluentui-emoji	infrastructure	Office building	office_building	assets/Office building/3D/office_building_3d.png	assets/Office building/Color/office_building_color.svg
+fluentui-emoji	infrastructure	Factory	factory	assets/Factory/3D/factory_3d.png	assets/Factory/Color/factory_color.svg
+fluentui-emoji	infrastructure	Floppy disk	floppy_disk	assets/Floppy disk/3D/floppy_disk_3d.png	assets/Floppy disk/Color/floppy_disk_color.svg
+fluentui-emoji	infrastructure	Gear	gear	assets/Gear/3D/gear_3d.png	assets/Gear/Color/gear_color.svg
+fluentui-emoji	infrastructure	File folder	file_folder	assets/File folder/3D/file_folder_3d.png	assets/File folder/Color/file_folder_color.svg
+fluentui-emoji	infrastructure	Satellite	satellite	assets/Satellite/3D/satellite_3d.png	assets/Satellite/Color/satellite_color.svg
+fluentui-emoji	metrics_qos	Bar chart	bar_chart	assets/Bar chart/3D/bar_chart_3d.png	assets/Bar chart/Color/bar_chart_color.svg
+fluentui-emoji	metrics_qos	Chart increasing	chart_increasing	assets/Chart increasing/3D/chart_increasing_3d.png	assets/Chart increasing/Color/chart_increasing_color.svg
+fluentui-emoji	metrics_qos	Bullseye	bullseye	assets/Bullseye/3D/bullseye_3d.png	assets/Bullseye/Color/bullseye_color.svg
+fluentui-emoji	metrics_qos	Shield	shield	assets/Shield/3D/shield_3d.png	assets/Shield/Color/shield_color.svg
+fluentui-emoji	metrics_qos	Warning	warning	assets/Warning/3D/warning_3d.png	assets/Warning/Color/warning_color.svg
+fluentui-emoji	metrics_qos	Stop sign	stop_sign	assets/Stop sign/3D/stop_sign_3d.png	assets/Stop sign/Color/stop_sign_color.svg
+fluentui-emoji	market_flow	Busts in silhouette	busts_in_silhouette	assets/Busts in silhouette/3D/busts_in_silhouette_3d.png	assets/Busts in silhouette/Color/busts_in_silhouette_color.svg
+fluentui-emoji	market_flow	Bust in silhouette	bust_in_silhouette	assets/Bust in silhouette/3D/bust_in_silhouette_3d.png	assets/Bust in silhouette/Color/bust_in_silhouette_color.svg
+fluentui-emoji	market_flow	Money bag	money_bag	assets/Money bag/3D/money_bag_3d.png	assets/Money bag/Color/money_bag_color.svg
+fluentui-emoji	market_flow	Coin	coin	assets/Coin/3D/coin_3d.png	assets/Coin/Color/coin_color.svg
+fluentui-emoji	market_flow	Dollar banknote	dollar_banknote	assets/Dollar banknote/3D/dollar_banknote_3d.png	assets/Dollar banknote/Color/dollar_banknote_color.svg
+fluentui-emoji	market_flow	Left-right arrow	left-right_arrow	assets/Left-right arrow/3D/left-right_arrow_3d.png	assets/Left-right arrow/Color/left-right_arrow_color.svg
+3dicons	endpoints	Computer	computer	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/computer-dynamic-color.png	-
+3dicons	endpoints	Mobile	mobile	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/mobile-dynamic-color.png	-
+3dicons	endpoints	Camera	camera	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/camera-dynamic-color.png	-
+3dicons	endpoints	Video camera	video-camera	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/video-camera-dynamic-color.png	-
+3dicons	endpoints	Chat	chat	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/chat-dynamic-color.png	-
+3dicons	endpoints	Chat text	chat-text	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/chat-text-dynamic-color.png	-
+3dicons	time_workload	Clock	clock	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/clock-dynamic-color.png	-
+3dicons	time_workload	Calendar	calender	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/calender-dynamic-color.png	-
+3dicons	time_workload	Notebook	notebook	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/notebook-dynamic-color.png	-
+3dicons	network_cloud	WiFi	wifi	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/wifi-dynamic-color.png	-
+3dicons	network_cloud	Link	link	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/link-dynamic-color.png	-
+3dicons	infrastructure	Setting	setting	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/setting-dynamic-color.png	-
+3dicons	infrastructure	Folder	folder	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/folder-dynamic-color.png	-
+3dicons	infrastructure	Lock	lock	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/lock-dynamic-color.png	-
+3dicons	infrastructure	Lab	lab	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/lab-dynamic-color.png	-
+3dicons	metrics_qos	Chart	chart	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/chart-dynamic-color.png	-
+3dicons	metrics_qos	Target	target	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/target-dynamic-color.png	-
+3dicons	metrics_qos	Shield	sheild	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/sheild-dynamic-color.png	-
+3dicons	market_flow	Wallet	wallet	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/wallet-dynamic-color.png	-
+3dicons	market_flow	Money	money	https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/color/money-dynamic-color.png	-

@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-19T04:39:05+08:00",
+    "baseline_path": "artifacts/peak_shaving/20260712_expanded_response/spatiotemporal_equilibrium_submission.json",
+    "baseline_sha256": "70a3b64050c2b0621bbcf0c5a418c43ba554f61b3ee10c2ca4d48fbf26bed226",
+    "provider_candidate_count": 1576,
+    "intermediary_response_method": "continuous_multistart",
+    "scenario_count": 9,
+    "scenario_outputs": [
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_capacity_low_submission.json",
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_capacity_high_submission.json",
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_price_sensitivity_low_submission.json",
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_price_sensitivity_high_submission.json",
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_migration_cost_low_submission.json",
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_migration_cost_high_submission.json",
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_qos_threshold_low_submission.json",
+      "artifacts/peak_shaving/20260712_expanded_response/sensitivity_qos_threshold_high_submission.json"
+    ],
+    "source_sha256": {
+      "experiments/run_submission_spatiotemporal_sensitivity.py": "8a305adee6a85cdb61485c64eba5d27174599717b50c25e2012382a0fca83f4b"
+    },
+    "command": "collect_sensitivity_summary from validated scenario artifacts"
+  },
+  "scenario_definitions": {
+    "capacity_low": {
+      "group": "capacity_scale",
+      "value": 0.85,
+      "capacity_scale": 0.85
+    },
+    "capacity_high": {
+      "group": "capacity_scale",
+      "value": 1.15,
+      "capacity_scale": 1.15
+    },
+    "price_sensitivity_low": {
+      "group": "price_sensitivity_scale",
+      "value": 0.8,
+      "price_sensitivity_scale": 0.8
+    },
+    "price_sensitivity_high": {
+      "group": "price_sensitivity_scale",
+      "value": 1.2,
+      "price_sensitivity_scale": 1.2
+    },
+    "migration_cost_low": {
+      "group": "migration_cost_scale",
+      "value": 0.7,
+      "migration_cost_scale": 0.7
+    },
+    "migration_cost_high": {
+      "group": "migration_cost_scale",
+      "value": 1.3,
+      "migration_cost_scale": 1.3
+    },
+    "qos_threshold_low": {
+      "group": "qos_threshold_shift",
+      "value": -0.05,
+      "qos_threshold_shift": -0.05
+    },
+    "qos_threshold_high": {
+      "group": "qos_threshold_shift",
+      "value": 0.05,
+      "qos_threshold_shift": 0.05
+    }
+  },
+  "rows": [
+    {
+      "scenario": "baseline",
+      "group": "baseline",
+      "value": 1.0,
+      "uniform_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_full_max_regret": 1.1368683772161603e-13,
+      "dynamic_relative_full_max_regret": 1.3604340558550875e-16,
+      "maximum_joint_residual": 9.999697736517987e-10,
+      "aggregate_peak_change_percent": -12.504531122059978,
+      "maximum_provider_utilization_change_percent": -10.843813093271537,
+      "minimum_provider_qos_change": 0.05740517425697367,
+      "market_profit_change_percent": 2.2329148631778644,
+      "dynamic_evaluated_pairs": 81276,
+      "dynamic_row_support_count": 26,
+      "dynamic_col_support_count": 26
+    },
+    {
+      "scenario": "capacity_low",
+      "group": "capacity_scale",
+      "value": 0.85,
+      "uniform_full_max_regret": 3.410605131648481e-13,
+      "dynamic_full_max_regret": 1.1368683772161603e-13,
+      "dynamic_relative_full_max_regret": 1.203365133447273e-16,
+      "maximum_joint_residual": 9.992988658780178e-10,
+      "aggregate_peak_change_percent": -13.35771166759009,
+      "maximum_provider_utilization_change_percent": -10.910628715344227,
+      "minimum_provider_qos_change": 0.06619107627869036,
+      "market_profit_change_percent": -9.13897160440687,
+      "dynamic_evaluated_pairs": 153576,
+      "dynamic_row_support_count": 15,
+      "dynamic_col_support_count": 15
+    },
+    {
+      "scenario": "capacity_high",
+      "group": "capacity_scale",
+      "value": 1.15,
+      "uniform_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_relative_full_max_regret": 2.97246635370369e-16,
+      "maximum_joint_residual": 9.954404522893867e-10,
+      "aggregate_peak_change_percent": -12.9817399609571,
+      "maximum_provider_utilization_change_percent": -7.621185783867875,
+      "minimum_provider_qos_change": 0.027872541264830186,
+      "market_profit_change_percent": 0.4854434182989593,
+      "dynamic_evaluated_pairs": 133687,
+      "dynamic_row_support_count": 10,
+      "dynamic_col_support_count": 10
+    },
+    {
+      "scenario": "price_sensitivity_low",
+      "group": "price_sensitivity_scale",
+      "value": 0.8,
+      "uniform_full_max_regret": 3.376499080331996e-11,
+      "dynamic_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_relative_full_max_regret": 2.54851744316436e-16,
+      "maximum_joint_residual": 9.996173333526315e-10,
+      "aggregate_peak_change_percent": -12.839173213151453,
+      "maximum_provider_utilization_change_percent": -8.799086039588007,
+      "minimum_provider_qos_change": 0.04225765142412741,
+      "market_profit_change_percent": -9.490460637636897,
+      "dynamic_evaluated_pairs": 144406,
+      "dynamic_row_support_count": 21,
+      "dynamic_col_support_count": 21
+    },
+    {
+      "scenario": "price_sensitivity_high",
+      "group": "price_sensitivity_scale",
+      "value": 1.2,
+      "uniform_full_max_regret": 1.1368683772161603e-13,
+      "dynamic_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_relative_full_max_regret": 2.94801506435041e-16,
+      "maximum_joint_residual": 9.99648919197682e-10,
+      "aggregate_peak_change_percent": -11.982843172521866,
+      "maximum_provider_utilization_change_percent": -10.377050378989534,
+      "minimum_provider_qos_change": 0.05332865211067317,
+      "market_profit_change_percent": 0.005770994461788901,
+      "dynamic_evaluated_pairs": 142876,
+      "dynamic_row_support_count": 16,
+      "dynamic_col_support_count": 16
+    },
+    {
+      "scenario": "migration_cost_low",
+      "group": "migration_cost_scale",
+      "value": 0.7,
+      "uniform_full_max_regret": 1.1368683772161603e-13,
+      "dynamic_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_relative_full_max_regret": 2.7275136131611315e-16,
+      "maximum_joint_residual": 9.992799365754479e-10,
+      "aggregate_peak_change_percent": -13.081258324541736,
+      "maximum_provider_utilization_change_percent": -11.524932585445297,
+      "minimum_provider_qos_change": 0.06029704064202357,
+      "market_profit_change_percent": 1.9171051520959845,
+      "dynamic_evaluated_pairs": 92116,
+      "dynamic_row_support_count": 26,
+      "dynamic_col_support_count": 26
+    },
+    {
+      "scenario": "migration_cost_high",
+      "group": "migration_cost_scale",
+      "value": 1.3,
+      "uniform_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_relative_full_max_regret": 2.711932563801428e-16,
+      "maximum_joint_residual": 9.99739624418794e-10,
+      "aggregate_peak_change_percent": -12.00429098770551,
+      "maximum_provider_utilization_change_percent": -10.593864395069135,
+      "minimum_provider_qos_change": 0.05529214660738424,
+      "market_profit_change_percent": 2.1446319386383212,
+      "dynamic_evaluated_pairs": 82826,
+      "dynamic_row_support_count": 26,
+      "dynamic_col_support_count": 26
+    },
+    {
+      "scenario": "qos_threshold_low",
+      "group": "qos_threshold_shift",
+      "value": -0.05,
+      "uniform_full_max_regret": 2.2737367544323206e-13,
+      "dynamic_full_max_regret": 3.410605131648481e-13,
+      "dynamic_relative_full_max_regret": 4.0018950021008386e-16,
+      "maximum_joint_residual": 9.978555204348538e-10,
+      "aggregate_peak_change_percent": -12.354377299416605,
+      "maximum_provider_utilization_change_percent": -10.9019152590715,
+      "minimum_provider_qos_change": 0.053435302635459814,
+      "market_profit_change_percent": -0.3160058627693462,
+      "dynamic_evaluated_pairs": 119882,
+      "dynamic_row_support_count": 24,
+      "dynamic_col_support_count": 24
+    },
+    {
+      "scenario": "qos_threshold_high",
+      "group": "qos_threshold_shift",
+      "value": 0.05,
+      "uniform_full_max_regret": 1.1368683772161603e-13,
+      "dynamic_full_max_regret": 6.821210263296962e-13,
+      "dynamic_relative_full_max_regret": 8.296388210099327e-16,
+      "maximum_joint_residual": 9.997822569829395e-10,
+      "aggregate_peak_change_percent": -12.780921689726302,
+      "maximum_provider_utilization_change_percent": -11.194822236092207,
+      "minimum_provider_qos_change": 0.05828473373051557,
+      "market_profit_change_percent": 1.4608530399008575,
+      "dynamic_evaluated_pairs": 109131,
+      "dynamic_row_support_count": 24,
+      "dynamic_col_support_count": 24
+    }
+  ]
+}

@@ -1,5 +1,11 @@
 # SMPT Full Figure Audit
 
+> **Historical figure audit, superseded.** This report covers the old eight-
+> figure manuscript and image-generated Figure 1. The current six-figure set
+> remains an internal review artifact because its layout or plotting code
+> received Codex assistance. Authors must independently rebuild Figures 1--6
+> before submission; see `../submission/smpt_author_actions_2026-07-16.md`.
+
 Date: 2026-06-21  
 Manuscript: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.tex`  
 PDF: `peak_shaving_dynamic_pricing_SMPT_final_2026-06-20.pdf`
@@ -113,4 +119,3 @@ compiled PDF. The strongest remaining figure-related submission risk is Figure 1
 artwork policy: it is conceptually aligned and editable as Draw.io, but the final
 journal submission should use an author-approved Draw.io export and should not
 use the earlier imagegen PNG drafts as final artwork.
-

@@ -1,5 +1,13 @@
 # SMPT Submission Package Manifest
 
+> **Historical package record, superseded.** This manifest describes the
+> 2026-06-20 manuscript and must not be used for the current submission. The
+> active manuscript and evidence status are tracked in
+> `docs/reviews/smpt_submission_adaptation_checklist_2026-06-21.md` and
+> `docs/reviews/smpt_submission_evidence_map_2026-07-14.md`. A current package
+> manifest will be generated only after all common-candidate sensitivity and
+> post-audit gates pass.
+
 Target journal: Simulation Modelling Practice and Theory  
 Publisher: Elsevier  
 Prepared on: 2026-06-21  
