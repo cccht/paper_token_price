@@ -1,0 +1,8 @@
+{
+  "experiment_sha256": "3e7f8993088822f32f6900f3d8eb22c601a3536675cafedbb9891353fc610450",
+  "analysis_sha256": "96ad59220d38b90eee0e7abbf00bfc49e4b4753d7648bd47de6b01acfcd798e5",
+  "script_sha256": "b58535e8155056d365a73fab445aab79e034f9b42b478a5a8a80ca90dd2d44a0",
+  "example_selection": "additional post-hoc mechanism example: smallest index among time switchers; no utility-gain filter",
+  "user_id": 37,
+  "icon_sources": "figure_sources/llm_user_framework_assets/sources.json"
+}

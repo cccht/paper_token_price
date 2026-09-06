@@ -1,0 +1,511 @@
+{
+  "scope": "Only the explicit new atomic user/manufacturer game and its reproduction inputs",
+  "experiment_sha256": "3e7f8993088822f32f6900f3d8eb22c601a3536675cafedbb9891353fc610450",
+  "files": {
+    "artifacts/peak_shaving/20260619_submission/vllm_qos_anchor_points.csv": {
+      "source": "artifacts/peak_shaving/20260619_submission/vllm_qos_anchor_points.csv",
+      "sha256": "69624f4014a62b17c4cf7be47c2054a4b3b9e12aa3addd0b686abb86a80e9808",
+      "bytes": 1533
+    },
+    "artifacts/peak_shaving/20260619_submission/vllm_qos_anchor_summary.json": {
+      "source": "artifacts/peak_shaving/20260619_submission/vllm_qos_anchor_summary.json",
+      "sha256": "7be141be80edaeaf29c12502717a6068960835015bd6ee8ec54df75833dc448e",
+      "bytes": 4039
+    },
+    "artifacts/peak_shaving/20260712_final/qos_calibration.json": {
+      "source": "artifacts/peak_shaving/20260712_final/qos_calibration.json",
+      "sha256": "1d420fa54e58e02c4571f8bfc9b35f946b0757a76d4df525dae8bd52475b6a91",
+      "bytes": 4231
+    },
+    "artifacts/user_provider_game/20260906/README.md": {
+      "source": "artifacts/user_provider_game/20260906/README.md",
+      "sha256": "bc9f54226b0a2aeb7977fb9365497cb27b9f04ad1dce6381844c73de7db226cf",
+      "bytes": 6185
+    },
+    "artifacts/user_provider_game/20260906/analysis.json": {
+      "source": "artifacts/user_provider_game/20260906/analysis.json",
+      "sha256": "96ad59220d38b90eee0e7abbf00bfc49e4b4753d7648bd47de6b01acfcd798e5",
+      "bytes": 33603
+    },
+    "artifacts/user_provider_game/20260906/boundary_cases.csv": {
+      "source": "artifacts/user_provider_game/20260906/boundary_cases.csv",
+      "sha256": "7929748c2ba31b5b9a80ee3e53ac0b75e758d43a882ecf5a3b8d2979ba52bcb9",
+      "bytes": 1659
+    },
+    "artifacts/user_provider_game/20260906/boundary_table.tex": {
+      "source": "artifacts/user_provider_game/20260906/boundary_table.tex",
+      "sha256": "2ab02419c4477367b1a798ac8b2676ae04a50a302b0ffc4520b2977d7b969ae6",
+      "bytes": 542
+    },
+    "artifacts/user_provider_game/20260906/convergence.csv": {
+      "source": "artifacts/user_provider_game/20260906/convergence.csv",
+      "sha256": "c34fa27c434255e403ee4851c54b0cb06a9d233bdeb62f5c6a84b2e9fac2d0dd",
+      "bytes": 469
+    },
+    "artifacts/user_provider_game/20260906/document_checks.json": {
+      "source": "artifacts/user_provider_game/20260906/document_checks.json",
+      "sha256": "f0420063f4e10a4610b3b044c719d27b02312925ad04e159c47d5a910c2f3ec8",
+      "bytes": 3303
+    },
+    "artifacts/user_provider_game/20260906/document_preview/contact_sheet.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/contact_sheet.png",
+      "sha256": "6d14baeb0e3eb5bd99f6acbf1ec9672050f7d4843e70221ed45e7a80a55265fd",
+      "bytes": 980592
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_01.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_01.png",
+      "sha256": "cb14fa8635bbd68f0a80bcc2311599a817554c4afaaf6d276816f1b66b671acd",
+      "bytes": 200419
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_02.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_02.png",
+      "sha256": "c48f89e86a364251e65afcd6ff9a0978da1587ea460880d7f65f7066e7412301",
+      "bytes": 192483
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_03.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_03.png",
+      "sha256": "791530273161d00d8d3e9284578e7932358f1bb29999f9a8f652590d3c2f7bf8",
+      "bytes": 181788
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_04.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_04.png",
+      "sha256": "1c78e472294d41f31c3d6922117e09a795895419426a9f6dd68227ad459b15b5",
+      "bytes": 198049
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_05.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_05.png",
+      "sha256": "ff8b088dbfd6b0f2cc2d6818aa13fb5aed58161d5ed645e18f92519f15b3ce47",
+      "bytes": 228714
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_06.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_06.png",
+      "sha256": "f68839da0c72f7220804550a6ebad58619b738dd0e2bb8641cbb077a159dc88e",
+      "bytes": 230849
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_07.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_07.png",
+      "sha256": "6dad19f09e4c866422df510814c00aebc6d6e4772a8f106832baa9133b9869c1",
+      "bytes": 146861
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_08.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_08.png",
+      "sha256": "ff7d7c9e815d8bb6f0fb75edd7ff2880ba0757bda21ffd66c08ddaa914bcb3cf",
+      "bytes": 195075
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_09.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_09.png",
+      "sha256": "ea07355cd1ab756f6a305886f796e1f653bda7233340faa2f1502ade3c4d72a4",
+      "bytes": 121912
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_10.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_10.png",
+      "sha256": "4ca925fb429ed89b1859cff3ab13e6aabee9c9146c14380bb406a2804e9e1584",
+      "bytes": 175330
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_11.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_11.png",
+      "sha256": "18bcff9d8f9d539a2ee3243fbc1e2ab025e815ec2ec1a7f7c359542d2837ef93",
+      "bytes": 216165
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_12.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_12.png",
+      "sha256": "2c0c3508f7acb08f03bf28e4f6ab58738fe67b3def4169d6e5e69271fab720bc",
+      "bytes": 152969
+    },
+    "artifacts/user_provider_game/20260906/document_preview/page_13.png": {
+      "source": "artifacts/user_provider_game/20260906/document_preview/page_13.png",
+      "sha256": "10c92c1ec4377333f570060f9340d07abba435fe362c5b84d24c15a37a1b9892",
+      "bytes": 83248
+    },
+    "artifacts/user_provider_game/20260906/experiment.json": {
+      "source": "artifacts/user_provider_game/20260906/experiment.json",
+      "sha256": "3e7f8993088822f32f6900f3d8eb22c601a3536675cafedbb9891353fc610450",
+      "bytes": 3944624
+    },
+    "artifacts/user_provider_game/20260906/main_table.tex": {
+      "source": "artifacts/user_provider_game/20260906/main_table.tex",
+      "sha256": "409b98fcd3aa540814611df367e3e70ea6f8db7e79b69242619d5bcb85f4f54d",
+      "bytes": 847
+    },
+    "artifacts/user_provider_game/20260906/menu_table.tex": {
+      "source": "artifacts/user_provider_game/20260906/menu_table.tex",
+      "sha256": "850072ad219fe78cc8906e1f36d36fdf7e00b49770bdbfd96c487c79e40fc2a6",
+      "bytes": 150
+    },
+    "artifacts/user_provider_game/20260906/outcomes.csv": {
+      "source": "artifacts/user_provider_game/20260906/outcomes.csv",
+      "sha256": "c7561eeece93476fb1d60634be3081fe6247a0511bf41ef0f668b4aab447536a",
+      "bytes": 1609
+    },
+    "artifacts/user_provider_game/20260906/period_outcomes.csv": {
+      "source": "artifacts/user_provider_game/20260906/period_outcomes.csv",
+      "sha256": "f7e1912f5d68703e7e76540546fe1fe9da8f0467cbbeb560d4b5b6f26fa79c86",
+      "bytes": 4255
+    },
+    "artifacts/user_provider_game/20260906/price_support_table.tex": {
+      "source": "artifacts/user_provider_game/20260906/price_support_table.tex",
+      "sha256": "e936b6191c2a56da242e1e54d495afd1f87825bab508da33cd8d4f23b824f725",
+      "bytes": 620
+    },
+    "artifacts/user_provider_game/20260906/user_outcomes.csv": {
+      "source": "artifacts/user_provider_game/20260906/user_outcomes.csv",
+      "sha256": "080a1947d6c2a2f82c699fee21dbaac5d1ed9c32c7b633e375db5e7d67e5ea4e",
+      "bytes": 58922
+    },
+    "artifacts/user_provider_game/20260906/verification.json": {
+      "source": "artifacts/user_provider_game/20260906/verification.json",
+      "sha256": "c7cbfcf3ca2c818f767f70013e6cf2f9e6e84bcd986ca3d18f086b02cc4c56a1",
+      "bytes": 3059
+    },
+    "data/processed/burstgpt_d895a53b_8period/README.md": {
+      "source": "data/processed/burstgpt_d895a53b_8period/README.md",
+      "sha256": "aa8426c8516a01810a7431ccd90fac52cb0acdd4e87b21633371d0e7a3ead17f",
+      "bytes": 1840
+    },
+    "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_metadata.json": {
+      "source": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_metadata.json",
+      "sha256": "723fbfc9f0e81124362459cf19017e934dfc32ea27b6d204d04a0585f1e08499",
+      "bytes": 1052
+    },
+    "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv": {
+      "source": "data/processed/burstgpt_d895a53b_8period/burstgpt_8period_load_profile.csv",
+      "sha256": "acc1f4952fffa35df7b72f80f734c1de6d566cce9514839f3b6b5600b0ad3ab3",
+      "bytes": 903
+    },
+    "docs/reviews/user_provider_bundle_readme_2026-09-06.md": {
+      "source": "docs/reviews/user_provider_bundle_readme_2026-09-06.md",
+      "sha256": "98bcf7432207a3caea64ead81ba6988966d6cbf9d21aa78d54b7c70aaf4a00d5",
+      "bytes": 1220
+    },
+    "docs/reviews/user_provider_figure_contract_2026-09-06.md": {
+      "source": "docs/reviews/user_provider_figure_contract_2026-09-06.md",
+      "sha256": "99f6c19ee912ba38b8ff26c0806f961788338c6b640c6027cad8c1437b0cada1",
+      "bytes": 1976
+    },
+    "docs/reviews/user_provider_game_protocol_2026-09-06.md": {
+      "source": "docs/reviews/user_provider_game_protocol_2026-09-06.md",
+      "sha256": "da4ebf9fdcbf6189f9f1b2dde70d5167c7cba26bf0015e282e1f2388f2d09b74",
+      "bytes": 5215
+    },
+    "docs/reviews/user_provider_visual_review_2026-09-06.md": {
+      "source": "docs/reviews/user_provider_visual_review_2026-09-06.md",
+      "sha256": "2c316bb483703ddc59cae3192a535c8bd7ac67c0fda67d88eb4aecac7fea71b0",
+      "bytes": 1928
+    },
+    "experiments/__init__.py": {
+      "source": "experiments/__init__.py",
+      "sha256": "58b66a91f6d7f594e1ae98c908caff9a1020632cdb6dc278c11b534e517ef600",
+      "bytes": 63
+    },
+    "experiments/build_burstgpt_load_anchor.py": {
+      "source": "experiments/build_burstgpt_load_anchor.py",
+      "sha256": "a0127085a4fd9d4ab8e9a71b62051cc6444200c00036f62fabcbe8b692140ef9",
+      "bytes": 7312
+    },
+    "experiments/build_final_qos_calibration.py": {
+      "source": "experiments/build_final_qos_calibration.py",
+      "sha256": "d3d94db2c9e1a36dcf4ae4fe56aba16e5ffb6e345c29ce2b182a4cb7d73caf27",
+      "bytes": 5765
+    },
+    "experiments/check_user_game_document.py": {
+      "source": "experiments/check_user_game_document.py",
+      "sha256": "f77433012e765ae065d2721e63814a85aca2f294efbdca1f3819a5ef4232ae11",
+      "bytes": 3013
+    },
+    "experiments/package_user_provider_game.py": {
+      "source": "experiments/package_user_provider_game.py",
+      "sha256": "8f62e09e2899b088709a1118bd09886ec718d7beaabc175d7fbd84f9b20fd6f1",
+      "bytes": 4892
+    },
+    "experiments/plot_style.py": {
+      "source": "experiments/plot_style.py",
+      "sha256": "c286f55f3d892ee7a69e82ee224e9303663f38de1087c5e9ee64fb33e8b0365e",
+      "bytes": 2150
+    },
+    "experiments/plot_user_provider_game.py": {
+      "source": "experiments/plot_user_provider_game.py",
+      "sha256": "dc8c94d820e89d66fd54f9fbbaeb9bf938df9eb340c13f805ffdf0e2c157ef3f",
+      "bytes": 10341
+    },
+    "experiments/report_user_provider_game.py": {
+      "source": "experiments/report_user_provider_game.py",
+      "sha256": "35b3913842a3e134cd66649117c35c8c65fcbdf564b421d7b3323a22ac5c1de6",
+      "bytes": 10254
+    },
+    "experiments/run_user_provider_game.py": {
+      "source": "experiments/run_user_provider_game.py",
+      "sha256": "80b42c20915d51d41b59071234ed2ee227c6502a920cf6edeb37bc5c972ee6c0",
+      "bytes": 10978
+    },
+    "experiments/user_provider_experiment_tools.py": {
+      "source": "experiments/user_provider_experiment_tools.py",
+      "sha256": "dfcfdf4c24f1b1e223542e4e7194f93d1af61cd6a74ca26ec3ee6631f7233bf1",
+      "bytes": 9182
+    },
+    "experiments/verify_user_provider_game.py": {
+      "source": "experiments/verify_user_provider_game.py",
+      "sha256": "92f8bbb2b047db161074e29c9e4f4a8ac72ae0ed990aa4dd2bf7f4ef9f81e0ea",
+      "bytes": 9469
+    },
+    "figure_sources/build_iot_framework.py": {
+      "source": "figure_sources/build_iot_framework.py",
+      "sha256": "e608aab082c72a851eb62fd7c23e4a228bf6f58e7e8555a717eb80a148a4bc31",
+      "bytes": 15154
+    },
+    "figure_sources/build_peak_shaving_framework_drawio.py": {
+      "source": "figure_sources/build_peak_shaving_framework_drawio.py",
+      "sha256": "0731f62334a1aebc0dabdef8409a9803c42e0f9698f74c4fd43dd7df37cb1fdc",
+      "bytes": 17857
+    },
+    "figure_sources/build_user_game_framework.py": {
+      "source": "figure_sources/build_user_game_framework.py",
+      "sha256": "b58535e8155056d365a73fab445aab79e034f9b42b478a5a8a80ca90dd2d44a0",
+      "bytes": 5313
+    },
+    "figure_sources/llm_user_framework_assets/README.md": {
+      "source": "figure_sources/llm_user_framework_assets/README.md",
+      "sha256": "4a922b532106bbf7673abcf2f7cf0eec2db2f8ae36c38019b90c9b49d6e8a40b",
+      "bytes": 1188
+    },
+    "figure_sources/llm_user_framework_assets/coding.svg": {
+      "source": "figure_sources/llm_user_framework_assets/coding.svg",
+      "sha256": "4536dc37bf1ebced6702ac44e8dfaf634723d478eec5478cd0e758970f890773",
+      "bytes": 866
+    },
+    "figure_sources/llm_user_framework_assets/conversation.svg": {
+      "source": "figure_sources/llm_user_framework_assets/conversation.svg",
+      "sha256": "50e36596e526e24a83a5be2964460b386c0fcca1d6b123c518f02cd33751d2bd",
+      "bytes": 1500
+    },
+    "figure_sources/llm_user_framework_assets/excel.svg": {
+      "source": "figure_sources/llm_user_framework_assets/excel.svg",
+      "sha256": "da165705f28f83920031af3ecf17d6e97fa498c09045bbb7543ffbe3aee2e6c0",
+      "bytes": 1962
+    },
+    "figure_sources/llm_user_framework_assets/intermediary.svg": {
+      "source": "figure_sources/llm_user_framework_assets/intermediary.svg",
+      "sha256": "998f62c1e7c16650d9e34b92c74d6510c419c9b64e3af1e234b643bc14d9c2d0",
+      "bytes": 9457
+    },
+    "figure_sources/llm_user_framework_assets/provider_a.svg": {
+      "source": "figure_sources/llm_user_framework_assets/provider_a.svg",
+      "sha256": "e8353226f4b7a00fafb880871d8ac6a11ef1c7ea879162f42a4b5ec5ccdd6bfb",
+      "bytes": 9445
+    },
+    "figure_sources/llm_user_framework_assets/provider_b.svg": {
+      "source": "figure_sources/llm_user_framework_assets/provider_b.svg",
+      "sha256": "bfd74ae35c8f6752f1ca062714749f4e738df1d061616716e471eae74d6ae943",
+      "bytes": 2402
+    },
+    "figure_sources/llm_user_framework_assets/sources.json": {
+      "source": "figure_sources/llm_user_framework_assets/sources.json",
+      "sha256": "59c12b9534ddad08e3682ba3dd0f811e1259162f744dc4c614da9566ba037a1b",
+      "bytes": 2812
+    },
+    "figure_sources/llm_user_framework_assets/word.svg": {
+      "source": "figure_sources/llm_user_framework_assets/word.svg",
+      "sha256": "f720754d0946877157f8391da30f4d23b4e5332f1c96c737995b7c3e391afe73",
+      "bytes": 2039
+    },
+    "figure_sources/user_game_framework_20260906.drawio": {
+      "source": "figure_sources/user_game_framework_20260906.drawio",
+      "sha256": "3df5a4518edcb268135b8968adb0d61f67b15005fbaf481f5a48738edac5ea98",
+      "bytes": 48418
+    },
+    "figures/user_provider_game_20260906/fair_tariff_comparison.pdf": {
+      "source": "figures/user_provider_game_20260906/fair_tariff_comparison.pdf",
+      "sha256": "12d94f9777572f7474ac40205fbee508e319976d5c3ffd550ef48e2f6cfd7afc",
+      "bytes": 51576
+    },
+    "figures/user_provider_game_20260906/fair_tariff_comparison.png": {
+      "source": "figures/user_provider_game_20260906/fair_tariff_comparison.png",
+      "sha256": "ba120dcdc6b64178435fea44bdfe546f2ca760e7b6801c7a96366a938c610337",
+      "bytes": 329744
+    },
+    "figures/user_provider_game_20260906/fair_tariff_comparison.svg": {
+      "source": "figures/user_provider_game_20260906/fair_tariff_comparison.svg",
+      "sha256": "56ddc8670319ad18cf1e863d570e47c9e6b970f718447e345bb6a62b71b65617",
+      "bytes": 35697
+    },
+    "figures/user_provider_game_20260906/framework_manifest.json": {
+      "source": "figures/user_provider_game_20260906/framework_manifest.json",
+      "sha256": "6c68d86f0536137082ab92ec893de26b8ffc7eb99a85cea3e19c77bcb83e02cc",
+      "bytes": 487
+    },
+    "figures/user_provider_game_20260906/individual_time_choices.pdf": {
+      "source": "figures/user_provider_game_20260906/individual_time_choices.pdf",
+      "sha256": "c032c8deee489a66f250df7ac77c1ba60804ce46835b5160d31cecedb64e14b5",
+      "bytes": 44342
+    },
+    "figures/user_provider_game_20260906/individual_time_choices.png": {
+      "source": "figures/user_provider_game_20260906/individual_time_choices.png",
+      "sha256": "e4e99de6f71f7c612cedb2dedcf583299f118e58d5029c4402300bd17a619568",
+      "bytes": 212473
+    },
+    "figures/user_provider_game_20260906/individual_time_choices.svg": {
+      "source": "figures/user_provider_game_20260906/individual_time_choices.svg",
+      "sha256": "2df3382b9643fd83dd42d97f33cae8c19dffaaca10ec73e35640207d064e96aa",
+      "bytes": 24145
+    },
+    "figures/user_provider_game_20260906/manifest.json": {
+      "source": "figures/user_provider_game_20260906/manifest.json",
+      "sha256": "2644f9010a29d22ddbc7661226fb5f21c6fc943dc23520089bedc063143a0e5a",
+      "bytes": 2576
+    },
+    "figures/user_provider_game_20260906/provider_load_quality.pdf": {
+      "source": "figures/user_provider_game_20260906/provider_load_quality.pdf",
+      "sha256": "944e6c3544c404d81eec99606c06c5fa1f9e3638870a27d4e1215bc2d7e0bed4",
+      "bytes": 43920
+    },
+    "figures/user_provider_game_20260906/provider_load_quality.png": {
+      "source": "figures/user_provider_game_20260906/provider_load_quality.png",
+      "sha256": "9cea84d35030c8a96bea455e7ff364770a14fac39e9b008f0c0257f2945a4607",
+      "bytes": 286566
+    },
+    "figures/user_provider_game_20260906/provider_load_quality.svg": {
+      "source": "figures/user_provider_game_20260906/provider_load_quality.svg",
+      "sha256": "99069485f81997a88f9b836947294f4d3de2e583d7c5abcbc72242bfa5655bc2",
+      "bytes": 45315
+    },
+    "figures/user_provider_game_20260906/same_price_before_after.pdf": {
+      "source": "figures/user_provider_game_20260906/same_price_before_after.pdf",
+      "sha256": "b78afef6c5324231dd8d9c6bcd1efd3a152f249fa19ff2a0a5bbb3bd42286d0e",
+      "bytes": 52624
+    },
+    "figures/user_provider_game_20260906/same_price_before_after.png": {
+      "source": "figures/user_provider_game_20260906/same_price_before_after.png",
+      "sha256": "13e1159453b04befaac24f85a4700b6379048dda6e03da636b7c2b15f33198e7",
+      "bytes": 393965
+    },
+    "figures/user_provider_game_20260906/same_price_before_after.svg": {
+      "source": "figures/user_provider_game_20260906/same_price_before_after.svg",
+      "sha256": "8d5789bc249489740985b2d1ea6174050bf17cbb98cd8172c20124a7dfa189ee",
+      "bytes": 40001
+    },
+    "figures/user_provider_game_20260906/user_convergence.pdf": {
+      "source": "figures/user_provider_game_20260906/user_convergence.pdf",
+      "sha256": "3009f0a83143bd7a89849dba70ca5d4afe496157f97f99d90def1e65b55f3c53",
+      "bytes": 43138
+    },
+    "figures/user_provider_game_20260906/user_convergence.png": {
+      "source": "figures/user_provider_game_20260906/user_convergence.png",
+      "sha256": "faafcf706333cc4a71b2e382d311c4f243b7af7b8be1851e43b57dc14d5c9e4b",
+      "bytes": 189994
+    },
+    "figures/user_provider_game_20260906/user_convergence.svg": {
+      "source": "figures/user_provider_game_20260906/user_convergence.svg",
+      "sha256": "bd4e27bac11fe5d1c779132794499ef8780a0547aa95f889b8f9f25d47e06a53",
+      "bytes": 23032
+    },
+    "figures/user_provider_game_20260906/user_game_framework.pdf": {
+      "source": "figures/user_provider_game_20260906/user_game_framework.pdf",
+      "sha256": "271ac4ae64519e01de160e60151d1eabd175151811d5dcd5488c79d81329dad4",
+      "bytes": 59902
+    },
+    "figures/user_provider_game_20260906/user_game_framework.png": {
+      "source": "figures/user_provider_game_20260906/user_game_framework.png",
+      "sha256": "26697f863d567a8404f22c2cb54bfb66cbde4e4df74a7a55a155f951534ab106",
+      "bytes": 413613
+    },
+    "figures/user_provider_game_20260906/user_game_framework.svg": {
+      "source": "figures/user_provider_game_20260906/user_game_framework.svg",
+      "sha256": "ca09edb56ae1c7d6a938b7393673bc70fa9d3bd621babc676e9f323ae3f8b10e",
+      "bytes": 28404
+    },
+    "figures/user_provider_game_20260906/user_game_framework_preview.png": {
+      "source": "figures/user_provider_game_20260906/user_game_framework_preview.png",
+      "sha256": "5aa80a8a433fdec5efc9edd8bdaa9f8c5f4cc8fc7ffc37450c7b700127cd9027",
+      "bytes": 174668
+    },
+    "llm_user_provider_game_2026-09-06.pdf": {
+      "source": "llm_user_provider_game_2026-09-06.pdf",
+      "sha256": "a090c2ce65eca2304223f1708327c9d57189a4344699bdff53472566cd779f5d",
+      "bytes": 529381
+    },
+    "llm_user_provider_game_2026-09-06.tex": {
+      "source": "llm_user_provider_game_2026-09-06.tex",
+      "sha256": "8fab30a1b973f5c4eb5b192a3b7f41539de18a350cff8700c32cfbf26ae023d1",
+      "bytes": 35838
+    },
+    "pricing_sim/__init__.py": {
+      "source": "pricing_sim/__init__.py",
+      "sha256": "6fa0f125b490484319994177ce7c3dedc077c0def865fb645397343b969af36a",
+      "bytes": 125
+    },
+    "pricing_sim/bimatrix_solver.py": {
+      "source": "pricing_sim/bimatrix_solver.py",
+      "sha256": "c79aec6bfd8c639f8698e20000d2094715862aae19d9a994891ce6f9a92dd687",
+      "bytes": 5209
+    },
+    "pricing_sim/complementarity_solver.py": {
+      "source": "pricing_sim/complementarity_solver.py",
+      "sha256": "5aaf6bb32b53f8c98ab78ada7b942a11f86259b9680930edf435c12fe035b860",
+      "bytes": 4513
+    },
+    "pricing_sim/config.py": {
+      "source": "pricing_sim/config.py",
+      "sha256": "9c4699aed24f136297521997b50e58dd0556426cd67d8be71e295c6c389f06ea",
+      "bytes": 3512
+    },
+    "pricing_sim/finite_game.py": {
+      "source": "pricing_sim/finite_game.py",
+      "sha256": "085ce6d01e82c4ed17d4f350279b4c4d7fc5b8b529a8abea30c3b4657848dc0c",
+      "bytes": 9099
+    },
+    "pricing_sim/milp_equilibrium_solver.py": {
+      "source": "pricing_sim/milp_equilibrium_solver.py",
+      "sha256": "f7a19c835e5c75c1d1a66566f401ef574f9018302b8a002dd3ddf8b09a435c0b",
+      "bytes": 4309
+    },
+    "pricing_sim/peak_shaving_config.py": {
+      "source": "pricing_sim/peak_shaving_config.py",
+      "sha256": "ec3879005db88c5769615bfff50f9a5447776d55eef99be7da5fcb48dc233403",
+      "bytes": 2834
+    },
+    "pricing_sim/peak_shaving_market.py": {
+      "source": "pricing_sim/peak_shaving_market.py",
+      "sha256": "a7cb454e24c659fc910a42b2180dfbbdc41852448e9b0b875c34d2355a0829e9",
+      "bytes": 9143
+    },
+    "pricing_sim/user_time_game.py": {
+      "source": "pricing_sim/user_time_game.py",
+      "sha256": "97f4fc92ae6bbaffe798a8a48ede850d691629101723281d6805dd42e318c594",
+      "bytes": 8884
+    },
+    "requirements-user-game-20260906.txt": {
+      "source": "requirements-user-game-20260906.txt",
+      "sha256": "537b3daa9e58fca0a0f99e0d058dfc6b872c67ef1e83205df4b18e5dab83e95b",
+      "bytes": 192
+    },
+    "requirements.txt": {
+      "source": "requirements.txt",
+      "sha256": "480de8f0ab1d020fd05b816e96750c2c704561e9337c37feba0f808b325c8462",
+      "bytes": 81
+    },
+    "tests/test_user_provider_artifacts.py": {
+      "source": "tests/test_user_provider_artifacts.py",
+      "sha256": "b31293935d2a340999beb677c7db2e1b9df250074e8a048423708492c9f782bf",
+      "bytes": 2834
+    },
+    "tests/test_user_provider_pricing.py": {
+      "source": "tests/test_user_provider_pricing.py",
+      "sha256": "4ef7fe52f59856c6105072c69c244bad2194041437e9a22d9bb78bf3de04fb7a",
+      "bytes": 2048
+    },
+    "tests/test_user_time_game.py": {
+      "source": "tests/test_user_time_game.py",
+      "sha256": "840b0cb982eac11725f51bcbeb9f964bfd5a09a35c47f355a79aee26c1959264",
+      "bytes": 3813
+    },
+    "verified_refs.bib": {
+      "source": "verified_refs.bib",
+      "sha256": "2183c58e73ec96240b618f1de65f3f249b78c680620f4b79c1bff01b9d907bbd",
+      "bytes": 27171
+    },
+    "README.md": {
+      "source": "docs/reviews/user_provider_bundle_readme_2026-09-06.md",
+      "sha256": "98bcf7432207a3caea64ead81ba6988966d6cbf9d21aa78d54b7c70aaf4a00d5",
+      "bytes": 1220
+    }
+  }
+}

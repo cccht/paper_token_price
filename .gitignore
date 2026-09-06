@@ -20,6 +20,13 @@ artifacts/*
 !artifacts/peak_shaving/
 !artifacts/peak_shaving/**
 
+# Explicitly published atomic-user game; retain intermediate previews locally
+!artifacts/user_provider_game/
+artifacts/user_provider_game/*
+!artifacts/user_provider_game/20260906/
+!artifacts/user_provider_game/20260906/**
+artifacts/user_provider_game/20260906/document_preview_15page_draft/
+
 # LaTeX build debris
 *.aux
 *.bbl

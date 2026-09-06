@@ -1,0 +1,25 @@
+{
+  "experiment_sha256": "3e7f8993088822f32f6900f3d8eb22c601a3536675cafedbb9891353fc610450",
+  "analysis_sha256": "96ad59220d38b90eee0e7abbf00bfc49e4b4753d7648bd47de6b01acfcd798e5",
+  "script_sha256": "dc8c94d820e89d66fd54f9fbbaeb9bf938df9eb340c13f805ffdf0e2c157ef3f",
+  "figures_sha256": {
+    "figures/user_provider_game_20260906/same_price_before_after.pdf": "b78afef6c5324231dd8d9c6bcd1efd3a152f249fa19ff2a0a5bbb3bd42286d0e",
+    "figures/user_provider_game_20260906/same_price_before_after.svg": "8d5789bc249489740985b2d1ea6174050bf17cbb98cd8172c20124a7dfa189ee",
+    "figures/user_provider_game_20260906/same_price_before_after.png": "13e1159453b04befaac24f85a4700b6379048dda6e03da636b7c2b15f33198e7",
+    "figures/user_provider_game_20260906/fair_tariff_comparison.pdf": "12d94f9777572f7474ac40205fbee508e319976d5c3ffd550ef48e2f6cfd7afc",
+    "figures/user_provider_game_20260906/fair_tariff_comparison.svg": "56ddc8670319ad18cf1e863d570e47c9e6b970f718447e345bb6a62b71b65617",
+    "figures/user_provider_game_20260906/fair_tariff_comparison.png": "ba120dcdc6b64178435fea44bdfe546f2ca760e7b6801c7a96366a938c610337",
+    "figures/user_provider_game_20260906/individual_time_choices.pdf": "c032c8deee489a66f250df7ac77c1ba60804ce46835b5160d31cecedb64e14b5",
+    "figures/user_provider_game_20260906/individual_time_choices.svg": "2df3382b9643fd83dd42d97f33cae8c19dffaaca10ec73e35640207d064e96aa",
+    "figures/user_provider_game_20260906/individual_time_choices.png": "e4e99de6f71f7c612cedb2dedcf583299f118e58d5029c4402300bd17a619568",
+    "figures/user_provider_game_20260906/user_convergence.pdf": "3009f0a83143bd7a89849dba70ca5d4afe496157f97f99d90def1e65b55f3c53",
+    "figures/user_provider_game_20260906/user_convergence.svg": "bd4e27bac11fe5d1c779132794499ef8780a0547aa95f889b8f9f25d47e06a53",
+    "figures/user_provider_game_20260906/user_convergence.png": "faafcf706333cc4a71b2e382d311c4f243b7af7b8be1851e43b57dc14d5c9e4b",
+    "figures/user_provider_game_20260906/provider_load_quality.pdf": "944e6c3544c404d81eec99606c06c5fa1f9e3638870a27d4e1215bc2d7e0bed4",
+    "figures/user_provider_game_20260906/provider_load_quality.svg": "99069485f81997a88f9b836947294f4d3de2e583d7c5abcbc72242bfa5655bc2",
+    "figures/user_provider_game_20260906/provider_load_quality.png": "9cea84d35030c8a96bea455e7ff364770a14fac39e9b008f0c0257f2945a4607"
+  },
+  "dpi": 400,
+  "statistics": "Exact expectations over independent manufacturer mixed strategies; no sampling error bars.",
+  "peak_note": "Expected maximum load is not maximum expected load; manuscript reports the former."
+}

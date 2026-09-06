@@ -1,0 +1,117 @@
+{
+  "automated_checks_passed": true,
+  "visual_review_required": true,
+  "pages": [
+    {
+      "page": 1,
+      "word_count": 489,
+      "figures": [],
+      "pixel_std": 40.16257845764067,
+      "png_sha256": "cb14fa8635bbd68f0a80bcc2311599a817554c4afaaf6d276816f1b66b671acd"
+    },
+    {
+      "page": 2,
+      "word_count": 458,
+      "figures": [
+        1
+      ],
+      "pixel_std": 39.06127961767591,
+      "png_sha256": "c48f89e86a364251e65afcd6ff9a0978da1587ea460880d7f65f7066e7412301"
+    },
+    {
+      "page": 3,
+      "word_count": 492,
+      "figures": [],
+      "pixel_std": 36.82749116061556,
+      "png_sha256": "791530273161d00d8d3e9284578e7932358f1bb29999f9a8f652590d3c2f7bf8"
+    },
+    {
+      "page": 4,
+      "word_count": 513,
+      "figures": [],
+      "pixel_std": 39.44155488163048,
+      "png_sha256": "1c78e472294d41f31c3d6922117e09a795895419426a9f6dd68227ad459b15b5"
+    },
+    {
+      "page": 5,
+      "word_count": 588,
+      "figures": [],
+      "pixel_std": 43.98929721505894,
+      "png_sha256": "ff8b088dbfd6b0f2cc2d6818aa13fb5aed58161d5ed645e18f92519f15b3ce47"
+    },
+    {
+      "page": 6,
+      "word_count": 584,
+      "figures": [],
+      "pixel_std": 43.996437224163785,
+      "png_sha256": "f68839da0c72f7220804550a6ebad58619b738dd0e2bb8641cbb077a159dc88e"
+    },
+    {
+      "page": 7,
+      "word_count": 333,
+      "figures": [
+        2
+      ],
+      "pixel_std": 40.48561579486131,
+      "png_sha256": "6dad19f09e4c866422df510814c00aebc6d6e4772a8f106832baa9133b9869c1"
+    },
+    {
+      "page": 8,
+      "word_count": 480,
+      "figures": [
+        3
+      ],
+      "pixel_std": 39.65976427901074,
+      "png_sha256": "ff7d7c9e815d8bb6f0fb75edd7ff2880ba0757bda21ffd66c08ddaa914bcb3cf"
+    },
+    {
+      "page": 9,
+      "word_count": 291,
+      "figures": [
+        4,
+        5
+      ],
+      "pixel_std": 42.7769095971669,
+      "png_sha256": "ea07355cd1ab756f6a305886f796e1f653bda7233340faa2f1502ade3c4d72a4"
+    },
+    {
+      "page": 10,
+      "word_count": 423,
+      "figures": [
+        6
+      ],
+      "pixel_std": 37.86333213691044,
+      "png_sha256": "4ca925fb429ed89b1859cff3ab13e6aabee9c9146c14380bb406a2804e9e1584"
+    },
+    {
+      "page": 11,
+      "word_count": 524,
+      "figures": [],
+      "pixel_std": 43.08871039427451,
+      "png_sha256": "18bcff9d8f9d539a2ee3243fbc1e2ab025e815ec2ec1a7f7c359542d2837ef93"
+    },
+    {
+      "page": 12,
+      "word_count": 345,
+      "figures": [],
+      "pixel_std": 35.85633314203272,
+      "png_sha256": "2c0c3508f7acb08f03bf28e4f6ab58738fe67b3def4169d6e5e69271fab720bc"
+    },
+    {
+      "page": 13,
+      "word_count": 135,
+      "figures": [],
+      "pixel_std": 23.790351173394058,
+      "png_sha256": "10c92c1ec4377333f570060f9340d07abba435fe362c5b84d24c15a37a1b9892"
+    }
+  ],
+  "pdf_sha256": "a090c2ce65eca2304223f1708327c9d57189a4344699bdff53472566cd779f5d",
+  "tex_sha256": "8fab30a1b973f5c4eb5b192a3b7f41539de18a350cff8700c32cfbf26ae023d1",
+  "document_check_script_sha256": "f77433012e765ae065d2721e63814a85aca2f294efbdca1f3819a5ef4232ae11",
+  "checks": [
+    "No overfull boxes, undefined references or missing characters in LaTeX log",
+    "No unresolved question-mark references",
+    "All extracted words within page bounds",
+    "Every page has nonblank pixels"
+  ]
+}

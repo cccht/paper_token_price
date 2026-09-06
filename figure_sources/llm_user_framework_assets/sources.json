@@ -1,0 +1,52 @@
+{
+  "retrieved": "2026-09-06",
+  "icons": [
+    {
+      "file": "coding.svg",
+      "url": "https://raw.githubusercontent.com/vscode-icons/vscode-icons/8dbc8ce02e64fa31a7f81737f7244842fb6de5ca/icons/file_type_vscode.svg",
+      "sha256": "4536dc37bf1ebced6702ac44e8dfaf634723d478eec5478cd0e758970f890773",
+      "rights": "Branded icon; original owner's copyright and trademark rights apply. See upstream README License section."
+    },
+    {
+      "file": "word.svg",
+      "url": "https://raw.githubusercontent.com/vscode-icons/vscode-icons/8dbc8ce02e64fa31a7f81737f7244842fb6de5ca/icons/file_type_word.svg",
+      "sha256": "f720754d0946877157f8391da30f4d23b4e5332f1c96c737995b7c3e391afe73",
+      "rights": "Branded icon; original owner's copyright and trademark rights apply. See upstream README License section."
+    },
+    {
+      "file": "excel.svg",
+      "url": "https://raw.githubusercontent.com/vscode-icons/vscode-icons/8dbc8ce02e64fa31a7f81737f7244842fb6de5ca/icons/file_type_excel.svg",
+      "sha256": "da165705f28f83920031af3ecf17d6e97fa498c09045bbb7543ffbe3aee2e6c0",
+      "rights": "Branded icon; original owner's copyright and trademark rights apply. See upstream README License section."
+    },
+    {
+      "file": "conversation.svg",
+      "url": "https://raw.githubusercontent.com/webalys-hq/streamline-vectors/52d750c9ce051e51cb181b7a78932120c48541d0/ultimate/colors/messages-chat-smileys/messages-bubble-text.svg",
+      "sha256": "50e36596e526e24a83a5be2964460b386c0fcca1d6b123c518f02cd33751d2bd",
+      "author": "Streamline",
+      "license": "CC BY 4.0"
+    },
+    {
+      "file": "provider_a.svg",
+      "url": "https://raw.githubusercontent.com/webalys-hq/streamline-vectors/52d750c9ce051e51cb181b7a78932120c48541d0/ultimate/colors/internet-networks-servers/server-star-1.svg",
+      "sha256": "e8353226f4b7a00fafb880871d8ac6a11ef1c7ea879162f42a4b5ec5ccdd6bfb",
+      "author": "Streamline",
+      "license": "CC BY 4.0"
+    },
+    {
+      "file": "provider_b.svg",
+      "url": "https://raw.githubusercontent.com/webalys-hq/streamline-vectors/52d750c9ce051e51cb181b7a78932120c48541d0/ultimate/colors/computers-devices-electronics/computer-chip-core.svg",
+      "sha256": "bfd74ae35c8f6752f1ca062714749f4e738df1d061616716e471eae74d6ae943",
+      "author": "Streamline",
+      "license": "CC BY 4.0"
+    },
+    {
+      "file": "intermediary.svg",
+      "url": "https://raw.githubusercontent.com/webalys-hq/streamline-vectors/52d750c9ce051e51cb181b7a78932120c48541d0/ultimate/colors/internet-networks-servers/server-share.svg",
+      "sha256": "998f62c1e7c16650d9e34b92c74d6510c419c9b64e3af1e234b643bc14d9c2d0",
+      "author": "Streamline",
+      "license": "CC BY 4.0"
+    }
+  ],
+  "notice": "Application marks identify examples only; no affiliation or endorsement is implied."
+}

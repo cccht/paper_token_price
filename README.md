@@ -3,6 +3,18 @@
 This repository contains the simulation code, single-GPU measurements, and
 Chinese manuscript for a QoS-aware token-service pricing study.
 
+## 当前本地修订稿（2026-09-06）
+
+已补齐显式“厂家定价竞争 + 用户自主选厂家/时段的 Nash 子博弈”，并完成同价格下算法前后、双方均衡下统一价/分时价的对比。采用厂家先报价、用户再响应的两阶段结构，不称为所有参与者同时行动的单阶段博弈。
+
+- **最新论文：[PDF](llm_user_provider_game_2026-09-06.pdf) / [TeX](llm_user_provider_game_2026-09-06.tex)，13 页。** 原有 22 页稿和历史实验全部保留。
+- [核心前后对比图](figures/user_provider_game_20260906/same_price_before_after.pdf)，论文第 7 页：同价算法响应后，平均费用降低 6.52%、广义成本降低 4.68%、期望峰值降低 10.07%，平均效用增加 0.05021。
+- [公平定价机制比较](figures/user_provider_game_20260906/fair_tariff_comparison.pdf)，论文第 9 页：统一价与分时价双方均求用户/厂家均衡后，分时价平均费用反而增加 13.66%、平均效用降低 0.12373，五个种子均不利于用户。不能把同价适应收益解释为制度优越性或人人受益。
+- [新框架图](figures/user_provider_game_20260906/user_game_framework.pdf)，第 2 页；[个人效用与可行时段](figures/user_provider_game_20260906/individual_time_choices.pdf)，第 8 页；[收敛](figures/user_provider_game_20260906/user_convergence.pdf)，第 9 页；[厂家负载与 QoS](figures/user_provider_game_20260906/provider_load_quality.pdf)，第 10 页。
+- [完整数据、复现命令、独立核验及打包记录](artifacts/user_provider_game/20260906/README.md)；[计算前声明的协议](docs/reviews/user_provider_game_protocol_2026-09-06.md)。50,625 个场景与价格组合完整重算通过，14 项针对性测试通过。
+- 认证范围仅为所声明的有限菜单和合成用户模型，不是连续价格域证明或真实用户市场验证；主实验为两家直连厂家，中间商、用户退出与补偿约束尚未纳入。本次发布范围为新模型和复现材料，旧模型中尚未验收的探索性改动不纳入该次发布。
+- [完整复现包](artifacts/user_provider_game/20260906/reproducible_bundle.zip)包含 101 个清单文件及其 SHA-256；解压后 14 项测试通过，重新编译的 13 页 PDF 与交付版逐页像素一致。
+
 ## Directory Layout
 
 ```text

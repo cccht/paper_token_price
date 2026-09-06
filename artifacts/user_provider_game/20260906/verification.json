@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "experiment_sha256": "3e7f8993088822f32f6900f3d8eb22c601a3536675cafedbb9891353fc610450",
+  "validator_sha256": "92f8bbb2b047db161074e29c9e4f4a8ac72ae0ed990aa4dd2bf7f4ef9f81e0ea",
+  "elapsed_seconds": 43.50045933702495,
+  "cases": [
+    {
+      "name": "baseline",
+      "distinct_price_pairs": 5625,
+      "games_checked": 8,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 0.0,
+      "maximum_provider_regret": 2.842170943040401e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "flex_25",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 1.1102230246251565e-16,
+      "maximum_provider_regret": 1.4210854715202004e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "flex_75",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 2.220446049250313e-16,
+      "maximum_provider_regret": 2.842170943040401e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "window_1",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 2.220446049250313e-16,
+      "maximum_provider_regret": 2.842170943040401e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "no_time_flexibility",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 0.0,
+      "maximum_provider_regret": 1.4210854715202004e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "seed_20260907",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 0.0,
+      "maximum_provider_regret": 2.842170943040401e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "seed_20260908",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 0.0,
+      "maximum_provider_regret": 4.263256414560601e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "seed_20260909",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 0.0,
+      "maximum_provider_regret": 1.4210854715202004e-14,
+      "maximum_independent_user_regret": 0.0
+    },
+    {
+      "name": "seed_20260910",
+      "distinct_price_pairs": 5625,
+      "games_checked": 2,
+      "maximum_payoff_error": 0.0,
+      "maximum_metric_error": 0.0,
+      "maximum_provider_regret": 1.4210854715202004e-14,
+      "maximum_independent_user_regret": 0.0
+    }
+  ],
+  "representative_brute_force": {
+    "full_assignment_rebuilds": 824,
+    "maximum_regret": 0
+  },
+  "scope": "All declared finite price pairs replayed; independent utility/accounting/deviation equations. Not a continuous-price or empirical-market certificate."
+}
