@@ -309,8 +309,8 @@
     },
     "figure_sources/user_game_framework_20260906.drawio": {
       "source": "figure_sources/user_game_framework_20260906.drawio",
-      "sha256": "3df5a4518edcb268135b8968adb0d61f67b15005fbaf481f5a48738edac5ea98",
-      "bytes": 48418
+      "sha256": "05d408736a022d0a271d48ebad69d28accdee6d4b2d9ed6976639fc2b08a707c",
+      "bytes": 1611090
     },
     "figures/user_provider_game_20260906/fair_tariff_comparison.pdf": {
       "source": "figures/user_provider_game_20260906/fair_tariff_comparison.pdf",
@@ -399,23 +399,23 @@
     },
     "figures/user_provider_game_20260906/user_game_framework.pdf": {
       "source": "figures/user_provider_game_20260906/user_game_framework.pdf",
-      "sha256": "271ac4ae64519e01de160e60151d1eabd175151811d5dcd5488c79d81329dad4",
-      "bytes": 59902
+      "sha256": "0b21c369e7867a79ec2d86b6d80332d6a9971e3889d55358612ad2059ec01155",
+      "bytes": 997610
     },
     "figures/user_provider_game_20260906/user_game_framework.png": {
       "source": "figures/user_provider_game_20260906/user_game_framework.png",
-      "sha256": "26697f863d567a8404f22c2cb54bfb66cbde4e4df74a7a55a155f951534ab106",
-      "bytes": 413613
+      "sha256": "e88660c2f31261c369829d43f195d1136012de67f30293e08aaf91d799f0b512",
+      "bytes": 1467145
     },
     "figures/user_provider_game_20260906/user_game_framework.svg": {
       "source": "figures/user_provider_game_20260906/user_game_framework.svg",
-      "sha256": "ca09edb56ae1c7d6a938b7393673bc70fa9d3bd621babc676e9f323ae3f8b10e",
-      "bytes": 28404
+      "sha256": "d3b19baa7e318271b2ec49e936764d31fe0eb7456a87c953b55618de97b0e8a9",
+      "bytes": 1552987
     },
     "figures/user_provider_game_20260906/user_game_framework_preview.png": {
       "source": "figures/user_provider_game_20260906/user_game_framework_preview.png",
-      "sha256": "5aa80a8a433fdec5efc9edd8bdaa9f8c5f4cc8fc7ffc37450c7b700127cd9027",
-      "bytes": 174668
+      "sha256": "b7d844c4f60cf92c667835fadd22ac8b903e3bbf89d5bc9a701f115745154b0b",
+      "bytes": 512877
     },
     "llm_user_provider_game_2026-09-06.pdf": {
       "source": "llm_user_provider_game_2026-09-06.pdf",

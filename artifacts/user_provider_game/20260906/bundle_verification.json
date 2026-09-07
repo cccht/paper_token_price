@@ -1,9 +1,9 @@
 {
   "passed": true,
   "members_verified": 101,
-  "zip_sha256": "177bef4f67e732543b661e8c6967b0531f9f2fb796e9e27bcccd2caa98115762",
-  "zip_bytes": 6608289,
+  "zip_sha256": "3d36aea4213e5239b9797e58bfcac5187462ed42c2dea26ea63933748b09cb63",
+  "zip_bytes": 11000804,
   "experiment_sha256": "3e7f8993088822f32f6900f3d8eb22c601a3536675cafedbb9891353fc610450",
-  "manifest_sha256": "784b7b56770dca5a39b293e49023a990e9c63819b12059a59fad713360d2c009",
+  "manifest_sha256": "7b7281f8c734c80a6753a25e862d93978e46d80d40d0668a8688184a433f41ab",
   "scope": "Every archive member checked against source SHA; originals preserved"
 }
